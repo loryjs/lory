@@ -1,0 +1,267 @@
+'use strict';
+
+require('blanket')({
+    'data-cover-only': 'functional-helpers.js',
+    'data-cover-never': 'node_modules/'
+});
+
+var tasks = require('load-grunt-tasks');
+var time  = require('time-grunt');
+
+var isNodeJs10 = function () {
+    return /^v0\.10/.test(process.version);
+};
+
+module.exports = function (grunt) {
+    time(grunt);
+    tasks(grunt);
+
+    grunt.initConfig({
+        bumpup: {
+            file: 'package.json'
+        },
+
+        coveralls: {
+            src: 'test/lcov.info'
+        },
+
+        jscs: {
+            options: {
+                config: '.jscsrc'
+            },
+
+            src: [
+                '**/*.js',
+                '!demo/**/*.js',
+                '!dist/**/*.js',
+                '!node_modules/**/*.js'
+            ]
+        },
+
+        jshint: {
+            options: {
+                jshintrc: '.jshintrc'
+            },
+
+            src: [
+                '**/*.js',
+                '**/*.json',
+                '!node_modules/**/*.js',
+                '!node_modules/**/*.json',
+                '!dist/**/*.js',
+                '!demo/**/*.js'
+            ]
+        },
+
+        karma: {
+            saucelabs: {
+                configFile: 'karma.conf.js'
+            }
+        },
+
+        umd: {
+            vanilla: {
+                src: 'dist/lory.js',
+                dest: 'dist/lory.js',
+                objectToExport: 'lory',
+                globalAlias: 'lory'
+            }
+        },
+
+        uglify: {
+            all: {
+                files: [
+                    {
+                        cwd: 'dist/',
+                        src: [
+                            '*.js',
+                            '!*.min.js'
+                        ],
+
+                        dest: 'dist/',
+                        ext: '.min.js',
+                        filter: 'isFile',
+                        expand: true
+                    }
+                ]
+            }
+        },
+
+        copy: {
+            demo: {
+                src: 'dist/*',
+                dest: 'demo/js/',
+                flatten: true,
+                filter: 'isFile',
+                expand: true
+            },
+
+            dist: {
+                src: 'src/lory.js',
+                dest: 'dist/',
+                flatten: true,
+                filter: 'isFile',
+                expand: true
+            }
+        },
+
+        browserSync: {
+            all: {
+                src: [
+                    'demo/**',
+                    'dist/**'
+                ]
+            },
+
+            options: {
+                watchTask: true,
+                port: 3002,
+
+                server: {
+                    baseDir: './demo/'
+                }
+            }
+        },
+
+        watch: {
+            all: {
+                files: [
+                    'src/**',
+                    'demo/*.css',
+                    'Gruntfile.js'
+                ],
+
+                tasks: [
+                    'build-dev'
+                ]
+            }
+        },
+
+        notify: {
+            all: {
+                options: {
+                    title: 'lory!',
+                    message: 'A new build is ready!'
+                }
+            }
+        },
+
+        mochaTest: {
+            options: {
+                colors: true,
+                ui: 'bdd'
+            },
+
+            spec: {
+                options: {
+                    reporter: 'spec'
+                },
+
+                src: 'test/*.test.js'
+            },
+
+            'html-cov': {
+                options: {
+                    captureFile: 'test/coverage.html',
+                    quiet: true,
+                    reporter: 'html-cov'
+                },
+
+                src: 'test/*.test.js'
+            },
+
+            'console-cov': {
+                options: {
+                    reporter: 'mocha-cov-reporter'
+                },
+
+                src: 'test/*.test.js'
+            },
+
+            'lcov-cov': {
+                options: {
+                    captureFile: 'test/lcov.info',
+                    quiet: true,
+                    reporter: 'mocha-lcov-reporter'
+                },
+
+                src: 'test/*.test.js'
+            }
+        },
+
+        module: {
+            'check-repository': {
+                options: {
+                    check: true
+                }
+            },
+
+            'license-copyright': {
+                options: {
+                    replace: true,
+                    line: 3
+                },
+
+                src: 'LICENSE'
+            },
+
+            'release-publish': {
+                options: {
+                    release: true,
+                    publish: true
+                }
+            }
+        }
+    });
+
+    grunt.registerTask('test', [
+        'mochaTest:spec',
+        'mochaTest:html-cov',
+        'mochaTest:console-cov',
+        'mochaTest:lcov-cov'
+    ]);
+
+    grunt.registerTask('build', [
+        'jscs',
+        'jshint',
+        'test',
+        'copy:dist',
+        'umd',
+        'uglify',
+        'copy:demo'
+    ]);
+
+    grunt.registerTask('build-dev', [
+        'copy:dist',
+        'umd',
+        'uglify',
+        'notify',
+        'copy:demo'
+    ]);
+
+    grunt.registerTask('lint', [
+        'jscs',
+        'jshint'
+    ]);
+
+    grunt.registerTask('start', [
+        'build-dev',
+        'browserSync',
+        'watch'
+    ]);
+
+    grunt.registerTask('publish', function (type) {
+        grunt.task.run('build');
+        grunt.task.run('module:check-repository');
+        grunt.task.run('bumpup:' + type);
+        grunt.task.run('module:license-copyright');
+        grunt.task.run('module:release-publish');
+    });
+
+    grunt.registerTask('travis', [
+        'build',
+        'coveralls'
+    ].concat(isNodeJs10() ? 'karma:saucelabs' : []));
+
+    grunt.registerTask('default', 'build');
+};

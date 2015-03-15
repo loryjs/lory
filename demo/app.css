@@ -1,0 +1,161 @@
+*,
+*:before,
+*:after {
+    -moz-box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    box-sizing:border-box;
+}
+
+* {
+    margin:0px;
+    padding:0px;
+    border:0px;
+    font-family: 'Source Sans Pro', sans-serif;
+    background:none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: -moz-none;
+    -o-user-select: none;
+    user-select: none;
+    -webkit-text-size-adjust:100%;
+}
+
+body {
+    background: #ECECEC;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    text-align: center;
+    font-weight: 300;
+    color: #2E435A;
+}
+
+h2 {
+    font-size: 20px;
+}
+
+.ribbon {
+    display: block;
+    background-color: #EB5F5A;
+}
+
+.ribbon a {
+    display: block;
+    padding: 10px 0;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.slider {
+    position: relative;
+    overflow: hidden;
+    margin: 20px;
+}
+
+.frame {
+    position: relative;
+    z-index: 1;
+    width: 280px;
+    margin: 0 auto;
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+li {
+    position: relative;
+    display: inline-block;
+    z-index: 2;
+    height: 130px;
+    text-align: center;
+    font-size: 15px;
+    line-height: 30px;
+    background: #2E435A;
+    color: #fff;
+}
+
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    margin-top: -25px;
+    display: block;
+    cursor: pointer;
+}
+
+.next {
+    right: 0;
+}
+
+.prev {
+    left: 0;
+}
+
+.slides {
+    display: inline-block;
+}
+
+.content {
+    padding: 40px 0;
+}
+
+.simple li {
+    width: 280px;
+}
+
+.variablewidth li {
+    width: 280px;
+}
+
+.multipleelements li, .multislides li {
+    width: 55px;
+}
+
+@media screen and (min-width: 640px ) {
+    .examplecode {
+        width: 580px;
+        margin: 0 auto;
+    }
+
+    .frame {
+        width: 580px;
+    }
+
+    .simple li {
+        width: 580px;
+    }
+
+    .variablewidth li {
+        width: 280px;
+    }
+
+    .multipleelements li, .multislides li {
+        width: 130px;
+    }
+}
+
+@media screen and (min-width: 980px ) {
+    .examplecode {
+        width: 880px;
+        margin: 0 auto;
+    }
+
+    .frame {
+        width: 880px;
+    }
+
+    .simple li {
+        width: 880px;
+    }
+
+    .variablewidth li {
+        width: 280px;
+    }
+
+    .multipleelements li, .multislides li {
+        width: 205px;
+    }
+}

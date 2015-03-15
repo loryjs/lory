@@ -1,0 +1,65 @@
+{
+  "name": "Lory.js",
+  "version": "0.0.0",
+  "description": "Touch enabled lean slider using Vanilla JavaScript & latest technologies without any compromises for fallbacks.",
+  "author": {
+    "name": "Maximilian Heinz",
+    "email": "info@maximilian-heinz.de",
+    "url": "https://twitter.com/_meandmax_"
+  },
+  "bugs": {
+    "url": "https://github.com/meandmax/lory/issues"
+  },
+  "inceptionYear": 2015,
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://raw.githubusercontent.com/meandmax/lory.js/master/LICENSE"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/meandmax/lory.js.git"
+  },
+  "main": "./lory.js",
+  "config": {
+    "mocha-cov-reporter": {
+      "failOnError": true,
+      "threshold": 100,
+      "useColors": true
+    }
+  },
+  "devDependencies": {
+    "blanket": "latest",
+    "grunt": "latest",
+    "grunt-browser-sync": "latest",
+    "grunt-bumpup": "latest",
+    "grunt-cli": "latest",
+    "grunt-contrib-copy": "latest",
+    "grunt-contrib-jshint": "latest",
+    "grunt-contrib-uglify": "latest",
+    "grunt-contrib-watch": "latest",
+    "grunt-coveralls": "latest",
+    "grunt-jscs": "latest",
+    "grunt-karma": "latest",
+    "grunt-mocha-test": "latest",
+    "grunt-module": "latest",
+    "grunt-notify": "latest",
+    "grunt-umd": "latest",
+    "karma": "latest",
+    "karma-browserify": "latest",
+    "karma-mocha": "latest",
+    "karma-sauce-launcher": "latest",
+    "karma-spec-reporter": "latest",
+    "load-grunt-tasks": "latest",
+    "mocha-cov-reporter": "latest",
+    "mocha-lcov-reporter": "latest",
+    "time-grunt": "latest"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/grunt"
+  },
+  "engines": {
+    "node": ">= 0.10.0"
+  }
+}
