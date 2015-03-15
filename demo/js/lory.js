@@ -18,7 +18,6 @@
 
 'use strict';
 
-
 /**
  * [getLimiter description]
  * @param  {number} minValue [description]
@@ -114,14 +113,8 @@ var lory = function (slider, opts) {
     };
 
     var setup = function () {
-        options     = mergeOptions(opts, defaults);
-        slides      = Array.prototype.slice.call(slideContainer.children);
-
-        slides.forEach(function (el, index) {
-            if (index !== slides.length - 1) {
-                el.style.marginRight = options.gap + 'px';
-            }
-        });
+        options = mergeOptions(opts, defaults);
+        slides  = Array.prototype.slice.call(slideContainer.children);
 
         resetSlider();
 
@@ -138,6 +131,12 @@ var lory = function (slider, opts) {
     var resetSlider = function () {
         slidesWidth = slideContainer.offsetWidth + (slides.length - 1) * options.gap;
         frameWidth  = frame.getBoundingClientRect().width || frame.offsetWidth;
+
+        slides.forEach(function (el, index) {
+            if (index !== slides.length - 1) {
+                el.style.marginRight = options.gap + 'px';
+            }
+        });
 
         translate(0, options.rewindSpeed, options.ease);
 
@@ -202,12 +201,13 @@ var lory = function (slider, opts) {
         var duration    = options.slideSpeed;
 
         if (direction) {
-            nextIndex = index + options.slidesToScroll
+            nextIndex = index + options.slidesToScroll;
         } else {
-            nextIndex = index - options.slidesToScroll
+            nextIndex = index - options.slidesToScroll;
         }
 
-        var nextIndex  = limitIndex(nextIndex);
+        nextIndex  = limitIndex(nextIndex);
+
         var nextOffset = limitOffset(slides[nextIndex].offsetLeft * -1);
 
         if (options.rewind && slides[index].offsetLeft >= maxOffset) {
@@ -217,7 +217,7 @@ var lory = function (slider, opts) {
         }
 
         /**
-         * translates to the next index by a defined duration and ease function
+         * translate to the nextOffset by a defined duration and ease function
          */
         translate(nextOffset, duration, options.ease);
 
@@ -226,7 +226,14 @@ var lory = function (slider, opts) {
          * and update the position with the next position
          */
         position.x = nextOffset;
-        index = nextIndex;
+
+        /**
+         * update the index with the nextIndex only if
+         * the offset of the nextIndex is in the range of the maxOffset
+         */
+        if (slides[nextIndex].offsetLeft <= maxOffset) {
+            index = nextIndex;
+        }
     };
 
     var touchOffset;

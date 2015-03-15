@@ -10,7 +10,6 @@
     margin:0px;
     padding:0px;
     border:0px;
-    font-family: 'Source Sans Pro', sans-serif;
     background:none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -26,6 +25,7 @@ body {
 
 h1, h2, h3, h4, h5, h6, p {
     text-align: center;
+    font-family: 'Source Sans Pro', sans-serif;
     font-weight: 300;
     color: #2E435A;
 }
@@ -36,6 +36,7 @@ h2 {
 
 .ribbon {
     display: block;
+    font-family: 'Source Sans Pro', sans-serif;
     background-color: #EB5F5A;
 }
 
@@ -49,10 +50,19 @@ h2 {
     text-transform: uppercase;
 }
 
+.examplecode {
+    margin: 0 auto 40px;
+}
+
+code {
+    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-size: 12px;
+}
+
 .slider {
     position: relative;
     overflow: hidden;
-    margin: 20px;
+    margin: 20px 0;
 }
 
 .frame {
@@ -69,6 +79,7 @@ h2 {
 li {
     position: relative;
     display: inline-block;
+    font-family: 'Source Sans Pro', sans-serif;
     z-index: 2;
     height: 130px;
     text-align: center;
@@ -94,6 +105,10 @@ li {
     left: 0;
 }
 
+.next svg, .prev svg {
+    width: 25px;
+}
+
 .slides {
     display: inline-block;
 }
@@ -117,7 +132,6 @@ li {
 @media screen and (min-width: 640px ) {
     .examplecode {
         width: 580px;
-        margin: 0 auto;
     }
 
     .frame {
@@ -140,7 +154,6 @@ li {
 @media screen and (min-width: 980px ) {
     .examplecode {
         width: 880px;
-        margin: 0 auto;
     }
 
     .frame {
