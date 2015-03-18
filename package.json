@@ -22,15 +22,7 @@
     "url": "https://github.com/meandmax/lory.js.git"
   },
   "main": "./lory.js",
-  "config": {
-    "mocha-cov-reporter": {
-      "failOnError": true,
-      "threshold": 100,
-      "useColors": true
-    }
-  },
   "devDependencies": {
-    "blanket": "latest",
     "grunt": "latest",
     "grunt-browser-sync": "latest",
     "grunt-bumpup": "latest",
@@ -41,19 +33,10 @@
     "grunt-contrib-watch": "latest",
     "grunt-coveralls": "latest",
     "grunt-jscs": "latest",
-    "grunt-karma": "latest",
-    "grunt-mocha-test": "latest",
     "grunt-module": "latest",
     "grunt-notify": "latest",
     "grunt-umd": "latest",
-    "karma": "latest",
-    "karma-browserify": "latest",
-    "karma-mocha": "latest",
-    "karma-sauce-launcher": "latest",
-    "karma-spec-reporter": "latest",
     "load-grunt-tasks": "latest",
-    "mocha-cov-reporter": "latest",
-    "mocha-lcov-reporter": "latest",
     "time-grunt": "latest"
   },
   "scripts": {

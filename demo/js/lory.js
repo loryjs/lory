@@ -19,14 +19,29 @@
 'use strict';
 
 /**
- * [getLimiter description]
- * @param  {number} minValue [description]
- * @param  {number} maxValue [description]
- * @return {number}          [description]
+ * Returns a function that limits input values to range [min <= x <= max].
+ * Useful for carousels etc without wrapping around (compare `wrap`).
+ * Swapping min and max is allowed and will be corrected.
+ * @param  {int} min    The range minimum (optional).
+ * @param  {int} max    The range maximum, inclusive.
+ * @return {function}   The function that limits its input to the specified range.
  */
-var getLimiter = function (minValue, maxValue) {
+var clamp = function (min, max) {
+    // Set min to 0 if only one value specified
+    if (typeof max === 'undefined') {
+        max = min;
+        min = 0;
+    }
+
+    // Swap min and max if required
+    if (min > max) {
+        var tmp = min;
+        min = max;
+        max = tmp;
+    }
+
     return function (value) {
-        return Math.min(Math.max(value, minValue), maxValue);
+        return Math.min(Math.max(value, min), max);
     };
 };
 
@@ -69,12 +84,6 @@ var lory = function (slider, opts) {
 
     var defaults = {
         /**
-         * distance between between 2 slides in pixels
-         * @gap {Number}
-         */
-        gap: 10,
-
-        /**
          * slides scrolled at once
          * @slidesToScroll {Number}
          */
@@ -107,6 +116,7 @@ var lory = function (slider, opts) {
 
         /**
          * if slider reached the last slide, with next click the slider goes back to the startindex.
+         * does not work for touchevents
          * @rewind {Boolean}
          */
         rewind: false
@@ -129,14 +139,8 @@ var lory = function (slider, opts) {
     };
 
     var resetSlider = function () {
-        slidesWidth = slideContainer.offsetWidth + (slides.length - 1) * options.gap;
+        slidesWidth = slideContainer.getBoundingClientRect().width || slideContainer.offsetWidth;
         frameWidth  = frame.getBoundingClientRect().width || frame.offsetWidth;
-
-        slides.forEach(function (el, index) {
-            if (index !== slides.length - 1) {
-                el.style.marginRight = options.gap + 'px';
-            }
-        });
 
         translate(0, options.rewindSpeed, options.ease);
 
@@ -196,8 +200,8 @@ var lory = function (slider, opts) {
         var nextIndex;
 
         var maxOffset   = (slidesWidth - frameWidth);
-        var limitIndex  = getLimiter(0, slides.length - 1);
-        var limitOffset = getLimiter(maxOffset * -1, 0);
+        var limitIndex  = clamp(0, slides.length - 1);
+        var limitOffset = clamp(maxOffset * -1, 0);
         var duration    = options.slideSpeed;
 
         if (direction) {
@@ -210,10 +214,14 @@ var lory = function (slider, opts) {
 
         var nextOffset = limitOffset(slides[nextIndex].offsetLeft * -1);
 
-        if (options.rewind && slides[index].offsetLeft >= maxOffset) {
-            nextOffset = 0;
-            nextIndex  = 0;
-            duration   = options.rewindSpeed;
+        if (options.rewind) {
+            if (Math.abs(position.x) === maxOffset && direction) {
+                nextOffset = 0;
+                nextIndex  = 0;
+                duration   = options.rewindSpeed;
+            } else if (Math.abs(position.x) === 0 && !direction) {
+                // jump to the max end of the slider
+            }
         }
 
         /**
@@ -222,8 +230,7 @@ var lory = function (slider, opts) {
         translate(nextOffset, duration, options.ease);
 
         /**
-         * after translating set the index to the nextIndex
-         * and update the position with the next position
+         * update the position with the next position
          */
         position.x = nextOffset;
 

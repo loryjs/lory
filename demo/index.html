@@ -11,7 +11,7 @@
     </head>
 
     <body>
-        <header style="background: #fff; padding-bottom: 20px;">
+        <header style="background: #fff;">
             <div class="ribbon">
                 <a href="https://github.com/meandmax/lory">Fork me on GitHub</a>
             </div>
@@ -20,7 +20,47 @@
             <p style="max-width: 400px; margin: 0 auto; padding: 0 20px;">Touch enabled lean slider using vanilla JavaScript & latest technologies without any compromises for fallbacks.</p>
         </header>
 
-        <div class="content">
+        <section class="examples">
+    <div class="examplecode">
+    <h2>Required Html</h2>
+
+    <pre><code class="html">
+    &lt;div class=&quot;slider js_simple simple&quot;&gt;
+        &lt;div class=&quot;frame js_frame&quot;&gt;
+            &lt;ul class=&quot;slides js_slides&quot;&gt;
+                &lt;li class=&quot;js_slide&quot;&gt;1&lt;/li&gt;
+                &lt;li class=&quot;js_slide&quot;&gt;2&lt;/li&gt;
+                &lt;li class=&quot;js_slide&quot;&gt;3&lt;/li&gt;
+                &lt;li class=&quot;js_slide&quot;&gt;4&lt;/li&gt;
+                &lt;li class=&quot;js_slide&quot;&gt;5&lt;/li&gt;
+                &lt;li class=&quot;js_slide&quot;&gt;6&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    </code></pre></div>
+
+    <div class="examplecode">
+    <h2>Required CSS styles</h2>
+
+    <pre><code class="css">
+    .frame {
+        position: relative;
+        font-size: 0;
+        line-height: 0;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .slides {
+        display: inline-block;
+    }
+
+    li {
+        position: relative;
+        display: inline-block;
+    }
+    </code></pre></div>
+
             <h2>Single element</h2>
 
             <div class="slider js_simple simple">
@@ -45,10 +85,12 @@
             </div>
 
 <div class="examplecode"><pre><code class="javascript">
-    var simple = document.querySelector('.js_simple');
+    document.addEventListener('DOMContentLoaded', function() {
+        var simple = document.querySelector('.js_simple');
 
-    lory(simple, {
-        rewind: true
+        lory(simple, {
+            rewind: true
+        });
     });
 
 </code></pre></div>
@@ -64,10 +106,10 @@
                         <li class="js_slide" style="width: 90px;">90</li>
                         <li class="js_slide" style="width: 250px;">250</li>
                         <li class="js_slide" style="width: 60px;">60</li>
-                        <li class="js_slide" style="width: 400px;">400</li>
+                        <li class="js_slide" style="width: 200px;">200</li>
                         <li class="js_slide" style="width: 50px;">50</li>
                         <li class="js_slide" style="width: 120px;">120</li>
-                        <li class="js_slide" style="width: 300px;">300</li>
+                        <li class="js_slide" style="width: 240px;">240</li>
                     </ul>
                 </div>
 
@@ -81,10 +123,12 @@
             </div>
 
 <div class="examplecode"><pre><code class="javascript">
-    var simple = document.querySelector('.js_simple');
+    document.addEventListener('DOMContentLoaded', function() {
+        var variableWidth    = document.querySelector('.js_variablewlidth');
 
-    lory(simple, {
-        rewind: true
+        lory(variableWidth, {
+            rewind: true
+        });
     });
 
 </code></pre></div>
@@ -119,10 +163,9 @@
             </div>
 
 <div class="examplecode"><pre><code class="javascript">
-    var simple = document.querySelector('.js_simple');
-
-    lory(simple, {
-        rewind: true
+    document.addEventListener('DOMContentLoaded', function() {
+        var multipleElements = document.querySelector('.js_multipleelements');
+        lory(multipleElements, {});
     });
 
 </code></pre></div>
@@ -157,15 +200,64 @@
             </div>
 
 <div class="examplecode"><pre><code class="javascript">
-    var simple = document.querySelector('.js_simple');
+    document.addEventListener('DOMContentLoaded', function() {
+        var multiSlides = document.querySelector('.js_multislides');
 
-    lory(simple, {
-        rewind: true
+        lory(multiSlides, {
+            rewind: true,
+            slidesToScroll: 4
+        });
     });
 
 </code></pre></div>
 
-        </div>
+        </section>
+
+        <section class="options">
+            <h2>Options</h2>
+            <table>
+                <tr>
+                    <th>slidesToScroll</th>
+                    <td>slides scrolled at once</td>
+                    <td>default: 1</td>
+                </tr>
+                <tr>
+                    <th>slideSpeed</th>
+                    <td>time in milliseconds for the animation of a valid slide attempt</td>
+                    <td>default: 400</td>
+                </tr>
+                <tr>
+                    <th>rewindSpeed</th>
+                    <td>time in milliseconds for the animation of the rewind after the last slide</td>
+                    <td>default: 600</td>
+                </tr>
+                <tr>
+                    <th>snapBackSpeed</th>
+                    <td>time for the snapBack of the slider if the slide attempt was not valid</td>
+                    <td>default: 200</td>
+                </tr>
+                <tr>
+                    <th>ease</th>
+                    <td>cubic bezier easing functions: http://easings.net/de</td>
+                    <td>default: 'cubic-bezier(0.455, 0.03, 0.515, 0.955)'</td>
+                </tr>
+                <tr>
+                    <th>rewind</th>
+                    <td>if slider reached the last slide, with next click the slider goes back to the startindex.</td>
+                    <td>default: false</td>
+                </tr>
+            </table>
+        </section>
+
+        <section class="api">
+            <h2>Callbacks</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo optio explicabo, esse. Recusandae quam minima temporibus, nulla repudiandae amet vel, quasi natus reprehenderit ipsa laborum praesentium, facilis quas molestias provident.</p>
+        </section>
+
+        <footer>
+            Copyright &copy; 2015 Maximilian Heinz
+        </footer>
+
     </body>
 
     <script src="vendor/highlight.js"></script>
@@ -181,20 +273,16 @@
             var multipleElements = document.querySelector('.js_multipleelements');
             var multiSlides      = document.querySelector('.js_multislides');
 
-            lory(simple, {
-                rewind: true
-            });
+            lory(simple, {});
 
             lory(variableWidth, {
                 rewind: true
             });
 
-            lory(multipleElements, {
-                gap: 20
-            });
+            lory(multipleElements, {});
 
             lory(multiSlides, {
-                gap: 20,
+                rewind: true,
                 slidesToScroll: 4
             });
         });

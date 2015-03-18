@@ -1,16 +1,7 @@
 'use strict';
 
-require('blanket')({
-    'data-cover-only': 'functional-helpers.js',
-    'data-cover-never': 'node_modules/'
-});
-
 var tasks = require('load-grunt-tasks');
 var time  = require('time-grunt');
-
-var isNodeJs10 = function () {
-    return /^v0\.10/.test(process.version);
-};
 
 module.exports = function (grunt) {
     time(grunt);
@@ -19,10 +10,6 @@ module.exports = function (grunt) {
     grunt.initConfig({
         bumpup: {
             file: 'package.json'
-        },
-
-        coveralls: {
-            src: 'test/lcov.info'
         },
 
         jscs: {
@@ -51,12 +38,6 @@ module.exports = function (grunt) {
                 '!dist/**/*.js',
                 '!demo/**/*.js'
             ]
-        },
-
-        karma: {
-            saucelabs: {
-                configFile: 'karma.conf.js'
-            }
         },
 
         umd: {
@@ -146,49 +127,6 @@ module.exports = function (grunt) {
             }
         },
 
-        mochaTest: {
-            options: {
-                colors: true,
-                ui: 'bdd'
-            },
-
-            spec: {
-                options: {
-                    reporter: 'spec'
-                },
-
-                src: 'test/*.test.js'
-            },
-
-            'html-cov': {
-                options: {
-                    captureFile: 'test/coverage.html',
-                    quiet: true,
-                    reporter: 'html-cov'
-                },
-
-                src: 'test/*.test.js'
-            },
-
-            'console-cov': {
-                options: {
-                    reporter: 'mocha-cov-reporter'
-                },
-
-                src: 'test/*.test.js'
-            },
-
-            'lcov-cov': {
-                options: {
-                    captureFile: 'test/lcov.info',
-                    quiet: true,
-                    reporter: 'mocha-lcov-reporter'
-                },
-
-                src: 'test/*.test.js'
-            }
-        },
-
         module: {
             'check-repository': {
                 options: {
@@ -213,13 +151,6 @@ module.exports = function (grunt) {
             }
         }
     });
-
-    grunt.registerTask('test', [
-        'mochaTest:spec',
-        'mochaTest:html-cov',
-        'mochaTest:console-cov',
-        'mochaTest:lcov-cov'
-    ]);
 
     grunt.registerTask('build', [
         'jscs',
@@ -257,11 +188,6 @@ module.exports = function (grunt) {
         grunt.task.run('module:license-copyright');
         grunt.task.run('module:release-publish');
     });
-
-    grunt.registerTask('travis', [
-        'build',
-        'coveralls'
-    ].concat(isNodeJs10() ? 'karma:saucelabs' : []));
 
     grunt.registerTask('default', 'build');
 };

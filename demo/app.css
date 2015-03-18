@@ -20,7 +20,7 @@
 }
 
 body {
-    background: #ECECEC;
+    background: #fff;
 }
 
 h1, h2, h3, h4, h5, h6, p {
@@ -31,7 +31,9 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 h2 {
-    font-size: 20px;
+    margin-bottom: 20px;
+    font-size: 18px;
+    text-transform: uppercase;
 }
 
 .ribbon {
@@ -61,14 +63,13 @@ code {
 
 .slider {
     position: relative;
-    overflow: hidden;
-    margin: 20px 0;
+    width: 320px;
+    margin: 0 auto 40px;
 }
 
 .frame {
     position: relative;
-    z-index: 1;
-    width: 280px;
+    width: 270px;
     margin: 0 auto;
     font-size: 0;
     line-height: 0;
@@ -80,7 +81,6 @@ li {
     position: relative;
     display: inline-block;
     font-family: 'Source Sans Pro', sans-serif;
-    z-index: 2;
     height: 130px;
     text-align: center;
     font-size: 15px;
@@ -113,29 +113,78 @@ li {
     display: inline-block;
 }
 
-.content {
-    padding: 40px 0;
-}
-
 .simple li {
-    width: 280px;
+    width: 270px;
+    margin-right: 10px;
 }
 
 .variablewidth li {
     width: 280px;
+    margin-right: 10px;
+
 }
 
 .multipleelements li, .multislides li {
-    width: 55px;
+    width: 60px;
+    margin-right: 10px;
+}
+
+.simple li:last-child,
+.variablewidth li:last-child,
+.multipleelements li:last-child,
+.multislides li:last-child {
+    margin-right: 0;
+}
+
+tr {
+    display: block;
+    padding: 0 20px;
+    margin-bottom: 20px;
+
+}
+
+.examples, .options, .api {
+    margin: 20px 0;
+    padding: 20px 0;
+}
+
+.examples, .api {
+     background: #ececec;
+}
+
+td, th {
+    display: block;
+    font-family: 'Source Sans Pro', sans-serif;
+    line-height: 24px;
+    font-weight: 300;
+    color: #2E435A;
+}
+
+th {
+    text-align: left;
+    font-weight: 600;
+}
+
+footer {
+    margin: 20px auto;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 12px;
+    text-align: center;
+    color: #2E435A;
 }
 
 @media screen and (min-width: 640px ) {
-    .examplecode {
+    .slider {
+        width: 640px;
+        margin: 0 auto 20px;
+    }
+
+    .examplecode, .options, .frame {
         width: 580px;
     }
 
-    .frame {
-        width: 580px;
+    .options {
+        margin: 0 auto;
     }
 
     .simple li {
@@ -144,10 +193,12 @@ li {
 
     .variablewidth li {
         width: 280px;
+        margin-right: 10px;
     }
 
     .multipleelements li, .multislides li {
         width: 130px;
+        margin-right: 20px;
     }
 }
 
@@ -156,6 +207,11 @@ li {
         width: 880px;
     }
 
+    .slider {
+        width: 980px;
+        margin: 0 auto 20px;
+    }
+
     .frame {
         width: 880px;
     }
@@ -166,9 +222,11 @@ li {
 
     .variablewidth li {
         width: 280px;
+        margin-right: 10px;
     }
 
     .multipleelements li, .multislides li {
         width: 205px;
+        margin-right: 20px;
     }
 }
