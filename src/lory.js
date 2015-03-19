@@ -6,6 +6,7 @@
  * Returns a function that limits input values to range [min <= x <= max].
  * Useful for carousels etc without wrapping around (compare `wrap`).
  * Swapping min and max is allowed and will be corrected.
+ *
  * @param  {int} min    The range minimum (optional).
  * @param  {int} max    The range maximum, inclusive.
  * @return {function}   The function that limits its input to the specified range.
@@ -31,9 +32,10 @@ var clamp = function (min, max) {
 
 /**
  * merges options and default options together
- * @param  {object} opts           [description]
- * @param  {object} defaultoptions [description]
- * @return {object}                [description]
+ *
+ * @param  {object} opts            user options object
+ * @param  {object} defaultOptions  default options object
+ * @return {object} options         merged options object
  */
 var mergeOptions = function (opts, defaultOptions) {
     var options = {};
@@ -79,7 +81,7 @@ var lory = function (slider, opts) {
          * time in milliseconds for the animation of a valid slide attempt
          * @slideSpeed {Number}
          */
-        slideSpeed: 400,
+        slideSpeed: 600,
 
         /**
          * time in milliseconds for the animation of the rewind after the last slide
@@ -102,13 +104,14 @@ var lory = function (slider, opts) {
 
         /**
          * if slider reached the last slide, with next click the slider goes back to the startindex.
-         * does not work for touchevents
+         * use infinite or rewind, not both
          * @rewind {Boolean}
          */
         rewind: false,
 
         /**
          * number of visibile slides or false
+         * use infinite or rewind, not both
          * @type {number}
          */
         infinite: false,
@@ -136,6 +139,12 @@ var lory = function (slider, opts) {
         }
     };
 
+    /**
+     * setupInfinite: function to setup if infinite is set
+     *
+     * @param  {array} slideArray
+     * @return {array} array of updated slideContainer elements
+     */
     var setupInfinite = function (slideArray) {
         var front = slideArray.slice(0, options.infinite);
         var back  = slideArray.slice(slideArray.length - options.infinite, slideArray.length);
@@ -159,6 +168,10 @@ var lory = function (slider, opts) {
         return Array.prototype.slice.call(slideContainer.children);
     };
 
+    /**
+     * public
+     * setup function
+     */
     var setup = function () {
         options = mergeOptions(opts, defaults);
 
@@ -182,6 +195,10 @@ var lory = function (slider, opts) {
         window.addEventListener('resize', onResize);
     };
 
+    /**
+     * public
+     * resetSlider function: called on resize
+     */
     var resetSlider = function () {
         slidesWidth = slideContainer.getBoundingClientRect().width || slideContainer.offsetWidth;
         frameWidth  = frame.getBoundingClientRect().width || frame.offsetWidth;
@@ -203,11 +220,19 @@ var lory = function (slider, opts) {
         }
     };
 
+    /**
+     * public
+     * prev function: called on clickhandler
+     */
     var prev = function () {
         options.onPrev();
         slide(false);
     };
 
+    /**
+     * public
+     * next function: called on clickhandler
+     */
     var next = function () {
         options.onNext();
         slide(true);
@@ -215,8 +240,10 @@ var lory = function (slider, opts) {
 
     /**
      * translates to a given position in a in a given time in milliseconds
-     * @to  {number} number in pixels where to translate to
+     *
+     * @to        {number} number in pixels where to translate to
      * @duration  {number} time in milliseconds for the transistion
+     * @ease      {string} easing css property
      */
     var translate = function (to, duration, ease) {
         var style = slideContainer && slideContainer.style;
@@ -245,9 +272,13 @@ var lory = function (slider, opts) {
     };
 
     /**
-     * calculates the distance to slide to the next index
-     * and calls then with the values the translate function
-     * @nextIndex  {number}
+     * public
+     * slidefunction called by prev, next & touchend
+     *
+     * determine nextIndex and slide to next postion
+     * under restrictions of the defined options
+     *
+     * @direction  {boolean}
      */
     var slide = function (direction) {
         var nextIndex;
@@ -359,29 +390,52 @@ var lory = function (slider, opts) {
     };
 
     var onTouchend = function () {
+        /**
+         * time between touchstart and touchend in milliseconds
+         * @duration {number}
+         */
         var duration = Date.now() - touchOffset.time;
 
-        var isValidSlide = Number(duration) < 200 &&
+        /**
+         * is valid if:
+         *
+         * -> swipe attempt time is over 300 ms
+         * and
+         * -> swipe distance is greater than 25 px
+         * or
+         * -> swipe distance is more then a third of the swipe area
+         *
+         * @isValidSlide {Boolean}
+         */
+        var isValid = Number(duration) < 300 &&
             Math.abs(delta.x) > 25 ||
             Math.abs(delta.x) > frameWidth / 3;
 
-        var isPastBounds = !index && delta.x > 0 ||
+        /**
+         * is out of bounds if:
+         *
+         * -> index is 0 and delta x is greater then 0
+         * or
+         * -> index is the last slide and delta is smaller than 0
+         *
+         * @isOutOfBounds {Boolean}
+         */
+        var isOutOfBounds = !index && delta.x > 0 ||
             index === slides.length - 1 && delta.x < 0;
 
         var direction = delta.x < 0;
 
         if (!isScrolling) {
-            if (isValidSlide && !isPastBounds) {
-                if (direction) {
-                    slide(true);
-                } else {
-                    slide(false);
-                }
+            if (isValid && !isOutOfBounds) {
+                slide(direction);
             } else {
                 translate(position.x, options.snapBackSpeed);
             }
         }
 
+        /**
+         * remove eventlisteners after swipe attempt
+         */
         frame.removeEventListener('touchmove');
         frame.removeEventListener('touchend');
     };
