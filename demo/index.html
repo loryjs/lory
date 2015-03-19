@@ -204,7 +204,7 @@
         var multiSlides = document.querySelector('.js_multislides');
 
         lory(multiSlides, {
-            rewind: true,
+            infinite: 4,
             slidesToScroll: 4
         });
     });
@@ -273,7 +273,9 @@
             var multipleElements = document.querySelector('.js_multipleelements');
             var multiSlides      = document.querySelector('.js_multislides');
 
-            lory(simple, {});
+            lory(simple, {
+                infinite: true
+            });
 
             lory(variableWidth, {
                 rewind: true
@@ -282,7 +284,7 @@
             lory(multipleElements, {});
 
             lory(multiSlides, {
-                rewind: true,
+                infinite: 4,
                 slidesToScroll: 4
             });
         });
