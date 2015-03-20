@@ -177,9 +177,8 @@ var lory = function (slider, opts) {
      * setup function
      */
     var setup = function () {
-        options.beforeInit();
-
         options = mergeOptions(opts, defaults);
+        options.beforeInit();
 
         if (options.infinite) {
             slides = setupInfinite(Array.prototype.slice.call(slideContainer.children));

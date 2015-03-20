@@ -80,6 +80,25 @@ header {
     padding: 0 20px;
 }
 
+.dist {
+    display: block;
+    width: 170px;
+    margin: 20px auto;
+    padding: 10px 0;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    background: #09AE9B;
+    color: #fff;
+}
+
+.dist:hover {
+    background: #099681;
+}
+
 .examplecode {
     margin: 0 auto 40px;
 }
@@ -95,7 +114,7 @@ tr {
     margin-bottom: 20px;
 }
 
-.examples, .options, .api {
+.examples, .options, .api, .multiplesliders {
     margin: 20px 0;
     padding: 20px 0;
 }
@@ -120,7 +139,7 @@ th {
 footer {
     margin: 20px auto;
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: 12px;
+    font-size: 14px;
     text-align: center;
     color: #2E435A;
 }
@@ -172,7 +191,7 @@ footer {
 
 }
 
-.multipleelements li, .multislides li {
+.multipleelements li, .multislides li, .ease li {
     width: 60px;
     margin-right: 10px;
 }
@@ -180,7 +199,8 @@ footer {
 .simple li:last-child,
 .variablewidth li:last-child,
 .multipleelements li:last-child,
-.multislides li:last-child {
+.multislides li:last-child,
+.ease li:last-child {
     margin-right: 0;
 }
 
@@ -240,7 +260,7 @@ footer {
         margin-right: 10px;
     }
 
-    .multipleelements li, .multislides li {
+    .multipleelements li, .multislides li, .ease li {
         width: 130px;
         margin-right: 20px;
     }
@@ -277,7 +297,7 @@ footer {
         margin-right: 10px;
     }
 
-    .multipleelements li, .multislides li {
+    .multipleelements li, .multislides li, .ease li {
         width: 205px;
         margin-right: 20px;
     }

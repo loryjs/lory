@@ -67,6 +67,37 @@ bower install lory --save
     }
 ```
 
+## Integration
+
+```js
+    <script>
+        'use strict';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var simple = document.querySelector('.js_simple');
+
+            lory(simple, {
+                // options going here
+            });
+        });
+    </script>
+```
+
+## Integration of multiple sliders on one page
+
+```javascript
+    <script src="js/lory.js"></script>
+    <script>
+        'use strict';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            Array.prototype.slice.call(document.querySelectorAll('.js_slider')).forEach(function (element, index) {
+                lory(element, {});
+            });
+        });
+    </script>
+```
+
 ##Options
 
 <table>
