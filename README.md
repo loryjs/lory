@@ -1,12 +1,14 @@
 
 <p align="center">
-  <img src="./demo/lory-200.png" />
+  <img src="http://maximilian-heinz.de/lory-200.png" />
 </p>
+
+Please visit: <a href="http://meandmax.github.io/lory/" target="_blank">http://meandmax.github.io/lory/</a>
 
 > Touch enabled lean slider using vanilla JavaScript &amp; latest technologies without any compromises for fallbacks.
 
 [![license](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://raw.githubusercontent.com/meandmax/lory/master/LICENSE)
-[![npm](http://img.shields.io/npm/v/lory.svg?style=flat)](https://www.npmjs.com/package/lory)
+[![npm](http://img.shields.io/npm/v/lory.svg?style=flat)](https://www.npmjs.com/package/lory.js)
 
 [![build](http://img.shields.io/travis/meandmax/lory/master.svg?style=flat)](https://travis-ci.org/meandmax/lory)
 [![code climate](http://img.shields.io/codeclimate/github/meandmax/lory.svg?style=flat)](https://codeclimate.com/github/meandmax/lory)
