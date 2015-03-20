@@ -118,23 +118,27 @@ var lory = function (slider, opts) {
 
         // available callbacks
 
-        onInit: function () {
+        beforeInit: function () {
             return true;
         },
 
-        onPrev: function () {
+        afterInit: function () {
             return true;
         },
 
-        onNext: function () {
+        beforePrev: function () {
             return true;
         },
 
-        onMove: function () {
+        beforeNext: function () {
             return true;
         },
 
-        onResize: function () {
+        beforeMove: function () {
+            return true;
+        },
+
+        beforeResize: function () {
             return true;
         }
     };
@@ -173,6 +177,8 @@ var lory = function (slider, opts) {
      * setup function
      */
     var setup = function () {
+        options.beforeInit();
+
         options = mergeOptions(opts, defaults);
 
         if (options.infinite) {
@@ -180,8 +186,6 @@ var lory = function (slider, opts) {
         } else {
             slides = Array.prototype.slice.call(slideContainer.children);
         }
-
-        options.onInit();
 
         resetSlider();
 
@@ -193,6 +197,7 @@ var lory = function (slider, opts) {
         slideContainer.addEventListener('touchstart', onTouchstart);
 
         window.addEventListener('resize', onResize);
+        options.afterInit();
     };
 
     /**
@@ -225,7 +230,7 @@ var lory = function (slider, opts) {
      * prev function: called on clickhandler
      */
     var prev = function () {
-        options.onPrev();
+        options.beforePrev();
         slide(false);
     };
 
@@ -234,7 +239,7 @@ var lory = function (slider, opts) {
      * next function: called on clickhandler
      */
     var next = function () {
-        options.onNext();
+        options.beforeNext();
         slide(true);
     };
 
@@ -353,6 +358,8 @@ var lory = function (slider, opts) {
     };
 
     var onTouchstart = function (event) {
+        options.beforeMove();
+
         var touches = event.touches[0];
 
         touchOffset = {
@@ -371,8 +378,6 @@ var lory = function (slider, opts) {
     };
 
     var onTouchmove = function (event) {
-        options.onMove();
-
         var touches = event.touches[0];
 
         delta = {
@@ -441,7 +446,7 @@ var lory = function (slider, opts) {
     };
 
     var onResize = function () {
-        options.onResize();
+        options.beforeResize();
         resetSlider();
     };
 

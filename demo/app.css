@@ -1,3 +1,7 @@
+/**
+ * Demo Page Styles
+ */
+
 *,
 *:before,
 *:after {
@@ -52,6 +56,30 @@ h2 {
     text-transform: uppercase;
 }
 
+.ribbon a:hover {
+    background-color: #d7544f;
+}
+
+header {
+    background: #fff;
+}
+
+.logo {
+    display: block;
+    width: 30%;
+    height: auto;
+    min-width: 100px;
+    max-width: 150px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.description {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
 .examplecode {
     margin: 0 auto 40px;
 }
@@ -61,86 +89,10 @@ code {
     font-size: 12px;
 }
 
-.slider {
-    position: relative;
-    width: 320px;
-    margin: 0 auto 40px;
-}
-
-.frame {
-    position: relative;
-    width: 270px;
-    margin: 0 auto;
-    font-size: 0;
-    line-height: 0;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-li {
-    position: relative;
-    display: inline-block;
-    font-family: 'Source Sans Pro', sans-serif;
-    height: 130px;
-    text-align: center;
-    font-size: 15px;
-    line-height: 30px;
-    background: #2E435A;
-    color: #fff;
-}
-
-.prev, .next {
-    position: absolute;
-    top: 50%;
-    margin-top: -25px;
-    display: block;
-    cursor: pointer;
-}
-
-.next {
-    right: 0;
-}
-
-.prev {
-    left: 0;
-}
-
-.next svg, .prev svg {
-    width: 25px;
-}
-
-.slides {
-    display: inline-block;
-}
-
-.simple li {
-    width: 270px;
-    margin-right: 10px;
-}
-
-.variablewidth li {
-    width: 280px;
-    margin-right: 10px;
-
-}
-
-.multipleelements li, .multislides li {
-    width: 60px;
-    margin-right: 10px;
-}
-
-.simple li:last-child,
-.variablewidth li:last-child,
-.multipleelements li:last-child,
-.multislides li:last-child {
-    margin-right: 0;
-}
-
 tr {
     display: block;
     padding: 0 20px;
     margin-bottom: 20px;
-
 }
 
 .examples, .options, .api {
@@ -173,18 +125,110 @@ footer {
     color: #2E435A;
 }
 
-@media screen and (min-width: 640px ) {
-    .slider {
-        width: 640px;
-        margin: 0 auto 20px;
-    }
+/**
+ * Slider specific styles
+ */
 
-    .examplecode, .options, .frame {
+.slider {
+    position: relative;
+    width: 320px;
+    margin: 0 auto 40px;
+}
+
+.frame {
+    position: relative;
+    width: 270px;
+    margin: 0 auto;
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.frame li {
+    position: relative;
+    display: inline-block;
+    font-family: 'Source Sans Pro', sans-serif;
+    height: 130px;
+    text-align: center;
+    font-size: 15px;
+    line-height: 30px;
+    background: #2E435A;
+    color: #fff;
+}
+
+.slides {
+    display: inline-block;
+}
+
+.simple li {
+    width: 270px;
+    margin-right: 10px;
+}
+
+.variablewidth li {
+    width: 280px;
+    margin-right: 10px;
+
+}
+
+.multipleelements li, .multislides li {
+    width: 60px;
+    margin-right: 10px;
+}
+
+.simple li:last-child,
+.variablewidth li:last-child,
+.multipleelements li:last-child,
+.multislides li:last-child {
+    margin-right: 0;
+}
+
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    margin-top: -25px;
+    display: block;
+    cursor: pointer;
+}
+
+.next {
+    right: 0;
+}
+
+.prev {
+    left: 0;
+}
+
+.next svg, .prev svg {
+    width: 25px;
+}
+
+@media screen and (min-width: 640px ) {
+    /**
+     * Demo Page Styles
+     */
+
+    .examplecode, .frame {
         width: 580px;
     }
 
-    .options {
+    table {
+        width: 580px;
         margin: 0 auto;
+    }
+
+    tr {
+        padding: 0;
+    }
+
+    /**
+     * Slider specific styles
+     */
+
+    .slider {
+        width: 640px;
+        margin: 0 auto 20px;
     }
 
     .simple li {
@@ -203,9 +247,17 @@ footer {
 }
 
 @media screen and (min-width: 980px ) {
+    /**
+     * Demo Page Styles
+     */
+
     .examplecode {
         width: 880px;
     }
+
+    /**
+     * Slider specific styles
+     */
 
     .slider {
         width: 980px;

@@ -11,13 +11,13 @@
     </head>
 
     <body>
-        <header style="background: #fff;">
+        <header>
             <div class="ribbon">
                 <a href="https://github.com/meandmax/lory">Fork me on GitHub</a>
             </div>
 
-            <img src="lory.png" style="width: 30%; min-width: 100px; max-width: 150px; height: auto; margin: 0 auto; padding: 20px 0; display: block" />
-            <p style="max-width: 400px; margin: 0 auto; padding: 0 20px;">Touch enabled lean slider using vanilla JavaScript & latest technologies without any compromises for fallbacks.</p>
+            <img class="logo" src="lory.png" />
+            <p class="description">Touch enabled lean slider using vanilla JavaScript & latest technologies without any compromises for fallbacks.</p>
         </header>
 
         <section class="examples">
@@ -251,11 +251,36 @@
 
         <section class="api">
             <h2>Callbacks</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo optio explicabo, esse. Recusandae quam minima temporibus, nulla repudiandae amet vel, quasi natus reprehenderit ipsa laborum praesentium, facilis quas molestias provident.</p>
+            <table>
+                <tr>
+                    <th>beforeInit:</th>
+                    <td>executed before initialisation (first in setup function)</td>
+                </tr>
+                <tr>
+                    <th>afterInit:</th>
+                    <td>executed after initialisation (end of setup function)</td>
+                </tr>
+                <tr>
+                    <th>beforePrev:</th>
+                    <td>executed on click of prev controls (prev function)</td>
+                </tr>
+                <tr>
+                    <th>beforeNext:</th>
+                    <td>executed on click of next controls (next function)</td>
+                </tr>
+                <tr>
+                    <th>beforeTouch:</th>
+                    <td>executed on touch attempt (touchstart)</td>
+                </tr>
+                <tr>
+                    <th>beforeResize:</th>
+                    <td>executed on every resize event</td>
+                </tr>
+            </table>
         </section>
 
         <footer>
-            Copyright &copy; 2015 Maximilian Heinz
+            Copyright &copy; 2015 Maximilian Heinz, contributors. Released under the MIT, GPL licenses
         </footer>
 
     </body>
