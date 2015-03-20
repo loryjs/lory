@@ -1,9 +1,9 @@
 {
   "name": "lory",
-  "version": "0.0.0",
-  "homepage": "https://github.com/meandmax/lory",
+  "version": "0.2.1",
+  "homepage": "http://meandmax.github.io/lory/",
   "authors": [
-    "Maximillian Heinz <info@maximilian-heinz.de>"
+    "Maximilian Heinz <info@maximilian-heinz.de>"
   ],
   "description": "Touch enabled lean slider using vanilla JavaScript & latest technologies without any compromises for fallbacks.",
   "main": "dist/lory.min.js",
@@ -12,16 +12,16 @@
     "node"
   ],
   "keywords": [
-    "slider",
-    "slideshow",
-    "carousel",
-    "touch",
     "swipe",
-    "javascript",
-    "modern"
+    "slider",
+    "carousel",
+    "infinite",
+    "touch",
+    "JavaScript",
+    "Vanilla",
+    "lean"
   ],
   "license": "MIT",
-  "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
