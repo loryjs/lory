@@ -141,4 +141,4 @@ bower install lory --save
 
 ## Copyright
 
-Copyright (c) 2015 Maximilian Heinz, contributors. Released under the MIT, GPL licenses
+Copyright &copy; 2015 Maximilian Heinz, contributors. Released under the MIT, GPL licenses
