@@ -155,7 +155,6 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
         'jscs',
         'jshint',
-        'test',
         'copy:dist',
         'umd',
         'uglify',
