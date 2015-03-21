@@ -16,6 +16,8 @@ Please visit: <a href="http://meandmax.github.io/lory/" target="_blank">http://m
 
 ##Install with node
 
+[![Join the chat at https://gitter.im/meandmax/lory](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/meandmax/lory?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ```
 npm install --save lory
 ```
