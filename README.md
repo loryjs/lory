@@ -14,24 +14,22 @@ Please visit: <a href="http://meandmax.github.io/lory/" target="_blank">http://m
 [![code climate](http://img.shields.io/codeclimate/github/meandmax/lory.svg?style=flat)](https://codeclimate.com/github/meandmax/lory)
 [![devDependencies](http://img.shields.io/david/dev/meandmax/lory.svg?style=flat)](https://david-dm.org/meandmax/lory#info=devDependencies&view=table)
 
-##Install with node
-
-```
-npm install --save lory
-```
+## Install with node
 
 ```javascript
+npm install --save lory
+
 var lory = require('lory');
 ```
 
-##Install with bower
+## Install with bower
 
 ```
 bower install lory --save
 ```
 
 
-##Prerequisited markup
+## Prerequisited markup
 
 ```html
 <div class="slider js_simple simple">
@@ -48,7 +46,7 @@ bower install lory --save
 </div>
 ```
 
-##Prerequisited css
+## Prerequisited css
 
 ```css
   .frame {
@@ -100,7 +98,28 @@ bower install lory --save
     </script>
 ```
 
-##Options
+# Public API
+
+<table>
+    <tr>
+        <th>prev:</th>
+        <td>slides to the previous slide</td>
+    </tr>
+    <tr>
+        <th>next:</th>
+        <td>slides to the next slide</td>
+    </tr>
+    <tr>
+        <th>setup:</th>
+        <td>Binds eventlisteners, merging default and user options, setup the slides based on DOM (called once during initialisation). Call setup if DOM or user options have changed or eventlisteners needs to be rebinded.</td>
+    </tr>
+    <tr>
+        <th>reset:</th>
+        <td>sets the slider back to the starting position and resets the current index (called on Resize event)</td>
+    </tr>
+</table>
+
+## Options
 
 <table>
     <tr>
@@ -111,7 +130,7 @@ bower install lory --save
     <tr>
         <td>slideSpeed</td>
         <td>time in milliseconds for the animation of a valid slide attempt</td>
-        <td>default: 400</td>
+        <td>default: 300</td>
     </tr>
     <tr>
         <td>rewindSpeed</td>
@@ -135,7 +154,7 @@ bower install lory --save
     </tr>
 </table>
 
-##Callbacks
+## Callbacks
 
 <table>
     <tr>

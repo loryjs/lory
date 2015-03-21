@@ -114,12 +114,12 @@ tr {
     margin-bottom: 20px;
 }
 
-.examples, .options, .api, .multiplesliders {
+.examples, .options, .api, .hooks, .multiplesliders {
     margin: 20px 0;
     padding: 20px 0;
 }
 
-.examples, .api {
+.examples, .hooks, .api {
      background: #ececec;
 }
 
@@ -138,6 +138,7 @@ th {
 
 footer {
     margin: 20px auto;
+    padding: 0 20px;
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 14px;
     text-align: center;

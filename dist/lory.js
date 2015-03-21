@@ -97,7 +97,7 @@ var lory = function (slider, opts) {
          * time in milliseconds for the animation of a valid slide attempt
          * @slideSpeed {Number}
          */
-        slideSpeed: 600,
+        slideSpeed: 300,
 
         /**
          * time in milliseconds for the animation of the rewind after the last slide
@@ -116,7 +116,7 @@ var lory = function (slider, opts) {
          * cubic bezier easing functions: http://easings.net/de
          * @ease {String}
          */
-        ease: 'cubic-bezier(0.455, 0.03, 0.515, 0.955)',
+        ease: 'ease',
 
         /**
          * if slider reached the last slide, with next click the slider goes back to the startindex.
@@ -196,6 +196,11 @@ var lory = function (slider, opts) {
         options = mergeOptions(opts, defaults);
         options.beforeInit();
 
+        position = {
+            x: slideContainer.offsetLeft,
+            y: slideContainer.offsetTop
+        };
+
         if (options.infinite) {
             slides = setupInfinite(Array.prototype.slice.call(slideContainer.children));
         } else {
@@ -224,11 +229,6 @@ var lory = function (slider, opts) {
         frameWidth  = frame.getBoundingClientRect().width || frame.offsetWidth;
 
         index = 0;
-
-        position = {
-            x: slideContainer.offsetLeft,
-            y: slideContainer.offsetTop
-        };
 
         if (options.infinite) {
             translate(slides[index + options.infinite].offsetLeft * -1, 0, null);
@@ -477,11 +477,8 @@ var lory = function (slider, opts) {
             resetSlider();
         },
 
-        slide: function (index) {
-            slide(index);
-        },
-
         prev: prev,
+
         next: next
     };
 };
