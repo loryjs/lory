@@ -1,7 +1,7 @@
 {
   "name": "lory.js",
   "version": "0.3.0",
-  "description": "Touch enabled lean slider using Vanilla JavaScript & latest technologies without any compromises for fallbacks.",
+  "description": "Touch enabled minimalistic slider written in vanilla JavaScript.",
   "author": {
     "name": "Maximilian Heinz",
     "email": "info@maximilian-heinz.de",

@@ -82,7 +82,7 @@ var lory = function (slider, opts) {
     /**
      * if object is jQuery convert to native DOM element
      */
-    if (slider instanceof jQuery) {
+    if (typeof jQuery !== 'undefined' && slider instanceof jQuery) {
         slider = slider[0];
     }
 
