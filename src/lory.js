@@ -1,3 +1,4 @@
+/* globals jQuery */
 /* exported lory */
 
 'use strict';
@@ -61,6 +62,13 @@ var lory = function (slider, opts) {
     var options = {};
 
     var transitionEndCallback;
+
+    /**
+     * if object is jQuery convert to native DOM element
+     */
+    if (slider instanceof jQuery) {
+        slider = slider[0];
+    }
 
     /**
      * slider DOM elements

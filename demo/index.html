@@ -18,7 +18,7 @@
             </div>
 
             <img class="logo" src="lory.png" />
-            <p class="description">Touch enabled lean slider using vanilla JavaScript & latest technologies without any compromises for fallbacks.</p>
+            <p class="description">Touch enabled minimalistic slider written in vanilla JavaScript</p>
 
             <a class="dist" href="./js/lory.min.js">Download Here</a>
         </header>
@@ -225,7 +225,7 @@
         </section>
 
 <section class="multiplesliders">
-<h2>Initialise multiple similiar sliders</h2>
+<h2>initialize multiple similiar sliders</h2>
 
 <div class="examplecode"><pre><code class="javascript">
         'use strict';
@@ -239,6 +239,28 @@
 </code></pre></div>
 
 </section>
+
+<section class="jquery">
+<h2>Use it as a jQuery Plugin</h2>
+
+<div class="examplecode"><pre><code class="html">
+        &lt;script src=&quot;js/lory.jquery.min.js&quot;&gt;&lt;/script&gt;
+
+</code></pre></div>
+
+<div class="examplecode"><pre><code class="javascript">
+        'use strict';
+
+        $(function() {
+            $('.js_simple').lory({
+                infinite: 1
+            });
+        });
+
+</code></pre></div>
+
+</section>
+
         <section class="api">
             <h2>Public API</h2>
             <table>
@@ -331,6 +353,30 @@
                     <td>executed on every resize event</td>
                 </tr>
             </table>
+        </section>
+
+        <section class="development">
+            <h2>Local development</h2>
+
+<div class="examplecode"><pre><code class="shell">
+        // To install dev dependencies run:
+
+        npm install -g grunt-cli
+        npm install
+
+        // To start the development server run:
+
+        grunt start
+
+        // To lint your code run:
+
+        grunt lint
+
+        // To make a full new build run:
+
+        grunt build
+
+</code></pre></div>
         </section>
 
         <footer>
