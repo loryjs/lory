@@ -5,7 +5,7 @@
 
 Please visit: <a href="http://meandmax.github.io/lory/" target="_blank">http://meandmax.github.io/lory/</a>
 
-> Touch enabled lean slider using vanilla JavaScript &amp; latest technologies without any compromises for fallbacks.
+> Touch enabled minimalistic slider written in vanilla JavaScript.
 
 [![license](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://raw.githubusercontent.com/meandmax/lory/master/LICENSE)
 [![npm](http://img.shields.io/npm/v/lory.js.svg?style=flat)](https://www.npmjs.com/package/lory.js)
@@ -30,6 +30,27 @@ var lory = require('lory');
 bower install lory --save
 ```
 
+
+## Local development
+
+```
+// To install dev dependencies run:
+
+npm install -g grunt-cli
+npm install
+
+// To start the development server run:
+
+grunt start
+
+// To lint your code run:
+
+grunt lint
+
+// To make a full new build run:
+
+grunt build
+```
 
 ## Prerequisited markup
 
@@ -72,6 +93,7 @@ bower install lory --save
 ## Integration
 
 ```js
+    <script src="js/lory.min.js"></script>
     <script>
         'use strict';
 
@@ -80,6 +102,21 @@ bower install lory --save
 
             lory(simple, {
                 // options going here
+            });
+        });
+    </script>
+```
+
+## Integration as a jQuery Plugin
+
+```js
+    <script src="js/jquery.lory.min.js"></script>
+    <script>
+        'use strict';
+
+        $(function() {
+            $('.js_simple').lory({
+                infinite: 1
             });
         });
     </script>
@@ -110,6 +147,10 @@ bower install lory --save
     <tr>
         <th>next:</th>
         <td>slides to the next slide</td>
+    </tr>
+    <tr>
+        <th>slideTo:</th>
+        <td>slides to the index given as an argument: (arguments: index {number})</td>
     </tr>
     <tr>
         <th>setup:</th>

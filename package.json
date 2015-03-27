@@ -1,7 +1,7 @@
 {
   "name": "lory.js",
-  "version": "0.2.4",
-  "description": "Touch enabled lean slider using Vanilla JavaScript & latest technologies without any compromises for fallbacks.",
+  "version": "0.4.0",
+  "description": "Touch enabled minimalistic slider written in vanilla JavaScript.",
   "author": {
     "name": "Maximilian Heinz",
     "email": "info@maximilian-heinz.de",
@@ -14,19 +14,20 @@
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://raw.githubusercontent.com/meandmax/lory.js/master/LICENSE"
+      "url": "https://raw.githubusercontent.com/meandmax/lory/master/LICENSE"
     }
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/meandmax/lory.js.git"
+    "url": "https://github.com/meandmax/lory.git"
   },
-  "main": "./lory.js",
+  "main": "./lory.min.js",
   "devDependencies": {
     "grunt": "latest",
     "grunt-browser-sync": "latest",
     "grunt-bumpup": "latest",
     "grunt-cli": "latest",
+    "grunt-contrib-concat": "^0.5.1",
     "grunt-contrib-copy": "latest",
     "grunt-contrib-jshint": "latest",
     "grunt-contrib-uglify": "latest",

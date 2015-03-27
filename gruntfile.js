@@ -9,7 +9,11 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         bumpup: {
-            file: 'package.json'
+            files: [
+                'package.json',
+                'bower.json',
+                'lory.jquery.json'
+            ]
         },
 
         jscs: {
@@ -46,6 +50,13 @@ module.exports = function (grunt) {
                 dest: 'dist/lory.js',
                 objectToExport: 'lory',
                 globalAlias: 'lory'
+            },
+
+            jquery: {
+                src: 'dist/jquery.lory.js',
+                dest: 'dist/jquery.lory.js',
+                objectToExport: 'lory',
+                globalAlias: 'lory'
             }
         },
 
@@ -61,10 +72,18 @@ module.exports = function (grunt) {
 
                         dest: 'dist/',
                         ext: '.min.js',
+                        extDot: 'last',
                         filter: 'isFile',
                         expand: true
                     }
                 ]
+            }
+        },
+
+        concat: {
+            dist: {
+                src: ['src/lory.js', 'src/jquery.plugin.js'],
+                dest: 'dist/jquery.lory.js'
             }
         },
 
@@ -155,6 +174,7 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
         'jscs',
         'jshint',
+        'concat',
         'copy:dist',
         'umd',
         'uglify',
@@ -163,6 +183,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build-dev', [
         'copy:dist',
+        'concat',
         'umd',
         'uglify',
         'notify',

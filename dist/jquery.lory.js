@@ -1,3 +1,19 @@
+(function (root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module unless amdModuleId is set
+    define([], function () {
+      return (root['lory'] = factory());
+    });
+  } else if (typeof exports === 'object') {
+    // Node. Does not work with strict CommonJS, but
+    // only CommonJS-like environments that support module.exports,
+    // like Node.
+    module.exports = factory();
+  } else {
+    root['lory'] = factory();
+  }
+}(this, function () {
+
 /* globals jQuery */
 /* exported lory */
 
@@ -479,3 +495,22 @@ var lory = function (slider, opts) {
         next: next
     };
 };
+
+/* globals $, lory */
+
+$.fn.lory = function (options) {
+    'use strict';
+
+    return this.each(function () {
+        var instanceOptions;
+
+        if (!$.data(this, 'lory')) {
+            instanceOptions = $.extend({}, options, $(this).data());
+            $.data(this, 'lory', lory(this, instanceOptions));
+        }
+    });
+};
+
+return lory;
+
+}));
