@@ -233,6 +233,7 @@ grunt build
 * FireFox
 * Opera
 * Internet Explorer 10+
+* Android 2.2+
 
 ## Copyright
 
