@@ -100,7 +100,11 @@ header {
 }
 
 .examplecode {
-    margin: 0 auto 40px;
+    margin: 0 auto 30px;
+}
+
+.examplecode:last-child {
+    margin-bottom: 0;
 }
 
 code {
@@ -114,13 +118,12 @@ tr {
     margin-bottom: 20px;
 }
 
-.examples, .options, .api, .hooks, .multiplesliders {
-    margin: 20px 0;
-    padding: 20px 0;
+section {
+    padding: 40px 0;
 }
 
-.examples, .hooks, .api {
-     background: #ececec;
+section:nth-child(odd) {
+    background: #ececec;
 }
 
 td, th {
@@ -137,12 +140,13 @@ th {
 }
 
 footer {
-    margin: 20px auto;
-    padding: 0 20px;
+    margin: 0 auto;
+    padding: 20px;
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 14px;
     text-align: center;
-    color: #2E435A;
+    background: #2E435A;
+    color: #fff;
 }
 
 /**
@@ -229,7 +233,6 @@ footer {
     /**
      * Demo Page Styles
      */
-
     .examplecode, .frame {
         width: 580px;
     }

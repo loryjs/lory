@@ -149,6 +149,10 @@ grunt build
         <td>slides to the next slide</td>
     </tr>
     <tr>
+        <th>slideTo:</th>
+        <td>slides to the index given as an argument: (arguments: index {number})</td>
+    </tr>
+    <tr>
         <th>setup:</th>
         <td>Binds eventlisteners, merging default and user options, setup the slides based on DOM (called once during initialisation). Call setup if DOM or user options have changed or eventlisteners needs to be rebinded.</td>
     </tr>

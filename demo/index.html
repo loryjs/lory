@@ -23,47 +23,49 @@
             <a class="dist" href="./js/lory.min.js">Download Here</a>
         </header>
 
+        <section class="prerequisted">
+            <div class="examplecode">
+            <h2>Prerequisited Html</h2>
+
+            <pre><code class="html">
+            &lt;div class=&quot;slider js_simple simple&quot;&gt;
+                &lt;div class=&quot;frame js_frame&quot;&gt;
+                    &lt;ul class=&quot;slides js_slides&quot;&gt;
+                        &lt;li class=&quot;js_slide&quot;&gt;1&lt;/li&gt;
+                        &lt;li class=&quot;js_slide&quot;&gt;2&lt;/li&gt;
+                        &lt;li class=&quot;js_slide&quot;&gt;3&lt;/li&gt;
+                        &lt;li class=&quot;js_slide&quot;&gt;4&lt;/li&gt;
+                        &lt;li class=&quot;js_slide&quot;&gt;5&lt;/li&gt;
+                        &lt;li class=&quot;js_slide&quot;&gt;6&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            </code></pre></div>
+
+            <div class="examplecode">
+            <h2>Prerequisted CSS styles</h2>
+
+            <pre><code class="css">
+            .frame {
+                position: relative;
+                font-size: 0;
+                line-height: 0;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+
+            .slides {
+                display: inline-block;
+            }
+
+            li {
+                position: relative;
+                display: inline-block;
+            }
+            </code></pre></div>
+        </section>
+
         <section class="examples">
-    <div class="examplecode">
-    <h2>Prerequisited Html</h2>
-
-    <pre><code class="html">
-    &lt;div class=&quot;slider js_simple simple&quot;&gt;
-        &lt;div class=&quot;frame js_frame&quot;&gt;
-            &lt;ul class=&quot;slides js_slides&quot;&gt;
-                &lt;li class=&quot;js_slide&quot;&gt;1&lt;/li&gt;
-                &lt;li class=&quot;js_slide&quot;&gt;2&lt;/li&gt;
-                &lt;li class=&quot;js_slide&quot;&gt;3&lt;/li&gt;
-                &lt;li class=&quot;js_slide&quot;&gt;4&lt;/li&gt;
-                &lt;li class=&quot;js_slide&quot;&gt;5&lt;/li&gt;
-                &lt;li class=&quot;js_slide&quot;&gt;6&lt;/li&gt;
-            &lt;/ul&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-    </code></pre></div>
-
-    <div class="examplecode">
-    <h2>Prerequisted CSS styles</h2>
-
-    <pre><code class="css">
-    .frame {
-        position: relative;
-        font-size: 0;
-        line-height: 0;
-        overflow: hidden;
-        white-space: nowrap;
-    }
-
-    .slides {
-        display: inline-block;
-    }
-
-    li {
-        position: relative;
-        display: inline-block;
-    }
-    </code></pre></div>
-
             <h2>Single element</h2>
 
             <div class="slider js_simple simple">
@@ -127,7 +129,7 @@
 
 <div class="examplecode"><pre><code class="javascript">
     document.addEventListener('DOMContentLoaded', function () {
-        var variableWidth    = document.querySelector('.js_variablewlidth');
+        var variableWidth = document.querySelector('.js_variablewlidth');
 
         lory(variableWidth, {
             rewind: true
@@ -261,6 +263,30 @@
 
 </section>
 
+        <section class="development">
+            <h2>Local development</h2>
+
+<div class="examplecode"><pre><code class="shell">
+        // To install dev dependencies run:
+
+        npm install -g grunt-cli
+        npm install
+
+        // To start the development server run:
+
+        grunt start
+
+        // To lint your code run:
+
+        grunt lint
+
+        // To make a full new build run:
+
+        grunt build
+
+</code></pre></div>
+        </section>
+
         <section class="api">
             <h2>Public API</h2>
             <table>
@@ -271,6 +297,10 @@
                 <tr>
                     <th>next:</th>
                     <td>slides to the next slide</td>
+                </tr>
+                <tr>
+                    <th>slideTo:</th>
+                    <td>slides to the index given as an argument: (arguments: index {number})</td>
                 </tr>
                 <tr>
                     <th>setup:</th>
@@ -355,30 +385,6 @@
             </table>
         </section>
 
-        <section class="development">
-            <h2>Local development</h2>
-
-<div class="examplecode"><pre><code class="shell">
-        // To install dev dependencies run:
-
-        npm install -g grunt-cli
-        npm install
-
-        // To start the development server run:
-
-        grunt start
-
-        // To lint your code run:
-
-        grunt lint
-
-        // To make a full new build run:
-
-        grunt build
-
-</code></pre></div>
-        </section>
-
         <footer>
             Copyright &copy; 2015 Maximilian Heinz, contributors. Released under the MIT, GPL licenses
         </footer>
@@ -388,7 +394,7 @@
     <script src="vendor/highlight.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
 
-    <script src="js/lory.js"></script>
+    <script src="js/lory.min.js"></script>
     <script>
         'use strict';
 

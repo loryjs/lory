@@ -238,7 +238,7 @@ var lory = function (slider, opts) {
      */
     var prev = function () {
         options.beforePrev();
-        slide(false);
+        slide(false, false);
     };
 
     /**
@@ -247,7 +247,7 @@ var lory = function (slider, opts) {
      */
     var next = function () {
         options.beforeNext();
-        slide(true);
+        slide(false, true);
     };
 
     /**
@@ -292,18 +292,18 @@ var lory = function (slider, opts) {
      *
      * @direction  {boolean}
      */
-    var slide = function (direction) {
-        var nextIndex;
-
+    var slide = function (nextIndex, direction) {
         var maxOffset   = (slidesWidth - frameWidth);
         var limitIndex  = clamp(0, slides.length - 1);
         var limitOffset = clamp(maxOffset * -1, 0);
         var duration    = options.slideSpeed;
 
-        if (direction) {
-            nextIndex = index + options.slidesToScroll;
-        } else {
-            nextIndex = index - options.slidesToScroll;
+        if (!nextIndex) {
+            if (direction) {
+                nextIndex = index + options.slidesToScroll;
+            } else {
+                nextIndex = index - options.slidesToScroll;
+            }
         }
 
         nextIndex = limitIndex(nextIndex);
@@ -439,7 +439,7 @@ var lory = function (slider, opts) {
 
         if (!isScrolling) {
             if (isValid && !isOutOfBounds) {
-                slide(direction);
+                slide(false, direction);
             } else {
                 translate(position.x, options.snapBackSpeed);
             }
@@ -467,6 +467,10 @@ var lory = function (slider, opts) {
 
         reset: function () {
             resetSlider();
+        },
+
+        slideTo: function (index) {
+            slide(index);
         },
 
         prev: prev,
