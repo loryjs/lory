@@ -397,6 +397,7 @@ var lory = function (slider, opts) {
         }
 
         if (!isScrolling) {
+            event.preventDefault();
             translate(position.x + delta.x, 0, null);
         }
     };
