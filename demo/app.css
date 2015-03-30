@@ -121,7 +121,7 @@ section {
     padding: 40px 0;
 }
 
-section:nth-child(even) {
+section:nth-child(odd) {
     background: #ececec;
 }
 
