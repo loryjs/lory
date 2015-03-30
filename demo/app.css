@@ -113,6 +113,10 @@ tr {
     margin-bottom: 20px;
 }
 
+.description {
+    margin-bottom: 10px;
+}
+
 section {
     padding: 40px 0;
 }
