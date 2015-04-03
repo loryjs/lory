@@ -19,7 +19,7 @@ Please visit: <a href="http://meandmax.github.io/lory/" target="_blank">http://m
 ## Install with node
 
 ```javascript
-npm install --save lory
+npm install --save lory.js
 
 var lory = require('lory');
 ```

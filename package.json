@@ -21,7 +21,7 @@
     "type": "git",
     "url": "https://github.com/meandmax/lory.git"
   },
-  "main": "./lory.min.js",
+  "main": "./dist/lory.min.js",
   "devDependencies": {
     "grunt": "latest",
     "grunt-browser-sync": "latest",
