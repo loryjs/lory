@@ -314,7 +314,7 @@ var lory = function (slider, opts) {
         var limitOffset = clamp(maxOffset * -1, 0);
         var duration    = options.slideSpeed;
 
-        if (!nextIndex) {
+        if (typeof nextIndex !== 'number') {
             if (direction) {
                 nextIndex = index + options.slidesToScroll;
             } else {
@@ -323,6 +323,10 @@ var lory = function (slider, opts) {
         }
 
         nextIndex = limitIndex(nextIndex);
+
+        if (options.infinite && direction === undefined) {
+            nextIndex += options.infinite;
+        }
 
         var nextOffset = limitOffset(slides[nextIndex].offsetLeft * -1);
 
