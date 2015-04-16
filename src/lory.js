@@ -78,6 +78,12 @@ var lory = function (slider, opts) {
     var prevCtrl       = slider.querySelector('.js_prev');
     var nextCtrl       = slider.querySelector('.js_next');
 
+    /**
+     * slider selector names
+     */
+    var cloneSelector = 'js_cloneslide';
+    var currentSelector = 'js_currentslide';
+
     var defaults = {
         /**
          * slides scrolled at once
@@ -181,6 +187,36 @@ var lory = function (slider, opts) {
     };
 
     /**
+     * set current selector to current slide
+     *
+     * @param {number} index
+     * @param {boolean} containClones
+     */
+    var setCurrentSelector = function (index) {
+        var filtered;
+
+        /**
+         * remove currentSelector of slides
+         */
+        Array.prototype.forEach.call(slides, function (s) {
+            s.classList.remove(currentSelector);
+        });
+
+        /**
+         * add selector of current slide
+         */
+        if (options.infinite) {
+            filtered = Array.prototype.filter.call(slides, function (s) {
+                return !(s.classList.contains(cloneSelector));
+            });
+
+            filtered[index].classList.add(currentSelector);
+        } else {
+            slides[index].classList.add(currentSelector);
+        }
+    };
+
+    /**
      * public
      * setup function
      */
@@ -248,6 +284,29 @@ var lory = function (slider, opts) {
     var next = function () {
         options.beforeNext();
         slide(false, true);
+    };
+
+    /**
+     * public
+     * current function
+     */
+    var current = function () {
+        var baseSlideLength = slides.length;
+        var currentIndex = index;
+
+        if (options.infinite) {
+            Array.prototype.forEach.call(slides, function (slide) {
+                if (slide.classList.contains(cloneSelector)) {
+                    baseSlideLength--;
+                };
+            });
+        }
+
+        if (currentIndex > baseSlideLength) {
+            currentIndex = currentIndex - baseSlideLength;
+        }
+
+        return currentIndex;
     };
 
     /**
@@ -350,6 +409,12 @@ var lory = function (slider, opts) {
             transitionEndCallback = function () {
                 translate(slides[index].offsetLeft * -1, 0, null);
             };
+        }
+
+        if (options.infinite) {
+            setCurrentSelector(current() - 1);
+        } else {
+            setCurrentSelector(index);
         }
     };
 
@@ -472,6 +537,8 @@ var lory = function (slider, opts) {
         slideTo: function (index) {
             slide(index);
         },
+
+        current: current,
 
         prev: prev,
 
