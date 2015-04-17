@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+    <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -180,7 +181,7 @@
 
         lory(multiSlides, {
             infinite: 4,
-            slidesToScroll: 4
+            slidesToScroll: 2
         });
     });
 
@@ -230,6 +231,49 @@
     });
 
 </code></pre></div>
+
+            <h2>Center mode</h2>
+
+            <div class="slider js_center center">
+                <div class="frame js_frame">
+                    <ul class="slides js_slides">
+                        <li class="js_slide">1</li>
+                        <li class="js_slide">2</li>
+                        <li class="js_slide">3</li>
+                        <li class="js_slide">4</li>
+                        <li class="js_slide">5</li>
+                        <li class="js_slide">6</li>
+                        <li class="js_slide">7</li>
+                        <li class="js_slide">8</li>
+                        <li class="js_slide">9</li>
+                        <li class="js_slide">10</li>
+                        <li class="js_slide">11</li>
+                        <li class="js_slide">12</li>
+                    </ul>
+                </div>
+
+                <span class="js_prev prev">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z"/></g></svg>
+                </span>
+
+                <span class="js_next next">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z"/></g></svg>
+                </span>
+            </div>
+
+<div class="examplecode"><pre><code class="javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var center = document.querySelector('.js_center');
+
+        lory(center, {
+            infinite: 5,
+            slideSpeed: 1000,
+            centerMode: true
+        });
+    });
+
+</code></pre></div>
+
 
         </section>
 
@@ -363,6 +407,11 @@
                     <td>cubic bezier easing functions: http://easings.net/de</td>
                     <td>default: 'ease'</td>
                 </tr>
+                <tr>
+                    <th>centerMode</th>
+                    <td>enable center view with partial prev/next slides. (use odd number with infinite option, and do not combine with slidesToScroll)</td>
+                    <td>default: false</td>
+                </tr>
             </table>
         </section>
 
@@ -400,12 +449,10 @@
             Copyright &copy; 2015 Maximilian Heinz, contributors. Released under the MIT, GPL licenses
         </footer>
 
-    </body>
-
     <script src="vendor/highlight.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
 
-    <script src="js/lory.min.js"></script>
+    <script src="js/lory.js"></script>
     <script>
         'use strict';
 
@@ -414,6 +461,7 @@
             var variableWidth    = document.querySelector('.js_variablewidth');
             var multiSlides      = document.querySelector('.js_multislides');
             var ease             = document.querySelector('.js_ease');
+            var center           = document.querySelector('.js_center');
 
             lory(simple, {
                 infinite: 1
@@ -425,7 +473,7 @@
 
             lory(multiSlides, {
                 infinite: 4,
-                slidesToScroll: 4
+                slidesToScroll: 2
             });
 
             lory(ease, {
@@ -433,6 +481,12 @@
                 slidesToScroll: 4,
                 slideSpeed: 300,
                 ease: 'cubic-bezier(0.455, 0.03, 0.515, 0.955)'
+            });
+
+            lory(center, {
+                infinite: 5,
+                slideSpeed: 500,
+                centerMode: true
             });
         });
     </script>
