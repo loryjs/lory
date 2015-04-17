@@ -189,11 +189,16 @@ var lory = function (slider, opts) {
     /**
      * set current selector to current slide
      *
-     * @param {number} index
-     * @param {boolean} containClones
+     * @param {number} slideIndex
      */
-    var setCurrentSelector = function (index) {
-        var filtered;
+    var setCurrentSelector = function (slideIndex) {
+        var filtered = slides;
+
+        if (options.infinite) {
+            filtered = Array.prototype.filter.call(slides, function (s) {
+                return !(s.classList.contains(cloneSelector));
+            });
+        }
 
         /**
          * remove currentSelector of slides
@@ -204,15 +209,35 @@ var lory = function (slider, opts) {
 
         /**
          * add selector of current slide
+         * for current slide is (prev clone elements || next clone elements)
          */
-        if (options.infinite) {
-            filtered = Array.prototype.filter.call(slides, function (s) {
-                return !(s.classList.contains(cloneSelector));
-            });
+        if (options.infinite &&
+            index - Math.floor(options.infinite / 2) > filtered.length ||
+            slideIndex < current()) {
+            slides[index + Math.floor(options.infinite / 2)].classList.add(currentSelector);
+            return;
+        }
 
-            filtered[index].classList.add(currentSelector);
-        } else {
-            slides[index].classList.add(currentSelector);
+        /**
+         * add selector of current slide
+         */
+        if (options.centerMode) {
+            filtered[current() - 1].classList.add(currentSelector);
+            return;
+        }
+
+        if (options.infinite && current() !== slideIndex) {
+            slides[slideIndex + options.slidesToScroll + (Math.floor(options.infinite / 2)) - 1].classList.add(currentSelector);
+            return;
+        }
+
+        if (options.infinite) {
+            filtered[slideIndex - 1].classList.add(currentSelector);
+            return;
+        }
+
+        if (!(options.centerMode && options.infinite)) {
+            slides[slideIndex].classList.add(currentSelector);
         }
     };
 
