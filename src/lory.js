@@ -169,11 +169,13 @@ var lory = function (slider, opts) {
 
         front.forEach(function (element) {
             var cloned = element.cloneNode(true);
+            cloned.classList.add(cloneSelector);
             slideContainer.appendChild(cloned);
         });
 
         back.reverse().forEach(function (element) {
             var cloned = element.cloneNode(true);
+            cloned.classList.add(cloneSelector);
             slideContainer.insertBefore(cloned, slideContainer.firstChild);
         });
 
