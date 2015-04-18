@@ -1,12 +1,12 @@
 {
   "name": "lory",
-  "version": "0.4.3",
+  "version": "0.4.6",
   "homepage": "http://meandmax.github.io/lory/",
   "authors": [
     "Maximilian Heinz <info@maximilian-heinz.de>"
   ],
   "description": "Touch enabled minimalistic slider written in vanilla JavaScript.",
-  "main": "dist/lory.min.js",
+  "main": "dist/lory.js",
   "moduleType": [
     "amd",
     "node"

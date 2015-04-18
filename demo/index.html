@@ -297,17 +297,22 @@
 <h2>Use it as a jQuery Plugin</h2>
 
 <div class="examplecode"><pre><code class="html">
-        &lt;script src=&quot;js/lory.jquery.min.js&quot;&gt;&lt;/script&gt;
-
+        &lt;script src=&quot;js/jquery.lory.min.js&quot;&gt;&lt;/script&gt;
 </code></pre></div>
 
 <div class="examplecode"><pre><code class="javascript">
         'use strict';
 
+        var $elements = $('.js_simple');
+
         $(function() {
-            $('.js_simple').lory({
+            $elements.lory({
                 infinite: 1
             });
+
+            $elements.data().lory.slideTo(4);
+            // $elements.data().lory.prev();
+            // $elements.data().lory.next();
         });
 
 </code></pre></div>

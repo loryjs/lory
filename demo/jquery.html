@@ -50,10 +50,16 @@
 <div class="examplecode"><pre><code class="javascript">
         'use strict';
 
+        var $elements = $('.js_simple');
+
         $(function() {
-            $('.js_simple').lory({
+            $elements.lory({
                 infinite: 1
             });
+
+            $elements.data().lory.slideTo(4);
+            // $elements.data().lory.prev();
+            // $elements.data().lory.next();
         });
 
 </code></pre></div>
@@ -64,14 +70,20 @@
     <script>hljs.initHighlightingOnLoad();</script>
 
     <script src="vendor/jquery-2.1.3.min.js"></script>
-    <script src="js/lory.jquery.min.js"></script>
+    <script src="js/jquery.lory.min.js"></script>
     <script>
         'use strict';
 
+        var $elements = $('.js_simple');
+
         $(function() {
-            $('.js_simple').lory({
+            $elements.lory({
                 infinite: 1
             });
+
+            $elements.data().lory.slideTo(4);
+            // $elements.data().lory.prev();
+            // $elements.data().lory.next();
         });
     </script>
 </html>

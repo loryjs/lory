@@ -426,7 +426,7 @@ var lory = function (slider, opts) {
             slideBy = 1;
         }
 
-        if (!nextIndex) {
+        if (typeof nextIndex !== 'number') {
             if (direction) {
                 nextIndex = index + slideBy;
             } else {
@@ -435,6 +435,10 @@ var lory = function (slider, opts) {
         }
 
         nextIndex = limitIndex(nextIndex);
+
+        if (options.infinite && direction === undefined) {
+            nextIndex += options.infinite;
+        }
 
         var nextOffset = limitOffset(slides[nextIndex].offsetLeft * -1);
 
