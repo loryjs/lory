@@ -204,16 +204,16 @@ var lory = function (slider, opts) {
         var filtered = slides;
 
         if (options.infinite) {
-            filtered = Array.prototype.filter.call(slides, function (s) {
-                return !(s.classList.contains(cloneSelector));
+            filtered = Array.prototype.filter.call(slides, function (slideElement) {
+                return !(slideElement.classList.contains(cloneSelector));
             });
         }
 
         /**
          * remove currentSelector of slides
          */
-        Array.prototype.forEach.call(slides, function (s) {
-            s.classList.remove(currentSelector);
+        Array.prototype.forEach.call(slides, function (slideElement) {
+            slideElement.classList.remove(currentSelector);
         });
 
         /**
@@ -337,8 +337,8 @@ var lory = function (slider, opts) {
         var currentIndex = index;
 
         if (options.infinite) {
-            filtered = Array.prototype.filter.call(slides, function (s) {
-                return !(s.classList.contains(cloneSelector));
+            filtered = Array.prototype.filter.call(slides, function (slideElement) {
+                return !(slideElement.classList.contains(cloneSelector));
             });
         }
 
