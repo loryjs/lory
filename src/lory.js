@@ -333,7 +333,7 @@ var lory = function (slider, opts) {
      * current function
      */
     var current = function () {
-        var filtered = slides;
+        var filtered     = slides;
         var currentIndex = index;
 
         if (options.infinite) {
