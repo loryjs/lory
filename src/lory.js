@@ -197,7 +197,7 @@ var lory = function (slider, opts) {
         options.beforeInit();
 
         if (options.centerMode && !options.infinite) {
-            console.warn("You use centerMode option, with specific odd number infinite option required.");
+            console.warn('You use centerMode option, with specific odd number infinite option required.');
         }
 
         position = {
