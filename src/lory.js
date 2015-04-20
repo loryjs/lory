@@ -357,6 +357,7 @@ var lory = function (slider, opts) {
 
         if (options.infinite && direction === undefined) {
             nextIndex += options.infinite;
+            nextIndex = nextIndex - Math.floor(options.infinite / 2);
         }
 
         var nextOffset = limitOffset(slides[nextIndex].offsetLeft * -1);
