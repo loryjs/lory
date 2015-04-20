@@ -57,7 +57,6 @@ var lory = function (slider, opts) {
     var slidesWidth;
     var frameWidth;
     var slides;
-    var slidesOriginal; // required by current function
 
     var index   = 0;
     var options = {};
@@ -205,8 +204,6 @@ var lory = function (slider, opts) {
             y: slideContainer.offsetTop
         };
 
-        slidesOriginal = Array.prototype.slice.call(slideContainer.children);
-
         if (options.infinite) {
             slides = setupInfinite(Array.prototype.slice.call(slideContainer.children));
         } else {
@@ -268,28 +265,6 @@ var lory = function (slider, opts) {
     var next = function () {
         options.beforeNext();
         slide(false, true);
-    };
-
-    /**
-     * public
-     * current function
-     */
-    var current = function () {
-        var currentIndex = index;
-
-        if (currentIndex > slidesOriginal.length) {
-            currentIndex = currentIndex - slidesOriginal.length;
-        }
-
-        if (options.centerMode) {
-            currentIndex = currentIndex - Math.floor(options.infinite / 2);
-        }
-
-        if (options.centerMode && currentIndex <= 0) {
-            currentIndex = slidesOriginal.length + currentIndex;
-        }
-
-        return currentIndex;
     };
 
     /**
@@ -527,8 +502,6 @@ var lory = function (slider, opts) {
         slideTo: function (index) {
             slide(index);
         },
-
-        current: current,
 
         prev: prev,
 
