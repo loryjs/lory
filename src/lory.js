@@ -57,6 +57,7 @@ var lory = function (slider, opts) {
     var slidesWidth;
     var frameWidth;
     var slides;
+    var slidesOriginal; // required by current function
 
     var index   = 0;
     var options = {};
@@ -77,12 +78,6 @@ var lory = function (slider, opts) {
     var slideContainer = frame.querySelector('.js_slides');
     var prevCtrl       = slider.querySelector('.js_prev');
     var nextCtrl       = slider.querySelector('.js_next');
-
-    /**
-     * slider selector names
-     */
-    var cloneSelector = 'js_cloneslide';
-    var currentSelector = 'js_currentslide';
 
     var defaults = {
         /**
@@ -176,13 +171,11 @@ var lory = function (slider, opts) {
 
         front.forEach(function (element) {
             var cloned = element.cloneNode(true);
-            cloned.classList.add(cloneSelector);
             slideContainer.appendChild(cloned);
         });
 
         back.reverse().forEach(function (element) {
             var cloned = element.cloneNode(true);
-            cloned.classList.add(cloneSelector);
             slideContainer.insertBefore(cloned, slideContainer.firstChild);
         });
 
@@ -193,61 +186,6 @@ var lory = function (slider, opts) {
         slideContainer.addEventListener('transitionend', onTransitionEnd);
 
         return Array.prototype.slice.call(slideContainer.children);
-    };
-
-    /**
-     * set current selector to current slide
-     *
-     * @param {number} slideIndex
-     */
-    var setCurrentSelector = function (slideIndex) {
-        var filtered = slides;
-
-        if (options.infinite) {
-            filtered = Array.prototype.filter.call(slides, function (slideElement) {
-                return !(slideElement.classList.contains(cloneSelector));
-            });
-        }
-
-        /**
-         * remove currentSelector of slides
-         */
-        Array.prototype.forEach.call(slides, function (slideElement) {
-            slideElement.classList.remove(currentSelector);
-        });
-
-        /**
-         * add selector of current slide
-         * for current slide is (prev clone elements || next clone elements)
-         */
-        if (options.infinite &&
-            index - Math.floor(options.infinite / 2) > filtered.length ||
-            slideIndex < current()) {
-            slides[index + Math.floor(options.infinite / 2)].classList.add(currentSelector);
-            return;
-        }
-
-        /**
-         * add selector of current slide
-         */
-        if (options.centerMode) {
-            filtered[current() - 1].classList.add(currentSelector);
-            return;
-        }
-
-        if (options.infinite && current() !== slideIndex) {
-            slides[slideIndex + options.slidesToScroll + (Math.floor(options.infinite / 2)) - 1].classList.add(currentSelector);
-            return;
-        }
-
-        if (options.infinite) {
-            filtered[slideIndex - 1].classList.add(currentSelector);
-            return;
-        }
-
-        if (!(options.centerMode && options.infinite)) {
-            slides[slideIndex].classList.add(currentSelector);
-        }
     };
 
     /**
@@ -262,6 +200,8 @@ var lory = function (slider, opts) {
             x: slideContainer.offsetLeft,
             y: slideContainer.offsetTop
         };
+
+        slidesOriginal = Array.prototype.slice.call(slideContainer.children);
 
         if (options.infinite) {
             slides = setupInfinite(Array.prototype.slice.call(slideContainer.children));
@@ -292,17 +232,15 @@ var lory = function (slider, opts) {
 
         index = 0;
 
+        if (options.infinite) {
+            index = index + options.infinite;
+        }
+
         if (options.centerMode) {
             index = index - Math.floor(options.infinite / 2);
         }
 
         if (options.infinite) {
-            index = index + options.infinite;
-        }
-
-        setCurrentSelector(index);
-
-        if (options.centerMode || options.infinite) {
             translate(slides[index].offsetLeft * -1, 0, null);
             position.x = slides[index].offsetLeft * -1;
         } else {
@@ -333,25 +271,18 @@ var lory = function (slider, opts) {
      * current function
      */
     var current = function () {
-        var filtered     = slides;
         var currentIndex = index;
 
-        if (options.infinite) {
-            filtered = Array.prototype.filter.call(slides, function (slideElement) {
-                return !(slideElement.classList.contains(cloneSelector));
-            });
-        }
-
-        if (currentIndex > filtered.length) {
-            currentIndex = currentIndex - filtered.length;
+        if (currentIndex > slidesOriginal.length) {
+            currentIndex = currentIndex - slidesOriginal.length;
         }
 
         if (options.centerMode) {
-            currentIndex = (currentIndex - Math.floor(options.infinite / 2));
+            currentIndex = currentIndex - Math.floor(options.infinite / 2);
         }
 
         if (options.centerMode && currentIndex <= 0) {
-            currentIndex = filtered.length + currentIndex;
+            currentIndex = slidesOriginal.length + currentIndex;
         }
 
         return currentIndex;
@@ -470,8 +401,6 @@ var lory = function (slider, opts) {
                 translate(slides[index].offsetLeft * -1, 0, null);
             };
         }
-
-        setCurrentSelector(index);
     };
 
     var touchOffset;
