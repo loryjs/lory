@@ -196,6 +196,10 @@ var lory = function (slider, opts) {
         options = mergeOptions(opts, defaults);
         options.beforeInit();
 
+        if (options.centerMode && !options.infinite) {
+            console.warn("You use centerMode option, with specific odd number infinite option required.");
+        }
+
         position = {
             x: slideContainer.offsetLeft,
             y: slideContainer.offsetTop
