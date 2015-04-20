@@ -210,10 +210,6 @@ footer {
     margin-right: 10px;
 }
 
-.center .js_currentslide {
-    background: #672F2F;
-}
-
 .simple li:last-child,
 .variablewidth li:last-child,
 .multipleelements li:last-child,
