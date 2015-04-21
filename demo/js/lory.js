@@ -140,6 +140,13 @@ var lory = function (slider, opts) {
          */
         infinite: false,
 
+        /**
+         * enable center view
+         * use odd number with infinite option
+         * @type {Boolean}
+         */
+        centerMode: false,
+
         // available callbacks
 
         beforeInit: function () {
@@ -204,6 +211,10 @@ var lory = function (slider, opts) {
         options = mergeOptions(opts, defaults);
         options.beforeInit();
 
+        if (options.centerMode && !options.infinite) {
+            console.warn('You use centerMode option, with specific odd number infinite option required.');
+        }
+
         position = {
             x: slideContainer.offsetLeft,
             y: slideContainer.offsetTop
@@ -239,9 +250,15 @@ var lory = function (slider, opts) {
         index = 0;
 
         if (options.infinite) {
-            translate(slides[index + options.infinite].offsetLeft * -1, 0, null);
+            index = index + options.infinite;
+        }
 
-            index      = index + options.infinite;
+        if (options.centerMode) {
+            index = index - Math.floor(options.infinite / 2);
+        }
+
+        if (options.infinite) {
+            translate(slides[index].offsetLeft * -1, 0, null);
             position.x = slides[index].offsetLeft * -1;
         } else {
             translate(0, options.rewindSpeed, options.ease);
@@ -313,12 +330,17 @@ var lory = function (slider, opts) {
         var limitIndex  = clamp(0, slides.length - 1);
         var limitOffset = clamp(maxOffset * -1, 0);
         var duration    = options.slideSpeed;
+        var slideBy     = options.slidesToScroll;
+
+        if (options.centerMode) {
+            slideBy = 1;
+        }
 
         if (typeof nextIndex !== 'number') {
             if (direction) {
-                nextIndex = index + options.slidesToScroll;
+                nextIndex = index + slideBy;
             } else {
-                nextIndex = index - options.slidesToScroll;
+                nextIndex = index - slideBy;
             }
         }
 
@@ -326,6 +348,7 @@ var lory = function (slider, opts) {
 
         if (options.infinite && direction === undefined) {
             nextIndex += options.infinite;
+            nextIndex = nextIndex - Math.floor(options.infinite / 2);
         }
 
         var nextOffset = limitOffset(slides[nextIndex].offsetLeft * -1);
@@ -334,6 +357,14 @@ var lory = function (slider, opts) {
             nextOffset = 0;
             nextIndex  = 0;
             duration   = options.rewindSpeed;
+        }
+
+        /**
+         * update the index with the nextIndex only if
+         * the offset of the nextIndex is in the range of the maxOffset
+         */
+        if (slides[nextIndex].offsetLeft <= maxOffset) {
+            index = nextIndex;
         }
 
         /**
@@ -346,15 +377,10 @@ var lory = function (slider, opts) {
          */
         position.x = nextOffset;
 
-        /**
-         * update the index with the nextIndex only if
-         * the offset of the nextIndex is in the range of the maxOffset
-         */
-        if (slides[nextIndex].offsetLeft <= maxOffset) {
-            index = nextIndex;
-        }
+        var hasNext = !(options.infinite && Math.abs(nextOffset) === maxOffset && direction);
+        var hasPrev = !(options.infinite && Math.abs(nextOffset) === 0 && !direction);
 
-        if (options.infinite && Math.abs(nextOffset) === maxOffset && direction) {
+        if (!hasNext) {
             index      = options.infinite;
             position.x = slides[index].offsetLeft * -1;
 
@@ -363,7 +389,7 @@ var lory = function (slider, opts) {
             };
         }
 
-        if (options.infinite && Math.abs(nextOffset) === 0 && !direction) {
+        if (!hasPrev) {
             index      = slides.length - (options.infinite * 2);
             position.x = slides[index].offsetLeft * -1;
 

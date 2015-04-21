@@ -1,4 +1,3 @@
-
 <p align="center">
   <img src="http://maximilian-heinz.de/lory-200.png" />
 </p>
@@ -193,6 +192,11 @@ grunt build
     <tr>
         <td>rewind</td>
         <td>if slider reached the last slide, with next click the slider goes back to the startindex.</td>
+        <td>default: false</td>
+    </tr>
+    <tr>
+        <td>centerMode</td>
+        <td>enable center view with partial prev/next slides. (use odd number with infinite option, and do not combine with slidesToScroll)</td>
         <td>default: false</td>
     </tr>
 </table>

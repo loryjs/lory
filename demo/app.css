@@ -205,11 +205,17 @@ footer {
     margin-right: 10px;
 }
 
+.center li {
+    width: 46px;
+    margin-right: 10px;
+}
+
 .simple li:last-child,
 .variablewidth li:last-child,
 .multipleelements li:last-child,
 .multislides li:last-child,
-.ease li:last-child {
+.ease li:last-child,
+.center li:last-child {
     margin-right: 0;
 }
 
@@ -272,6 +278,11 @@ footer {
         width: 130px;
         margin-right: 20px;
     }
+
+    .center li {
+        width: 100px;
+        margin-right: 20px;
+    }
 }
 
 @media screen and (min-width: 980px ) {
@@ -307,6 +318,11 @@ footer {
 
     .multipleelements li, .multislides li, .ease li {
         width: 205px;
+        margin-right: 20px;
+    }
+
+    .center li {
+        width: 160px;
         margin-right: 20px;
     }
 }
