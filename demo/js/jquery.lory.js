@@ -20,6 +20,42 @@
 'use strict';
 
 /**
+ * Detecting prefixes for saving time and bytes
+ */
+var transform;
+var transition;
+var transitionEnd;
+
+(function () {
+    var style = document.createElement('_').style;
+    var prop;
+
+    if (style[prop = 'webkitTransition'] === '') {
+        transitionEnd = 'webkitTransitionEnd';
+        transition = prop;
+    }
+
+    if (style[prop = 'transition'] === '') {
+        transitionEnd = 'transitionend';
+        transition = prop;
+    }
+
+    if (style[prop = 'webkitTransform'] === '') {
+        transform = prop;
+    }
+
+    if (style[prop = 'msTransform'] === '') {
+        transform = prop;
+    }
+
+    if (style[prop = 'transform'] === '') {
+        transform = prop;
+    }
+}());
+
+var slice = [].slice;
+
+/**
  * Returns a function that limits input values to range [min <= x <= max].
  * Useful for carousels etc without wrapping around (compare `wrap`).
  * Swapping min and max is allowed and will be corrected.
@@ -187,13 +223,9 @@ var lory = function (slider, opts) {
             slideContainer.insertBefore(cloned, slideContainer.firstChild);
         });
 
-        slideContainer.addEventListener('webkitTransitionEnd', onTransitionEnd);
-        slideContainer.addEventListener('msTransitionEnd', onTransitionEnd);
-        slideContainer.addEventListener('oTransitionEnd', onTransitionEnd);
-        slideContainer.addEventListener('otransitionend', onTransitionEnd);
-        slideContainer.addEventListener('transitionend', onTransitionEnd);
+        slideContainer.addEventListener(transitionEnd, onTransitionEnd);
 
-        return Array.prototype.slice.call(slideContainer.children);
+        return slice.call(slideContainer.children);
     };
 
     /**
@@ -210,9 +242,9 @@ var lory = function (slider, opts) {
         };
 
         if (options.infinite) {
-            slides = setupInfinite(Array.prototype.slice.call(slideContainer.children));
+            slides = setupInfinite(slice.call(slideContainer.children));
         } else {
-            slides = Array.prototype.slice.call(slideContainer.children);
+            slides = slice.call(slideContainer.children);
         }
 
         resetSlider();
@@ -276,27 +308,13 @@ var lory = function (slider, opts) {
     var translate = function (to, duration, ease) {
         var style = slideContainer && slideContainer.style;
 
-        if (!style) {
-            return;
+        if (style) {
+            style[transition + 'TimingFunction'] = ease;
+
+            style[transition + 'Duration'] = duration + 'ms';
+
+            style[transform] = 'translateX(' + to + 'px)';
         }
-
-        style.webkitTransitionTimingFunction =
-        style.MozTransitionTimingFunction    =
-        style.msTransitionTimingFunction     =
-        style.OTransitionTimingFunction      =
-        style.transitionTimingFunction       = ease;
-
-        style.webkitTransitionDuration =
-        style.MozTransitionDuration    =
-        style.msTransitionDuration     =
-        style.OTransitionDuration      =
-        style.transitionDuration       = duration + 'ms';
-
-        style.webkitTransform = 'translate3d(' + to + 'px, 0, 0)';
-
-        style.msTransform  =
-        style.MozTransform =
-        style.OTransform   = 'translateX(' + to + 'px)';
     };
 
     /**
