@@ -247,7 +247,7 @@ var lory = function (slider, opts) {
             slides = slice.call(slideContainer.children);
         }
 
-        resetSlider();
+        reset();
 
         if (prevCtrl && nextCtrl) {
             prevCtrl.addEventListener('click', prev);
@@ -262,9 +262,9 @@ var lory = function (slider, opts) {
 
     /**
      * public
-     * resetSlider function: called on resize
+     * reset function: called on resize
      */
-    var resetSlider = function () {
+    var reset = function () {
         slidesWidth = slideContainer.getBoundingClientRect().width || slideContainer.offsetWidth;
         frameWidth  = frame.getBoundingClientRect().width || frame.offsetWidth;
 
@@ -492,24 +492,24 @@ var lory = function (slider, opts) {
 
     var onResize = function () {
         options.beforeResize();
-        resetSlider();
+        reset();
     };
 
     // trigger initial setup
     setup();
 
     return {
-        setup: function () {
-            setup();
-        },
-
-        reset: function () {
-            resetSlider();
-        },
-
         slideTo: function (index) {
             slide(index);
         },
+
+        returnIndex: function () {
+            return index;
+        },
+
+        setup: setup,
+
+        reset: reset,
 
         prev: prev,
 

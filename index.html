@@ -299,6 +299,23 @@
 </code></pre></div>
         </section>
 
+        <section class="tests">
+            <h2>Run tests</h2>
+
+<div class="examplecode"><pre><code class="shell">
+        // To install dev dependencies run:
+
+        npm install
+
+        // To start karma in chrome browser and run tests:
+
+        grunt karma
+
+</code></pre></div>
+
+        <img class="testscreen" src="demo/tests.png" />
+        </section>
+
         <section class="api">
             <h2>Public API</h2>
             <table>
@@ -313,6 +330,10 @@
                 <tr>
                     <th>slideTo:</th>
                     <td>slides to the index given as an argument: (arguments: index {number})</td>
+                </tr>
+                <tr>
+                    <th>returnIndex:</th>
+                    <td>returns the index of the current slide element</td>
                 </tr>
                 <tr>
                     <th>setup:</th>

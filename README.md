@@ -52,6 +52,23 @@ grunt lint
 grunt build
 ```
 
+
+## Run tests
+
+```
+// To install dev dependencies run:
+
+npm install
+
+// To start karma in chrome browser and run tests:
+
+grunt karma
+```
+
+<p align="center">
+  <img src="http://maximilian-heinz.de/tests.png" />
+</p>
+
 ## Prerequisited markup
 
 ```html
@@ -151,6 +168,10 @@ grunt build
     <tr>
         <th>slideTo:</th>
         <td>slides to the index given as an argument: (arguments: index {number})</td>
+    </tr>
+    <tr>
+        <th>returnIndex:</th>
+        <td>returns the index of the current slide element</td>
     </tr>
     <tr>
         <th>setup:</th>

@@ -69,6 +69,13 @@ header {
     padding: 20px 0;
 }
 
+.testscreen {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+
 .description {
     max-width: 400px;
     margin: 0 auto;
@@ -239,6 +246,10 @@ footer {
      */
     .examplecode, .frame {
         width: 580px;
+    }
+
+    .testscreen {
+        width: 500px;
     }
 
     table {

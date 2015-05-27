@@ -168,6 +168,42 @@ module.exports = function (grunt) {
                     publish: true
                 }
             }
+        },
+
+        karma: {
+            all: {
+                options: {
+                    configFile: 'karma.conf.js',
+
+                    frameworks: [
+                        'mocha',
+                        'chai',
+                        'fixture'
+                    ],
+
+                    files: [
+                        'dist/lory.js',
+                        'test/lory.test.js',
+                        'demo/app.css',
+
+                        {
+                            pattern: 'test/*.html'
+                        }
+                    ],
+
+                    plugins: [
+                        'karma-mocha',
+                        'karma-mocha-reporter',
+                        'karma-chai',
+                        'karma-fixture',
+                        'karma-html2js-preprocessor'
+                    ],
+
+                    preprocessors: {
+                        'test/*.html': ['html2js']
+                    }
+                }
+            }
         }
     });
 
