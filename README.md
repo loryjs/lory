@@ -21,7 +21,7 @@ Please visit: <a href="http://meandmax.github.io/lory/" target="_blank">http://m
 ```javascript
 npm install --save lory.js
 
-var lory = require('lory');
+var lory = require('lory.js');
 ```
 
 ## Install with bower
