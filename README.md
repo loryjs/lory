@@ -254,6 +254,7 @@ grunt karma
 * FireFox
 * Opera
 * Internet Explorer 10+
+* Internet Explorer 9 (graceful, without transitions)
 
 ## Copyright
 
