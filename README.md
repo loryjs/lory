@@ -104,6 +104,9 @@ grunt karma
     li {
         position: relative;
         display: inline-block;
+
+        // example width has to specified for the different views (media queries)
+        width: 880px;
     }
 ```
 
