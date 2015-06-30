@@ -311,7 +311,9 @@ var lory = function (slider, opts) {
      * @direction  {boolean}
      */
     var slide = function (nextIndex, direction) {
-        var maxOffset   = (slidesWidth - frameWidth);
+        var maxIndex    = (options.infinite ? slides.length - 1 : slides.length);
+        var maxOffset   = slidesWidth - frameWidth;
+        maxOffset = (maxOffset ? maxOffset : slidesWidth * maxIndex);
         var limitIndex  = clamp(0, slides.length - 1);
         var limitOffset = clamp(maxOffset * -1, 0);
         var duration    = options.slideSpeed;
@@ -332,7 +334,7 @@ var lory = function (slider, opts) {
 
         var nextOffset = limitOffset(slides[nextIndex].offsetLeft * -1);
 
-        if (options.rewind && Math.abs(position.x) === maxOffset && direction) {
+        if (options.rewind && index === nextIndex && direction) {
             nextOffset = 0;
             nextIndex  = 0;
             duration   = options.rewindSpeed;
@@ -352,11 +354,11 @@ var lory = function (slider, opts) {
          * update the index with the nextIndex only if
          * the offset of the nextIndex is in the range of the maxOffset
          */
-        if (slides[nextIndex].offsetLeft <= maxOffset) {
+        if (nextIndex <= maxIndex) {
             index = nextIndex;
         }
 
-        if (options.infinite && Math.abs(nextOffset) === maxOffset && direction) {
+        if (options.infinite && nextIndex === maxIndex && direction) {
             index      = options.infinite;
             position.x = slides[index].offsetLeft * -1;
 
@@ -365,7 +367,7 @@ var lory = function (slider, opts) {
             };
         }
 
-        if (options.infinite && Math.abs(nextOffset) === 0 && !direction) {
+        if (options.infinite && nextIndex === 0 && !direction) {
             index      = slides.length - (options.infinite * 2);
             position.x = slides[index].offsetLeft * -1;
 
