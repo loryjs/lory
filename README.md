@@ -261,4 +261,4 @@ grunt karma
 
 ## Copyright
 
-Copyright &copy; 2015 Maximilian Heinz, contributors. Released under the MIT, GPL licenses
+Copyright &copy; 2015 Maximilian Heinz, contributors. Released under the MIT License
