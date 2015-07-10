@@ -198,6 +198,10 @@ var lory = function (slider, opts) {
             return true;
         },
 
+        afterMove: function () {
+            return true;
+        },
+
         beforeResize: function () {
             return true;
         }
@@ -490,6 +494,7 @@ var lory = function (slider, opts) {
             }
         }
 
+        options.afterMove();
         /**
          * remove eventlisteners after swipe attempt
          */
