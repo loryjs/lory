@@ -104,6 +104,46 @@ var mergeOptions = function (opts, defaultOptions) {
     return options;
 };
 
+/**
+ * Polyfill for creating CustomEvents on IE9/10/11
+ *
+ * code pulled from:
+ * https://github.com/d4tocchini/customevent-polyfill
+ */
+try {
+    new CustomEvent('test');
+} catch(e) {
+    var CustomEvent = function(event, params) {
+          var evt;
+          params = params || {
+              bubbles: false,
+              cancelable: false,
+              detail: undefined
+          };
+          evt = document.createEvent('CustomEvent');
+          evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+          return evt;
+    };
+    CustomEvent.prototype = window.Event.prototype;
+    window.CustomEvent = CustomEvent; // expose definition to window
+}
+
+/**
+ * dispatch custom events
+ *
+ * @param  {element} el         slideshow element
+ * @param  {string}  type       custom event name
+ * @param  {object}  detail     custom detail information
+ */
+function dispatchEvent(el, type, detail) {
+    var e = new CustomEvent(type, {
+        detail: detail,
+        bubbles: true,
+        cancelable: true
+    });
+    el.dispatchEvent(e);
+}
+
 var lory = function (slider, opts) {
     var position;
     var slidesWidth;
@@ -170,41 +210,11 @@ var lory = function (slider, opts) {
         rewind: false,
 
         /**
-         * number of visibile slides or false
+         * number of visible slides or false
          * use infinite or rewind, not both
          * @type {number}
          */
-        infinite: false,
-
-        // available callbacks
-
-        beforeInit: function () {
-            return true;
-        },
-
-        afterInit: function () {
-            return true;
-        },
-
-        beforePrev: function () {
-            return true;
-        },
-
-        beforeNext: function () {
-            return true;
-        },
-
-        beforeMove: function () {
-            return true;
-        },
-
-        afterMove: function () {
-            return true;
-        },
-
-        beforeResize: function () {
-            return true;
-        }
+        infinite: false
     };
 
     /**
@@ -219,13 +229,11 @@ var lory = function (slider, opts) {
 
         front.forEach(function (element) {
             var cloned = element.cloneNode(true);
-
             slideContainer.appendChild(cloned);
         });
 
         back.reverse().forEach(function (element) {
             var cloned = element.cloneNode(true);
-
             slideContainer.insertBefore(cloned, slideContainer.firstChild);
         });
 
@@ -239,9 +247,11 @@ var lory = function (slider, opts) {
      * setup function
      */
     var setup = function () {
+        dispatchEvent(
+            slider,
+            'before.lory.init'
+        );
         options = mergeOptions(opts, defaults);
-
-        options.beforeInit();
 
         position = {
             x: slideContainer.offsetLeft,
@@ -264,7 +274,10 @@ var lory = function (slider, opts) {
         slideContainer.addEventListener('touchstart', onTouchstart);
 
         window.addEventListener('resize', onResize);
-        options.afterInit();
+        dispatchEvent(
+            slider,
+            'after.lory.init'
+        );
     };
 
     /**
@@ -292,7 +305,6 @@ var lory = function (slider, opts) {
      * prev function: called on clickhandler
      */
     var prev = function () {
-        options.beforePrev();
         slide(false, false);
     };
 
@@ -301,7 +313,6 @@ var lory = function (slider, opts) {
      * next function: called on clickhandler
      */
     var next = function () {
-        options.beforeNext();
         slide(false, true);
     };
 
@@ -334,14 +345,18 @@ var lory = function (slider, opts) {
      * @direction  {boolean}
      */
     var slide = function (nextIndex, direction) {
-        var maxIndex    = slides.length - 1;
-        var maxOffset   = Math.round(slidesWidth - frameWidth);
+        dispatchEvent(
+            slider,
+            'before.lory.slide',
+            {
+                'currentSlide': index,
+                'nextSlide': (direction ? index + 1 : index - 1)
+            }
+        );
+        var maxOffset   = (slidesWidth - frameWidth);
         var limitIndex  = clamp(0, slides.length - 1);
-        var duration    = options.slideSpeed;
-
-        maxOffset = Math.round(maxOffset ? maxOffset : slidesWidth * maxIndex);
-
         var limitOffset = clamp(maxOffset * -1, 0);
+        var duration    = options.slideSpeed;
 
         if (typeof nextIndex !== 'number') {
             if (direction) {
@@ -400,6 +415,13 @@ var lory = function (slider, opts) {
                 translate(slides[index].offsetLeft * -1, 0, null);
             };
         }
+        dispatchEvent(
+            slider,
+            'after.lory.slide',
+            {
+                'currentSlide': index
+            }
+        );
     };
 
     var touchOffset;
@@ -414,8 +436,6 @@ var lory = function (slider, opts) {
     };
 
     var onTouchstart = function (event) {
-        options.beforeMove();
-
         var touches = event.touches[0];
 
         touchOffset = {
@@ -446,6 +466,7 @@ var lory = function (slider, opts) {
         }
 
         if (!isScrolling) {
+            dispatchEvent(slider, 'before.lory.slide');
             translate(position.x + delta.x, 0, null);
         }
     };
@@ -494,7 +515,6 @@ var lory = function (slider, opts) {
             }
         }
 
-        options.afterMove();
         /**
          * remove eventlisteners after swipe attempt
          */
@@ -503,7 +523,10 @@ var lory = function (slider, opts) {
     };
 
     var onResize = function () {
-        options.beforeResize();
+        dispatchEvent(
+            slider,
+            'on.lory.resize'
+        );
         reset();
     };
 
