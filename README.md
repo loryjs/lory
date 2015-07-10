@@ -190,63 +190,66 @@ grunt karma
 
 <table>
     <tr>
-        <td>slidesToScroll</td>
+        <th>slidesToScroll</th>
         <td>slides scrolled at once</td>
         <td>default: 1</td>
     </tr>
     <tr>
-        <td>slideSpeed</td>
+        <th>infinite</th>
+        <td>like carousel, works with multiple slides. (do not combine with rewind)</td>
+        <td>default: false (number of visible slides)</td>
+    </tr>
+    <tr>
+        <th>rewind</th>
+        <td>if slider reached the last slide, with next click the slider goes back to the startindex. (do not combine with infinite)</td>
+        <td>default: false</td>
+    </tr>
+    <tr>
+        <th>slideSpeed</th>
         <td>time in milliseconds for the animation of a valid slide attempt</td>
         <td>default: 300</td>
     </tr>
     <tr>
-        <td>rewindSpeed</td>
+        <th>rewindSpeed</th>
         <td>time in milliseconds for the animation of the rewind after the last slide</td>
         <td>default: 600</td>
     </tr>
     <tr>
-        <td>snapBackSpeed</td>
+        <th>snapBackSpeed</th>
         <td>time for the snapBack of the slider if the slide attempt was not valid</td>
         <td>default: 200</td>
     </tr>
     <tr>
-        <td>ease</td>
+        <th>ease</th>
         <td>cubic bezier easing functions: http://easings.net/de</td>
-        <td>default: 'cubic-bezier(0.455, 0.03, 0.515, 0.955)'</td>
-    </tr>
-    <tr>
-        <td>rewind</td>
-        <td>if slider reached the last slide, with next click the slider goes back to the startindex.</td>
-        <td>default: false</td>
+        <td>default: 'ease'</td>
     </tr>
 </table>
 
-## Callbacks
+## Events
 
 <table>
     <tr>
-        <td>beforeInit:</td>
-        <td>executed before initialisation (first in setup function)</td>
+        <th colspan="2">before.lory.init</th>
+        <td>fires before initialisation (first in setup function)</td>
     </tr>
     <tr>
-        <td>afterInit:</td>
-        <td>executed after initialisation (end of setup function)</td>
+        <th colspan="2">after.lory.init</th>
+        <td>fires after initialisation (end of setup function)</td>
     </tr>
     <tr>
-        <td>beforePrev:</td>
-        <td>executed on click of prev controls (prev function)</td>
+        <th>before.lory.slide</th>
+        <td><strong>arguments:</strong> currentSlide, nextSlide</td>
+        <td>fires before slide change</td>
     </tr>
     <tr>
-        <td>beforeNext:</td>
-        <td>executed on click of next controls (next function)</td>
+        <th>after.lory.slide</th>
+        <td><strong>arguments:</strong> currentSlide</td>
+        <td>fires after slide change</td>
     </tr>
     <tr>
-        <td>beforeTouch:</td>
-        <td>executed on touch attempt (touchstart)</td>
-    </tr>
-    <tr>
-        <td>beforeResize:</td>
-        <td>executed on every resize event</td>
+        <th colspan="2">on.lory.resize</th>
+        <td>fires on every resize event</td>
     </tr>
 </table>
 
