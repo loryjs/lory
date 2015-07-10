@@ -198,37 +198,7 @@ var lory = function (slider, opts) {
          * use infinite or rewind, not both
          * @type {number}
          */
-        infinite: false,
-
-        // available callbacks
-
-        beforeInit: function () {
-            return true;
-        },
-
-        afterInit: function () {
-            return true;
-        },
-
-        beforePrev: function () {
-            return true;
-        },
-
-        beforeNext: function () {
-            return true;
-        },
-
-        beforeMove: function () {
-            return true;
-        },
-
-        afterMove: function () {
-            return true;
-        },
-
-        beforeResize: function () {
-            return true;
-        }
+        infinite: false
     };
 
     /**
@@ -265,8 +235,6 @@ var lory = function (slider, opts) {
     var setup = function () {
         options = mergeOptions(opts, defaults);
 
-        options.beforeInit();
-
         position = {
             x: slideContainer.offsetLeft,
             y: slideContainer.offsetTop
@@ -288,7 +256,6 @@ var lory = function (slider, opts) {
         slideContainer.addEventListener('touchstart', onTouchstart);
 
         window.addEventListener('resize', onResize);
-        options.afterInit();
     };
 
     /**
@@ -316,7 +283,6 @@ var lory = function (slider, opts) {
      * prev function: called on clickhandler
      */
     var prev = function () {
-        options.beforePrev();
         slide(false, false);
     };
 
@@ -325,7 +291,6 @@ var lory = function (slider, opts) {
      * next function: called on clickhandler
      */
     var next = function () {
-        options.beforeNext();
         slide(false, true);
     };
 
@@ -438,8 +403,6 @@ var lory = function (slider, opts) {
     };
 
     var onTouchstart = function (event) {
-        options.beforeMove();
-
         var touches = event.touches[0];
 
         touchOffset = {
@@ -518,7 +481,6 @@ var lory = function (slider, opts) {
             }
         }
 
-        options.afterMove();
         /**
          * remove eventlisteners after swipe attempt
          */
@@ -527,7 +489,6 @@ var lory = function (slider, opts) {
     };
 
     var onResize = function () {
-        options.beforeResize();
         reset();
     };
 
