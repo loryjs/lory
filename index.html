@@ -336,6 +336,60 @@
 
 </code></pre></div>
 
+            <h2>Showing events</h2>
+
+            <div class="slider js_events events">
+                <div class="frame js_frame">
+                    <ul class="slides js_slides">
+                        <li class="js_slide">1</li>
+                        <li class="js_slide">2</li>
+                        <li class="js_slide">3</li>
+                        <li class="js_slide">4</li>
+                        <li class="js_slide">5</li>
+                        <li class="js_slide">6</li>
+                    </ul>
+                </div>
+
+                <span class="js_prev prev">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z"/></g></svg>
+                </span>
+
+                <span class="js_next next">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z"/></g></svg>
+                </span>
+            </div>
+            <code class="events_log"></code>
+
+<div class="examplecode"><pre><code class="javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var events = document.querySelector('.js_events');
+
+        function handleEvent(e) {
+            var newSpan = document.createElement('span');
+            var time = new Date();
+            time = time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds() + ',' + time.getMilliseconds();
+            var newContent = document.createTextNode('[' + time + '] Event dispatched: "' + e.type + '"');
+            newSpan.appendChild(newContent);
+            e.target.nextElementSibling.appendChild(newSpan);
+        }
+
+        events.addEventListener('before.lory.init', handleEvent);
+
+        events.addEventListener('after.lory.init', handleEvent);
+
+        events.addEventListener('before.lory.slide', handleEvent);
+
+        events.addEventListener('after.lory.slide', handleEvent);
+
+        events.addEventListener('on.lory.resize', handleEvent);
+
+        lory(events, {
+            infinite: 1
+        });
+    });
+
+</code></pre></div>
+
         </section>
 
 <section class="multiplesliders">
@@ -495,31 +549,29 @@
         </section>
 
         <section class="hooks">
-            <h2>Callbacks</h2>
+            <h2>Events</h2>
             <table>
                 <tr>
-                    <th>beforeInit:</th>
-                    <td>executed before initialisation (first in setup function)</td>
+                    <th>before.lory.init</th>
+                    <td>fires before initialisation (first in setup function)</td>
                 </tr>
                 <tr>
-                    <th>afterInit:</th>
-                    <td>executed after initialisation (end of setup function)</td>
+                    <th>after.lory.init</th>
+                    <td>fires after initialisation (end of setup function)</td>
                 </tr>
                 <tr>
-                    <th>beforePrev:</th>
-                    <td>executed on click of prev controls (prev function)</td>
+                    <th>before.lory.slide</th>
+                    <td><strong>arguments:</strong> currentSlide, nextSlide</td>
+                    <td>fires before slide change</td>
                 </tr>
                 <tr>
-                    <th>beforeNext:</th>
-                    <td>executed on click of next controls (next function)</td>
+                    <th>after.lory.slide</th>
+                    <td><strong>arguments:</strong> currentSlide</td>
+                    <td>fires after slide change</td>
                 </tr>
                 <tr>
-                    <th>beforeTouch:</th>
-                    <td>executed on touch attempt (touchstart)</td>
-                </tr>
-                <tr>
-                    <th>beforeResize:</th>
-                    <td>executed on every resize event</td>
+                    <th>on.lory.resize</th>
+                    <td>fires on every resize event</td>
                 </tr>
             </table>
         </section>
@@ -545,6 +597,7 @@
             var variableWidth    = document.querySelector('.js_variablewidth');
             var multiSlides      = document.querySelector('.js_multislides');
             var ease             = document.querySelector('.js_ease');
+            var events           = document.querySelector('.js_events');
 
             lory(simple, {
                 infinite: 1
@@ -576,6 +629,29 @@
                 slidesToScroll: 4,
                 slideSpeed: 300,
                 ease: 'cubic-bezier(0.455, 0.03, 0.515, 0.955)'
+            });
+
+            function handleEvent(e) {
+                var newSpan = document.createElement('span');
+                var time = new Date();
+                time = time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds() + ',' + time.getMilliseconds();
+                var newContent = document.createTextNode('[' + time + '] Event dispatched: "' + e.type + '"');
+                newSpan.appendChild(newContent);
+                e.target.nextElementSibling.appendChild(newSpan);
+            }
+
+            events.addEventListener('before.lory.init', handleEvent);
+
+            events.addEventListener('after.lory.init', handleEvent);
+
+            events.addEventListener('before.lory.slide', handleEvent);
+
+            events.addEventListener('after.lory.slide', handleEvent);
+
+            events.addEventListener('on.lory.resize', handleEvent);
+
+            lory(events, {
+                infinite: 1
             });
         });
     </script>
