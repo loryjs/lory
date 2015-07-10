@@ -194,7 +194,7 @@ var lory = function (slider, opts) {
         rewind: false,
 
         /**
-         * number of visibile slides or false
+         * number of visible slides or false
          * use infinite or rewind, not both
          * @type {number}
          */
