@@ -112,6 +112,22 @@ try {
     window.CustomEvent = CustomEvent; // expose definition to window
 }
 
+/**
+ * dispatch custom events
+ *
+ * @param  {element} el         slideshow element
+ * @param  {string}  type       custom event name
+ * @param  {object}  detail     custom detail information
+ */
+function dispatchEvent(el, type, detail) {
+    var e = new CustomEvent(type, {
+        detail: detail,
+        bubbles: true,
+        cancelable: true
+    });
+    el.dispatchEvent(e);
+}
+
 var lory = function (slider, opts) {
     var position;
     var slidesWidth;
