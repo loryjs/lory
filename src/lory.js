@@ -233,6 +233,10 @@ var lory = function (slider, opts) {
      * setup function
      */
     var setup = function () {
+        dispatchEvent(
+            slider,
+            'before.lory.init'
+        );
         options = mergeOptions(opts, defaults);
 
         position = {
@@ -256,6 +260,10 @@ var lory = function (slider, opts) {
         slideContainer.addEventListener('touchstart', onTouchstart);
 
         window.addEventListener('resize', onResize);
+        dispatchEvent(
+            slider,
+            'after.lory.init'
+        );
     };
 
     /**
@@ -325,6 +333,14 @@ var lory = function (slider, opts) {
     var slide = function (nextIndex, direction) {
         var maxIndex    = slides.length - 1;
         var maxOffset   = Math.round(slidesWidth - frameWidth);
+        dispatchEvent(
+            slider,
+            'before.lory.slide',
+            {
+                'currentSlide': index,
+                'nextSlide': (direction ? index + 1 : index - 1)
+            }
+        );
         var limitIndex  = clamp(0, slides.length - 1);
         var duration    = options.slideSpeed;
 
@@ -389,6 +405,13 @@ var lory = function (slider, opts) {
                 translate(slides[index].offsetLeft * -1, 0, null);
             };
         }
+        dispatchEvent(
+            slider,
+            'after.lory.slide',
+            {
+                'currentSlide': index
+            }
+        );
     };
 
     var touchOffset;
@@ -433,6 +456,7 @@ var lory = function (slider, opts) {
         }
 
         if (!isScrolling) {
+            dispatchEvent(slider, 'before.lory.slide');
             translate(position.x + delta.x, 0, null);
         }
     };
@@ -489,6 +513,10 @@ var lory = function (slider, opts) {
     };
 
     var onResize = function () {
+        dispatchEvent(
+            slider,
+            'on.lory.resize'
+        );
         reset();
     };
 
