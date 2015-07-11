@@ -196,9 +196,22 @@ footer {
     display: inline-block;
 }
 
-.simple li {
+.simple li,
+.rewind li {
     width: 270px;
     margin-right: 10px;
+}
+
+.percentage .slides {
+    display: block;
+}
+
+.percentage .frame {
+    width: 87.452%;
+}
+
+.percentage li {
+    width: 100%;
 }
 
 .variablewidth li {
@@ -213,6 +226,7 @@ footer {
 }
 
 .simple li:last-child,
+.rewind li:last-child,
 .variablewidth li:last-child,
 .multipleelements li:last-child,
 .multislides li:last-child,
@@ -270,7 +284,8 @@ footer {
         margin: 0 auto 20px;
     }
 
-    .simple li {
+    .simple li,
+    .rewind li {
         width: 580px;
     }
 
@@ -307,7 +322,8 @@ footer {
         width: 880px;
     }
 
-    .simple li {
+    .simple li,
+    .rewind li {
         width: 880px;
     }
 

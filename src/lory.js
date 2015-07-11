@@ -311,7 +311,9 @@ var lory = function (slider, opts) {
      * @direction  {boolean}
      */
     var slide = function (nextIndex, direction) {
-        var maxOffset   = (slidesWidth - frameWidth);
+        var maxIndex    = slides.length - 1;
+        var maxOffset   = Math.round(slidesWidth - frameWidth);
+        maxOffset = Math.round(maxOffset ? maxOffset : slidesWidth * maxIndex);
         var limitIndex  = clamp(0, slides.length - 1);
         var limitOffset = clamp(maxOffset * -1, 0);
         var duration    = options.slideSpeed;
@@ -331,7 +333,6 @@ var lory = function (slider, opts) {
         }
 
         var nextOffset = limitOffset(slides[nextIndex].offsetLeft * -1);
-
         if (options.rewind && Math.abs(position.x) === maxOffset && direction) {
             nextOffset = 0;
             nextIndex  = 0;
