@@ -215,11 +215,13 @@ var lory = function (slider, opts) {
 
         front.forEach(function (element) {
             var cloned = element.cloneNode(true);
+
             slideContainer.appendChild(cloned);
         });
 
         back.reverse().forEach(function (element) {
             var cloned = element.cloneNode(true);
+
             slideContainer.insertBefore(cloned, slideContainer.firstChild);
         });
 
@@ -234,6 +236,7 @@ var lory = function (slider, opts) {
      */
     var setup = function () {
         options = mergeOptions(opts, defaults);
+
         options.beforeInit();
 
         position = {
@@ -329,10 +332,12 @@ var lory = function (slider, opts) {
     var slide = function (nextIndex, direction) {
         var maxIndex    = slides.length - 1;
         var maxOffset   = Math.round(slidesWidth - frameWidth);
-        maxOffset = Math.round(maxOffset ? maxOffset : slidesWidth * maxIndex);
         var limitIndex  = clamp(0, slides.length - 1);
-        var limitOffset = clamp(maxOffset * -1, 0);
         var duration    = options.slideSpeed;
+
+        maxOffset = Math.round(maxOffset ? maxOffset : slidesWidth * maxIndex);
+
+        var limitOffset = clamp(maxOffset * -1, 0);
 
         if (typeof nextIndex !== 'number') {
             if (direction) {
@@ -349,6 +354,7 @@ var lory = function (slider, opts) {
         }
 
         var nextOffset = limitOffset(slides[nextIndex].offsetLeft * -1);
+
         if (options.rewind && Math.abs(position.x) === maxOffset && direction) {
             nextOffset = 0;
             nextIndex  = 0;
