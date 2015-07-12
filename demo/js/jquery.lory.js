@@ -117,17 +117,21 @@ try {
 } catch (e) {
     var CustomEvent = function (event, params) {
         var evt;
+
         params = params || {
             bubbles: false,
             cancelable: false,
             detail: undefined
         };
+
         evt = document.createEvent('CustomEvent');
         evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+
         return evt;
     };
+
     CustomEvent.prototype = window.Event.prototype;
-    window.CustomEvent = CustomEvent; // expose definition to window
+    window.CustomEvent    = CustomEvent; // expose definition to window
 }
 
 /**
@@ -143,6 +147,7 @@ function dispatchEvent(el, type, detail) {
         bubbles: true,
         cancelable: true
     });
+
     el.dispatchEvent(e);
 }
 
@@ -152,7 +157,7 @@ var lory = function (slider, opts) {
     var frameWidth;
     var slides;
 
-    var index = 0;
+    var index   = 0;
     var options = {};
 
     var transitionEndCallback;
@@ -167,10 +172,10 @@ var lory = function (slider, opts) {
     /**
      * slider DOM elements
      */
-    var frame = slider.querySelector('.js_frame');
+    var frame          = slider.querySelector('.js_frame');
     var slideContainer = frame.querySelector('.js_slides');
-    var prevCtrl = slider.querySelector('.js_prev');
-    var nextCtrl = slider.querySelector('.js_next');
+    var prevCtrl       = slider.querySelector('.js_prev');
+    var nextCtrl       = slider.querySelector('.js_next');
 
     var defaults = {
         /**
@@ -227,16 +232,18 @@ var lory = function (slider, opts) {
      */
     var setupInfinite = function (slideArray) {
         var front = slideArray.slice(0, options.infinite);
-        var back = slideArray.slice(slideArray.length - options.infinite, slideArray.length);
+        var back  = slideArray.slice(slideArray.length - options.infinite, slideArray.length);
 
         front.forEach(function (element) {
             var cloned = element.cloneNode(true);
+
             slideContainer.appendChild(cloned);
         });
 
         back.reverse()
             .forEach(function (element) {
                 var cloned = element.cloneNode(true);
+
                 slideContainer.insertBefore(cloned, slideContainer.firstChild);
             });
 
@@ -254,6 +261,7 @@ var lory = function (slider, opts) {
             slider,
             'before.lory.init'
         );
+
         options = mergeOptions(opts, defaults);
 
         position = {
@@ -277,6 +285,7 @@ var lory = function (slider, opts) {
         slideContainer.addEventListener('touchstart', onTouchstart);
 
         window.addEventListener('resize', onResize);
+
         dispatchEvent(
             slider,
             'after.lory.init'
@@ -298,7 +307,7 @@ var lory = function (slider, opts) {
         if (options.infinite) {
             translate(slides[index + options.infinite].offsetLeft * -1, 0, null);
 
-            index = index + options.infinite;
+            index      = index + options.infinite;
             position.x = slides[index].offsetLeft * -1;
         } else {
             translate(0, options.rewindSpeed, options.ease);
@@ -357,10 +366,15 @@ var lory = function (slider, opts) {
                 nextSlide: (direction ? index + 1 : index - 1)
             }
         );
-        var maxOffset = (slidesWidth - frameWidth);
-        var limitIndex = clamp(0, slides.length - 1);
+
+        var maxIndex    = slides.length - 1;
+        var maxOffset   = Math.round(slidesWidth - frameWidth);
+        var limitIndex  = clamp(0, slides.length - 1);
+        var duration    = options.slideSpeed;
+
+        maxOffset = Math.round(maxOffset ? maxOffset : slidesWidth * maxIndex);
+
         var limitOffset = clamp(maxOffset * -1, 0);
-        var duration = options.slideSpeed;
 
         if (typeof nextIndex !== 'number') {
             if (direction) {
@@ -380,8 +394,8 @@ var lory = function (slider, opts) {
 
         if (options.rewind && Math.abs(position.x) === maxOffset && direction) {
             nextOffset = 0;
-            nextIndex = 0;
-            duration = options.rewindSpeed;
+            nextIndex  = 0;
+            duration   = options.rewindSpeed;
         }
 
         /**
@@ -403,7 +417,7 @@ var lory = function (slider, opts) {
         }
 
         if (options.infinite && Math.abs(nextOffset) === maxOffset && direction) {
-            index = options.infinite;
+            index      = options.infinite;
             position.x = slides[index].offsetLeft * -1;
 
             transitionEndCallback = function () {
@@ -412,13 +426,14 @@ var lory = function (slider, opts) {
         }
 
         if (options.infinite && Math.abs(nextOffset) === 0 && !direction) {
-            index = slides.length - (options.infinite * 2);
+            index      = slides.length - (options.infinite * 2);
             position.x = slides[index].offsetLeft * -1;
 
             transitionEndCallback = function () {
                 translate(slides[index].offsetLeft * -1, 0, null);
             };
         }
+
         dispatchEvent(
             slider,
             'after.lory.slide', {
@@ -434,6 +449,7 @@ var lory = function (slider, opts) {
     var onTransitionEnd = function () {
         if (transitionEndCallback) {
             transitionEndCallback();
+
             transitionEndCallback = undefined;
         }
     };
