@@ -11,7 +11,8 @@ var transition;
 var transitionEnd;
 
 (function () {
-    var style = document.createElement('_').style;
+    var style = document.createElement('_')
+        .style;
     var prop;
 
     if (style[prop = 'webkitTransition'] === '') {
@@ -77,16 +78,57 @@ var clamp = function (min, max) {
 var mergeOptions = function (opts, defaultOptions) {
     var options = {};
 
-    Object.keys(defaultOptions).map(function (key) {
-        if (opts && opts.hasOwnProperty(key)) {
-            options[key] = opts[key];
-        } else {
-            options[key] = defaultOptions[key];
-        }
-    });
+    Object.keys(defaultOptions)
+        .map(function (key) {
+            if (opts && opts.hasOwnProperty(key)) {
+                options[key] = opts[key];
+            } else {
+                options[key] = defaultOptions[key];
+            }
+        });
 
     return options;
 };
+
+/**
+ * Polyfill for creating CustomEvents on IE9/10/11
+ *
+ * code pulled from:
+ * https://github.com/d4tocchini/customevent-polyfill
+ */
+try {
+    new CustomEvent('test'); // jshint ignore:line
+} catch (e) {
+    var CustomEvent = function (event, params) {
+        var evt;
+        params = params || {
+            bubbles: false,
+            cancelable: false,
+            detail: undefined
+        };
+        evt = document.createEvent('CustomEvent');
+        evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+        return evt;
+    };
+    CustomEvent.prototype = window.Event.prototype;
+    window.CustomEvent = CustomEvent; // expose definition to window
+}
+
+/**
+ * dispatch custom events
+ *
+ * @param  {element} el         slideshow element
+ * @param  {string}  type       custom event name
+ * @param  {object}  detail     custom detail information
+ */
+function dispatchEvent(el, type, detail) {
+    var e = new CustomEvent(type, {
+        detail: detail,
+        bubbles: true,
+        cancelable: true
+    });
+    el.dispatchEvent(e);
+}
 
 var lory = function (slider, opts) {
     var position;
@@ -94,7 +136,7 @@ var lory = function (slider, opts) {
     var frameWidth;
     var slides;
 
-    var index   = 0;
+    var index = 0;
     var options = {};
 
     var transitionEndCallback;
@@ -109,10 +151,10 @@ var lory = function (slider, opts) {
     /**
      * slider DOM elements
      */
-    var frame          = slider.querySelector('.js_frame');
+    var frame = slider.querySelector('.js_frame');
     var slideContainer = frame.querySelector('.js_slides');
-    var prevCtrl       = slider.querySelector('.js_prev');
-    var nextCtrl       = slider.querySelector('.js_next');
+    var prevCtrl = slider.querySelector('.js_prev');
+    var nextCtrl = slider.querySelector('.js_next');
 
     var defaults = {
         /**
@@ -154,37 +196,11 @@ var lory = function (slider, opts) {
         rewind: false,
 
         /**
-         * number of visibile slides or false
+         * number of visible slides or false
          * use infinite or rewind, not both
          * @type {number}
          */
-        infinite: false,
-
-        // available callbacks
-
-        beforeInit: function () {
-            return true;
-        },
-
-        afterInit: function () {
-            return true;
-        },
-
-        beforePrev: function () {
-            return true;
-        },
-
-        beforeNext: function () {
-            return true;
-        },
-
-        beforeMove: function () {
-            return true;
-        },
-
-        beforeResize: function () {
-            return true;
-        }
+        infinite: false
     };
 
     /**
@@ -195,7 +211,7 @@ var lory = function (slider, opts) {
      */
     var setupInfinite = function (slideArray) {
         var front = slideArray.slice(0, options.infinite);
-        var back  = slideArray.slice(slideArray.length - options.infinite, slideArray.length);
+        var back = slideArray.slice(slideArray.length - options.infinite, slideArray.length);
 
         front.forEach(function (element) {
             var cloned = element.cloneNode(true);
@@ -203,11 +219,11 @@ var lory = function (slider, opts) {
             slideContainer.appendChild(cloned);
         });
 
-        back.reverse().forEach(function (element) {
-            var cloned = element.cloneNode(true);
-
-            slideContainer.insertBefore(cloned, slideContainer.firstChild);
-        });
+        back.reverse()
+            .forEach(function (element) {
+                var cloned = element.cloneNode(true);
+                slideContainer.insertBefore(cloned, slideContainer.firstChild);
+            });
 
         slideContainer.addEventListener(transitionEnd, onTransitionEnd);
 
@@ -219,9 +235,11 @@ var lory = function (slider, opts) {
      * setup function
      */
     var setup = function () {
+        dispatchEvent(
+            slider,
+            'before.lory.init'
+        );
         options = mergeOptions(opts, defaults);
-
-        options.beforeInit();
 
         position = {
             x: slideContainer.offsetLeft,
@@ -244,7 +262,10 @@ var lory = function (slider, opts) {
         slideContainer.addEventListener('touchstart', onTouchstart);
 
         window.addEventListener('resize', onResize);
-        options.afterInit();
+        dispatchEvent(
+            slider,
+            'after.lory.init'
+        );
     };
 
     /**
@@ -252,15 +273,17 @@ var lory = function (slider, opts) {
      * reset function: called on resize
      */
     var reset = function () {
-        slidesWidth = slideContainer.getBoundingClientRect().width || slideContainer.offsetWidth;
-        frameWidth  = frame.getBoundingClientRect().width || frame.offsetWidth;
+        slidesWidth = slideContainer.getBoundingClientRect()
+            .width || slideContainer.offsetWidth;
+        frameWidth = frame.getBoundingClientRect()
+            .width || frame.offsetWidth;
 
         index = 0;
 
         if (options.infinite) {
             translate(slides[index + options.infinite].offsetLeft * -1, 0, null);
 
-            index      = index + options.infinite;
+            index = index + options.infinite;
             position.x = slides[index].offsetLeft * -1;
         } else {
             translate(0, options.rewindSpeed, options.ease);
@@ -272,7 +295,6 @@ var lory = function (slider, opts) {
      * prev function: called on clickhandler
      */
     var prev = function () {
-        options.beforePrev();
         slide(false, false);
     };
 
@@ -281,7 +303,6 @@ var lory = function (slider, opts) {
      * next function: called on clickhandler
      */
     var next = function () {
-        options.beforeNext();
         slide(false, true);
     };
 
@@ -314,14 +335,19 @@ var lory = function (slider, opts) {
      * @direction  {boolean}
      */
     var slide = function (nextIndex, direction) {
+        dispatchEvent(
+            slider,
+            'before.lory.slide', {
+                currentSlide: index,
+                nextSlide: (direction ? index + 1 : index - 1)
+            }
+        );
         var maxIndex    = slides.length - 1;
         var maxOffset   = Math.round(slidesWidth - frameWidth);
-        var limitIndex  = clamp(0, slides.length - 1);
-        var duration    = options.slideSpeed;
-
         maxOffset = Math.round(maxOffset ? maxOffset : slidesWidth * maxIndex);
-
+        var limitIndex  = clamp(0, slides.length - 1);
         var limitOffset = clamp(maxOffset * -1, 0);
+        var duration    = options.slideSpeed;
 
         if (typeof nextIndex !== 'number') {
             if (direction) {
@@ -341,8 +367,8 @@ var lory = function (slider, opts) {
 
         if (options.rewind && Math.abs(position.x) === maxOffset && direction) {
             nextOffset = 0;
-            nextIndex  = 0;
-            duration   = options.rewindSpeed;
+            nextIndex = 0;
+            duration = options.rewindSpeed;
         }
 
         /**
@@ -364,7 +390,7 @@ var lory = function (slider, opts) {
         }
 
         if (options.infinite && Math.abs(nextOffset) === maxOffset && direction) {
-            index      = options.infinite;
+            index = options.infinite;
             position.x = slides[index].offsetLeft * -1;
 
             transitionEndCallback = function () {
@@ -373,13 +399,19 @@ var lory = function (slider, opts) {
         }
 
         if (options.infinite && Math.abs(nextOffset) === 0 && !direction) {
-            index      = slides.length - (options.infinite * 2);
+            index = slides.length - (options.infinite * 2);
             position.x = slides[index].offsetLeft * -1;
 
             transitionEndCallback = function () {
                 translate(slides[index].offsetLeft * -1, 0, null);
             };
         }
+        dispatchEvent(
+            slider,
+            'after.lory.slide', {
+                currentSlide: index
+            }
+        );
     };
 
     var touchOffset;
@@ -394,8 +426,6 @@ var lory = function (slider, opts) {
     };
 
     var onTouchstart = function (event) {
-        options.beforeMove();
-
         var touches = event.touches[0];
 
         touchOffset = {
@@ -426,6 +456,7 @@ var lory = function (slider, opts) {
         }
 
         if (!isScrolling) {
+            dispatchEvent(slider, 'before.lory.slide');
             translate(position.x + delta.x, 0, null);
         }
     };
@@ -482,7 +513,10 @@ var lory = function (slider, opts) {
     };
 
     var onResize = function () {
-        options.beforeResize();
+        dispatchEvent(
+            slider,
+            'on.lory.resize'
+        );
         reset();
     };
 
