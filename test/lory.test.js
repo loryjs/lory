@@ -169,3 +169,23 @@ describe('.prev()', function () {
         assert.equal(instance.returnIndex(), 0);
     });
 });
+
+describe('.destory()', function () {
+    var instance;
+    var element;
+
+    before(function () {
+        fixture.setBase('test');
+    });
+
+    beforeEach(function () {
+        this.result = fixture.load('test.html');
+
+        element  = fixture.el.querySelector('.js_simple');
+        instance = lory(element);
+    });
+
+    it('has to be a function', function () {
+        assert.typeOf(instance.destroy, 'function');
+    });
+});
