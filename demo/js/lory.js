@@ -549,6 +549,47 @@ var lory = function (slider, opts) {
         reset();
     };
 
+    /**
+     * public
+     * destroy function: called to gracefully destroy the lory instance
+     */
+    var destroy = function () {
+        dispatchEvent(
+            slider,
+            'on.lory.destroy'
+        );
+
+        // remove event listeners
+        slideContainer.removeEventListener(transitionEnd, onTransitionEnd);
+        slideContainer.removeEventListener('touchstart', onTouchstart);
+        window.removeEventListener('resize', onResize);
+
+        if (prevCtrl) {
+            prevCtrl.removeEventListener('click', prev);
+        }
+
+        if (nextCtrl) {
+            nextCtrl.removeEventListener('click', next);
+        }
+
+        // release pointers
+        position = null;
+        slidesWidth = null;
+        frameWidth = null;
+        index = null;
+        options = null;
+        slides = null;
+        transitionEndCallback = null;
+
+        slider = null;
+        frame = null;
+        slideContainer = null;
+        prevCtrl = null;
+        nextCtrl = null;
+
+        return null;
+    };
+
     // trigger initial setup
     setup();
 
@@ -567,7 +608,9 @@ var lory = function (slider, opts) {
 
         prev: prev,
 
-        next: next
+        next: next,
+
+        destroy: destroy
     };
 };
 
