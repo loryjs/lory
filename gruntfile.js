@@ -218,6 +218,8 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('build-dev', [
+        'jscs',
+        'jshint',
         'copy:dist',
         'concat',
         'umd',
