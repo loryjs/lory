@@ -184,6 +184,10 @@ grunt karma
         <th>reset:</th>
         <td>sets the slider back to the starting position and resets the current index (called on Resize event)</td>
     </tr>
+    <tr>
+        <th>destroy:</th>
+        <td>destroys the lory instance by removing all lory specific event listeners and references to the the DOM elements</td>
+    </tr>
 </table>
 
 ## Options
@@ -250,6 +254,10 @@ grunt karma
     <tr>
         <th colspan="2">on.lory.resize</th>
         <td>fires on every resize event</td>
+    </tr>
+    <tr>
+        <th colspan="2">on.lory.destroy</th>
+        <td>fires when the slider instance gets destroyed</td>
     </tr>
 </table>
 
