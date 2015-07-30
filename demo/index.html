@@ -497,12 +497,16 @@
                 </tr>
                 <tr>
                     <th>setup:</th>
-                    <td>Binds eventlisteners, merging default and user options, setup the slides based on DOM (called once during initialisation)</td>
+                    <td>binds eventlisteners, merging default and user options, setup the slides based on DOM (called once during initialisation)</td>
                     <td>Call setup if DOM or user options have changed or eventlisteners needs to be rebinded.</td>
                 </tr>
                 <tr>
                     <th>reset:</th>
                     <td>sets the slider back to the starting position and resets the current index (called on Resize event)</td>
+                </tr>
+                <tr>
+                    <th>destroy:</th>
+                    <td>unmount/destroy the instance of lory</td>
                 </tr>
             </table>
         </section>
@@ -572,6 +576,10 @@
                 <tr>
                     <th>on.lory.resize</th>
                     <td>fires on every resize event</td>
+                </tr>
+                <tr>
+                    <th>on.lory.destroy</th>
+                    <td>fires when the slider instance gets destroyed</td>
                 </tr>
             </table>
         </section>

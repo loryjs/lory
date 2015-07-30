@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="http://maximilian-heinz.de/lory-200.png" />
+  <img src="./demo/lory.png" width="200px" />
 </p>
 
 Please visit: <a href="http://meandmax.github.io/lory/" target="_blank">http://meandmax.github.io/lory/</a>
