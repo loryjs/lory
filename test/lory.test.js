@@ -170,7 +170,7 @@ describe('.prev()', function () {
     });
 });
 
-describe('.destory()', function () {
+describe('.destroy()', function () {
     var instance;
     var element;
 

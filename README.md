@@ -256,7 +256,7 @@ grunt karma
         <td>fires on every resize event</td>
     </tr>
     <tr>
-        <th colspan="2">on.lory.destory</th>
+        <th colspan="2">on.lory.destroy</th>
         <td>fires when the slider instance gets destroyed</td>
     </tr>
 </table>
