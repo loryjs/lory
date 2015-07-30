@@ -557,19 +557,18 @@ var lory = function (slider, opts) {
         }
 
         // release pointers
-        position = null;
-        slidesWidth = null;
-        frameWidth = null;
-        index = null;
-        options = null;
-        slides = null;
+        position              = null;
+        slidesWidth           = null;
+        frameWidth            = null;
+        index                 = null;
+        options               = null;
+        slides                = null;
         transitionEndCallback = null;
-
-        slider = null;
-        frame = null;
-        slideContainer = null;
-        prevCtrl = null;
-        nextCtrl = null;
+        slider                = null;
+        frame                 = null;
+        slideContainer        = null;
+        prevCtrl              = null;
+        nextCtrl              = null;
 
         return null;
     };
