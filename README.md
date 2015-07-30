@@ -66,7 +66,7 @@ grunt karma
 ```
 
 <p align="center">
-  <img src="http://maximilian-heinz.de/tests.png" />
+  <img src="./demo/tests.png" />
 </p>
 
 ## Prerequisited markup
