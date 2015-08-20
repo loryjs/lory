@@ -156,10 +156,10 @@ var lory = function (slider, opts) {
     /**
      * slider DOM elements
      */
-    var frame          = slider.querySelector('.js_frame');
-    var slideContainer = frame.querySelector('.js_slides');
-    var prevCtrl       = slider.querySelector('.js_prev');
-    var nextCtrl       = slider.querySelector('.js_next');
+    var frame;
+    var slideContainer;
+    var prevCtrl;
+    var nextCtrl;
 
     var defaults = {
         /**
