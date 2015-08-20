@@ -205,7 +205,31 @@ var lory = function (slider, opts) {
          * use infinite or rewind, not both
          * @type {number}
          */
-        infinite: false
+        infinite: false,
+
+        /**
+         * class name for slider frame
+         * @classNameFrame {string}
+         */
+        classNameFrame: 'js_frame',
+
+        /**
+         * class name for slides container
+         * @classNameSlideContainer {string}
+         */
+        classNameSlideContainer: 'js_slides',
+
+        /**
+        * class name for slider prev control
+         * @classNamePrevCtrl {string}
+         */
+        classNamePrevCtrl: 'js_prev',
+
+        /**
+        * class name for slider next control
+         * @classNameNextCtrl {string}
+         */
+        classNameNextCtrl: 'js_next'
     };
 
     /**
