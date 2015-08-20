@@ -172,10 +172,10 @@ var lory = function (slider, opts) {
     /**
      * slider DOM elements
      */
-    var frame          = slider.querySelector('.js_frame');
-    var slideContainer = frame.querySelector('.js_slides');
-    var prevCtrl       = slider.querySelector('.js_prev');
-    var nextCtrl       = slider.querySelector('.js_next');
+    var frame;
+    var slideContainer;
+    var prevCtrl;
+    var nextCtrl;
 
     var defaults = {
         /**
@@ -219,9 +219,33 @@ var lory = function (slider, opts) {
         /**
          * number of visible slides or false
          * use infinite or rewind, not both
-         * @type {number}
+         * @infinite {number}
          */
-        infinite: false
+        infinite: false,
+
+        /**
+         * class name for slider frame
+         * @classNameFrame {string}
+         */
+        classNameFrame: 'js_frame',
+
+        /**
+         * class name for slides container
+         * @classNameSlideContainer {string}
+         */
+        classNameSlideContainer: 'js_slides',
+
+        /**
+        * class name for slider prev control
+         * @classNamePrevCtrl {string}
+         */
+        classNamePrevCtrl: 'js_prev',
+
+        /**
+        * class name for slider next control
+         * @classNameNextCtrl {string}
+         */
+        classNameNextCtrl: 'js_next'
     };
 
     /**
@@ -263,6 +287,11 @@ var lory = function (slider, opts) {
         );
 
         options = mergeOptions(opts, defaults);
+
+        frame          = slider.getElementsByClassName(options.classNameFrame)[0];
+        slideContainer = frame.getElementsByClassName(options.classNameSlideContainer)[0];
+        prevCtrl       = slider.getElementsByClassName(options.classNamePrevCtrl)[0];
+        nextCtrl       = slider.getElementsByClassName(options.classNameNextCtrl)[0];
 
         position = {
             x: slideContainer.offsetLeft,
