@@ -272,6 +272,11 @@ var lory = function (slider, opts) {
 
         options = mergeOptions(opts, defaults);
 
+        frame          = slider.getElementsByClassName(options.classNameFrame)[0];
+        slideContainer = frame.getElementsByClassName(options.classNameSlideContainer)[0];
+        prevCtrl       = slider.getElementsByClassName(options.classNamePrevCtrl)[0];
+        nextCtrl       = slider.getElementsByClassName(options.classNameNextCtrl)[0];
+
         position = {
             x: slideContainer.offsetLeft,
             y: slideContainer.offsetTop
