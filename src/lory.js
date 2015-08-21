@@ -326,10 +326,8 @@ var lory = function (slider, opts) {
 
         if (style) {
             style[transition + 'TimingFunction'] = ease;
-
             style[transition + 'Duration'] = duration + 'ms';
-
-            style[transform] = 'translateX(' + to + 'px)';
+            style[transform] = 'translate3d(' + to + 'px, 0, 0)';
         }
     };
 
