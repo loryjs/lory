@@ -13,6 +13,7 @@ var transitionEnd;
 (function () {
     var style = document.createElement('_')
         .style;
+
     var prop;
 
     if (style[prop = 'webkitTransition'] === '') {
@@ -59,6 +60,7 @@ var clamp = function (min, max) {
     // Swap min and max if required
     if (min > max) {
         var tmp = min;
+
         min = max;
         max = tmp;
     }
@@ -596,18 +598,18 @@ var lory = function (slider, opts) {
         }
 
         // release pointers
-        position              = null;
-        slidesWidth           = null;
-        frameWidth            = null;
-        index                 = null;
-        options               = null;
-        slides                = null;
-        transitionEndCallback = null;
-        slider                = null;
-        frame                 = null;
-        slideContainer        = null;
-        prevCtrl              = null;
-        nextCtrl              = null;
+        position              = undefined;
+        slidesWidth           = undefined;
+        frameWidth            = undefined;
+        index                 = undefined;
+        options               = undefined;
+        slides                = undefined;
+        transitionEndCallback = undefined;
+        slider                = undefined;
+        frame                 = undefined;
+        slideContainer        = undefined;
+        prevCtrl              = undefined;
+        nextCtrl              = undefined;
 
         return null;
     };
