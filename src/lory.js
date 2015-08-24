@@ -286,6 +286,12 @@ var lory = function (slider, opts) {
         frameWidth = frame.getBoundingClientRect()
             .width || frame.offsetWidth;
 
+        if (frameWidth === slidesWidth) {
+            slidesWidth = slides.reduce(function (previousValue, slide) {
+                return previousValue + slide.getBoundingClientRect().width || slide.offsetWidth;
+            }, 0);
+        }
+
         index = 0;
 
         if (options.infinite) {
@@ -351,13 +357,9 @@ var lory = function (slider, opts) {
             }
         );
 
-        var maxIndex    = slides.length - 1;
         var maxOffset   = Math.round(slidesWidth - frameWidth);
         var limitIndex  = clamp(0, slides.length - 1);
         var duration    = options.slideSpeed;
-
-        maxOffset = Math.round(maxOffset ? maxOffset : slidesWidth * maxIndex);
-
         var limitOffset = clamp(maxOffset * -1, 0);
 
         if (typeof nextIndex !== 'number') {
