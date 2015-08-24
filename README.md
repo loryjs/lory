@@ -276,6 +276,14 @@ grunt karma
         <td>fires on every resize event</td>
     </tr>
     <tr>
+        <th colspan="2">on.lory.touchstart</th>
+        <td>fires on every slider touchstart event</td>
+    </tr>
+    <tr>
+        <th colspan="2">on.lory.touchend</th>
+        <td>fires on every slider touchend event</td>
+    </tr>
+    <tr>
         <th colspan="2">on.lory.destroy</th>
         <td>fires when the slider instance gets destroyed</td>
     </tr>
