@@ -350,7 +350,7 @@ var lory = function (slider, opts) {
     };
 
     /**
-     * translates to a given position in a in a given time in milliseconds
+     * translates to a given position in a given time in milliseconds
      *
      * @to        {number} number in pixels where to translate to
      * @duration  {number} time in milliseconds for the transistion
@@ -361,10 +361,8 @@ var lory = function (slider, opts) {
 
         if (style) {
             style[transition + 'TimingFunction'] = ease;
-
             style[transition + 'Duration'] = duration + 'ms';
-
-            style[transform] = 'translateX(' + to + 'px)';
+            style[transform] = 'translate3d(' + to + 'px, 0, 0)';
         }
     };
 
