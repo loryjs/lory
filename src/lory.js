@@ -485,6 +485,11 @@ var lory = function (slider, opts) {
 
         slideContainer.addEventListener('touchmove', onTouchmove);
         slideContainer.addEventListener('touchend', onTouchend);
+
+        dispatchEvent(
+            slider,
+            'on.lory.touchstart'
+        );
     };
 
     var onTouchmove = function (event) {
@@ -554,6 +559,11 @@ var lory = function (slider, opts) {
          */
         frame.removeEventListener('touchmove');
         frame.removeEventListener('touchend');
+
+        dispatchEvent(
+            slider,
+            'on.lory.touchend'
+        );
     };
 
     var onResize = function () {
