@@ -21,6 +21,17 @@
     "type": "git",
     "url": "https://github.com/meandmax/lory.git"
   },
+  "keywords": [
+    "responsive",
+    "lightweight",
+    "minimalistic",
+    "carousel",
+    "slider",
+    "touch",
+    "slideshow",
+    "jQuery",
+    "mobile"
+  ],
   "main": "./dist/lory.min.js",
   "devDependencies": {
     "grunt": "latest",
