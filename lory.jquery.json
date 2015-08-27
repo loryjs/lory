@@ -33,7 +33,7 @@
     "bugs": "https://github.com/meandmax/lory/issues",
     "homepage": "http://meandmax.github.io/lory/",
     "docs": "https://github.com/meandmax/lory",
-    "download": "http://meandmax.github.io/lory/dist/lory.min.js",
+    "download": "http://meandmax.github.io/lory/dist/jquery.lory.min.js",
     "dependencies": {
         "jquery": ">=1.7"
     }
