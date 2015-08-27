@@ -43,19 +43,29 @@ module.exports = function (grunt) {
             ]
         },
 
-        umd: {
+        webpack: {
             vanilla: {
-                src: 'dist/lory.js',
-                dest: 'dist/lory.js',
-                objectToExport: 'lory',
-                globalAlias: 'lory'
+                entry: {
+                    lory: './src/lory'
+                },
+
+                output: {
+                    path: __dirname + '/dist/',
+                    filename: 'lory.js',
+                    library: 'lory',
+                    libraryTarget: 'umd'
+                }
             },
 
             jquery: {
-                src: 'dist/jquery.lory.js',
-                dest: 'dist/jquery.lory.js',
-                objectToExport: 'lory',
-                globalAlias: 'lory'
+                entry: {
+                    lory: './src/jquery.lory.js'
+                },
+
+                output: {
+                    path: __dirname + '/dist/',
+                    filename: 'jquery.lory.js'
+                }
             }
         },
 
@@ -90,14 +100,6 @@ module.exports = function (grunt) {
             demo: {
                 src: 'dist/*',
                 dest: 'demo/js/',
-                flatten: true,
-                filter: 'isFile',
-                expand: true
-            },
-
-            dist: {
-                src: 'src/lory.js',
-                dest: 'dist/',
                 flatten: true,
                 filter: 'isFile',
                 expand: true
@@ -210,8 +212,7 @@ module.exports = function (grunt) {
         'jscs',
         'jshint',
         'concat',
-        'copy:dist',
-        'umd',
+        'webpack',
         'uglify',
         'copy:demo'
     ]);
@@ -219,9 +220,8 @@ module.exports = function (grunt) {
     grunt.registerTask('build-dev', [
         'jscs',
         'jshint',
-        'copy:dist',
         'concat',
-        'umd',
+        'webpack',
         'uglify',
         'notify',
         'copy:demo'

@@ -49,6 +49,7 @@
     "grunt-module": "latest",
     "grunt-notify": "latest",
     "grunt-umd": "latest",
+    "grunt-webpack": "^1.0.11",
     "karma-chai": "latest",
     "karma-chrome-launcher": "latest",
     "karma-fixture": "latest",
@@ -56,7 +57,9 @@
     "karma-mocha": "latest",
     "karma-mocha-reporter": "^1.0.2",
     "load-grunt-tasks": "latest",
-    "time-grunt": "latest"
+    "time-grunt": "latest",
+    "webpack": "^1.12.0",
+    "webpack-dev-server": "^1.10.1"
   },
   "scripts": {
     "test": "node_modules/.bin/grunt"
