@@ -11,8 +11,7 @@ module.exports = function (grunt) {
         bumpup: {
             files: [
                 'package.json',
-                'bower.json',
-                'lory.jquery.json'
+                'bower.json'
             ]
         },
 
