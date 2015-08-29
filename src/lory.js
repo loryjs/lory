@@ -1,25 +1,31 @@
 /* globals jQuery */
 
-'use strict';
+import clamp from './utils/clamp.js';
+import polyfillCustomEvents from './utils/polyfill-custom-events.js';
+import detectPrefixes from './utils/detect-prefixes.js';
+import dispatchEvent from './utils/dispatch-event.js';
+import defaults from './defaults.js';
 
-var clamp                = require('./utils/clamp.js');
-var mergeOptions         = require('./utils/merge-options.js');
-var polyfillCustomEvents = require('./utils/polyfill-custom-events.js');
-var detectPrefixes       = require('./utils/detect-prefixes.js');
-var dispatchEvent        = require('./utils/dispatch-event.js');
+const slice = Array.prototype.slice;
 
-var slice = [].slice;
+export default function lory(slider, opts) {
+    let position;
+    let slidesWidth;
+    let frameWidth;
+    let slides;
 
-var lory = function (slider, opts) {
-    var position;
-    var slidesWidth;
-    var frameWidth;
-    var slides;
+    /**
+     * slider DOM elements
+     */
+    let frame;
+    let slideContainer;
+    let prevCtrl;
+    let nextCtrl;
+    let prefixes;
+    let transitionEndCallback;
 
-    var index   = 0;
-    var options = {};
-
-    var transitionEndCallback;
+    let index   = 0;
+    let options = {};
 
     /**
      * if object is jQuery convert to native DOM element
@@ -29,92 +35,13 @@ var lory = function (slider, opts) {
     }
 
     /**
-     * slider DOM elements
-     */
-    var frame;
-    var slideContainer;
-    var prevCtrl;
-    var nextCtrl;
-    var prefixes;
-
-    var defaults = {
-        /**
-         * slides scrolled at once
-         * @slidesToScroll {Number}
-         */
-        slidesToScroll: 1,
-
-        /**
-         * time in milliseconds for the animation of a valid slide attempt
-         * @slideSpeed {Number}
-         */
-        slideSpeed: 300,
-
-        /**
-         * time in milliseconds for the animation of the rewind after the last slide
-         * @rewindSpeed {Number}
-         */
-        rewindSpeed: 600,
-
-        /**
-         * time for the snapBack of the slider if the slide attempt was not valid
-         * @snapBackSpeed {Number}
-         */
-        snapBackSpeed: 200,
-
-        /**
-         * Basic easing functions: https://developer.mozilla.org/de/docs/Web/CSS/transition-timing-function
-         * cubic bezier easing functions: http://easings.net/de
-         * @ease {String}
-         */
-        ease: 'ease',
-
-        /**
-         * if slider reached the last slide, with next click the slider goes back to the startindex.
-         * use infinite or rewind, not both
-         * @rewind {Boolean}
-         */
-        rewind: false,
-
-        /**
-         * number of visible slides or false
-         * use infinite or rewind, not both
-         * @infinite {number}
-         */
-        infinite: false,
-
-        /**
-         * class name for slider frame
-         * @classNameFrame {string}
-         */
-        classNameFrame: 'js_frame',
-
-        /**
-         * class name for slides container
-         * @classNameSlideContainer {string}
-         */
-        classNameSlideContainer: 'js_slides',
-
-        /**
-        * class name for slider prev control
-         * @classNamePrevCtrl {string}
-         */
-        classNamePrevCtrl: 'js_prev',
-
-        /**
-        * class name for slider next control
-         * @classNameNextCtrl {string}
-         */
-        classNameNextCtrl: 'js_next'
-    };
-
-    /**
+     * private
      * setupInfinite: function to setup if infinite is set
      *
      * @param  {array} slideArray
      * @return {array} array of updated slideContainer elements
      */
-    var setupInfinite = function (slideArray) {
+    function setupInfinite(slideArray) {
         var front = slideArray.slice(0, options.infinite);
         var back  = slideArray.slice(slideArray.length - options.infinite, slideArray.length);
 
@@ -134,23 +61,28 @@ var lory = function (slider, opts) {
         slideContainer.addEventListener(prefixes.transitionEnd, onTransitionEnd);
 
         return slice.call(slideContainer.children);
-    };
+    }
+
+    /**
+     * [dispatchSliderEvent description]
+     * @return {[type]} [description]
+     */
+    function dispatchSliderEvent(phase, type, detail) {
+        dispatchEvent(slider, `${phase}.lory.${type}`, detail);
+    }
 
     /**
      * public
      * setup function
      */
-    var setup = function () {
-        dispatchEvent(
-            slider,
-            'before.lory.init'
-        );
+    function setup() {
+        dispatchSliderEvent('before', 'init');
 
         polyfillCustomEvents();
 
         prefixes = detectPrefixes();
 
-        options = mergeOptions(opts, defaults);
+        options = {...defaults, ...opts};
 
         frame          = slider.getElementsByClassName(options.classNameFrame)[0];
         slideContainer = frame.getElementsByClassName(options.classNameSlideContainer)[0];
@@ -179,17 +111,14 @@ var lory = function (slider, opts) {
 
         window.addEventListener('resize', onResize);
 
-        dispatchEvent(
-            slider,
-            'after.lory.init'
-        );
-    };
+        dispatchSliderEvent('after', 'init');
+    }
 
     /**
      * public
      * reset function: called on resize
      */
-    var reset = function () {
+    function reset() {
         slidesWidth = slideContainer.getBoundingClientRect()
             .width || slideContainer.offsetWidth;
         frameWidth = frame.getBoundingClientRect()
@@ -211,23 +140,31 @@ var lory = function (slider, opts) {
         } else {
             translate(0, options.rewindSpeed, options.ease);
         }
-    };
+    }
+
+    function slideTo(index) {
+        slide(index);
+    }
+
+    function returnIndex() {
+        return index;
+    }
 
     /**
      * public
      * prev function: called on clickhandler
      */
-    var prev = function () {
+    function prev() {
         slide(false, false);
-    };
+    }
 
     /**
      * public
      * next function: called on clickhandler
      */
-    var next = function () {
+    function next() {
         slide(false, true);
-    };
+    }
 
     /**
      * translates to a given position in a given time in milliseconds
@@ -236,7 +173,7 @@ var lory = function (slider, opts) {
      * @duration  {number} time in milliseconds for the transistion
      * @ease      {string} easing css property
      */
-    var translate = function (to, duration, ease) {
+    function translate(to, duration, ease) {
         var style = slideContainer && slideContainer.style;
 
         if (style) {
@@ -244,7 +181,7 @@ var lory = function (slider, opts) {
             style[prefixes.transition + 'Duration'] = duration + 'ms';
             style[prefixes.transform] = 'translate3d(' + to + 'px, 0, 0)';
         }
-    };
+    }
 
     /**
      * public
@@ -255,14 +192,14 @@ var lory = function (slider, opts) {
      *
      * @direction  {boolean}
      */
-    var slide = function (nextIndex, direction) {
-        dispatchEvent(
-            slider,
-            'before.lory.slide', {
-                currentSlide: index,
-                nextSlide: (direction ? index + 1 : index - 1)
-            }
-        );
+    function slide(nextIndex, direction) {
+        let currentSlide = index;
+        let nextSlide    = direction ? index + 1 : index - 1;
+
+        dispatchSliderEvent('before', 'slide', {
+            currentSlide,
+            nextSlide
+        });
 
         var maxOffset   = Math.round(slidesWidth - frameWidth);
         var limitIndex  = clamp(0, slides.length - 1);
@@ -309,45 +246,42 @@ var lory = function (slider, opts) {
             index = nextIndex;
         }
 
-        if (options.infinite && Math.abs(nextOffset) === maxOffset && direction) {
-            index      = options.infinite;
-            position.x = slides[index].offsetLeft * -1;
-
-            transitionEndCallback = function () {
-                translate(slides[index].offsetLeft * -1, 0, null);
-            };
-        }
-
-        if (options.infinite && Math.abs(nextOffset) === 0 && !direction) {
-            index      = slides.length - (options.infinite * 2);
-            position.x = slides[index].offsetLeft * -1;
-
-            transitionEndCallback = function () {
-                translate(slides[index].offsetLeft * -1, 0, null);
-            };
-        }
-
-        dispatchEvent(
-            slider,
-            'after.lory.slide', {
-                currentSlide: index
+        if (options.infinite) {
+            if (Math.abs(nextOffset) === maxOffset && direction) {
+                index = options.infinite;
             }
-        );
-    };
 
-    var touchOffset;
-    var delta;
-    var isScrolling;
+            if (Math.abs(nextOffset) === 0 && !direction) {
+                index = slides.length - (options.infinite * 2);
+            }
 
-    var onTransitionEnd = function () {
+            position.x = slides[index].offsetLeft * -1;
+
+            transitionEndCallback = function () {
+                translate(slides[index].offsetLeft * -1, 0, null);
+            };
+        }
+
+        dispatchSliderEvent('after', 'slide', {
+            currentSlide: index
+        });
+    }
+
+    // event handling
+
+    let touchOffset;
+    let delta;
+    let isScrolling;
+
+    function onTransitionEnd() {
         if (transitionEndCallback) {
             transitionEndCallback();
 
             transitionEndCallback = undefined;
         }
-    };
+    }
 
-    var onTouchstart = function (event) {
+    function onTouchstart(event) {
         var touches = event.touches[0];
 
         touchOffset = {
@@ -364,13 +298,13 @@ var lory = function (slider, opts) {
         slideContainer.addEventListener('touchmove', onTouchmove);
         slideContainer.addEventListener('touchend', onTouchend);
 
-        dispatchEvent(
-            slider,
-            'on.lory.touchstart'
-        );
-    };
+        // may be
+        dispatchSliderEvent('on', 'touchstart', {
+            event
+        });
+    }
 
-    var onTouchmove = function (event) {
+    function onTouchmove(event) {
         var touches = event.touches[0];
 
         delta = {
@@ -383,12 +317,16 @@ var lory = function (slider, opts) {
         }
 
         if (!isScrolling) {
-            dispatchEvent(slider, 'before.lory.slide');
             translate(position.x + delta.x, 0, null);
         }
-    };
 
-    var onTouchend = function () {
+        // may be
+        dispatchSliderEvent('on', 'touchmove', {
+            event
+        });
+    }
+
+    function onTouchend() {
         /**
          * time between touchstart and touchend in milliseconds
          * @duration {number}
@@ -400,7 +338,7 @@ var lory = function (slider, opts) {
          *
          * -> swipe attempt time is over 300 ms
          * and
-         * -> swipe distance is greater than 25 px
+         * -> swipe distance is greater than 25px
          * or
          * -> swipe distance is more then a third of the swipe area
          *
@@ -413,7 +351,7 @@ var lory = function (slider, opts) {
         /**
          * is out of bounds if:
          *
-         * -> index is 0 and delta x is greater then 0
+         * -> index is 0 and delta x is greater than 0
          * or
          * -> index is the last slide and delta is smaller than 0
          *
@@ -438,33 +376,32 @@ var lory = function (slider, opts) {
         frame.removeEventListener('touchmove');
         frame.removeEventListener('touchend');
 
-        dispatchEvent(
-            slider,
-            'on.lory.touchend'
-        );
-    };
+        // may be
+        dispatchSliderEvent('on', 'touchend', {
+            event
+        });
+    }
 
-    var onResize = function () {
-        dispatchEvent(
-            slider,
-            'on.lory.resize'
-        );
+    function onResize() {
+        // may be
+        dispatchSliderEvent('on', 'resize', {
+            event
+        });
+
         reset();
-    };
+    }
 
     /**
      * public
      * destroy function: called to gracefully destroy the lory instance
      */
-    var destroy = function () {
-        dispatchEvent(
-            slider,
-            'on.lory.destroy'
-        );
+    function destroy() {
+        dispatchSliderEvent('before', 'destroy');
 
         // remove event listeners
         slideContainer.removeEventListener(prefixes.transitionEnd, onTransitionEnd);
         slideContainer.removeEventListener('touchstart', onTouchstart);
+
         window.removeEventListener('resize', onResize);
 
         if (prevCtrl) {
@@ -475,45 +412,20 @@ var lory = function (slider, opts) {
             nextCtrl.removeEventListener('click', next);
         }
 
-        // release pointers
-        position              = undefined;
-        slidesWidth           = undefined;
-        frameWidth            = undefined;
-        index                 = undefined;
-        options               = undefined;
-        slides                = undefined;
-        transitionEndCallback = undefined;
-        slider                = undefined;
-        frame                 = undefined;
-        slideContainer        = undefined;
-        prevCtrl              = undefined;
-        nextCtrl              = undefined;
-
-        return null;
-    };
+        dispatchSliderEvent('after', 'destroy');
+    }
 
     // trigger initial setup
     setup();
 
+    // expose public api
     return {
-        slideTo: function (index) {
-            slide(index);
-        },
-
-        returnIndex: function () {
-            return index;
-        },
-
-        setup: setup,
-
-        reset: reset,
-
-        prev: prev,
-
-        next: next,
-
-        destroy: destroy
+        slideTo,
+        returnIndex,
+        setup,
+        reset,
+        prev,
+        next,
+        destroy
     };
-};
-
-module.exports = lory;
+}

@@ -34,6 +34,8 @@
   ],
   "main": "./dist/lory.min.js",
   "devDependencies": {
+    "babel-core": "^5.8.23",
+    "babel-loader": "^5.3.2",
     "grunt": "latest",
     "grunt-browser-sync": "latest",
     "grunt-bumpup": "latest",

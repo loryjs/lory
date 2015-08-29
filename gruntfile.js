@@ -44,6 +44,18 @@ module.exports = function (grunt) {
         },
 
         webpack: {
+            options: {
+                module: {
+                    loaders: [{
+                        exclude: /(node_modules|bower_components)/,
+                        loader: 'babel',
+                        query: {
+                            stage: 0
+                        }
+                    }]
+                }
+            },
+
             vanilla: {
                 entry: {
                     lory: './src/lory'
@@ -209,8 +221,8 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('build', [
-        'jscs',
-        'jshint',
+        // 'jscs',
+        // 'jshint',
         'concat',
         'webpack',
         'uglify',
@@ -218,8 +230,8 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('build-dev', [
-        'jscs',
-        'jshint',
+        // 'jscs',
+        // 'jshint',
         'concat',
         'webpack',
         'uglify',

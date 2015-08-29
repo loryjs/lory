@@ -44,28 +44,83 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* globals $, jQuery */
+	'use strict';
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _loryJs = __webpack_require__(1);
+
+	var _loryJs2 = _interopRequireDefault(_loryJs);
+
+	$.fn.lory = function (options) {
+	    return this.each(function () {
+	        var instanceOptions;
+
+	        if (!$.data(this, 'lory')) {
+	            instanceOptions = $.extend({}, options, $(this).data());
+	            $.data(this, 'lory', (0, _loryJs2['default'])(this, instanceOptions));
+	        }
+	    });
+	};
+
+/***/ },
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* globals jQuery */
 
 	'use strict';
 
-	var clamp                = __webpack_require__(1);
-	var mergeOptions         = __webpack_require__(2);
-	var polyfillCustomEvents = __webpack_require__(3);
-	var detectPrefixes       = __webpack_require__(4);
-	var dispatchEvent        = __webpack_require__(5);
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
 
-	var slice = [].slice;
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	var lory = function (slider, opts) {
-	    var position;
-	    var slidesWidth;
-	    var frameWidth;
-	    var slides;
+	exports['default'] = lory;
 
-	    var index   = 0;
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _utilsClampJs = __webpack_require__(2);
+
+	var _utilsClampJs2 = _interopRequireDefault(_utilsClampJs);
+
+	var _utilsPolyfillCustomEventsJs = __webpack_require__(3);
+
+	var _utilsPolyfillCustomEventsJs2 = _interopRequireDefault(_utilsPolyfillCustomEventsJs);
+
+	var _utilsDetectPrefixesJs = __webpack_require__(4);
+
+	var _utilsDetectPrefixesJs2 = _interopRequireDefault(_utilsDetectPrefixesJs);
+
+	var _utilsDispatchEventJs = __webpack_require__(5);
+
+	var _utilsDispatchEventJs2 = _interopRequireDefault(_utilsDispatchEventJs);
+
+	var _defaultsJs = __webpack_require__(6);
+
+	var _defaultsJs2 = _interopRequireDefault(_defaultsJs);
+
+	var slice = Array.prototype.slice;
+
+	function lory(slider, opts) {
+	    var position = undefined;
+	    var slidesWidth = undefined;
+	    var frameWidth = undefined;
+	    var slides = undefined;
+
+	    /**
+	     * slider DOM elements
+	     */
+	    var frame = undefined;
+	    var slideContainer = undefined;
+	    var prevCtrl = undefined;
+	    var nextCtrl = undefined;
+	    var prefixes = undefined;
+	    var transitionEndCallback = undefined;
+
+	    var index = 0;
 	    var options = {};
-
-	    var transitionEndCallback;
 
 	    /**
 	     * if object is jQuery convert to native DOM element
@@ -75,94 +130,15 @@
 	    }
 
 	    /**
-	     * slider DOM elements
-	     */
-	    var frame;
-	    var slideContainer;
-	    var prevCtrl;
-	    var nextCtrl;
-	    var prefixes;
-
-	    var defaults = {
-	        /**
-	         * slides scrolled at once
-	         * @slidesToScroll {Number}
-	         */
-	        slidesToScroll: 1,
-
-	        /**
-	         * time in milliseconds for the animation of a valid slide attempt
-	         * @slideSpeed {Number}
-	         */
-	        slideSpeed: 300,
-
-	        /**
-	         * time in milliseconds for the animation of the rewind after the last slide
-	         * @rewindSpeed {Number}
-	         */
-	        rewindSpeed: 600,
-
-	        /**
-	         * time for the snapBack of the slider if the slide attempt was not valid
-	         * @snapBackSpeed {Number}
-	         */
-	        snapBackSpeed: 200,
-
-	        /**
-	         * Basic easing functions: https://developer.mozilla.org/de/docs/Web/CSS/transition-timing-function
-	         * cubic bezier easing functions: http://easings.net/de
-	         * @ease {String}
-	         */
-	        ease: 'ease',
-
-	        /**
-	         * if slider reached the last slide, with next click the slider goes back to the startindex.
-	         * use infinite or rewind, not both
-	         * @rewind {Boolean}
-	         */
-	        rewind: false,
-
-	        /**
-	         * number of visible slides or false
-	         * use infinite or rewind, not both
-	         * @infinite {number}
-	         */
-	        infinite: false,
-
-	        /**
-	         * class name for slider frame
-	         * @classNameFrame {string}
-	         */
-	        classNameFrame: 'js_frame',
-
-	        /**
-	         * class name for slides container
-	         * @classNameSlideContainer {string}
-	         */
-	        classNameSlideContainer: 'js_slides',
-
-	        /**
-	        * class name for slider prev control
-	         * @classNamePrevCtrl {string}
-	         */
-	        classNamePrevCtrl: 'js_prev',
-
-	        /**
-	        * class name for slider next control
-	         * @classNameNextCtrl {string}
-	         */
-	        classNameNextCtrl: 'js_next'
-	    };
-
-	    /**
+	     * private
 	     * setupInfinite: function to setup if infinite is set
 	     *
 	     * @param  {array} slideArray
 	     * @return {array} array of updated slideContainer elements
 	     */
-	    var setupInfinite = function (slideArray) {
+	    function setupInfinite(slideArray) {
 	        var front = slideArray.slice(0, options.infinite);
-	        var back  = slideArray.slice(slideArray.length - options.infinite, slideArray.length);
+	        var back = slideArray.slice(slideArray.length - options.infinite, slideArray.length);
 
 	        front.forEach(function (element) {
 	            var cloned = element.cloneNode(true);
@@ -170,38 +146,42 @@
 	            slideContainer.appendChild(cloned);
 	        });
 
-	        back.reverse()
-	            .forEach(function (element) {
-	                var cloned = element.cloneNode(true);
+	        back.reverse().forEach(function (element) {
+	            var cloned = element.cloneNode(true);
 
-	                slideContainer.insertBefore(cloned, slideContainer.firstChild);
-	            });
+	            slideContainer.insertBefore(cloned, slideContainer.firstChild);
+	        });
 
 	        slideContainer.addEventListener(prefixes.transitionEnd, onTransitionEnd);
 
 	        return slice.call(slideContainer.children);
-	    };
+	    }
+
+	    /**
+	     * [dispatchSliderEvent description]
+	     * @return {[type]} [description]
+	     */
+	    function dispatchSliderEvent(phase, type, detail) {
+	        (0, _utilsDispatchEventJs2['default'])(slider, phase + '.lory.' + type, detail);
+	    }
 
 	    /**
 	     * public
 	     * setup function
 	     */
-	    var setup = function () {
-	        dispatchEvent(
-	            slider,
-	            'before.lory.init'
-	        );
+	    function setup() {
+	        dispatchSliderEvent('before', 'init');
 
-	        polyfillCustomEvents();
+	        (0, _utilsPolyfillCustomEventsJs2['default'])();
 
-	        prefixes = detectPrefixes();
+	        prefixes = (0, _utilsDetectPrefixesJs2['default'])();
 
-	        options = mergeOptions(opts, defaults);
+	        options = _extends({}, _defaultsJs2['default'], opts);
 
-	        frame          = slider.getElementsByClassName(options.classNameFrame)[0];
+	        frame = slider.getElementsByClassName(options.classNameFrame)[0];
 	        slideContainer = frame.getElementsByClassName(options.classNameSlideContainer)[0];
-	        prevCtrl       = slider.getElementsByClassName(options.classNamePrevCtrl)[0];
-	        nextCtrl       = slider.getElementsByClassName(options.classNameNextCtrl)[0];
+	        prevCtrl = slider.getElementsByClassName(options.classNamePrevCtrl)[0];
+	        nextCtrl = slider.getElementsByClassName(options.classNameNextCtrl)[0];
 
 	        position = {
 	            x: slideContainer.offsetLeft,
@@ -225,21 +205,16 @@
 
 	        window.addEventListener('resize', onResize);
 
-	        dispatchEvent(
-	            slider,
-	            'after.lory.init'
-	        );
-	    };
+	        dispatchSliderEvent('after', 'init');
+	    }
 
 	    /**
 	     * public
 	     * reset function: called on resize
 	     */
-	    var reset = function () {
-	        slidesWidth = slideContainer.getBoundingClientRect()
-	            .width || slideContainer.offsetWidth;
-	        frameWidth = frame.getBoundingClientRect()
-	            .width || frame.offsetWidth;
+	    function reset() {
+	        slidesWidth = slideContainer.getBoundingClientRect().width || slideContainer.offsetWidth;
+	        frameWidth = frame.getBoundingClientRect().width || frame.offsetWidth;
 
 	        if (frameWidth === slidesWidth) {
 	            slidesWidth = slides.reduce(function (previousValue, slide) {
@@ -252,28 +227,36 @@
 	        if (options.infinite) {
 	            translate(slides[index + options.infinite].offsetLeft * -1, 0, null);
 
-	            index      = index + options.infinite;
+	            index = index + options.infinite;
 	            position.x = slides[index].offsetLeft * -1;
 	        } else {
 	            translate(0, options.rewindSpeed, options.ease);
 	        }
-	    };
+	    }
+
+	    function slideTo(index) {
+	        slide(index);
+	    }
+
+	    function returnIndex() {
+	        return index;
+	    }
 
 	    /**
 	     * public
 	     * prev function: called on clickhandler
 	     */
-	    var prev = function () {
+	    function prev() {
 	        slide(false, false);
-	    };
+	    }
 
 	    /**
 	     * public
 	     * next function: called on clickhandler
 	     */
-	    var next = function () {
+	    function next() {
 	        slide(false, true);
-	    };
+	    }
 
 	    /**
 	     * translates to a given position in a given time in milliseconds
@@ -282,7 +265,7 @@
 	     * @duration  {number} time in milliseconds for the transistion
 	     * @ease      {string} easing css property
 	     */
-	    var translate = function (to, duration, ease) {
+	    function translate(to, duration, ease) {
 	        var style = slideContainer && slideContainer.style;
 
 	        if (style) {
@@ -290,7 +273,7 @@
 	            style[prefixes.transition + 'Duration'] = duration + 'ms';
 	            style[prefixes.transform] = 'translate3d(' + to + 'px, 0, 0)';
 	        }
-	    };
+	    }
 
 	    /**
 	     * public
@@ -301,19 +284,19 @@
 	     *
 	     * @direction  {boolean}
 	     */
-	    var slide = function (nextIndex, direction) {
-	        dispatchEvent(
-	            slider,
-	            'before.lory.slide', {
-	                currentSlide: index,
-	                nextSlide: (direction ? index + 1 : index - 1)
-	            }
-	        );
+	    function slide(nextIndex, direction) {
+	        var currentSlide = index;
+	        var nextSlide = direction ? index + 1 : index - 1;
 
-	        var maxOffset   = Math.round(slidesWidth - frameWidth);
-	        var limitIndex  = clamp(0, slides.length - 1);
-	        var duration    = options.slideSpeed;
-	        var limitOffset = clamp(maxOffset * -1, 0);
+	        dispatchSliderEvent('before', 'slide', {
+	            currentSlide: currentSlide,
+	            nextSlide: nextSlide
+	        });
+
+	        var maxOffset = Math.round(slidesWidth - frameWidth);
+	        var limitIndex = (0, _utilsClampJs2['default'])(0, slides.length - 1);
+	        var duration = options.slideSpeed;
+	        var limitOffset = (0, _utilsClampJs2['default'])(maxOffset * -1, 0);
 
 	        if (typeof nextIndex !== 'number') {
 	            if (direction) {
@@ -333,8 +316,8 @@
 
 	        if (options.rewind && Math.abs(position.x) === maxOffset && direction) {
 	            nextOffset = 0;
-	            nextIndex  = 0;
-	            duration   = options.rewindSpeed;
+	            nextIndex = 0;
+	            duration = options.rewindSpeed;
 	        }
 
 	        /**
@@ -355,45 +338,42 @@
 	            index = nextIndex;
 	        }
 
-	        if (options.infinite && Math.abs(nextOffset) === maxOffset && direction) {
-	            index      = options.infinite;
-	            position.x = slides[index].offsetLeft * -1;
-
-	            transitionEndCallback = function () {
-	                translate(slides[index].offsetLeft * -1, 0, null);
-	            };
-	        }
-
-	        if (options.infinite && Math.abs(nextOffset) === 0 && !direction) {
-	            index      = slides.length - (options.infinite * 2);
-	            position.x = slides[index].offsetLeft * -1;
-
-	            transitionEndCallback = function () {
-	                translate(slides[index].offsetLeft * -1, 0, null);
-	            };
-	        }
-
-	        dispatchEvent(
-	            slider,
-	            'after.lory.slide', {
-	                currentSlide: index
+	        if (options.infinite) {
+	            if (Math.abs(nextOffset) === maxOffset && direction) {
+	                index = options.infinite;
 	            }
-	        );
-	    };
 
-	    var touchOffset;
-	    var delta;
-	    var isScrolling;
+	            if (Math.abs(nextOffset) === 0 && !direction) {
+	                index = slides.length - options.infinite * 2;
+	            }
 
-	    var onTransitionEnd = function () {
+	            position.x = slides[index].offsetLeft * -1;
+
+	            transitionEndCallback = function () {
+	                translate(slides[index].offsetLeft * -1, 0, null);
+	            };
+	        }
+
+	        dispatchSliderEvent('after', 'slide', {
+	            currentSlide: index
+	        });
+	    }
+
+	    // event handling
+
+	    var touchOffset = undefined;
+	    var delta = undefined;
+	    var isScrolling = undefined;
+
+	    function onTransitionEnd() {
 	        if (transitionEndCallback) {
 	            transitionEndCallback();
 
 	            transitionEndCallback = undefined;
 	        }
-	    };
+	    }
 
-	    var onTouchstart = function (event) {
+	    function onTouchstart(event) {
 	        var touches = event.touches[0];
 
 	        touchOffset = {
@@ -410,13 +390,13 @@
 	        slideContainer.addEventListener('touchmove', onTouchmove);
 	        slideContainer.addEventListener('touchend', onTouchend);
 
-	        dispatchEvent(
-	            slider,
-	            'on.lory.touchstart'
-	        );
-	    };
+	        // may be
+	        dispatchSliderEvent('on', 'touchstart', {
+	            event: event
+	        });
+	    }
 
-	    var onTouchmove = function (event) {
+	    function onTouchmove(event) {
 	        var touches = event.touches[0];
 
 	        delta = {
@@ -429,12 +409,16 @@
 	        }
 
 	        if (!isScrolling) {
-	            dispatchEvent(slider, 'before.lory.slide');
 	            translate(position.x + delta.x, 0, null);
 	        }
-	    };
 
-	    var onTouchend = function () {
+	        // may be
+	        dispatchSliderEvent('on', 'touchmove', {
+	            event: event
+	        });
+	    }
+
+	    function onTouchend() {
 	        /**
 	         * time between touchstart and touchend in milliseconds
 	         * @duration {number}
@@ -446,27 +430,24 @@
 	         *
 	         * -> swipe attempt time is over 300 ms
 	         * and
-	         * -> swipe distance is greater than 25 px
+	         * -> swipe distance is greater than 25px
 	         * or
 	         * -> swipe distance is more then a third of the swipe area
 	         *
 	         * @isValidSlide {Boolean}
 	         */
-	        var isValid = Number(duration) < 300 &&
-	            Math.abs(delta.x) > 25 ||
-	            Math.abs(delta.x) > frameWidth / 3;
+	        var isValid = Number(duration) < 300 && Math.abs(delta.x) > 25 || Math.abs(delta.x) > frameWidth / 3;
 
 	        /**
 	         * is out of bounds if:
 	         *
-	         * -> index is 0 and delta x is greater then 0
+	         * -> index is 0 and delta x is greater than 0
 	         * or
 	         * -> index is the last slide and delta is smaller than 0
 	         *
 	         * @isOutOfBounds {Boolean}
 	         */
-	        var isOutOfBounds = !index && delta.x > 0 ||
-	            index === slides.length - 1 && delta.x < 0;
+	        var isOutOfBounds = !index && delta.x > 0 || index === slides.length - 1 && delta.x < 0;
 
 	        var direction = delta.x < 0;
 
@@ -484,33 +465,32 @@
 	        frame.removeEventListener('touchmove');
 	        frame.removeEventListener('touchend');
 
-	        dispatchEvent(
-	            slider,
-	            'on.lory.touchend'
-	        );
-	    };
+	        // may be
+	        dispatchSliderEvent('on', 'touchend', {
+	            event: event
+	        });
+	    }
 
-	    var onResize = function () {
-	        dispatchEvent(
-	            slider,
-	            'on.lory.resize'
-	        );
+	    function onResize() {
+	        // may be
+	        dispatchSliderEvent('on', 'resize', {
+	            event: event
+	        });
+
 	        reset();
-	    };
+	    }
 
 	    /**
 	     * public
 	     * destroy function: called to gracefully destroy the lory instance
 	     */
-	    var destroy = function () {
-	        dispatchEvent(
-	            slider,
-	            'on.lory.destroy'
-	        );
+	    function destroy() {
+	        dispatchSliderEvent('before', 'destroy');
 
 	        // remove event listeners
 	        slideContainer.removeEventListener(prefixes.transitionEnd, onTransitionEnd);
 	        slideContainer.removeEventListener('touchstart', onTouchstart);
+
 	        window.removeEventListener('resize', onResize);
 
 	        if (prevCtrl) {
@@ -521,61 +501,28 @@
 	            nextCtrl.removeEventListener('click', next);
 	        }
 
-	        // release pointers
-	        position              = undefined;
-	        slidesWidth           = undefined;
-	        frameWidth            = undefined;
-	        index                 = undefined;
-	        options               = undefined;
-	        slides                = undefined;
-	        transitionEndCallback = undefined;
-	        slider                = undefined;
-	        frame                 = undefined;
-	        slideContainer        = undefined;
-	        prevCtrl              = undefined;
-	        nextCtrl              = undefined;
-
-	        return null;
-	    };
+	        dispatchSliderEvent('after', 'destroy');
+	    }
 
 	    // trigger initial setup
 	    setup();
 
+	    // expose public api
 	    return {
-	        slideTo: function (index) {
-	            slide(index);
-	        },
-
-	        returnIndex: function () {
-	            return index;
-	        },
-
+	        slideTo: slideTo,
+	        returnIndex: returnIndex,
 	        setup: setup,
-
 	        reset: reset,
-
 	        prev: prev,
-
 	        next: next,
-
 	        destroy: destroy
 	    };
-	};
+	}
 
-	$.fn.lory = function (options) {
-	    return this.each(function () {
-	        var instanceOptions;
-
-	        if (!$.data(this, 'lory')) {
-	            instanceOptions = $.extend({}, options, $(this).data());
-	            $.data(this, 'lory', lory(this, instanceOptions));
-	        }
-	    });
-	};
-
+	module.exports = exports['default'];
 
 /***/ },
-/* 1 */
+/* 2 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -589,7 +536,7 @@
 	 * @param  {int} max    The range maximum, inclusive.
 	 * @return {function}   The function that limits its input to the specified range.
 	 */
-	var clamp = function (min, max) {
+	var clamp = function clamp(min, max) {
 	    // Set min to 0 if only one value specified
 	    if (typeof max === 'undefined') {
 	        max = min;
@@ -611,38 +558,6 @@
 
 	module.exports = clamp;
 
-
-/***/ },
-/* 2 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	/**
-	 * merges options and default options together
-	 *
-	 * @param  {object} opts            user options object
-	 * @param  {object} defaultOptions  default options object
-	 * @return {object} options         merged options object
-	 */
-	var mergeOptions = function (opts, defaultOptions) {
-	    var options = {};
-
-	    Object.keys(defaultOptions)
-	        .map(function (key) {
-	            if (opts && opts.hasOwnProperty(key)) {
-	                options[key] = opts[key];
-	            } else {
-	                options[key] = defaultOptions[key];
-	            }
-	        });
-
-	    return options;
-	};
-
-	module.exports = mergeOptions;
-
-
 /***/ },
 /* 3 */
 /***/ function(module, exports) {
@@ -655,11 +570,11 @@
 	* code pulled from:
 	* https://github.com/d4tocchini/customevent-polyfill
 	*/
-	var customEventPolyfill = function () {
+	var customEventPolyfill = function customEventPolyfill() {
 	    try {
 	        new CustomEvent('test'); // jshint ignore:line
 	    } catch (e) {
-	        var CustomEvent = function (event, params) {
+	        var CustomEvent = function CustomEvent(event, params) {
 	            var evt;
 
 	            params = params || {
@@ -675,12 +590,11 @@
 	        };
 
 	        CustomEvent.prototype = window.Event.prototype;
-	        window.CustomEvent    = CustomEvent; // expose definition to window
+	        window.CustomEvent = CustomEvent; // expose definition to window
 	    }
 	};
 
 	module.exports = customEventPolyfill;
-
 
 /***/ },
 /* 4 */
@@ -691,14 +605,13 @@
 	/**
 	 * Detecting prefixes for saving time and bytes
 	 */
-	var detectPrefixes = function () {
+	var detectPrefixes = function detectPrefixes() {
 	    var transform;
 	    var transition;
 	    var transitionEnd;
 
 	    (function () {
-	        var style = document.createElement('_')
-	            .style;
+	        var style = document.createElement('_').style;
 
 	        var prop;
 
@@ -723,7 +636,7 @@
 	        if (style[prop = 'transform'] === '') {
 	            transform = prop;
 	        }
-	    }());
+	    })();
 
 	    return {
 	        transform: transform,
@@ -733,7 +646,6 @@
 	};
 
 	module.exports = detectPrefixes;
-
 
 /***/ },
 /* 5 */
@@ -748,7 +660,7 @@
 	 * @param  {string}  type       custom event name
 	 * @param  {object}  detail     custom detail information
 	 */
-	var dispatchEvent = function (el, type, detail) {
+	var dispatchEvent = function dispatchEvent(el, type, detail) {
 	    var e = new CustomEvent(type, {
 	        detail: detail,
 	        bubbles: true,
@@ -760,6 +672,86 @@
 
 	module.exports = dispatchEvent;
 
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	exports['default'] = {
+	  /**
+	   * slides scrolled at once
+	   * @slidesToScroll {Number}
+	   */
+	  slidesToScroll: 1,
+
+	  /**
+	   * time in milliseconds for the animation of a valid slide attempt
+	   * @slideSpeed {Number}
+	   */
+	  slideSpeed: 300,
+
+	  /**
+	   * time in milliseconds for the animation of the rewind after the last slide
+	   * @rewindSpeed {Number}
+	   */
+	  rewindSpeed: 600,
+
+	  /**
+	   * time for the snapBack of the slider if the slide attempt was not valid
+	   * @snapBackSpeed {Number}
+	   */
+	  snapBackSpeed: 200,
+
+	  /**
+	   * Basic easing functions: https://developer.mozilla.org/de/docs/Web/CSS/transition-timing-function
+	   * cubic bezier easing functions: http://easings.net/de
+	   * @ease {String}
+	   */
+	  ease: 'ease',
+
+	  /**
+	   * if slider reached the last slide, with next click the slider goes back to the startindex.
+	   * use infinite or rewind, not both
+	   * @rewind {Boolean}
+	   */
+	  rewind: false,
+
+	  /**
+	   * number of visible slides or false
+	   * use infinite or rewind, not both
+	   * @infinite {number}
+	   */
+	  infinite: false,
+
+	  /**
+	   * class name for slider frame
+	   * @classNameFrame {string}
+	   */
+	  classNameFrame: 'js_frame',
+
+	  /**
+	   * class name for slides container
+	   * @classNameSlideContainer {string}
+	   */
+	  classNameSlideContainer: 'js_slides',
+
+	  /**
+	  * class name for slider prev control
+	   * @classNamePrevCtrl {string}
+	   */
+	  classNamePrevCtrl: 'js_prev',
+
+	  /**
+	  * class name for slider next control
+	   * @classNameNextCtrl {string}
+	   */
+	  classNameNextCtrl: 'js_next'
+	};
+	module.exports = exports['default'];
 
 /***/ }
 /******/ ]);
