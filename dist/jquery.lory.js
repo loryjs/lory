@@ -612,22 +612,6 @@ var lory = function (slider, opts) {
         if (nextCtrl) {
             nextCtrl.removeEventListener('click', next);
         }
-
-        // release pointers
-        position              = undefined;
-        slidesWidth           = undefined;
-        frameWidth            = undefined;
-        index                 = undefined;
-        options               = undefined;
-        slides                = undefined;
-        transitionEndCallback = undefined;
-        slider                = undefined;
-        frame                 = undefined;
-        slideContainer        = undefined;
-        prevCtrl              = undefined;
-        nextCtrl              = undefined;
-
-        return null;
     };
 
     // trigger initial setup
