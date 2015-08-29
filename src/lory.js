@@ -535,7 +535,7 @@ var lory = function (slider, opts) {
         /**
          * is out of bounds if:
          *
-         * -> index is 0 and delta x is greater then 0
+         * -> index is 0 and delta x is greater than 0
          * or
          * -> index is the last slide and delta is smaller than 0
          *
