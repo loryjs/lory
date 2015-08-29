@@ -319,6 +319,15 @@ export default function lory(slider, opts) {
         if (!isScrolling) {
             translate(position.x + delta.x, 0, null);
         }
+<<<<<<< HEAD
+=======
+
+        dispatchEvent(
+            slider,
+            'on.lory.touchmove'
+        );
+    };
+>>>>>>> update events
 
         // may be
         dispatchSliderEvent('on', 'touchmove', {
