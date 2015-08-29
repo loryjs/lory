@@ -18,7 +18,7 @@ Please visit: <a href="http://meandmax.github.io/lory/" target="_blank">http://m
 
 ## Install with node
 
-```javascript
+```
 npm install --save lory.js
 
 var lory = require('lory.js');
@@ -161,32 +161,32 @@ grunt karma
 
 <table>
     <tr>
-        <th>prev:</th>
+        <td>prev</td>
         <td>slides to the previous slide</td>
     </tr>
     <tr>
-        <th>next:</th>
+        <td>next</td>
         <td>slides to the next slide</td>
     </tr>
     <tr>
-        <th>slideTo:</th>
+        <td>slideTo</td>
         <td>slides to the index given as an argument: (arguments: index {number})</td>
     </tr>
     <tr>
-        <th>returnIndex:</th>
+        <td>returnIndex</td>
         <td>returns the index of the current slide element</td>
     </tr>
     <tr>
-        <th>setup:</th>
+        <td>setup</td>
         <td>Binds eventlisteners, merging default and user options, setup the slides based on DOM (called once during initialisation). Call setup if DOM or user options have changed or eventlisteners needs to be rebinded.</td>
     </tr>
     <tr>
-        <th>reset:</th>
+        <td>reset</td>
         <td>sets the slider back to the starting position and resets the current index (called on Resize event)</td>
     </tr>
     <tr>
-        <th>destroy:</th>
-        <td>destroys the lory instance by removing all lory specific event listeners and references to the the DOM elements</td>
+        <td>destroy</td>
+        <td>destroys the lory instance by removing all lory specific event listeners</td>
     </tr>
 </table>
 
@@ -194,57 +194,57 @@ grunt karma
 
 <table>
     <tr>
-        <th>slidesToScroll</th>
+        <td>slidesToScroll</td>
         <td>slides scrolled at once</td>
         <td>default: 1</td>
     </tr>
     <tr>
-        <th>infinite</th>
+        <td>infinite</td>
         <td>like carousel, works with multiple slides. (do not combine with rewind)</td>
         <td>default: false (number of visible slides)</td>
     </tr>
     <tr>
-        <th>rewind</th>
+        <td>rewind</td>
         <td>if slider reached the last slide, with next click the slider goes back to the startindex. (do not combine with infinite)</td>
         <td>default: false</td>
     </tr>
     <tr>
-        <th>slideSpeed</th>
+        <td>slideSpeed</td>
         <td>time in milliseconds for the animation of a valid slide attempt</td>
         <td>default: 300</td>
     </tr>
     <tr>
-        <th>rewindSpeed</th>
+        <td>rewindSpeed</td>
         <td>time in milliseconds for the animation of the rewind after the last slide</td>
         <td>default: 600</td>
     </tr>
     <tr>
-        <th>snapBackSpeed</th>
+        <td>snapBackSpeed</td>
         <td>time for the snapBack of the slider if the slide attempt was not valid</td>
         <td>default: 200</td>
     </tr>
     <tr>
-        <th>ease</th>
+        <td>ease</td>
         <td>cubic bezier easing functions: http://easings.net/de</td>
         <td>default: 'ease'</td>
     </tr>
     <tr>
-        <th>classNameFrame</th>
+        <td>classNameFrame</td>
         <td>class name for slider frame</td>
         <td>default: 'js_frame'</td>
     </tr>
     <tr>
-        <th>classNameSlideContainer</th>
+        <td>classNameSlideContainer</td>
         <td>class name for slides container</td>
         <td>default: 'js_slides'</td>
     </tr>
     <tr>
-        <th>classNamePrevCtrl</th>
+        <td>classNamePrevCtrl</td>
         <td>class name for slider previous control</td>
         <td>default: 'js_prev'</td>
     </tr>
     <tr>
-        <th>classNameNextCtrl</th>
+        <td>classNameNextCtrl</td>
         <td>class name for slider next control</td>
         <td>default: 'js_next'</td>
     </tr>
@@ -254,37 +254,39 @@ grunt karma
 
 <table>
     <tr>
-        <th colspan="2">before.lory.init</th>
+        <td>before.lory.init</td>
         <td>fires before initialisation (first in setup function)</td>
     </tr>
     <tr>
-        <th colspan="2">after.lory.init</th>
+        <td>after.lory.init</td>
         <td>fires after initialisation (end of setup function)</td>
     </tr>
     <tr>
-        <th>before.lory.slide</th>
-        <td><strong>arguments:</strong> currentSlide, nextSlide</td>
-        <td>fires before slide change</td>
+        <td>before.lory.slide</td>
+        <td>fires before slide change | <strong>arguments:</strong> currentSlide, nextSlide</td>
     </tr>
     <tr>
-        <th>after.lory.slide</th>
-        <td><strong>arguments:</strong> currentSlide</td>
-        <td>fires after slide change</td>
+        <td>after.lory.slide</td>
+        <td>fires after slide change | <strong>arguments:</strong> currentSlide</td>
     </tr>
     <tr>
-        <th colspan="2">on.lory.resize</th>
+        <td>on.lory.resize</td>
         <td>fires on every resize event</td>
     </tr>
     <tr>
-        <th colspan="2">on.lory.touchstart</th>
+        <td>on.lory.touchstart</td>
         <td>fires on every slider touchstart event</td>
     </tr>
     <tr>
-        <th colspan="2">on.lory.touchend</th>
+        <td>on.lory.touchmove</td>
+        <td>fires on every slider touchmove event</td>
+    </tr>
+    <tr>
+        <td>on.lory.touchend</td>
         <td>fires on every slider touchend event</td>
     </tr>
     <tr>
-        <th colspan="2">on.lory.destroy</th>
+        <td>on.lory.destroy</td>
         <td>fires when the slider instance gets destroyed</td>
     </tr>
 </table>
