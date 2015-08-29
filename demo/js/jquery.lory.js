@@ -521,9 +521,13 @@ var lory = function (slider, opts) {
         }
 
         if (!isScrolling) {
-            dispatchEvent(slider, 'before.lory.slide');
             translate(position.x + delta.x, 0, null);
         }
+
+        dispatchEvent(
+            slider,
+            'on.lory.touchmove'
+        );
     };
 
     var onTouchend = function () {
@@ -551,7 +555,7 @@ var lory = function (slider, opts) {
         /**
          * is out of bounds if:
          *
-         * -> index is 0 and delta x is greater then 0
+         * -> index is 0 and delta x is greater than 0
          * or
          * -> index is the last slide and delta is smaller than 0
          *
@@ -612,22 +616,6 @@ var lory = function (slider, opts) {
         if (nextCtrl) {
             nextCtrl.removeEventListener('click', next);
         }
-
-        // release pointers
-        position              = undefined;
-        slidesWidth           = undefined;
-        frameWidth            = undefined;
-        index                 = undefined;
-        options               = undefined;
-        slides                = undefined;
-        transitionEndCallback = undefined;
-        slider                = undefined;
-        frame                 = undefined;
-        slideContainer        = undefined;
-        prevCtrl              = undefined;
-        nextCtrl              = undefined;
-
-        return null;
     };
 
     // trigger initial setup
