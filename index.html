@@ -374,14 +374,15 @@
         }
 
         events.addEventListener('before.lory.init', handleEvent);
-
         events.addEventListener('after.lory.init', handleEvent);
-
         events.addEventListener('before.lory.slide', handleEvent);
-
         events.addEventListener('after.lory.slide', handleEvent);
 
         events.addEventListener('on.lory.resize', handleEvent);
+        events.addEventListener('on.lory.touchend', handleEvent);
+        events.addEventListener('on.lory.touchmove', handleEvent);
+        events.addEventListener('on.lory.touchstart', handleEvent);
+        events.addEventListener('on.lory.destroy', handleEvent);
 
         lory(events, {
             infinite: 1
@@ -602,6 +603,10 @@
                     <td>fires on every slider touchstart event</td>
                 </tr>
                 <tr>
+                    <th>on.lory.touchmove</th>
+                    <td>fires on every slider touchmove event</td>
+                </tr>
+                <tr>
                     <th>on.lory.touchend</th>
                     <td>fires on every slider touchend event</td>
                 </tr>
@@ -677,14 +682,15 @@
             }
 
             events.addEventListener('before.lory.init', handleEvent);
-
             events.addEventListener('after.lory.init', handleEvent);
-
             events.addEventListener('before.lory.slide', handleEvent);
-
             events.addEventListener('after.lory.slide', handleEvent);
 
             events.addEventListener('on.lory.resize', handleEvent);
+            events.addEventListener('on.lory.touchend', handleEvent);
+            events.addEventListener('on.lory.touchmove', handleEvent);
+            events.addEventListener('on.lory.touchstart', handleEvent);
+            events.addEventListener('on.lory.destroy', handleEvent);
 
             lory(events, {
                 infinite: 1

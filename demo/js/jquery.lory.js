@@ -521,9 +521,13 @@ var lory = function (slider, opts) {
         }
 
         if (!isScrolling) {
-            dispatchEvent(slider, 'before.lory.slide');
             translate(position.x + delta.x, 0, null);
         }
+
+        dispatchEvent(
+            slider,
+            'on.lory.touchmove'
+        );
     };
 
     var onTouchend = function () {
