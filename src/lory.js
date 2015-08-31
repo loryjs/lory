@@ -72,6 +72,23 @@ export default function lory(slider, opts) {
     }
 
     /**
+     * translates to a given position in a given time in milliseconds
+     *
+     * @to        {number} number in pixels where to translate to
+     * @duration  {number} time in milliseconds for the transistion
+     * @ease      {string} easing css property
+     */
+    function translate(to, duration, ease) {
+        var style = slideContainer && slideContainer.style;
+
+        if (style) {
+            style[prefixes.transition + 'TimingFunction'] = ease;
+            style[prefixes.transition + 'Duration'] = duration + 'ms';
+            style[prefixes.transform] = 'translate3d(' + to + 'px, 0, 0)';
+        }
+    }
+
+    /**
      * public
      * setup function
      */
@@ -142,10 +159,18 @@ export default function lory(slider, opts) {
         }
     }
 
+    /**
+     * public
+     * slideTo: called on clickhandler
+     */
     function slideTo(index) {
         slide(index);
     }
 
+    /**
+     * public
+     * returnIndex function: called on clickhandler
+     */
     function returnIndex() {
         return index;
     }
@@ -164,23 +189,6 @@ export default function lory(slider, opts) {
      */
     function next() {
         slide(false, true);
-    }
-
-    /**
-     * translates to a given position in a given time in milliseconds
-     *
-     * @to        {number} number in pixels where to translate to
-     * @duration  {number} time in milliseconds for the transistion
-     * @ease      {string} easing css property
-     */
-    function translate(to, duration, ease) {
-        var style = slideContainer && slideContainer.style;
-
-        if (style) {
-            style[prefixes.transition + 'TimingFunction'] = ease;
-            style[prefixes.transition + 'Duration'] = duration + 'ms';
-            style[prefixes.transform] = 'translate3d(' + to + 'px, 0, 0)';
-        }
     }
 
     /**
@@ -282,7 +290,7 @@ export default function lory(slider, opts) {
     }
 
     function onTouchstart(event) {
-        var touches = event.touches[0];
+        let touches = event.touches[0];
 
         touchOffset = {
             x: touches.pageX,
@@ -305,7 +313,7 @@ export default function lory(slider, opts) {
     }
 
     function onTouchmove(event) {
-        var touches = event.touches[0];
+        let touches = event.touches[0];
 
         delta = {
             x: touches.pageX - touchOffset.x,
@@ -319,15 +327,6 @@ export default function lory(slider, opts) {
         if (!isScrolling) {
             translate(position.x + delta.x, 0, null);
         }
-<<<<<<< HEAD
-=======
-
-        dispatchEvent(
-            slider,
-            'on.lory.touchmove'
-        );
-    };
->>>>>>> update events
 
         // may be
         dispatchSliderEvent('on', 'touchmove', {
@@ -340,7 +339,7 @@ export default function lory(slider, opts) {
          * time between touchstart and touchend in milliseconds
          * @duration {number}
          */
-        var duration = Date.now() - touchOffset.time;
+        let duration = Date.now() - touchOffset.time;
 
         /**
          * is valid if:
@@ -353,7 +352,7 @@ export default function lory(slider, opts) {
          *
          * @isValidSlide {Boolean}
          */
-        var isValid = Number(duration) < 300 &&
+        let isValid = Number(duration) < 300 &&
             Math.abs(delta.x) > 25 ||
             Math.abs(delta.x) > frameWidth / 3;
 
@@ -366,10 +365,10 @@ export default function lory(slider, opts) {
          *
          * @isOutOfBounds {Boolean}
          */
-        var isOutOfBounds = !index && delta.x > 0 ||
+        let isOutOfBounds = !index && delta.x > 0 ||
             index === slides.length - 1 && delta.x < 0;
 
-        var direction = delta.x < 0;
+        let direction = delta.x < 0;
 
         if (!isScrolling) {
             if (isValid && !isOutOfBounds) {
