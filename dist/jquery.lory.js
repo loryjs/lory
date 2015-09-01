@@ -183,6 +183,89 @@
 	    }
 
 	    /**
+	    * slidefunction called by prev, next & touchend
+	    *
+	    * determine nextIndex and slide to next postion
+	    * under restrictions of the defined options
+	    *
+	    * @direction  {boolean}
+	    */
+	    function slide(nextIndex, direction) {
+	        var currentSlide = index;
+	        var nextSlide = direction ? index + 1 : index - 1;
+
+	        dispatchSliderEvent('before', 'slide', {
+	            currentSlide: currentSlide,
+	            nextSlide: nextSlide
+	        });
+
+	        var maxOffset = Math.round(slidesWidth - frameWidth);
+	        var limitIndex = (0, _utilsClampJs2['default'])(0, slides.length - 1);
+	        var duration = options.slideSpeed;
+	        var limitOffset = (0, _utilsClampJs2['default'])(maxOffset * -1, 0);
+
+	        if (typeof nextIndex !== 'number') {
+	            if (direction) {
+	                nextIndex = index + options.slidesToScroll;
+	            } else {
+	                nextIndex = index - options.slidesToScroll;
+	            }
+	        }
+
+	        nextIndex = limitIndex(nextIndex);
+
+	        if (options.infinite && direction === undefined) {
+	            nextIndex += options.infinite;
+	        }
+
+	        var nextOffset = limitOffset(slides[nextIndex].offsetLeft * -1);
+
+	        if (options.rewind && Math.abs(position.x) === maxOffset && direction) {
+	            nextOffset = 0;
+	            nextIndex = 0;
+	            duration = options.rewindSpeed;
+	        }
+
+	        /**
+	         * translate to the nextOffset by a defined duration and ease function
+	         */
+	        translate(nextOffset, duration, options.ease);
+
+	        /**
+	         * update the position with the next position
+	         */
+	        position.x = nextOffset;
+
+	        /**
+	         * update the index with the nextIndex only if
+	         * the offset of the nextIndex is in the range of the maxOffset
+	         */
+	        if (slides[nextIndex].offsetLeft <= maxOffset) {
+	            index = nextIndex;
+	        }
+
+	        if (options.infinite) {
+	            if (Math.abs(nextOffset) === maxOffset && direction) {
+	                index = options.infinite;
+	            }
+
+	            if (Math.abs(nextOffset) === 0 && !direction) {
+	                index = slides.length - options.infinite * 2;
+	            }
+
+	            position.x = slides[index].offsetLeft * -1;
+
+	            transitionEndCallback = function () {
+	                translate(slides[index].offsetLeft * -1, 0, null);
+	            };
+	        }
+
+	        dispatchSliderEvent('after', 'slide', {
+	            currentSlide: index
+	        });
+	    }
+
+	    /**
 	     * public
 	     * setup function
 	     */
@@ -285,86 +368,26 @@
 
 	    /**
 	     * public
-	     * slidefunction called by prev, next & touchend
-	     *
-	     * determine nextIndex and slide to next postion
-	     * under restrictions of the defined options
-	     *
-	     * @direction  {boolean}
+	     * destroy function: called to gracefully destroy the lory instance
 	     */
-	    function slide(nextIndex, direction) {
-	        var currentSlide = index;
-	        var nextSlide = direction ? index + 1 : index - 1;
+	    function destroy() {
+	        dispatchSliderEvent('before', 'destroy');
 
-	        dispatchSliderEvent('before', 'slide', {
-	            currentSlide: currentSlide,
-	            nextSlide: nextSlide
-	        });
+	        // remove event listeners
+	        slideContainer.removeEventListener(prefixes.transitionEnd, onTransitionEnd);
+	        slideContainer.removeEventListener('touchstart', onTouchstart);
 
-	        var maxOffset = Math.round(slidesWidth - frameWidth);
-	        var limitIndex = (0, _utilsClampJs2['default'])(0, slides.length - 1);
-	        var duration = options.slideSpeed;
-	        var limitOffset = (0, _utilsClampJs2['default'])(maxOffset * -1, 0);
+	        window.removeEventListener('resize', onResize);
 
-	        if (typeof nextIndex !== 'number') {
-	            if (direction) {
-	                nextIndex = index + options.slidesToScroll;
-	            } else {
-	                nextIndex = index - options.slidesToScroll;
-	            }
+	        if (prevCtrl) {
+	            prevCtrl.removeEventListener('click', prev);
 	        }
 
-	        nextIndex = limitIndex(nextIndex);
-
-	        if (options.infinite && direction === undefined) {
-	            nextIndex += options.infinite;
+	        if (nextCtrl) {
+	            nextCtrl.removeEventListener('click', next);
 	        }
 
-	        var nextOffset = limitOffset(slides[nextIndex].offsetLeft * -1);
-
-	        if (options.rewind && Math.abs(position.x) === maxOffset && direction) {
-	            nextOffset = 0;
-	            nextIndex = 0;
-	            duration = options.rewindSpeed;
-	        }
-
-	        /**
-	         * translate to the nextOffset by a defined duration and ease function
-	         */
-	        translate(nextOffset, duration, options.ease);
-
-	        /**
-	         * update the position with the next position
-	         */
-	        position.x = nextOffset;
-
-	        /**
-	         * update the index with the nextIndex only if
-	         * the offset of the nextIndex is in the range of the maxOffset
-	         */
-	        if (slides[nextIndex].offsetLeft <= maxOffset) {
-	            index = nextIndex;
-	        }
-
-	        if (options.infinite) {
-	            if (Math.abs(nextOffset) === maxOffset && direction) {
-	                index = options.infinite;
-	            }
-
-	            if (Math.abs(nextOffset) === 0 && !direction) {
-	                index = slides.length - options.infinite * 2;
-	            }
-
-	            position.x = slides[index].offsetLeft * -1;
-
-	            transitionEndCallback = function () {
-	                translate(slides[index].offsetLeft * -1, 0, null);
-	            };
-	        }
-
-	        dispatchSliderEvent('after', 'slide', {
-	            currentSlide: index
-	        });
+	        dispatchSliderEvent('after', 'destroy');
 	    }
 
 	    // event handling
@@ -398,7 +421,6 @@
 	        slideContainer.addEventListener('touchmove', onTouchmove);
 	        slideContainer.addEventListener('touchend', onTouchend);
 
-	        // may be
 	        dispatchSliderEvent('on', 'touchstart', {
 	            event: event
 	        });
@@ -473,14 +495,12 @@
 	        frame.removeEventListener('touchmove');
 	        frame.removeEventListener('touchend');
 
-	        // may be
 	        dispatchSliderEvent('on', 'touchend', {
 	            event: event
 	        });
 	    }
 
 	    function onResize() {
-	        // may be
 	        dispatchSliderEvent('on', 'resize', {
 	            event: event
 	        });
@@ -488,39 +508,15 @@
 	        reset();
 	    }
 
-	    /**
-	     * public
-	     * destroy function: called to gracefully destroy the lory instance
-	     */
-	    function destroy() {
-	        dispatchSliderEvent('before', 'destroy');
-
-	        // remove event listeners
-	        slideContainer.removeEventListener(prefixes.transitionEnd, onTransitionEnd);
-	        slideContainer.removeEventListener('touchstart', onTouchstart);
-
-	        window.removeEventListener('resize', onResize);
-
-	        if (prevCtrl) {
-	            prevCtrl.removeEventListener('click', prev);
-	        }
-
-	        if (nextCtrl) {
-	            nextCtrl.removeEventListener('click', next);
-	        }
-
-	        dispatchSliderEvent('after', 'destroy');
-	    }
-
 	    // trigger initial setup
 	    setup();
 
 	    // expose public api
 	    return {
-	        slideTo: slideTo,
-	        returnIndex: returnIndex,
 	        setup: setup,
 	        reset: reset,
+	        slideTo: slideTo,
+	        returnIndex: returnIndex,
 	        prev: prev,
 	        next: next,
 	        destroy: destroy
