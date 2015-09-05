@@ -57,8 +57,8 @@
     "karma": "npm run karma start",
     "prebuild": "cat src/lory.js src/jquery.plugin.js > src/jquery.lory.js",
     "build": "webpack",
-    "minify": "uglifyjs dist/lory.js -o dist/lory.min.js && uglifyjs dist/jquery.lory.js -o dist/jquery.lory.min.js",
-    "postbuild": "rimraf src/jquery.lory.js && npm run minify && cp -r dist/* demo/js/",
+    "uglify": "uglifyjs dist/lory.js -o dist/lory.min.js --compress --mangle && uglifyjs dist/jquery.lory.js -o dist/jquery.lory.min.js --compress --mangle",
+    "postbuild": "rimraf src/jquery.lory.js && npm run uglify && cp -r dist/* demo/js/",
     "patch": "npm version patch && npm publish",
     "minor": "npm version minor && npm publish",
     "major": "npm version major && npm publish"
