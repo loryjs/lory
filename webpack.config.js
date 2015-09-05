@@ -19,5 +19,12 @@ module.exports = {
         filename: '[name].js',
         library: 'lory',
         libraryTarget: 'umd'
+    },
+
+    devServer: {
+        contentBase: "./demo",
+        noInfo: true, //  --no-info option
+        hot: true,
+        inline: true
     }
 }

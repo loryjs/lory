@@ -51,14 +51,15 @@
     "webpack-dev-server": "^1.10.1"
   },
   "scripts": {
-    "clean": "rimraf dist/* && rimraf demo/js/*",
+    "clean": "rimraf dist/* && rimraf demo/js/* && rimraf src/jquery.lory.js",
     "check": "npm run lint -s && dependency-check package.json --entry src",
     "lint": "eslint src",
     "karma": "npm run karma start",
     "prebuild": "cat src/lory.js src/jquery.plugin.js > src/jquery.lory.js",
     "build": "webpack",
     "uglify": "uglifyjs dist/lory.js -o dist/lory.min.js --compress --mangle && uglifyjs dist/jquery.lory.js -o dist/jquery.lory.min.js --compress --mangle",
-    "postbuild": "rimraf src/jquery.lory.js && npm run uglify && cp -r dist/* demo/js/",
+    "postbuild": "npm run uglify && cp -r dist/* demo/js/",
+    "devserver": "webpack-dev-server",
     "patch": "npm version patch && npm publish",
     "minor": "npm version minor && npm publish",
     "major": "npm version major && npm publish"
