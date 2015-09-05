@@ -46,16 +46,19 @@
     "karma-mocha": "latest",
     "karma-mocha-reporter": "^1.0.2",
     "rimraf": "^2.4.3",
+    "uglify-js": "^2.4.24",
     "webpack": "^1.12.0",
     "webpack-dev-server": "^1.10.1"
   },
   "scripts": {
-    "clean": "rimraf dist/* && rimraf demo/js/* && rimraf src/jquery.lory.js",
+    "clean": "rimraf dist/* && rimraf demo/js/*",
     "check": "npm run lint -s && dependency-check package.json --entry src",
     "lint": "eslint src",
     "karma": "npm run karma start",
     "prebuild": "cat src/lory.js src/jquery.plugin.js > src/jquery.lory.js",
     "build": "webpack",
+    "minify": "uglifyjs dist/lory.js -o dist/lory.min.js && uglifyjs dist/jquery.lory.js -o dist/jquery.lory.min.js",
+    "postbuild": "rimraf src/jquery.lory.js && npm run minify && cp -r dist/* demo/js/",
     "patch": "npm version patch && npm publish",
     "minor": "npm version minor && npm publish",
     "major": "npm version major && npm publish"

@@ -1,7 +1,7 @@
 module.exports = {
     entry: {
-        lory: "./src/lory.js",
-        jquery: "./src/jquery.lory.js"
+        "lory": "./src/lory.js",
+        "jquery.lory": "./src/jquery.lory.js"
     },
 
     module: {
