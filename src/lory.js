@@ -282,28 +282,32 @@ var lory = function (slider, opts) {
 
     var timeout;
 
-    var autoStart = function () {
+    /**
+     * autoMove: move in the specified direction after the specified delay
+     */
+    var autoMove = function () {
         clearTimeout(timeout);
         timeout = setTimeout(options.autoDirection, options.autoDelay);
     };
 
+    /**
+     * autoStop: clear scheduled movements
+     */
     var autoStop = function () {
         clearTimeout(timeout);
     };
 
     /**
      * setupAutomaticScrolling: function to setup if auto is set
-     *
-     * @param  {element} slider
      */
-    var setupAutomaticScrolling = function (slider) {
+    var setupAutomaticScrolling = function () {
         if (options.autoDirection === 'prev') {
             options.autoDirection = prev;
         } else {
             options.autoDirection = next;
         }
-        slider.addEventListener('after.lory.init', autoStart);
-        slider.addEventListener('after.lory.slide', autoStart);
+        slider.addEventListener('after.lory.init', autoMove);
+        slider.addEventListener('after.lory.slide', autoMove);
         slider.addEventListener('on.lory.destroy', autoStop);
     };
 
@@ -338,7 +342,7 @@ var lory = function (slider, opts) {
         reset();
 
         if (options.auto) {
-            setupAutomaticScrolling(slider);
+            setupAutomaticScrolling();
         }
 
         if (prevCtrl && nextCtrl) {
