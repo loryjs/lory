@@ -1,4 +1,4 @@
-import lory from './lory.js';
+/* globals $, lory */
 
 $.fn.lory = function (options) {
     return this.each(function () {

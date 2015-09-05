@@ -1,14 +1,12 @@
 /* globals jQuery */
 
-import clamp from './utils/clamp.js';
-import polyfillCustomEvents from './utils/polyfill-custom-events.js';
 import detectPrefixes from './utils/detect-prefixes.js';
 import dispatchEvent from './utils/dispatch-event.js';
 import defaults from './defaults.js';
 
 const slice = Array.prototype.slice;
 
-export default function lory(slider, opts) {
+export default function lory (slider, opts) {
     let position;
     let slidesWidth;
     let frameWidth;
@@ -41,19 +39,19 @@ export default function lory(slider, opts) {
      * @param  {array} slideArray
      * @return {array} array of updated slideContainer elements
      */
-    function setupInfinite(slideArray) {
-        var front = slideArray.slice(0, options.infinite);
-        var back  = slideArray.slice(slideArray.length - options.infinite, slideArray.length);
+    function setupInfinite (slideArray) {
+        let front = slideArray.slice(0, options.infinite);
+        let back  = slideArray.slice(slideArray.length - options.infinite, slideArray.length);
 
         front.forEach(function (element) {
-            var cloned = element.cloneNode(true);
+            let cloned = element.cloneNode(true);
 
             slideContainer.appendChild(cloned);
         });
 
         back.reverse()
             .forEach(function (element) {
-                var cloned = element.cloneNode(true);
+                let cloned = element.cloneNode(true);
 
                 slideContainer.insertBefore(cloned, slideContainer.firstChild);
             });
@@ -67,7 +65,7 @@ export default function lory(slider, opts) {
      * [dispatchSliderEvent description]
      * @return {[type]} [description]
      */
-    function dispatchSliderEvent(phase, type, detail) {
+    function dispatchSliderEvent (phase, type, detail) {
         dispatchEvent(slider, `${phase}.lory.${type}`, detail);
     }
 
@@ -78,8 +76,8 @@ export default function lory(slider, opts) {
      * @duration  {number} time in milliseconds for the transistion
      * @ease      {string} easing css property
      */
-    function translate(to, duration, ease) {
-        var style = slideContainer && slideContainer.style;
+    function translate (to, duration, ease) {
+        let style = slideContainer && slideContainer.style;
 
         if (style) {
             style[prefixes.transition + 'TimingFunction'] = ease;
@@ -96,7 +94,7 @@ export default function lory(slider, opts) {
      *
      * @direction  {boolean}
      */
-    function slide(nextIndex, direction) {
+    function slide (nextIndex, direction) {
         let currentSlide = index;
         let nextSlide    = direction ? index + 1 : index - 1;
 
@@ -105,10 +103,8 @@ export default function lory(slider, opts) {
             nextSlide
         });
 
-        var maxOffset   = Math.round(slidesWidth - frameWidth);
-        var limitIndex  = clamp(0, slides.length - 1);
-        var duration    = options.slideSpeed;
-        var limitOffset = clamp(maxOffset * -1, 0);
+        let maxOffset   = Math.round(slidesWidth - frameWidth);
+        let duration    = options.slideSpeed;
 
         if (typeof nextIndex !== 'number') {
             if (direction) {
@@ -118,18 +114,18 @@ export default function lory(slider, opts) {
             }
         }
 
-        nextIndex = limitIndex(nextIndex);
+        nextIndex = Math.min(Math.max(nextIndex, 0), slides.length - 1);
 
         if (options.infinite && direction === undefined) {
             nextIndex += options.infinite;
         }
 
-        var nextOffset = limitOffset(slides[nextIndex].offsetLeft * -1);
+        let nextOffset = Math.min(Math.max(slides[nextIndex].offsetLeft * -1, maxOffset * -1), 0);
 
         if (options.rewind && Math.abs(position.x) === maxOffset && direction) {
             nextOffset = 0;
-            nextIndex  = 0;
-            duration   = options.rewindSpeed;
+            nextIndex = 0;
+            duration = options.rewindSpeed;
         }
 
         /**
@@ -175,19 +171,16 @@ export default function lory(slider, opts) {
      * public
      * setup function
      */
-    function setup() {
+    function setup () {
         dispatchSliderEvent('before', 'init');
 
-        polyfillCustomEvents();
-
         prefixes = detectPrefixes();
-
         options = {...defaults, ...opts};
 
-        frame          = slider.getElementsByClassName(options.classNameFrame)[0];
+        frame = slider.getElementsByClassName(options.classNameFrame)[0];
         slideContainer = frame.getElementsByClassName(options.classNameSlideContainer)[0];
-        prevCtrl       = slider.getElementsByClassName(options.classNamePrevCtrl)[0];
-        nextCtrl       = slider.getElementsByClassName(options.classNameNextCtrl)[0];
+        prevCtrl = slider.getElementsByClassName(options.classNamePrevCtrl)[0];
+        nextCtrl = slider.getElementsByClassName(options.classNameNextCtrl)[0];
 
         position = {
             x: slideContainer.offsetLeft,
@@ -218,7 +211,7 @@ export default function lory(slider, opts) {
      * public
      * reset function: called on resize
      */
-    function reset() {
+    function reset () {
         slidesWidth = slideContainer.getBoundingClientRect()
             .width || slideContainer.offsetWidth;
         frameWidth = frame.getBoundingClientRect()
@@ -235,7 +228,7 @@ export default function lory(slider, opts) {
         if (options.infinite) {
             translate(slides[index + options.infinite].offsetLeft * -1, 0, null);
 
-            index      = index + options.infinite;
+            index = index + options.infinite;
             position.x = slides[index].offsetLeft * -1;
         } else {
             translate(0, options.rewindSpeed, options.ease);
@@ -246,7 +239,7 @@ export default function lory(slider, opts) {
      * public
      * slideTo: called on clickhandler
      */
-    function slideTo(index) {
+    function slideTo (index) {
         slide(index);
     }
 
@@ -254,7 +247,7 @@ export default function lory(slider, opts) {
      * public
      * returnIndex function: called on clickhandler
      */
-    function returnIndex() {
+    function returnIndex () {
         return index;
     }
 
@@ -262,7 +255,7 @@ export default function lory(slider, opts) {
      * public
      * prev function: called on clickhandler
      */
-    function prev() {
+    function prev () {
         slide(false, false);
     }
 
@@ -270,7 +263,7 @@ export default function lory(slider, opts) {
      * public
      * next function: called on clickhandler
      */
-    function next() {
+    function next () {
         slide(false, true);
     }
 
@@ -278,7 +271,7 @@ export default function lory(slider, opts) {
      * public
      * destroy function: called to gracefully destroy the lory instance
      */
-    function destroy() {
+    function destroy () {
         dispatchSliderEvent('before', 'destroy');
 
         // remove event listeners
@@ -304,7 +297,7 @@ export default function lory(slider, opts) {
     let delta;
     let isScrolling;
 
-    function onTransitionEnd() {
+    function onTransitionEnd () {
         if (transitionEndCallback) {
             transitionEndCallback();
 
@@ -312,7 +305,7 @@ export default function lory(slider, opts) {
         }
     }
 
-    function onTouchstart(event) {
+    function onTouchstart (event) {
         let touches = event.touches[0];
 
         touchOffset = {
@@ -334,7 +327,7 @@ export default function lory(slider, opts) {
         });
     }
 
-    function onTouchmove(event) {
+    function onTouchmove (event) {
         let touches = event.touches[0];
 
         delta = {
@@ -356,7 +349,7 @@ export default function lory(slider, opts) {
         });
     }
 
-    function onTouchend() {
+    function onTouchend (event) {
         /**
          * time between touchstart and touchend in milliseconds
          * @duration {number}
@@ -411,7 +404,7 @@ export default function lory(slider, opts) {
         });
     }
 
-    function onResize() {
+    function onResize (event) {
         dispatchSliderEvent('on', 'resize', {
             event
         });

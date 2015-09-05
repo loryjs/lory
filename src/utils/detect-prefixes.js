@@ -1,18 +1,16 @@
-'use strict';
-
 /**
  * Detecting prefixes for saving time and bytes
  */
-var detectPrefixes = function () {
-    var transform;
-    var transition;
-    var transitionEnd;
+export default function detectPrefixes () {
+    let transform;
+    let transition;
+    let transitionEnd;
 
     (function () {
-        var style = document.createElement('_')
+        let style = document.createElement('_')
             .style;
 
-        var prop;
+        let prop;
 
         if (style[prop = 'webkitTransition'] === '') {
             transitionEnd = 'webkitTransitionEnd';
@@ -42,6 +40,4 @@ var detectPrefixes = function () {
         transition: transition,
         transitionEnd: transitionEnd
     };
-};
-
-module.exports = detectPrefixes;
+}

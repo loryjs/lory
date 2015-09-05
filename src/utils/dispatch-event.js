@@ -1,4 +1,4 @@
-'use strict';
+import CustomEvent from 'custom-event';
 
 /**
  * dispatch custom events
@@ -7,14 +7,15 @@
  * @param  {string}  type       custom event name
  * @param  {object}  detail     custom detail information
  */
-var dispatchEvent = function (el, type, detail) {
-    var e = new CustomEvent(type, {
-        detail: detail,
-        bubbles: true,
-        cancelable: true
-    });
+export default function dispatchEvent (target, type, detail) {
+    let event = new CustomEvent(
+        type,
+        {
+            bubbles: true,
+            cancelable: true,
+            detail: detail
+        }
+    );
 
-    el.dispatchEvent(e);
-};
-
-module.exports = dispatchEvent;
+    target.dispatchEvent(event);
+}
