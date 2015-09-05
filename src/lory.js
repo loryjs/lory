@@ -293,6 +293,8 @@ var lory = function (slider, opts) {
 
     /**
      * setupAutomaticScrolling: function to setup if auto is set
+     *
+     * @param  {element} slider
      */
     var setupAutomaticScrolling = function (slider) {
         if (options.autoDirection === 'prev') {

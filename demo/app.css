@@ -222,7 +222,7 @@ footer {
 
 }
 
-.multipleelements li, .multislides li, .auto li, .ease li {
+.multipleelements li, .multislides li, .ease li {
     width: 60px;
     margin-right: 10px;
 }
@@ -233,7 +233,6 @@ footer {
 .variablewidth li:last-child,
 .multipleelements li:last-child,
 .multislides li:last-child,
-.auto li:last-child,
 .ease li:last-child {
     margin-right: 0;
 }
@@ -318,7 +317,7 @@ footer {
         margin-right: 10px;
     }
 
-    .multipleelements li, .multislides li, .auto li, .ease li {
+    .multipleelements li, .multislides li, .ease li {
         width: 130px;
         margin-right: 20px;
     }
@@ -358,7 +357,7 @@ footer {
         margin-right: 10px;
     }
 
-    .multipleelements li, .multislides li, .auto li, .ease li {
+    .multipleelements li, .multislides li, .ease li {
         width: 205px;
         margin-right: 20px;
     }
