@@ -3,7 +3,7 @@
   <img src="./demo/lory.png" width="200px" />
 </p>
 
-Please visit: <a href="http://meandmax.github.io/lory/" target="_blank">http://meandmax.github.io/lory/</a>
+Please visit: [http://meandmax.github.io/lory/](http://meandmax.github.io/lory/ "lory")
 
 > Touch enabled minimalistic slider written in vanilla JavaScript.
 
@@ -13,6 +13,7 @@ Please visit: <a href="http://meandmax.github.io/lory/" target="_blank">http://m
 [![build](http://img.shields.io/travis/meandmax/lory/master.svg?style=flat)](https://travis-ci.org/meandmax/lory)
 [![code climate](http://img.shields.io/codeclimate/github/meandmax/lory.svg?style=flat)](https://codeclimate.com/github/meandmax/lory)
 [![devDependencies](http://img.shields.io/david/dev/meandmax/lory.svg?style=flat)](https://david-dm.org/meandmax/lory#info=devDependencies&view=table)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 
 [![Join the chat at https://gitter.im/meandmax/lory](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/meandmax/lory?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
