@@ -162,6 +162,8 @@ var lory = function (slider, opts) {
     var slideContainer;
     var prevCtrl;
     var nextCtrl;
+    var pagerContainer;
+    var pagerCtrls;
 
     var defaults = {
         /**
@@ -208,6 +210,12 @@ var lory = function (slider, opts) {
          * @infinite {number}
          */
         infinite: false,
+
+        /**
+         * class name for slider pager control
+         * @classNamePager {string}
+         */
+        classNamePager: 'js_pager',
 
         /**
          * class name for slider frame
@@ -263,6 +271,53 @@ var lory = function (slider, opts) {
     };
 
     /**
+     * updatePager: function to update the active item in the pager
+     */
+    var updatePager = function () {
+        pagerCtrls.forEach(function (element, i) {
+            element.classList.remove('active');
+            if (i === (index - 1)) {
+                element.classList.add('active');
+            }
+        });
+    };
+
+    /**
+     * setupPager: function to setup if pager is set
+     */
+    var setupPager = function () {
+        pagerContainer = slider.getElementsByClassName(options.classNamePager)[0];
+
+        if (pagerContainer) {
+            pagerCtrls = slice.call(pagerContainer.children);
+            var pagerCtrl = pagerCtrls[0];
+
+            if (pagerCtrl) {
+                pagerCtrls.forEach(function (element) {
+                    pagerContainer.removeChild(element);
+                });
+
+                var l = slides.length;
+
+                if (options.infinite) {
+                    l = l - 2;
+                }
+
+                for (var i = 0; i < l; i += 1) {
+                    var cloned = pagerCtrl.cloneNode(true);
+
+                    pagerContainer.appendChild(cloned);
+                }
+
+                pagerCtrls = slice.call(pagerContainer.children);
+            }
+
+            slider.addEventListener('after.lory.init', updatePager);
+            slider.addEventListener('after.lory.slide', updatePager);
+        }
+    };
+
+    /**
      * public
      * setup function
      */
@@ -296,6 +351,8 @@ var lory = function (slider, opts) {
             prevCtrl.addEventListener('click', prev);
             nextCtrl.addEventListener('click', next);
         }
+
+        setupPager();
 
         slideContainer.addEventListener('touchstart', onTouchstart);
 

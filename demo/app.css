@@ -257,6 +257,35 @@ footer {
     width: 25px;
 }
 
+.simple_pager .frame {
+    margin-bottom: 40px;
+}
+
+.pager {
+    bottom: -20px;
+    display: block;
+    left: 0;
+    position: absolute;
+    right: 0;
+    text-align: center;
+}
+
+.pager svg, .pager svg.active {
+    height: 1ex;
+    margin: 0 0.5ex;
+    width: 1ex;
+}
+
+.pager svg * {
+    fill: #2E435A;
+    stroke: transparent;
+}
+
+.pager svg.active * {
+    fill: transparent;
+    stroke: #2E435A;
+}
+
 .events_log {
     display: block;
     font-size: 12px;

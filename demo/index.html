@@ -212,6 +212,46 @@
 
 </code></pre></div>
 
+            <h2>Single element - Fixed width [pager]</h2>
+
+            <div class="slider js_simple_pager simple simple_pager">
+                <div class="frame js_frame">
+                    <ul class="slides js_slides">
+                        <li class="js_slide">1</li>
+                        <li class="js_slide">2</li>
+                        <li class="js_slide">3</li>
+                        <li class="js_slide">4</li>
+                        <li class="js_slide">5</li>
+                        <li class="js_slide">6</li>
+                    </ul>
+                </div>
+
+                <span class="js_pager pager">
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1" height="1" viewBox="0 0 1 1">
+                        <circle cx="0.5" cy="0.5" r="0.4" fill="#2E435A" stroke="transparent" stroke-width="0.1" />
+                    </svg>
+                </span>
+
+                <span class="js_prev prev">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z"/></g></svg>
+                </span>
+
+                <span class="js_next next">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z"/></g></svg>
+                </span>
+            </div>
+
+<div class="examplecode"><pre><code class="javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var simple = document.querySelector('.js_simple');
+
+        lory(simple, {
+            infinite: 1
+        });
+    });
+
+</code></pre></div>
+
             <h2>Variable width</h2>
 
             <div class="slider js_variablewidth variablewidth">
@@ -631,6 +671,7 @@
             var percentage       = document.querySelector('.js_percentage');
             var rewind           = document.querySelector('.js_rewind');
             var rewind_percentage = document.querySelector('.js_rewind_percentage');
+            var pager            = document.querySelector('.js_simple_pager');
             var variableWidth    = document.querySelector('.js_variablewidth');
             var multiSlides      = document.querySelector('.js_multislides');
             var ease             = document.querySelector('.js_ease');
@@ -650,6 +691,10 @@
 
             lory(rewind_percentage, {
                 rewind: true
+            });
+
+            lory(pager, {
+                infinite: 1
             });
 
             lory(variableWidth, {
