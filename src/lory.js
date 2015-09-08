@@ -189,6 +189,24 @@ var lory = function (slider, opts) {
         snapBackSpeed: 200,
 
         /**
+         * start scrolling automatically
+         * @auto {Boolean}
+         */
+        auto: false,
+
+        /**
+         * time in milliseconds between each automatic scroll
+         * @autoDelay {Number}
+         */
+        autoDelay: 3000,
+
+        /**
+         * the name of the direction for each automatic scroll
+         * @autoDirection {String}
+         */
+        autoDirection: 'next',
+
+        /**
          * Basic easing functions: https://developer.mozilla.org/de/docs/Web/CSS/transition-timing-function
          * cubic bezier easing functions: http://easings.net/de
          * @ease {String}
@@ -262,6 +280,37 @@ var lory = function (slider, opts) {
         return slice.call(slideContainer.children);
     };
 
+    var timeout;
+
+    /**
+     * autoMove: move in the specified direction after the specified delay
+     */
+    var autoMove = function () {
+        clearTimeout(timeout);
+        timeout = setTimeout(options.autoDirection, options.autoDelay);
+    };
+
+    /**
+     * autoStop: clear scheduled movements
+     */
+    var autoStop = function () {
+        clearTimeout(timeout);
+    };
+
+    /**
+     * setupAutomaticScrolling: function to setup if auto is set
+     */
+    var setupAutomaticScrolling = function () {
+        if (options.autoDirection === 'prev') {
+            options.autoDirection = prev;
+        } else {
+            options.autoDirection = next;
+        }
+        slider.addEventListener('after.lory.init', autoMove);
+        slider.addEventListener('after.lory.slide', autoMove);
+        slider.addEventListener('on.lory.destroy', autoStop);
+    };
+
     /**
      * public
      * setup function
@@ -291,6 +340,10 @@ var lory = function (slider, opts) {
         }
 
         reset();
+
+        if (options.auto) {
+            setupAutomaticScrolling();
+        }
 
         if (prevCtrl && nextCtrl) {
             prevCtrl.addEventListener('click', prev);

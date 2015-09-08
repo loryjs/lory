@@ -291,6 +291,47 @@
 
 </code></pre></div>
 
+            <h2>Automatic Scrolling</h2>
+
+            <div class="slider js_auto multislides">
+                <div class="frame js_frame">
+                    <ul class="slides js_slides">
+                        <li class="js_slide">1</li>
+                        <li class="js_slide">2</li>
+                        <li class="js_slide">3</li>
+                        <li class="js_slide">4</li>
+                        <li class="js_slide">5</li>
+                        <li class="js_slide">6</li>
+                        <li class="js_slide">7</li>
+                        <li class="js_slide">8</li>
+                        <li class="js_slide">9</li>
+                        <li class="js_slide">10</li>
+                        <li class="js_slide">11</li>
+                        <li class="js_slide">12</li>
+                    </ul>
+                </div>
+
+                <span class="js_prev prev">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z"/></g></svg>
+                </span>
+
+                <span class="js_next next">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z"/></g></svg>
+                </span>
+            </div>
+
+<div class="examplecode"><pre><code class="javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var auto = document.querySelector('.js_auto');
+
+        lory(auto, {
+            infinite: 4,
+            auto: true
+        });
+    });
+
+</code></pre></div>
+
             <h2>Custom easings</h2>
 
             <div class="slider js_ease ease">
@@ -633,6 +674,7 @@
             var rewind_percentage = document.querySelector('.js_rewind_percentage');
             var variableWidth    = document.querySelector('.js_variablewidth');
             var multiSlides      = document.querySelector('.js_multislides');
+            var auto             = document.querySelector('.js_auto');
             var ease             = document.querySelector('.js_ease');
             var events           = document.querySelector('.js_events');
 
@@ -659,6 +701,11 @@
             lory(multiSlides, {
                 infinite: 4,
                 slidesToScroll: 4
+            });
+
+            lory(auto, {
+                infinite: 4,
+                auto: true
             });
 
             lory(ease, {
