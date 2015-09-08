@@ -248,6 +248,11 @@ grunt karma
         <td>class name for slider next control</td>
         <td>default: 'js_next'</td>
     </tr>
+    <tr>
+        <td>classNamePagerCtrl</td>
+        <td>class name for slider pager control</td>
+        <td>default: 'js_pager'</td>
+    </tr>
 </table>
 
 ## Events
