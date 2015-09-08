@@ -224,6 +224,21 @@ grunt karma
         <td>default: 200</td>
     </tr>
     <tr>
+        <td>auto</td>
+        <td>start scrolling automatically</td>
+        <td>default: false</td>
+    </tr>
+    <tr>
+        <td>autoDelay</td>
+        <td>time in milliseconds between each automatic scroll</td>
+        <td>default: 3000</td>
+    </tr>
+    <tr>
+        <td>autoDirection</td>
+        <td>the direction for each automatic scroll</td>
+        <td>default: 'next'</td>
+    </tr>
+    <tr>
         <td>ease</td>
         <td>cubic bezier easing functions: http://easings.net/de</td>
         <td>default: 'ease'</td>
