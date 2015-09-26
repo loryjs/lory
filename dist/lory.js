@@ -162,13 +162,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    /**
-	    * slidefunction called by prev, next & touchend
-	    *
-	    * determine nextIndex and slide to next postion
-	    * under restrictions of the defined options
-	    *
-	    * @direction  {boolean}
-	    */
+	     * slidefunction called by prev, next & touchend
+	     *
+	     * determine nextIndex and slide to next postion
+	     * under restrictions of the defined options
+	     *
+	     * @direction  {boolean}
+	     */
 	    function slide(nextIndex, direction) {
 	        var currentSlide = index;
 	        var nextSlide = direction ? index + 1 : index - 1;

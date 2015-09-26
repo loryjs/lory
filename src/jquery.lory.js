@@ -86,7 +86,7 @@ export default function lory (slider, opts) {
         }
     }
 
-        /**
+    /**
      * slidefunction called by prev, next & touchend
      *
      * determine nextIndex and slide to next postion
