@@ -31,28 +31,25 @@ var lory = require('lory.js');
 bower install lory --save
 ```
 
-
 ## Local development
 
 ```
 // To install dev dependencies run:
 
-npm install -g grunt-cli
 npm install
 
 // To start the development server run:
 
-grunt start
+npm start
 
 // To lint your code run:
 
-grunt lint
+npm run lint
 
 // To make a full new build run:
 
-grunt build
+npm run build
 ```
-
 
 ## Run tests
 
@@ -63,7 +60,7 @@ npm install
 
 // To start karma in chrome browser and run tests:
 
-grunt karma
+npm run karma
 ```
 
 <p align="center">
