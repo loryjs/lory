@@ -64,9 +64,9 @@ header {
     width: 30%;
     height: auto;
     min-width: 100px;
-    max-width: 200px;
+    max-width: 150px;
     margin: 0 auto;
-    padding: 20px 0;
+    padding: 50px 0;
 }
 
 .testscreen {

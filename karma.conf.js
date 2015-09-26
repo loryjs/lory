@@ -4,7 +4,8 @@ module.exports = function (config) {
     config.set({
         frameworks: [
             'mocha',
-            'chai'
+            'chai',
+            'fixture'
         ],
 
         reporters: [
@@ -12,7 +13,25 @@ module.exports = function (config) {
         ],
 
         files: [
-          'test/*.js'
-        ]
+            'dist/lory.js',
+            'test/lory.test.js',
+            'demo/app.css',
+
+            {
+                pattern: 'test/*.html'
+            }
+        ],
+
+        plugins: [
+            'karma-mocha',
+            'karma-mocha-reporter',
+            'karma-chai',
+            'karma-fixture',
+            'karma-html2js-preprocessor'
+        ],
+
+        preprocessors: {
+            'test/*.html': ['html2js']
+        }
     });
 };

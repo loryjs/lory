@@ -20,12 +20,15 @@
             <img class="logo" src="lory.png" />
         </header>
 
-        <p class="description">Touch enabled minimalistic slider written in vanilla JavaScript</p>
+        <p class="description">Touch enabled minimalistic slider written in vanilla JavaScript.</p>
         <p class="description">Hardware accelerated transitions</p>
         <p class="description">Usable as a jQuery plugin</p>
         <p class="description">Options for custom easing effects</p>
         <p class="description">infinite looping ~ carousel</p>
         <p class="description">No compromises for fallbacks</p>
+        <p class="description">Written in ecmascript 6</p>
+        <p class="description">Using webpack, babel & eslint for development</p>
+
 
         <a class="dist" href="./js/lory.min.js">Download Here</a>
 
@@ -441,20 +444,19 @@
 <div class="examplecode"><pre><code class="shell">
         // To install dev dependencies run:
 
-        npm install -g grunt-cli
         npm install
 
         // To start the development server run:
 
-        grunt start
+        npm start
 
         // To lint your code run:
 
-        grunt lint
+        npm run lint
 
         // To make a full new build run:
 
-        grunt build
+        npm run build
 
 </code></pre></div>
         </section>
@@ -470,7 +472,7 @@
 
         // To start karma in chrome browser and run tests:
 
-        grunt karma
+        npm run karma
 
 </code></pre></div>
 
@@ -622,7 +624,7 @@
     <script src="vendor/highlight.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
 
-    <script src="js/lory.min.js"></script>
+    <script src="js/lory.js"></script>
     <script>
         'use strict';
 

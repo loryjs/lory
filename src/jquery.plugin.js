@@ -1,8 +1,6 @@
 /* globals $, lory */
 
 $.fn.lory = function (options) {
-    'use strict';
-
     return this.each(function () {
         var instanceOptions;
 

@@ -1,0 +1,8 @@
+{
+    "extends": "standard",
+    "rules": {
+        indent: [2, 4],
+        no-multi-spaces: [2, { exceptions: { "VariableDeclarator": true } }],
+        semi: [2, "always"]
+    }
+}
