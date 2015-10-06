@@ -413,6 +413,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 
 	        if (!isScrolling) {
+	            event.preventDefault();
 	            translate(position.x + delta.x, 0, null);
 	        }
 
