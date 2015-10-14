@@ -70,7 +70,7 @@ npm run karma
 ## Prerequisited markup
 
 ```html
-<div class="slider js_simple simple">
+<div class="slider js_slider">
     <div class="frame js_frame">
         <ul class="slides js_slides">
             <li class="js_slide">1</li>
@@ -87,72 +87,72 @@ npm run karma
 ## Prerequisited css
 
 ```css
-  .frame {
-        position: relative;
-        font-size: 0;
-        line-height: 0;
-        overflow: hidden;
-        white-space: nowrap;
-    }
+.frame {
+    position: relative;
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+    white-space: nowrap;
+}
 
-    .slides {
-        display: inline-block;
-    }
+.slides {
+    display: inline-block;
+}
 
-    li {
-        position: relative;
-        display: inline-block;
+li {
+    position: relative;
+    display: inline-block;
 
-        // example width has to specified for the different views (media queries)
-        width: 880px;
-    }
+    // example width has to specified for the different views (media queries)
+    width: 880px;
+}
 ```
 
 ## Integration
 
 ```js
-    <script src="js/lory.min.js"></script>
-    <script>
-        'use strict';
+<script src="js/lory.min.js"></script>
+<script>
+    'use strict';
 
-        document.addEventListener('DOMContentLoaded', function() {
-            var simple = document.querySelector('.js_simple');
+    document.addEventListener('DOMContentLoaded', function() {
+        var slider = document.querySelector('.js_slider');
 
-            lory(simple, {
-                // options going here
-            });
+        lory(slider, {
+            // options going here
         });
-    </script>
+    });
+</script>
 ```
 
 ## Integration as a jQuery Plugin
 
 ```js
-    <script src="js/jquery.lory.min.js"></script>
-    <script>
-        'use strict';
+<script src="js/jquery.lory.min.js"></script>
+<script>
+    'use strict';
 
-        $(function() {
-            $('.js_simple').lory({
-                infinite: 1
-            });
+    $(function() {
+        $('.js_slider').lory({
+            infinite: 1
         });
-    </script>
+    });
+</script>
 ```
 
 ## Integration of multiple sliders on one page
 
 ```javascript
-    <script src="js/lory.js"></script>
-    <script>
-        'use strict';
+<script src="js/lory.js"></script>
+<script>
+    'use strict';
 
-        document.addEventListener('DOMContentLoaded', function() {
-            Array.prototype.slice.call(document.querySelectorAll('.js_slider')).forEach(function (element, index) {
-                lory(element, {});
-            });
+    document.addEventListener('DOMContentLoaded', function() {
+        Array.prototype.slice.call(document.querySelectorAll('.js_slider')).forEach(function (element, index) {
+            lory(element, {});
         });
-    </script>
+    });
+</script>
 ```
 
 # Public API
