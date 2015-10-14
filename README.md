@@ -87,7 +87,18 @@ npm run karma
 ## Prerequisited css
 
 ```css
+/**
+ * (optional) define here the style definitions which should be applied on the slider container
+ * e.g. width including further controls like arrows etc.
+ */
+.slider {}
+
 .frame {
+    /**
+     * (optional) wrapper width, specifies width of the slider frame.
+     */
+    width: 880px;
+
     position: relative;
     font-size: 0;
     line-height: 0;
@@ -103,7 +114,9 @@ li {
     position: relative;
     display: inline-block;
 
-    // example width has to specified for the different views (media queries)
+    /**
+     * (optional) if the content inside the slide element has a defined size.
+     */
     width: 880px;
 }
 ```
