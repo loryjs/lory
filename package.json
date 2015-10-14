@@ -1,6 +1,5 @@
 {
   "name": "lory.js",
-  "version": "1.4.1",
   "description": "Touch enabled minimalistic slider written in vanilla JavaScript.",
   "author": {
     "name": "Maximilian Heinz",
@@ -49,6 +48,7 @@
     "karma-mocha": "0.2.0",
     "karma-mocha-reporter": "1.1.1",
     "rimraf": "2.4.3",
+    "semantic-release": "^4.3.5",
     "uglify-js": "2.5.0",
     "webpack": "1.12.2",
     "webpack-dev-server": "1.12.0"
@@ -63,9 +63,7 @@
     "uglify": "uglifyjs dist/lory.js -o dist/lory.min.js --compress --mangle && uglifyjs dist/jquery.lory.js -o dist/jquery.lory.min.js --compress --mangle",
     "postbuild": "npm run uglify && cp -r dist/* demo/js/",
     "start": "webpack-dev-server",
-    "patch": "npm version patch && npm publish",
-    "minor": "npm version minor && npm publish",
-    "major": "npm version major && npm publish"
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "engines": {
     "node": ">= 0.10.0"
