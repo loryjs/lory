@@ -67,7 +67,7 @@
     "saucelabs": "karma start",
     "karma-local": "karma start local.karma.conf.js",
     "prebuild": "cat src/lory.js src/jquery.plugin.js > src/jquery.lory.js",
-    "build": "npm run lint && webpack && npm run karma-local",
+    "build": "npm run lint && webpack",
     "uglify": "uglifyjs dist/lory.js -o dist/lory.min.js --compress --mangle && uglifyjs dist/jquery.lory.js -o dist/jquery.lory.min.js --compress --mangle",
     "postbuild": "npm run uglify && cp -r dist/* demo/js/",
     "start": "webpack-dev-server",
