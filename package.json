@@ -55,6 +55,8 @@
     "karma-sauce-launcher": "^0.2.14",
     "phantomjs": "^1.9.18",
     "rimraf": "2.4.3",
+    "sauce-connect-launcher": "^0.13.0",
+    "saucelabs": "^1.0.1",
     "semantic-release": "^4.3.5",
     "uglify-js": "2.5.0",
     "webpack": "1.12.2",
