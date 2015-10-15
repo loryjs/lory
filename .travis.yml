@@ -25,3 +25,7 @@ after_success:
 branches:
   except:
     - "/^v\\d+\\.\\d+\\.\\d+$/"
+env:
+  global:
+    - secure: F218QlWqP6+TvYG2cttLd7G7om3NUm6Qcvz6o3G6OV03YZ2NuTTR77Fm29y7Br4ojMzZ+fzABcbGzQPriwVcEQ9aPF3NsCsTfdocg5pkKXKxCXrUmI/IOkL0XNyyGyA6eUKDxSWunPt2m5rfw8yjQyjQwMzVQ9TwfLoJLw9N2EU=
+    - secure: Ih8EFJpHTc2d5PY0upF9Spui60QsIuLJ83GvASn6Fz9qXvvt6MD++qLvZi0RU8nugUl8niXLK5KrX3LFL9YtIbaIUdHt76Yz6oAys8uyp2Y61aqf8FCdeTBPOvjRXm3bU1PDod+1RryMxK0REcnWxwOxGfve/zgWDN1tzQ8ab6I=
