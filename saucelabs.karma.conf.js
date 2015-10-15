@@ -7,37 +7,56 @@ module.exports = function(config) {
     }
 
     var customLaunchers = {
-        sl_chrome: {
-            base: 'SauceLabs',
-            browserName: 'chrome',
-            platform: 'Windows 7',
-            version: '35'
-        },
-
-        sl_firefox: {
-            base: 'SauceLabs',
-            browserName: 'firefox',
-            version: '30'
-        },
-
-        sl_ios_safari: {
-            base: 'SauceLabs',
-            browserName: 'iphone',
-            platform: 'OS X 10.9',
-            version: '7.1'
-        },
-
-        sl_ie_11: {
+        sauceLabsInternetExplorer9: {
             base: 'SauceLabs',
             browserName: 'internet explorer',
-            platform: 'Windows 8.1',
-            version: '11'
+            platform: 'Windows 7',
+            version: '9.0'
+        },
+        sauceLabsInternetExplorer10: {
+            base: 'SauceLabs',
+            browserName: 'internet explorer',
+            platform: 'Windows 7',
+            version: '10.0'
+        },
+        sauceLabsInternetExplorer11: {
+            base: 'SauceLabs',
+            browserName: 'internet explorer',
+            platform: 'Windows 7',
+            version: '11.0'
+        },
+        sauceLabsChrome: {
+            base: 'SauceLabs',
+            browserName: 'chrome',
+            platform: 'Linux',
+            version: '39.0'
+        },
+        sauceLabsFirefox: {
+            base: 'SauceLabs',
+            browserName: 'firefox',
+            platform: 'Linux',
+            version: '34.0'
+        },
+        sauceLabsSafari7: {
+            base: 'SauceLabs',
+            browserName: 'safari',
+            platform: 'Mac 10.9',
+            version: '7.0'
+        },
+        sauceLabsSafari8: {
+            base: 'SauceLabs',
+            browserName: 'safari',
+            platform: 'Mac 10.10',
+            version: '8.0'
         }
     };
 
     config.set({
         sauceLabs: {
-            testName: 'lory Browser Tests'
+            testName: 'lory Browser Tests',
+            connectOptions: {
+                port: 5757
+            }
         },
 
         customLaunchers: customLaunchers,
@@ -65,12 +84,7 @@ module.exports = function(config) {
             'karma-mocha-reporter',
             'karma-chai',
             'karma-fixture',
-            'karma-chrome-launcher',
-            'karma-phantomjs-launcher',
-            'karma-ie-launcher',
-            'karma-opera-launcher',
-            'karma-firefox-launcher',
-            'karma-safari-launcher',
+            'karma-sauce-launcher',
             'karma-html2js-preprocessor'
         ],
 
