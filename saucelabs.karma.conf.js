@@ -25,13 +25,102 @@ module.exports = function(config) {
             platform: 'Windows 7',
             version: '11.0'
         },
-        sauceLabsChrome: {
+        sauceLabsChrome_46: {
+            base: 'SauceLabs',
+            browserName: 'chrome',
+            platform: 'Linux',
+            version: '46.0'
+        },
+        sauceLabsChrome_45: {
+            base: 'SauceLabs',
+            browserName: 'chrome',
+            platform: 'Linux',
+            version: '45.0'
+        },
+        sauceLabsChrome_44: {
+            base: 'SauceLabs',
+            browserName: 'chrome',
+            platform: 'Linux',
+            version: '44.0'
+        },
+        sauceLabsChrome_43: {
+            base: 'SauceLabs',
+            browserName: 'chrome',
+            platform: 'Linux',
+            version: '43.0'
+        },
+        sauceLabsChrome_42: {
+            base: 'SauceLabs',
+            browserName: 'chrome',
+            platform: 'Linux',
+            version: '42.0'
+        },
+        sauceLabsChrome_41: {
+            base: 'SauceLabs',
+            browserName: 'chrome',
+            platform: 'Linux',
+            version: '41.0'
+        },
+        sauceLabsChrome_40: {
+            base: 'SauceLabs',
+            browserName: 'chrome',
+            platform: 'Linux',
+            version: '40.0'
+        },
+        sauceLabsChrome_39: {
             base: 'SauceLabs',
             browserName: 'chrome',
             platform: 'Linux',
             version: '39.0'
         },
-        sauceLabsFirefox: {
+        sauceLabsChrome_38: {
+            base: 'SauceLabs',
+            browserName: 'chrome',
+            platform: 'Linux',
+            version: '38.0'
+        },
+        sauceLabsChrome_37: {
+            base: 'SauceLabs',
+            browserName: 'chrome',
+            platform: 'Linux',
+            version: '37.0'
+        },
+        sauceLabsFirefoxLatest: {
+            base: 'SauceLabs',
+            browserName: 'firefox',
+            platform: 'Linux'
+        },
+        sauceLabsFirefox_39: {
+            base: 'SauceLabs',
+            browserName: 'firefox',
+            platform: 'Linux',
+            version: '39.0'
+        },
+        sauceLabsFirefox_38: {
+            base: 'SauceLabs',
+            browserName: 'firefox',
+            platform: 'Linux',
+            version: '38.0'
+        },
+        sauceLabsFirefox_37: {
+            base: 'SauceLabs',
+            browserName: 'firefox',
+            platform: 'Linux',
+            version: '37.0'
+        },
+        sauceLabsFirefox_36: {
+            base: 'SauceLabs',
+            browserName: 'firefox',
+            platform: 'Linux',
+            version: '36.0'
+        },
+        sauceLabsFirefox_35: {
+            base: 'SauceLabs',
+            browserName: 'firefox',
+            platform: 'Linux',
+            version: '35.0'
+        },
+        sauceLabsFirefox_34: {
             base: 'SauceLabs',
             browserName: 'firefox',
             platform: 'Linux',
@@ -48,6 +137,20 @@ module.exports = function(config) {
             browserName: 'safari',
             platform: 'Mac 10.10',
             version: '8.0'
+        },
+        sauceLabsIPhone_latest: {
+            base: 'SauceLabs',
+            browserName: 'iPhone'
+        },
+        sauceLabsIPhone_7: {
+            base: 'SauceLabs',
+            browserName: 'iPhone',
+            version: '7.1'
+        },
+        sauceLabsAndroid_tablet_4: {
+            base: 'SauceLabs',
+            browserName: 'android',
+            version: '4.4'
         }
     };
 
