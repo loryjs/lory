@@ -142,6 +142,59 @@ describe('.next()', function () {
     });
 });
 
+describe('.next() called 2x', function() {
+    var instance;
+    var element;
+    var expectedOffset;
+
+    before(function () {
+        fixture.setBase('test');
+    });
+
+    beforeEach(function () {
+        this.result = fixture.load('test.html');
+
+        element  = fixture.el.querySelector('.js_simple');
+        expectedOffset = (element.querySelector('.js_slide').offsetWidth * 2 + 20) * -1;
+        instance = lory(element);
+    });
+
+    it('offset has to be the expectedOffset', function() {
+        for (var i = 0; i < 2; i++) {
+            instance.next();
+        }
+
+        assert.equal(instance.returnIndex(), 2);
+    });
+});
+
+describe('.next() called 4x', function() {
+    var instance;
+    var element;
+    var expectedOffset;
+
+    before(function () {
+        fixture.setBase('test');
+    });
+
+    beforeEach(function () {
+        this.result = fixture.load('test.html');
+
+        element  = fixture.el.querySelector('.js_simple');
+        expectedOffset = (element.querySelector('.js_slide').offsetWidth + 10) * -4;
+        instance = lory(element);
+    });
+
+    it('offset has to be the expectedOffset', function() {
+
+        for (var i = 0; i < 4; i++) {
+            instance.next();
+        }
+
+        assert.equal(instance.returnIndex(), 4);
+    });
+});
+
 describe('.prev()', function () {
     var instance;
     var element;
@@ -167,6 +220,120 @@ describe('.prev()', function () {
         }
 
         assert.equal(instance.returnIndex(), 0);
+    });
+});
+
+describe('.prev() called 2x without infinite', function() {
+    var instance;
+    var element;
+    var expectedOffset;
+
+    before(function () {
+        fixture.setBase('test');
+    });
+
+    beforeEach(function () {
+        this.result = fixture.load('test.html');
+
+        element  = fixture.el.querySelector('.js_simple');
+        expectedOffset = 0;
+        instance = lory(element);
+    });
+
+    it('offset has to be the expectedOffset', function() {
+        for (var i = 0; i < 2; i++) {
+            instance.prev();
+        }
+
+        assert.equal(instance.returnIndex(), 0);
+    });
+});
+
+describe('.prev() called 4x without infinite', function() {
+    var instance;
+    var element;
+    var expectedOffset;
+
+    before(function () {
+        fixture.setBase('test');
+    });
+
+    beforeEach(function () {
+        this.result = fixture.load('test.html');
+
+        element  = fixture.el.querySelector('.js_simple');
+        expectedOffset = 0;
+        instance = lory(element);
+    });
+
+    it('offset has to be the expectedOffset', function() {
+        for (var i = 0; i < 4; i++) {
+            instance.prev();
+        }
+
+        assert.equal(instance.returnIndex(), 0);
+    });
+});
+
+describe('.prev() called 2x with infinite', function() {
+    var instance;
+    var element;
+    var expectedOffset;
+
+    before(function () {
+        fixture.setBase('test');
+    });
+
+    beforeEach(function () {
+        this.result = fixture.load('test.html');
+
+        element  = fixture.el.querySelector('.js_simple');
+
+        // has to be at slide 5
+        expectedOffset = (element.querySelector('.js_slide').offsetWidth + 10) * -5;
+
+        instance = lory(element, {
+            infinite: true
+        });
+    });
+
+    it('offset has to be the expectedOffset', function() {
+        for (var i = 0; i < 2; i++) {
+            instance.prev();
+        }
+
+        assert.equal(instance.returnIndex(), 5);
+    });
+});
+
+describe('.prev() called 4x with infinite', function() {
+    var instance;
+    var element;
+    var expectedOffset;
+
+    before(function () {
+        fixture.setBase('test');
+    });
+
+    beforeEach(function () {
+        this.result = fixture.load('test.html');
+
+        element  = fixture.el.querySelector('.js_simple');
+
+        // has to be at slide 3
+        expectedOffset = (element.querySelector('.js_slide').offsetWidth + 10) * -3;
+
+        instance = lory(element, {
+            infinite: true
+        });
+    });
+
+    it('offset has to be the expectedOffset', function() {
+        for (var i = 0; i < 4; i++) {
+            instance.prev();
+        }
+
+        assert.equal(instance.returnIndex(), 3);
     });
 });
 
