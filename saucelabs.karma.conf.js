@@ -138,6 +138,11 @@ module.exports = function(config) {
             'test/*.html': ['html2js']
         },
 
+        browserDisconnectTimeout : 10000, // default 2000
+        browserDisconnectTolerance : 1, // default 0
+        browserNoActivityTimeout : 4*60*1000, //default 10000
+        captureTimeout : 4*60*1000, //default 60000
+
         singleRun: true
     });
 };
