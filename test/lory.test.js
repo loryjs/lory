@@ -164,10 +164,7 @@ describe('.next() called 2x', function() {
             instance.next();
         }
 
-        var transform = document.querySelector('.js_slides').style.transform
-        var offset    = new WebKitCSSMatrix(document.querySelector('.js_slides').style.transform).m41
-
-        assert.equal(offset, expectedOffset);
+        assert.equal(instance.returnIndex(), 2);
     });
 });
 
@@ -194,10 +191,7 @@ describe('.next() called 4x', function() {
             instance.next();
         }
 
-        var transform = document.querySelector('.js_slides').style.transform
-        var offset    = new WebKitCSSMatrix(document.querySelector('.js_slides').style.transform).m41
-
-        assert.equal(offset, expectedOffset);
+        assert.equal(instance.returnIndex(), 4);
     });
 });
 
@@ -251,10 +245,7 @@ describe('.prev() called 2x without infinite', function() {
             instance.prev();
         }
 
-        var transform = document.querySelector('.js_slides').style.transform
-        var offset    = new WebKitCSSMatrix(document.querySelector('.js_slides').style.transform).m41
-
-        assert.equal(offset, expectedOffset);
+        assert.equal(instance.returnIndex(), 0);
     });
 });
 
@@ -280,10 +271,7 @@ describe('.prev() called 4x without infinite', function() {
             instance.prev();
         }
 
-        var transform = document.querySelector('.js_slides').style.transform
-        var offset    = new WebKitCSSMatrix(document.querySelector('.js_slides').style.transform).m41
-
-        assert.equal(offset, expectedOffset);
+        assert.equal(instance.returnIndex(), 0);
     });
 });
 
@@ -310,13 +298,11 @@ describe('.prev() called 2x with infinite', function() {
     });
 
     it('offset has to be the expectedOffset', function() {
-        instance.prev();
-        instance.prev();
+        for (var i = 0; i < 2; i++) {
+            instance.prev();
+        }
 
-        var transform = document.querySelector('.js_slides').style.transform
-        var offset    = new WebKitCSSMatrix(document.querySelector('.js_slides').style.transform).m41
-
-        assert.equal(offset, expectedOffset);
+        assert.equal(instance.returnIndex(), 5);
     });
 });
 
@@ -347,10 +333,7 @@ describe('.prev() called 4x with infinite', function() {
             instance.prev();
         }
 
-        var transform = document.querySelector('.js_slides').style.transform
-        var offset    = new WebKitCSSMatrix(document.querySelector('.js_slides').style.transform).m41
-
-        assert.equal(offset, expectedOffset);
+        assert.equal(instance.returnIndex(), 3);
     });
 });
 
