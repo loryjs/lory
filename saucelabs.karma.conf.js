@@ -25,17 +25,33 @@ module.exports = function(config) {
             platform: 'Windows 7',
             version: '11.0'
         },
-        sauceLabsChrome: {
+        edge: {
+            base: 'SauceLabs',
+            browserName: 'microsoftedge'
+        },
+        sauceLabsChrome46: {
             base: 'SauceLabs',
             browserName: 'chrome',
             platform: 'Linux',
-            version: '39.0'
+            version: '46.0'
         },
-        sauceLabsFirefox: {
+        sauceLabsChrome45: {
+            base: 'SauceLabs',
+            browserName: 'chrome',
+            platform: 'Linux',
+            version: '45.0'
+        },
+        sauceLabsFirefox41: {
             base: 'SauceLabs',
             browserName: 'firefox',
             platform: 'Linux',
-            version: '34.0'
+            version: '41.0'
+        },
+        sauceLabsFirefox40: {
+            base: 'SauceLabs',
+            browserName: 'firefox',
+            platform: 'Linux',
+            version: '40.0'
         },
         sauceLabsSafari7: {
             base: 'SauceLabs',
@@ -49,9 +65,35 @@ module.exports = function(config) {
             platform: 'Mac 10.10',
             version: '8.0'
         },
-        sauceLabsIPhoneLatest: {
+        sauceLabsIPhone9: {
             base: 'SauceLabs',
-            browserName: 'iPhone'
+            browserName: 'iPhone',
+            version: '9.0'
+        },
+        sauceLabsIPhone8: {
+            base: 'SauceLabs',
+            browserName: 'iPhone',
+            version: '8.0'
+        },
+        sauceLabsIPhone7: {
+            base: 'SauceLabs',
+            browserName: 'iPhone',
+            version: '7.0'
+        },
+        sauceLabsIPad9: {
+            base: 'SauceLabs',
+            browserName: 'iPad',
+            version: '9.0'
+        },
+        sauceLabsIPad8: {
+            base: 'SauceLabs',
+            browserName: 'iPad',
+            version: '8.0'
+        },
+        sauceLabsIPad7: {
+            base: 'SauceLabs',
+            browserName: 'iPad',
+            version: '7.0'
         }
     };
 
