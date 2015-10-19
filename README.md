@@ -25,7 +25,7 @@ Please visit: [http://meandmax.github.io/lory/](http://meandmax.github.io/lory/ 
 ```
 npm install --save lory.js
 
-var lory = require('lory.js');
+import lory from 'lory.js';
 ```
 
 ## Install with bower
@@ -61,9 +61,9 @@ npm run build
 
 npm install
 
-// To start karma in chrome browser and run tests:
+// To start the karma tests locally run:
 
-npm run karma
+npm run karma-local
 ```
 
 <p align="center">
