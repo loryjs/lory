@@ -64,37 +64,37 @@ module.exports = function(config) {
             browserName: 'safari',
             platform: 'Mac 10.10',
             version: '8.0'
-        },
-        sauceLabsIPhone9: {
-            base: 'SauceLabs',
-            browserName: 'iPhone',
-            version: '9.0'
-        },
-        sauceLabsIPhone8: {
-            base: 'SauceLabs',
-            browserName: 'iPhone',
-            version: '8.0'
-        },
-        sauceLabsIPhone7: {
-            base: 'SauceLabs',
-            browserName: 'iPhone',
-            version: '7.0'
-        },
-        sauceLabsIPad9: {
-            base: 'SauceLabs',
-            browserName: 'iPad',
-            version: '9.0'
-        },
-        sauceLabsIPad8: {
-            base: 'SauceLabs',
-            browserName: 'iPad',
-            version: '8.0'
-        },
-        sauceLabsIPad7: {
-            base: 'SauceLabs',
-            browserName: 'iPad',
-            version: '7.0'
         }
+        // sauceLabsIPhone9: {
+        //     base: 'SauceLabs',
+        //     browserName: 'iPhone',
+        //     version: '9.0'
+        // },
+        // sauceLabsIPhone8: {
+        //     base: 'SauceLabs',
+        //     browserName: 'iPhone',
+        //     version: '8.0'
+        // },
+        // sauceLabsIPhone7: {
+        //     base: 'SauceLabs',
+        //     browserName: 'iPhone',
+        //     version: '7.0'
+        // },
+        // sauceLabsIPad9: {
+        //     base: 'SauceLabs',
+        //     browserName: 'iPad',
+        //     version: '9.0'
+        // },
+        // sauceLabsIPad8: {
+        //     base: 'SauceLabs',
+        //     browserName: 'iPad',
+        //     version: '8.0'
+        // },
+        // sauceLabsIPad7: {
+        //     base: 'SauceLabs',
+        //     browserName: 'iPad',
+        //     version: '7.0'
+        // }
     };
 
     config.set({
