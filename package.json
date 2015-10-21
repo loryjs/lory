@@ -53,7 +53,7 @@
     "karma-opera-launcher": "^0.3.0",
     "karma-phantomjs-launcher": "^0.2.1",
     "karma-safari-launcher": "^0.1.1",
-    "karma-sauce-launcher": "^0.2.14",
+    "karma-sauce-launcher": "^0.3.0",
     "phantomjs": "^1.9.18",
     "rimraf": "2.4.3",
     "sauce-connect-launcher": "^0.13.0",
