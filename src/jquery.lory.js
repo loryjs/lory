@@ -40,18 +40,18 @@ export default function lory (slider, opts) {
      * @return {array} array of updated slideContainer elements
      */
     function setupInfinite (slideArray) {
-        let front = slideArray.slice(0, options.infinite);
-        let back  = slideArray.slice(slideArray.length - options.infinite, slideArray.length);
+        const front = slideArray.slice(0, options.infinite);
+        const back  = slideArray.slice(slideArray.length - options.infinite, slideArray.length);
 
         front.forEach(function (element) {
-            let cloned = element.cloneNode(true);
+            const cloned = element.cloneNode(true);
 
             slideContainer.appendChild(cloned);
         });
 
         back.reverse()
             .forEach(function (element) {
-                let cloned = element.cloneNode(true);
+                const cloned = element.cloneNode(true);
 
                 slideContainer.insertBefore(cloned, slideContainer.firstChild);
             });
