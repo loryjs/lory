@@ -206,6 +206,8 @@ export default function lory (slider, opts) {
         }
 
         slideContainer.addEventListener('touchstart', onTouchstart);
+        slideContainer.addEventListener('mousedown', onTouchstart);
+        slideContainer.addEventListener('click', onClick);
 
         window.addEventListener('resize', onResize);
 
@@ -311,12 +313,12 @@ export default function lory (slider, opts) {
     }
 
     function onTouchstart (event) {
-        const touches = event.touches[0];
+        const touches = event.touches ? event.touches[0] : event;
+        const {pageX, pageY} = touches;
 
         touchOffset = {
-            x: touches.pageX,
-            y: touches.pageY,
-
+            x: pageX,
+            y: pageY,
             time: Date.now()
         };
 
@@ -325,7 +327,10 @@ export default function lory (slider, opts) {
         delta = {};
 
         slideContainer.addEventListener('touchmove', onTouchmove);
+        slideContainer.addEventListener('mousemove', onTouchmove);
         slideContainer.addEventListener('touchend', onTouchend);
+        slideContainer.addEventListener('mouseup', onTouchend);
+        slideContainer.addEventListener('mouseleave', onTouchend);
 
         dispatchSliderEvent('on', 'touchstart', {
             event
@@ -333,18 +338,19 @@ export default function lory (slider, opts) {
     }
 
     function onTouchmove (event) {
-        const touches = event.touches[0];
+        const touches = event.touches ? event.touches[0] : event;
+        const {pageX, pageY} = touches;
 
         delta = {
-            x: touches.pageX - touchOffset.x,
-            y: touches.pageY - touchOffset.y
+            x: pageX - touchOffset.x,
+            y: pageY - touchOffset.y
         };
 
         if (typeof isScrolling === 'undefined') {
             isScrolling = !!(isScrolling || Math.abs(delta.x) < Math.abs(delta.y));
         }
 
-        if (!isScrolling) {
+        if (!isScrolling && touchOffset) {
             event.preventDefault();
             translate(position.x + delta.x, 0, null);
         }
@@ -360,7 +366,7 @@ export default function lory (slider, opts) {
          * time between touchstart and touchend in milliseconds
          * @duration {number}
          */
-        const duration = Date.now() - touchOffset.time;
+        const duration = touchOffset ? Date.now() - touchOffset.time : undefined;
 
         /**
          * is valid if:
@@ -399,15 +405,25 @@ export default function lory (slider, opts) {
             }
         }
 
+        touchOffset = undefined;
+
         /**
          * remove eventlisteners after swipe attempt
          */
         slideContainer.removeEventListener('touchmove', onTouchmove);
         slideContainer.removeEventListener('touchend', onTouchend);
+        slideContainer.removeEventListener('mousemove', onTouchmove);
+        slideContainer.removeEventListener('mouseup', onTouchend);
 
         dispatchSliderEvent('on', 'touchend', {
             event
         });
+    }
+
+    function onClick (event) {
+        if (delta.x) {
+            event.preventDefault();
+        }
     }
 
     function onResize (event) {

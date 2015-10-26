@@ -269,10 +269,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	        prefixes = (0, _utilsDetectPrefixesJs2['default'])();
 	        options = _extends({}, _defaultsJs2['default'], opts);
 
-	        frame = slider.getElementsByClassName(options.classNameFrame)[0];
-	        slideContainer = frame.getElementsByClassName(options.classNameSlideContainer)[0];
-	        prevCtrl = slider.getElementsByClassName(options.classNamePrevCtrl)[0];
-	        nextCtrl = slider.getElementsByClassName(options.classNameNextCtrl)[0];
+	        var _options3 = options;
+	        var classNameFrame = _options3.classNameFrame;
+	        var classNameSlideContainer = _options3.classNameSlideContainer;
+	        var classNamePrevCtrl = _options3.classNamePrevCtrl;
+	        var classNameNextCtrl = _options3.classNameNextCtrl;
+
+	        frame = slider.getElementsByClassName(classNameFrame)[0];
+	        slideContainer = frame.getElementsByClassName(classNameSlideContainer)[0];
+	        prevCtrl = slider.getElementsByClassName(classNamePrevCtrl)[0];
+	        nextCtrl = slider.getElementsByClassName(classNameNextCtrl)[0];
 
 	        position = {
 	            x: slideContainer.offsetLeft,
@@ -293,6 +299,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 
 	        slideContainer.addEventListener('touchstart', onTouchstart);
+	        slideContainer.addEventListener('mousedown', onTouchstart);
+	        slideContainer.addEventListener('click', onClick);
 
 	        window.addEventListener('resize', onResize);
 
@@ -396,12 +404,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    function onTouchstart(event) {
-	        var touches = event.touches[0];
+	        var touches = event.touches ? event.touches[0] : event;
+	        var pageX = touches.pageX;
+	        var pageY = touches.pageY;
 
 	        touchOffset = {
-	            x: touches.pageX,
-	            y: touches.pageY,
-
+	            x: pageX,
+	            y: pageY,
 	            time: Date.now()
 	        };
 
@@ -410,7 +419,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        delta = {};
 
 	        slideContainer.addEventListener('touchmove', onTouchmove);
+	        slideContainer.addEventListener('mousemove', onTouchmove);
 	        slideContainer.addEventListener('touchend', onTouchend);
+	        slideContainer.addEventListener('mouseup', onTouchend);
+	        slideContainer.addEventListener('mouseleave', onTouchend);
 
 	        dispatchSliderEvent('on', 'touchstart', {
 	            event: event
@@ -418,18 +430,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    function onTouchmove(event) {
-	        var touches = event.touches[0];
+	        var touches = event.touches ? event.touches[0] : event;
+	        var pageX = touches.pageX;
+	        var pageY = touches.pageY;
 
 	        delta = {
-	            x: touches.pageX - touchOffset.x,
-	            y: touches.pageY - touchOffset.y
+	            x: pageX - touchOffset.x,
+	            y: pageY - touchOffset.y
 	        };
 
 	        if (typeof isScrolling === 'undefined') {
 	            isScrolling = !!(isScrolling || Math.abs(delta.x) < Math.abs(delta.y));
 	        }
 
-	        if (!isScrolling) {
+	        if (!isScrolling && touchOffset) {
 	            event.preventDefault();
 	            translate(position.x + delta.x, 0, null);
 	        }
@@ -445,7 +459,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	         * time between touchstart and touchend in milliseconds
 	         * @duration {number}
 	         */
-	        var duration = Date.now() - touchOffset.time;
+	        var duration = touchOffset ? Date.now() - touchOffset.time : undefined;
 
 	        /**
 	         * is valid if:
@@ -481,15 +495,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	        }
 
+	        touchOffset = undefined;
+
 	        /**
 	         * remove eventlisteners after swipe attempt
 	         */
 	        slideContainer.removeEventListener('touchmove', onTouchmove);
 	        slideContainer.removeEventListener('touchend', onTouchend);
+	        slideContainer.removeEventListener('mousemove', onTouchmove);
+	        slideContainer.removeEventListener('mouseup', onTouchend);
 
 	        dispatchSliderEvent('on', 'touchend', {
 	            event: event
 	        });
+	    }
+
+	    function onClick(event) {
+	        if (delta.x) {
+	            event.preventDefault();
+	        }
 	    }
 
 	    function onResize(event) {
