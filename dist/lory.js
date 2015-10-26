@@ -177,16 +177,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * @direction  {boolean}
 	     */
 	    function slide(nextIndex, direction) {
-	        var currentSlide = index;
+	        var duration = options.slideSpeed;
+
 	        var nextSlide = direction ? index + 1 : index - 1;
+	        var maxOffset = Math.round(slidesWidth - frameWidth);
 
 	        dispatchSliderEvent('before', 'slide', {
-	            currentSlide: currentSlide,
+	            index: index,
 	            nextSlide: nextSlide
 	        });
-
-	        var maxOffset = Math.round(slidesWidth - frameWidth);
-	        var duration = options.slideSpeed;
 
 	        if (typeof nextIndex !== 'number') {
 	            if (direction) {

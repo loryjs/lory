@@ -77,7 +77,7 @@ export default function lory (slider, opts) {
      * @ease      {string} easing css property
      */
     function translate (to, duration, ease) {
-        let style = slideContainer && slideContainer.style;
+        const style = slideContainer && slideContainer.style;
 
         if (style) {
             style[prefixes.transition + 'TimingFunction'] = ease;
@@ -95,16 +95,15 @@ export default function lory (slider, opts) {
      * @direction  {boolean}
      */
     function slide (nextIndex, direction) {
-        let currentSlide = index;
-        let nextSlide    = direction ? index + 1 : index - 1;
+        let duration = options.slideSpeed;
+
+        const nextSlide = direction ? index + 1 : index - 1;
+        const maxOffset = Math.round(slidesWidth - frameWidth);
 
         dispatchSliderEvent('before', 'slide', {
-            currentSlide,
+            index,
             nextSlide
         });
-
-        let maxOffset   = Math.round(slidesWidth - frameWidth);
-        let duration    = options.slideSpeed;
 
         if (typeof nextIndex !== 'number') {
             if (direction) {
@@ -306,7 +305,7 @@ export default function lory (slider, opts) {
     }
 
     function onTouchstart (event) {
-        let touches = event.touches[0];
+        const touches = event.touches[0];
 
         touchOffset = {
             x: touches.pageX,
@@ -328,7 +327,7 @@ export default function lory (slider, opts) {
     }
 
     function onTouchmove (event) {
-        let touches = event.touches[0];
+        const touches = event.touches[0];
 
         delta = {
             x: touches.pageX - touchOffset.x,
@@ -355,7 +354,7 @@ export default function lory (slider, opts) {
          * time between touchstart and touchend in milliseconds
          * @duration {number}
          */
-        let duration = Date.now() - touchOffset.time;
+        const duration = Date.now() - touchOffset.time;
 
         /**
          * is valid if:
@@ -368,7 +367,7 @@ export default function lory (slider, opts) {
          *
          * @isValidSlide {Boolean}
          */
-        let isValid = Number(duration) < 300 &&
+        const isValid = Number(duration) < 300 &&
             Math.abs(delta.x) > 25 ||
             Math.abs(delta.x) > frameWidth / 3;
 
@@ -381,10 +380,10 @@ export default function lory (slider, opts) {
          *
          * @isOutOfBounds {Boolean}
          */
-        let isOutOfBounds = !index && delta.x > 0 ||
+        const isOutOfBounds = !index && delta.x > 0 ||
             index === slides.length - 1 && delta.x < 0;
 
-        let direction = delta.x < 0;
+        const direction = delta.x < 0;
 
         if (!isScrolling) {
             if (isValid && !isOutOfBounds) {
