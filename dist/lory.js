@@ -123,8 +123,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * @return {array} array of updated slideContainer elements
 	     */
 	    function setupInfinite(slideArray) {
-	        var front = slideArray.slice(0, options.infinite);
-	        var back = slideArray.slice(slideArray.length - options.infinite, slideArray.length);
+	        var _options = options;
+	        var infinite = _options.infinite;
+
+	        var front = slideArray.slice(0, infinite);
+	        var back = slideArray.slice(slideArray.length - infinite, slideArray.length);
 
 	        front.forEach(function (element) {
 	            var cloned = element.cloneNode(true);
@@ -177,7 +180,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * @direction  {boolean}
 	     */
 	    function slide(nextIndex, direction) {
-	        var duration = options.slideSpeed;
+	        var _options2 = options;
+	        var slideSpeed = _options2.slideSpeed;
+	        var slidesToScroll = _options2.slidesToScroll;
+	        var infinite = _options2.infinite;
+	        var rewind = _options2.rewind;
+	        var rewindSpeed = _options2.rewindSpeed;
+	        var ease = _options2.ease;
+
+	        var duration = slideSpeed;
 
 	        var nextSlide = direction ? index + 1 : index - 1;
 	        var maxOffset = Math.round(slidesWidth - frameWidth);
@@ -189,30 +200,30 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        if (typeof nextIndex !== 'number') {
 	            if (direction) {
-	                nextIndex = index + options.slidesToScroll;
+	                nextIndex = index + slidesToScroll;
 	            } else {
-	                nextIndex = index - options.slidesToScroll;
+	                nextIndex = index - slidesToScroll;
 	            }
 	        }
 
 	        nextIndex = Math.min(Math.max(nextIndex, 0), slides.length - 1);
 
-	        if (options.infinite && direction === undefined) {
-	            nextIndex += options.infinite;
+	        if (infinite && direction === undefined) {
+	            nextIndex += infinite;
 	        }
 
 	        var nextOffset = Math.min(Math.max(slides[nextIndex].offsetLeft * -1, maxOffset * -1), 0);
 
-	        if (options.rewind && Math.abs(position.x) === maxOffset && direction) {
+	        if (rewind && Math.abs(position.x) === maxOffset && direction) {
 	            nextOffset = 0;
 	            nextIndex = 0;
-	            duration = options.rewindSpeed;
+	            duration = rewindSpeed;
 	        }
 
 	        /**
 	         * translate to the nextOffset by a defined duration and ease function
 	         */
-	        translate(nextOffset, duration, options.ease);
+	        translate(nextOffset, duration, ease);
 
 	        /**
 	         * update the position with the next position
@@ -227,19 +238,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	            index = nextIndex;
 	        }
 
-	        if (options.infinite) {
+	        if (infinite) {
 	            if (Math.abs(nextOffset) === maxOffset && direction) {
-	                index = options.infinite;
+	                index = infinite;
 	            }
 
 	            if (Math.abs(nextOffset) === 0 && !direction) {
-	                index = slides.length - options.infinite * 2;
+	                index = slides.length - infinite * 2;
 	            }
 
 	            position.x = slides[index].offsetLeft * -1;
 
 	            transitionEndCallback = function () {
-	                translate(slides[index].offsetLeft * -1, 0, null);
+	                translate(slides[index].offsetLeft * -1, 0, undefined);
 	            };
 	        }
 

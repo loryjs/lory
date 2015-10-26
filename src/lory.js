@@ -40,8 +40,10 @@ export default function lory (slider, opts) {
      * @return {array} array of updated slideContainer elements
      */
     function setupInfinite (slideArray) {
-        const front = slideArray.slice(0, options.infinite);
-        const back  = slideArray.slice(slideArray.length - options.infinite, slideArray.length);
+        const {infinite} = options;
+
+        const front = slideArray.slice(0, infinite);
+        const back  = slideArray.slice(slideArray.length - infinite, slideArray.length);
 
         front.forEach(function (element) {
             const cloned = element.cloneNode(true);
@@ -95,7 +97,9 @@ export default function lory (slider, opts) {
      * @direction  {boolean}
      */
     function slide (nextIndex, direction) {
-        let duration = options.slideSpeed;
+        const {slideSpeed, slidesToScroll, infinite, rewind, rewindSpeed, ease} = options;
+
+        let duration = slideSpeed;
 
         const nextSlide = direction ? index + 1 : index - 1;
         const maxOffset = Math.round(slidesWidth - frameWidth);
@@ -107,30 +111,30 @@ export default function lory (slider, opts) {
 
         if (typeof nextIndex !== 'number') {
             if (direction) {
-                nextIndex = index + options.slidesToScroll;
+                nextIndex = index + slidesToScroll;
             } else {
-                nextIndex = index - options.slidesToScroll;
+                nextIndex = index - slidesToScroll;
             }
         }
 
         nextIndex = Math.min(Math.max(nextIndex, 0), slides.length - 1);
 
-        if (options.infinite && direction === undefined) {
-            nextIndex += options.infinite;
+        if (infinite && direction === undefined) {
+            nextIndex += infinite;
         }
 
         let nextOffset = Math.min(Math.max(slides[nextIndex].offsetLeft * -1, maxOffset * -1), 0);
 
-        if (options.rewind && Math.abs(position.x) === maxOffset && direction) {
+        if (rewind && Math.abs(position.x) === maxOffset && direction) {
             nextOffset = 0;
             nextIndex = 0;
-            duration = options.rewindSpeed;
+            duration = rewindSpeed;
         }
 
         /**
          * translate to the nextOffset by a defined duration and ease function
          */
-        translate(nextOffset, duration, options.ease);
+        translate(nextOffset, duration, ease);
 
         /**
          * update the position with the next position
@@ -145,13 +149,13 @@ export default function lory (slider, opts) {
             index = nextIndex;
         }
 
-        if (options.infinite) {
+        if (infinite) {
             if (Math.abs(nextOffset) === maxOffset && direction) {
-                index = options.infinite;
+                index = infinite;
             }
 
             if (Math.abs(nextOffset) === 0 && !direction) {
-                index = slides.length - (options.infinite * 2);
+                index = slides.length - (infinite * 2);
             }
 
             position.x = slides[index].offsetLeft * -1;
@@ -176,10 +180,12 @@ export default function lory (slider, opts) {
         prefixes = detectPrefixes();
         options = {...defaults, ...opts};
 
-        frame = slider.getElementsByClassName(options.classNameFrame)[0];
-        slideContainer = frame.getElementsByClassName(options.classNameSlideContainer)[0];
-        prevCtrl = slider.getElementsByClassName(options.classNamePrevCtrl)[0];
-        nextCtrl = slider.getElementsByClassName(options.classNameNextCtrl)[0];
+        const {classNameFrame, classNameSlideContainer, classNamePrevCtrl, classNameNextCtrl} = options;
+
+        frame = slider.getElementsByClassName(classNameFrame)[0];
+        slideContainer = frame.getElementsByClassName(classNameSlideContainer)[0];
+        prevCtrl = slider.getElementsByClassName(classNamePrevCtrl)[0];
+        nextCtrl = slider.getElementsByClassName(classNameNextCtrl)[0];
 
         position = {
             x: slideContainer.offsetLeft,
