@@ -54,6 +54,13 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.exports = __webpack_require__(1);
+
+
+/***/ },
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/* globals jQuery */
 
 	'use strict';
@@ -68,15 +75,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utilsDetectPrefixesJs = __webpack_require__(1);
+	var _utilsDetectPrefixesJs = __webpack_require__(2);
 
 	var _utilsDetectPrefixesJs2 = _interopRequireDefault(_utilsDetectPrefixesJs);
 
-	var _utilsDispatchEventJs = __webpack_require__(2);
+	var _utilsDispatchEventJs = __webpack_require__(3);
 
 	var _utilsDispatchEventJs2 = _interopRequireDefault(_utilsDispatchEventJs);
 
-	var _defaultsJs = __webpack_require__(4);
+	var _defaultsJs = __webpack_require__(5);
 
 	var _defaultsJs2 = _interopRequireDefault(_defaultsJs);
 
@@ -501,7 +508,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 1 */
+/* 2 */
 /***/ function(module, exports) {
 
 	/**
@@ -557,7 +564,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 2 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -569,7 +576,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _customEvent = __webpack_require__(3);
+	var _customEvent = __webpack_require__(4);
 
 	var _customEvent2 = _interopRequireDefault(_customEvent);
 
@@ -594,7 +601,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 3 */
+/* 4 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {
@@ -649,7 +656,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports) {
 
 	'use strict';

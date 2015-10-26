@@ -1,6 +1,6 @@
 module.exports = {
     entry: {
-        "lory": "./src/lory.js",
+        "lory": ["./src/lory.js"],
         "jquery.lory": "./src/jquery.lory.js"
     },
 
