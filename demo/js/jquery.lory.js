@@ -492,8 +492,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        /**
 	         * remove eventlisteners after swipe attempt
 	         */
-	        frame.removeEventListener('touchmove');
-	        frame.removeEventListener('touchend');
+	        slideContainer.removeEventListener('touchmove', onTouchmove);
+	        slideContainer.removeEventListener('touchend', onTouchend);
 
 	        dispatchSliderEvent('on', 'touchend', {
 	            event: event
