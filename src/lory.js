@@ -157,7 +157,7 @@ export default function lory (slider, opts) {
             position.x = slides[index].offsetLeft * -1;
 
             transitionEndCallback = function () {
-                translate(slides[index].offsetLeft * -1, 0, null);
+                translate(slides[index].offsetLeft * -1, 0, undefined);
             };
         }
 
