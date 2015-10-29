@@ -431,9 +431,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    function onTouchstart(event) {
-	        var touches = event.touches ? event.touches[0] : event;
-	        var pageX = touches.pageX;
-	        var pageY = touches.pageY;
+	        var touches = undefined;
+
+	        var _options5 = options;
+	        var enableMouseEvents = _options5.enableMouseEvents;
+
+	        if (enableMouseEvents) {
+	            touches = event.touches ? event.touches[0] : event;
+
+	            slideContainer.addEventListener('mouseup', onTouchend);
+	            slideContainer.addEventListener('mouseleave', onTouchend);
+	        } else {
+	            touches = event.touches[0];
+	        }
+
+	        var _touches = touches;
+	        var pageX = _touches.pageX;
+	        var pageY = _touches.pageY;
 
 	        touchOffset = {
 	            x: pageX,
@@ -457,9 +471,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    function onTouchmove(event) {
-	        var touches = event.touches ? event.touches[0] : event;
-	        var pageX = touches.pageX;
-	        var pageY = touches.pageY;
+	        var touches = undefined;
+
+	        var _options6 = options;
+	        var enableMouseEvents = _options6.enableMouseEvents;
+
+	        if (enableMouseEvents) {
+	            touches = event.touches ? event.touches[0] : event;
+	        } else {
+	            touches = event.touches[0];
+	        }
+
+	        var _touches2 = touches;
+	        var pageX = _touches2.pageX;
+	        var pageY = _touches2.pageY;
 
 	        delta = {
 	            x: pageX - touchOffset.x,

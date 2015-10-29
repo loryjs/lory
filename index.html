@@ -654,35 +654,42 @@
             var events           = document.querySelector('.js_events');
 
             lory(simple, {
-                infinite: 1
+                infinite: 1,
+                enableMouseEvents: true
             });
 
             lory(percentage, {
-                infinite: 1
+                infinite: 1,
+                enableMouseEvents: true
             });
 
             lory(rewind, {
-                rewind: true
+                rewind: true,
+                enableMouseEvents: true
             });
 
             lory(rewind_percentage, {
-                rewind: true
+                rewind: true,
+                enableMouseEvents: true
             });
 
             lory(variableWidth, {
-                rewind: true
+                rewind: true,
+                enableMouseEvents: true
             });
 
             lory(multiSlides, {
                 infinite: 4,
-                slidesToScroll: 4
+                slidesToScroll: 4,
+                enableMouseEvents: true
             });
 
             lory(ease, {
                 infinite: 4,
                 slidesToScroll: 4,
                 slideSpeed: 300,
-                ease: 'cubic-bezier(0.455, 0.03, 0.515, 0.955)'
+                ease: 'cubic-bezier(0.455, 0.03, 0.515, 0.955)',
+                enableMouseEvents: true
             });
 
             function handleEvent(e) {

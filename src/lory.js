@@ -337,7 +337,19 @@ export default function lory (slider, opts) {
     }
 
     function onTouchstart (event) {
-        const touches = event.touches ? event.touches[0] : event;
+        let touches;
+
+        const {enableMouseEvents} = options;
+
+        if (enableMouseEvents) {
+            touches = event.touches ? event.touches[0] : event;
+
+            slideContainer.addEventListener('mouseup', onTouchend);
+            slideContainer.addEventListener('mouseleave', onTouchend);
+        } else {
+            touches = event.touches[0];
+        }
+
         const {pageX, pageY} = touches;
 
         touchOffset = {
@@ -362,7 +374,16 @@ export default function lory (slider, opts) {
     }
 
     function onTouchmove (event) {
-        const touches = event.touches ? event.touches[0] : event;
+        let touches;
+
+        const {enableMouseEvents} = options;
+
+        if (enableMouseEvents) {
+            touches = event.touches ? event.touches[0] : event;
+        } else {
+            touches = event.touches[0];
+        }
+
         const {pageX, pageY} = touches;
 
         delta = {
