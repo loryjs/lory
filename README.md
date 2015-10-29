@@ -312,7 +312,10 @@ li {
 * FireFox
 * Opera
 * Internet Explorer 10+
-* Internet Explorer 9 (graceful, without transitions)
+
+* Internet Explorer 9 (graceful, without transitions + classlistp)
+    - graceful, without transitions
+    - you need to polyfill classlist (https://github.com/eligrey/classList.js/)
 
 ## Copyright
 
