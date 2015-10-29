@@ -243,6 +243,8 @@ export default function lory (slider, opts) {
      * reset function: called on resize
      */
     function reset () {
+        const {infinite, ease, rewindSpeed} = options;
+
         slidesWidth = slideContainer.getBoundingClientRect()
             .width || slideContainer.offsetWidth;
         frameWidth = frame.getBoundingClientRect()
@@ -256,13 +258,13 @@ export default function lory (slider, opts) {
 
         index = 0;
 
-        if (options.infinite) {
-            translate(slides[index + options.infinite].offsetLeft * -1, 0, null);
+        if (infinite) {
+            translate(slides[index + infinite].offsetLeft * -1, 0, null);
 
-            index = index + options.infinite;
+            index = index + infinite;
             position.x = slides[index].offsetLeft * -1;
         } else {
-            translate(0, options.rewindSpeed, options.ease);
+            translate(0, rewindSpeed, ease);
         }
     }
 

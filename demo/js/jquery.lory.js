@@ -357,6 +357,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * reset function: called on resize
 	     */
 	    function reset() {
+	        var _options5 = options;
+	        var infinite = _options5.infinite;
+	        var ease = _options5.ease;
+	        var rewindSpeed = _options5.rewindSpeed;
+
 	        slidesWidth = slideContainer.getBoundingClientRect().width || slideContainer.offsetWidth;
 	        frameWidth = frame.getBoundingClientRect().width || frame.offsetWidth;
 
@@ -368,13 +373,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        index = 0;
 
-	        if (options.infinite) {
-	            translate(slides[index + options.infinite].offsetLeft * -1, 0, null);
+	        if (infinite) {
+	            translate(slides[index + infinite].offsetLeft * -1, 0, null);
 
-	            index = index + options.infinite;
+	            index = index + infinite;
 	            position.x = slides[index].offsetLeft * -1;
 	        } else {
-	            translate(0, options.rewindSpeed, options.ease);
+	            translate(0, rewindSpeed, ease);
 	        }
 	    }
 
@@ -451,8 +456,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function onTouchstart(event) {
 	        var touches = undefined;
 
-	        var _options5 = options;
-	        var enableMouseEvents = _options5.enableMouseEvents;
+	        var _options6 = options;
+	        var enableMouseEvents = _options6.enableMouseEvents;
 
 	        if (enableMouseEvents) {
 	            touches = event.touches ? event.touches[0] : event;
@@ -491,8 +496,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function onTouchmove(event) {
 	        var touches = undefined;
 
-	        var _options6 = options;
-	        var enableMouseEvents = _options6.enableMouseEvents;
+	        var _options7 = options;
+	        var enableMouseEvents = _options7.enableMouseEvents;
 
 	        if (enableMouseEvents) {
 	            touches = event.touches ? event.touches[0] : event;
