@@ -185,9 +185,15 @@ export default function lory (slider, opts) {
             };
         }
 
-        dispatchSliderEvent('after', 'slide', {
+        let afterSlideData = {
             currentSlide: index
-        });
+        };
+
+        if(!options.infinite) {
+            afterSlideData.isLast = index === slides.length -1;
+        }
+
+        dispatchSliderEvent('after', 'slide', afterSlideData);
     }
 
     /**
