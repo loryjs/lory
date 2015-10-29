@@ -119,6 +119,7 @@ module.exports = function(config) {
             'dist/lory.js',
             'test/lory.test.js',
             'demo/app.css',
+            'http://cdnjs.cloudflare.com/ajax/libs/classlist/2014.01.31/classList.min.js',
 
             {
                 pattern: 'test/*.html'
