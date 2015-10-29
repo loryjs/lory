@@ -34,6 +34,22 @@ export default function lory (slider, opts) {
 
     /**
      * private
+     * set active class to element which is the current slide
+     */
+    function setActiveElement (slides, currentIndex) {
+        const {classNameActiveSlide} = options;
+
+        slides.forEach((element, index) => {
+            if (element.classList.contains(classNameActiveSlide)) {
+                element.classList.remove(classNameActiveSlide);
+            }
+        });
+
+        slides[currentIndex].classList.add(classNameActiveSlide);
+    }
+
+    /**
+     * private
      * setupInfinite: function to setup if infinite is set
      *
      * @param  {array} slideArray
@@ -97,7 +113,7 @@ export default function lory (slider, opts) {
      * @direction  {boolean}
      */
     function slide (nextIndex, direction) {
-        const {slideSpeed, slidesToScroll, infinite, rewind, rewindSpeed, ease} = options;
+        const {slideSpeed, slidesToScroll, infinite, rewind, rewindSpeed, ease, classNameActiveSlide} = options;
 
         let duration = slideSpeed;
 
@@ -160,6 +176,10 @@ export default function lory (slider, opts) {
 
             position.x = slides[index].offsetLeft * -1;
 
+            if (classNameActiveSlide) {
+                setActiveElement(slice.call(slides), index);
+            }
+
             transitionEndCallback = function () {
                 translate(slides[index].offsetLeft * -1, 0, undefined);
             };
@@ -180,7 +200,7 @@ export default function lory (slider, opts) {
         prefixes = detectPrefixes();
         options = {...defaults, ...opts};
 
-        const {classNameFrame, classNameSlideContainer, classNamePrevCtrl, classNameNextCtrl} = options;
+        const {classNameFrame, classNameSlideContainer, classNamePrevCtrl, classNameNextCtrl, classNameActiveSlide} = options;
 
         frame = slider.getElementsByClassName(classNameFrame)[0];
         slideContainer = frame.getElementsByClassName(classNameSlideContainer)[0];
@@ -199,6 +219,10 @@ export default function lory (slider, opts) {
         }
 
         reset();
+
+        if (classNameActiveSlide) {
+            setActiveElement(slides, index);
+        }
 
         if (prevCtrl && nextCtrl) {
             prevCtrl.addEventListener('click', prev);

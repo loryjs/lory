@@ -57,14 +57,21 @@ export default {
     classNameSlideContainer: 'js_slides',
 
     /**
-    * class name for slider prev control
+     * class name for slider prev control
      * @classNamePrevCtrl {string}
      */
     classNamePrevCtrl: 'js_prev',
 
     /**
-    * class name for slider next control
+     * class name for slider next control
      * @classNameNextCtrl {string}
      */
-    classNameNextCtrl: 'js_next'
+    classNameNextCtrl: 'js_next',
+
+    /**
+     * class name for current active slide
+     * if emptyString then no class is set
+     * @classNameActiveSlide {string}
+     */
+    classNameActiveSlide: 'active'
 };

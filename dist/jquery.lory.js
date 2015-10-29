@@ -135,14 +135,31 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    /**
 	     * private
+	     * set active class to element which is the current slide
+	     */
+	    function setActiveElement(slides, currentIndex) {
+	        var _options = options;
+	        var classNameActiveSlide = _options.classNameActiveSlide;
+
+	        slides.forEach(function (element, index) {
+	            if (element.classList.contains(classNameActiveSlide)) {
+	                element.classList.remove(classNameActiveSlide);
+	            }
+	        });
+
+	        slides[currentIndex].classList.add(classNameActiveSlide);
+	    }
+
+	    /**
+	     * private
 	     * setupInfinite: function to setup if infinite is set
 	     *
 	     * @param  {array} slideArray
 	     * @return {array} array of updated slideContainer elements
 	     */
 	    function setupInfinite(slideArray) {
-	        var _options = options;
-	        var infinite = _options.infinite;
+	        var _options2 = options;
+	        var infinite = _options2.infinite;
 
 	        var front = slideArray.slice(0, infinite);
 	        var back = slideArray.slice(slideArray.length - infinite, slideArray.length);
@@ -198,13 +215,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * @direction  {boolean}
 	     */
 	    function slide(nextIndex, direction) {
-	        var _options2 = options;
-	        var slideSpeed = _options2.slideSpeed;
-	        var slidesToScroll = _options2.slidesToScroll;
-	        var infinite = _options2.infinite;
-	        var rewind = _options2.rewind;
-	        var rewindSpeed = _options2.rewindSpeed;
-	        var ease = _options2.ease;
+	        var _options3 = options;
+	        var slideSpeed = _options3.slideSpeed;
+	        var slidesToScroll = _options3.slidesToScroll;
+	        var infinite = _options3.infinite;
+	        var rewind = _options3.rewind;
+	        var rewindSpeed = _options3.rewindSpeed;
+	        var ease = _options3.ease;
+	        var classNameActiveSlide = _options3.classNameActiveSlide;
 
 	        var duration = slideSpeed;
 
@@ -267,6 +285,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            position.x = slides[index].offsetLeft * -1;
 
+	            if (classNameActiveSlide) {
+	                setActiveElement(slice.call(slides), index);
+	            }
+
 	            transitionEndCallback = function () {
 	                translate(slides[index].offsetLeft * -1, 0, undefined);
 	            };
@@ -287,11 +309,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        prefixes = (0, _utilsDetectPrefixesJs2['default'])();
 	        options = _extends({}, _defaultsJs2['default'], opts);
 
-	        var _options3 = options;
-	        var classNameFrame = _options3.classNameFrame;
-	        var classNameSlideContainer = _options3.classNameSlideContainer;
-	        var classNamePrevCtrl = _options3.classNamePrevCtrl;
-	        var classNameNextCtrl = _options3.classNameNextCtrl;
+	        var _options4 = options;
+	        var classNameFrame = _options4.classNameFrame;
+	        var classNameSlideContainer = _options4.classNameSlideContainer;
+	        var classNamePrevCtrl = _options4.classNamePrevCtrl;
+	        var classNameNextCtrl = _options4.classNameNextCtrl;
+	        var classNameActiveSlide = _options4.classNameActiveSlide;
 
 	        frame = slider.getElementsByClassName(classNameFrame)[0];
 	        slideContainer = frame.getElementsByClassName(classNameSlideContainer)[0];
@@ -310,6 +333,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 
 	        reset();
+
+	        if (classNameActiveSlide) {
+	            setActiveElement(slides, index);
+	        }
 
 	        if (prevCtrl && nextCtrl) {
 	            prevCtrl.addEventListener('click', prev);
@@ -775,16 +802,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	  classNameSlideContainer: 'js_slides',
 
 	  /**
-	  * class name for slider prev control
+	   * class name for slider prev control
 	   * @classNamePrevCtrl {string}
 	   */
 	  classNamePrevCtrl: 'js_prev',
 
 	  /**
-	  * class name for slider next control
+	   * class name for slider next control
 	   * @classNameNextCtrl {string}
 	   */
-	  classNameNextCtrl: 'js_next'
+	  classNameNextCtrl: 'js_next',
+
+	  /**
+	   * class name for current active slide
+	   * if emptyString then no class is set
+	   * @classNameActiveSlide {string}
+	   */
+	  classNameActiveSlide: 'active'
 	};
 	module.exports = exports['default'];
 
