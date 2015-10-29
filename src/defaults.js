@@ -73,5 +73,11 @@ export default {
      * if emptyString then no class is set
      * @classNameActiveSlide {string}
      */
-    classNameActiveSlide: 'active'
+    classNameActiveSlide: 'active',
+
+    /**
+     * enables mouse events for swiping on desktop devices
+     * @enableMouseEvents {boolean}
+     */
+    enableMouseEvents: false
 };
