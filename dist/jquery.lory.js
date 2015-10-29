@@ -285,13 +285,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            position.x = slides[index].offsetLeft * -1;
 
-	            if (classNameActiveSlide) {
-	                setActiveElement(slice.call(slides), index);
-	            }
-
 	            transitionEndCallback = function () {
 	                translate(slides[index].offsetLeft * -1, 0, undefined);
 	            };
+	        }
+
+	        if (classNameActiveSlide) {
+	            setActiveElement(slice.call(slides), index);
 	        }
 
 	        dispatchSliderEvent('after', 'slide', {
@@ -314,6 +314,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var classNameSlideContainer = _options4.classNameSlideContainer;
 	        var classNamePrevCtrl = _options4.classNamePrevCtrl;
 	        var classNameNextCtrl = _options4.classNameNextCtrl;
+	        var enableMouseEvents = _options4.enableMouseEvents;
 	        var classNameActiveSlide = _options4.classNameActiveSlide;
 
 	        frame = slider.getElementsByClassName(classNameFrame)[0];
@@ -344,8 +345,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 
 	        slideContainer.addEventListener('touchstart', onTouchstart);
-	        slideContainer.addEventListener('mousedown', onTouchstart);
-	        slideContainer.addEventListener('click', onClick);
+
+	        if (enableMouseEvents) {
+	            slideContainer.addEventListener('mousedown', onTouchstart);
+	            slideContainer.addEventListener('click', onClick);
+	        }
 
 	        window.addEventListener('resize', onResize);
 
@@ -462,10 +466,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (enableMouseEvents) {
 	            touches = event.touches ? event.touches[0] : event;
 
+	            slideContainer.addEventListener('mousemove', onTouchmove);
 	            slideContainer.addEventListener('mouseup', onTouchend);
 	            slideContainer.addEventListener('mouseleave', onTouchend);
 	        } else {
 	            touches = event.touches[0];
+
+	            slideContainer.addEventListener('touchmove', onTouchmove);
+	            slideContainer.addEventListener('touchend', onTouchend);
 	        }
 
 	        var _touches = touches;
@@ -481,12 +489,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        isScrolling = undefined;
 
 	        delta = {};
-
-	        slideContainer.addEventListener('touchmove', onTouchmove);
-	        slideContainer.addEventListener('mousemove', onTouchmove);
-	        slideContainer.addEventListener('touchend', onTouchend);
-	        slideContainer.addEventListener('mouseup', onTouchend);
-	        slideContainer.addEventListener('mouseleave', onTouchend);
 
 	        dispatchSliderEvent('on', 'touchstart', {
 	            event: event

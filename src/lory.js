@@ -113,7 +113,15 @@ export default function lory (slider, opts) {
      * @direction  {boolean}
      */
     function slide (nextIndex, direction) {
-        const {slideSpeed, slidesToScroll, infinite, rewind, rewindSpeed, ease, classNameActiveSlide} = options;
+        const {
+            slideSpeed,
+            slidesToScroll,
+            infinite,
+            rewind,
+            rewindSpeed,
+            ease,
+            classNameActiveSlide
+        } = options;
 
         let duration = slideSpeed;
 
@@ -176,13 +184,13 @@ export default function lory (slider, opts) {
 
             position.x = slides[index].offsetLeft * -1;
 
-            if (classNameActiveSlide) {
-                setActiveElement(slice.call(slides), index);
-            }
-
             transitionEndCallback = function () {
                 translate(slides[index].offsetLeft * -1, 0, undefined);
             };
+        }
+
+        if (classNameActiveSlide) {
+            setActiveElement(slice.call(slides), index);
         }
 
         dispatchSliderEvent('after', 'slide', {
@@ -200,7 +208,14 @@ export default function lory (slider, opts) {
         prefixes = detectPrefixes();
         options = {...defaults, ...opts};
 
-        const {classNameFrame, classNameSlideContainer, classNamePrevCtrl, classNameNextCtrl, classNameActiveSlide} = options;
+        const {
+            classNameFrame,
+            classNameSlideContainer,
+            classNamePrevCtrl,
+            classNameNextCtrl,
+            enableMouseEvents,
+            classNameActiveSlide
+        } = options;
 
         frame = slider.getElementsByClassName(classNameFrame)[0];
         slideContainer = frame.getElementsByClassName(classNameSlideContainer)[0];
@@ -230,8 +245,11 @@ export default function lory (slider, opts) {
         }
 
         slideContainer.addEventListener('touchstart', onTouchstart);
-        slideContainer.addEventListener('mousedown', onTouchstart);
-        slideContainer.addEventListener('click', onClick);
+
+        if (enableMouseEvents) {
+            slideContainer.addEventListener('mousedown', onTouchstart);
+            slideContainer.addEventListener('click', onClick);
+        }
 
         window.addEventListener('resize', onResize);
 
@@ -339,18 +357,17 @@ export default function lory (slider, opts) {
     }
 
     function onTouchstart (event) {
-        let touches;
-
         const {enableMouseEvents} = options;
+        const touches = event.touches ? event.touches[0] : event;
 
         if (enableMouseEvents) {
-            touches = event.touches ? event.touches[0] : event;
-
+            slideContainer.addEventListener('mousemove', onTouchmove);
             slideContainer.addEventListener('mouseup', onTouchend);
             slideContainer.addEventListener('mouseleave', onTouchend);
-        } else {
-            touches = event.touches[0];
         }
+
+        slideContainer.addEventListener('touchmove', onTouchmove);
+        slideContainer.addEventListener('touchend', onTouchend);
 
         const {pageX, pageY} = touches;
 
@@ -364,28 +381,13 @@ export default function lory (slider, opts) {
 
         delta = {};
 
-        slideContainer.addEventListener('touchmove', onTouchmove);
-        slideContainer.addEventListener('mousemove', onTouchmove);
-        slideContainer.addEventListener('touchend', onTouchend);
-        slideContainer.addEventListener('mouseup', onTouchend);
-        slideContainer.addEventListener('mouseleave', onTouchend);
-
         dispatchSliderEvent('on', 'touchstart', {
             event
         });
     }
 
     function onTouchmove (event) {
-        let touches;
-
-        const {enableMouseEvents} = options;
-
-        if (enableMouseEvents) {
-            touches = event.touches ? event.touches[0] : event;
-        } else {
-            touches = event.touches[0];
-        }
-
+        const touches = event.touches ? event.touches[0] : event;
         const {pageX, pageY} = touches;
 
         delta = {
