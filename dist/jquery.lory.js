@@ -274,12 +274,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	            index = nextIndex;
 	        }
 
-	        if (infinite) {
-	            if (Math.abs(nextOffset) === maxOffset && direction) {
+	        if (infinite && (Math.abs(nextOffset) === maxOffset || Math.abs(nextOffset) === 0)) {
+	            if (direction) {
 	                index = infinite;
 	            }
 
-	            if (Math.abs(nextOffset) === 0 && !direction) {
+	            if (!direction) {
 	                index = slides.length - infinite * 2;
 	            }
 
@@ -458,27 +458,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    function onTouchstart(event) {
-	        var touches = undefined;
-
 	        var _options6 = options;
 	        var enableMouseEvents = _options6.enableMouseEvents;
 
-	        if (enableMouseEvents) {
-	            touches = event.touches ? event.touches[0] : event;
+	        var touches = event.touches ? event.touches[0] : event;
 
+	        if (enableMouseEvents) {
 	            slideContainer.addEventListener('mousemove', onTouchmove);
 	            slideContainer.addEventListener('mouseup', onTouchend);
 	            slideContainer.addEventListener('mouseleave', onTouchend);
-	        } else {
-	            touches = event.touches[0];
-
-	            slideContainer.addEventListener('touchmove', onTouchmove);
-	            slideContainer.addEventListener('touchend', onTouchend);
 	        }
 
-	        var _touches = touches;
-	        var pageX = _touches.pageX;
-	        var pageY = _touches.pageY;
+	        slideContainer.addEventListener('touchmove', onTouchmove);
+	        slideContainer.addEventListener('touchend', onTouchend);
+
+	        var pageX = touches.pageX;
+	        var pageY = touches.pageY;
 
 	        touchOffset = {
 	            x: pageX,
@@ -496,20 +491,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    function onTouchmove(event) {
-	        var touches = undefined;
-
-	        var _options7 = options;
-	        var enableMouseEvents = _options7.enableMouseEvents;
-
-	        if (enableMouseEvents) {
-	            touches = event.touches ? event.touches[0] : event;
-	        } else {
-	            touches = event.touches[0];
-	        }
-
-	        var _touches2 = touches;
-	        var pageX = _touches2.pageX;
-	        var pageY = _touches2.pageY;
+	        var touches = event.touches ? event.touches[0] : event;
+	        var pageX = touches.pageX;
+	        var pageY = touches.pageY;
 
 	        delta = {
 	            x: pageX - touchOffset.x,
@@ -581,6 +565,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        slideContainer.removeEventListener('touchend', onTouchend);
 	        slideContainer.removeEventListener('mousemove', onTouchmove);
 	        slideContainer.removeEventListener('mouseup', onTouchend);
+	        slideContainer.removeEventListener('mouseleave', onTouchend);
 
 	        dispatchSliderEvent('on', 'touchend', {
 	            event: event

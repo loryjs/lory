@@ -173,12 +173,12 @@ export default function lory (slider, opts) {
             index = nextIndex;
         }
 
-        if (infinite) {
-            if (Math.abs(nextOffset) === maxOffset && direction) {
+        if (infinite && (Math.abs(nextOffset) === maxOffset || Math.abs(nextOffset) === 0)) {
+            if (direction) {
                 index = infinite;
             }
 
-            if (Math.abs(nextOffset) === 0 && !direction) {
+            if (!direction) {
                 index = slides.length - (infinite * 2);
             }
 
@@ -463,6 +463,7 @@ export default function lory (slider, opts) {
         slideContainer.removeEventListener('touchend', onTouchend);
         slideContainer.removeEventListener('mousemove', onTouchmove);
         slideContainer.removeEventListener('mouseup', onTouchend);
+        slideContainer.removeEventListener('mouseleave', onTouchend);
 
         dispatchSliderEvent('on', 'touchend', {
             event
