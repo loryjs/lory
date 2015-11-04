@@ -36,6 +36,7 @@
   "devDependencies": {
     "babel-core": "6.0.20",
     "babel-loader": "5.3.2",
+    "babel-preset-stage-0": "^6.0.15",
     "clamp.js": "0.2.9",
     "custom-event": "1.0.0",
     "dependency-check": "2.5.1",
