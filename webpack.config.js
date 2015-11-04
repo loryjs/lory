@@ -7,22 +7,19 @@ module.exports = {
     module: {
         loaders: [{
             exclude: /(node_modules|bower_components)/,
-            loader: 'babel',
-            query: {
-                stage: 0
-            }
+            loader: 'babel'
         }]
     },
 
     output: {
         path: __dirname + '/dist/',
         filename: '[name].js',
-        library: 'lory',
         libraryTarget: 'umd'
     },
 
     devServer: {
         contentBase: "./demo",
+        port: 3333,
         noInfo: true, //  --no-info option
         hot: true,
         inline: true

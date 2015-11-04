@@ -61,31 +61,30 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* globals jQuery */
-
 	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	exports['default'] = lory;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = lory;
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	var _detectPrefixes = __webpack_require__(2);
 
-	var _utilsDetectPrefixesJs = __webpack_require__(2);
+	var _detectPrefixes2 = _interopRequireDefault(_detectPrefixes);
 
-	var _utilsDetectPrefixesJs2 = _interopRequireDefault(_utilsDetectPrefixesJs);
+	var _dispatchEvent = __webpack_require__(3);
 
-	var _utilsDispatchEventJs = __webpack_require__(3);
+	var _dispatchEvent2 = _interopRequireDefault(_dispatchEvent);
 
-	var _utilsDispatchEventJs2 = _interopRequireDefault(_utilsDispatchEventJs);
+	var _defaults = __webpack_require__(5);
 
-	var _defaultsJs = __webpack_require__(5);
+	var _defaults2 = _interopRequireDefault(_defaults);
 
-	var _defaultsJs2 = _interopRequireDefault(_defaultsJs);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _instanceof(left, right) { if (right != null && right[Symbol.hasInstance]) { return right[Symbol.hasInstance](left); } else { return left instanceof right; } } /* globals jQuery */
 
 	var slice = Array.prototype.slice;
 
@@ -111,7 +110,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    /**
 	     * if object is jQuery convert to native DOM element
 	     */
-	    if (typeof jQuery !== 'undefined' && slider instanceof jQuery) {
+	    if (typeof jQuery !== 'undefined' && _instanceof(slider, jQuery)) {
 	        slider = slider[0];
 	    }
 
@@ -168,7 +167,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * @return {[type]} [description]
 	     */
 	    function dispatchSliderEvent(phase, type, detail) {
-	        (0, _utilsDispatchEventJs2['default'])(slider, phase + '.lory.' + type, detail);
+	        (0, _dispatchEvent2.default)(slider, phase + '.lory.' + type, detail);
 	    }
 
 	    /**
@@ -288,8 +287,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function setup() {
 	        dispatchSliderEvent('before', 'init');
 
-	        prefixes = (0, _utilsDetectPrefixesJs2['default'])();
-	        options = _extends({}, _defaultsJs2['default'], opts);
+	        prefixes = (0, _detectPrefixes2.default)();
+	        options = _extends({}, _defaults2.default, opts);
 
 	        var _options4 = options;
 	        var classNameFrame = _options4.classNameFrame;
@@ -583,22 +582,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	}
 
-	module.exports = exports['default'];
-
 /***/ },
 /* 2 */
 /***/ function(module, exports) {
 
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = detectPrefixes;
 	/**
 	 * Detecting prefixes for saving time and bytes
 	 */
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-	exports['default'] = detectPrefixes;
-
 	function detectPrefixes() {
 	    var transform = undefined;
 	    var transition = undefined;
@@ -639,24 +635,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	}
 
-	module.exports = exports['default'];
-
 /***/ },
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports['default'] = dispatchEvent;
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	exports.default = dispatchEvent;
 
 	var _customEvent = __webpack_require__(4);
 
 	var _customEvent2 = _interopRequireDefault(_customEvent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	/**
 	 * dispatch custom events
@@ -665,9 +659,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @param  {string}  type       custom event name
 	 * @param  {object}  detail     custom detail information
 	 */
-
 	function dispatchEvent(target, type, detail) {
-	    var event = new _customEvent2['default'](type, {
+	    var event = new _customEvent2.default(type, {
 	        bubbles: true,
 	        cancelable: true,
 	        detail: detail
@@ -675,8 +668,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    target.dispatchEvent(event);
 	}
-
-	module.exports = exports['default'];
 
 /***/ },
 /* 4 */
@@ -739,10 +730,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports['default'] = {
+	exports.default = {
 	  /**
 	   * slides scrolled at once
 	   * @slidesToScroll {Number}
@@ -825,7 +816,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	   */
 	  enableMouseEvents: false
 	};
-	module.exports = exports['default'];
 
 /***/ }
 /******/ ])
