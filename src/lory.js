@@ -6,7 +6,7 @@ import defaults from './defaults.js';
 
 const slice = Array.prototype.slice;
 
-export default function lory (slider, opts) {
+export function lory (slider, opts) {
     let position;
     let slidesWidth;
     let frameWidth;
