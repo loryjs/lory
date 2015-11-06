@@ -5,10 +5,11 @@ export default function detectPrefixes () {
     let transform;
     let transition;
     let transitionEnd;
+    let hasTranslate3d;
 
     (function () {
-        let style = document.createElement('_')
-            .style;
+        let el = document.createElement('_');
+        let style = el.style;
 
         let prop;
 
@@ -33,11 +34,17 @@ export default function detectPrefixes () {
         if (style[prop = 'transform'] === '') {
             transform = prop;
         }
+
+        document.body.insertBefore(el, null);
+        style[transform] = 'translate3d(0, 0, 0)';
+        hasTranslate3d = !!global.getComputedStyle(el).getPropertyValue(transform);
+        document.body.removeChild(el);
     }());
 
     return {
-        transform: transform,
-        transition: transition,
-        transitionEnd: transitionEnd
+        transform,
+        transition,
+        transitionEnd,
+        hasTranslate3d
     };
 }

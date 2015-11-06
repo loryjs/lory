@@ -199,7 +199,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (style) {
 	            style[prefixes.transition + 'TimingFunction'] = ease;
 	            style[prefixes.transition + 'Duration'] = duration + 'ms';
-	            style[prefixes.transform] = 'translate3d(' + to + 'px, 0, 0)';
+
+	            if (prefixes.hasTranslate3d) {
+	                style[prefixes.transform] = 'translate3d(' + to + 'px, 0, 0)';
+	            } else {
+	                style[prefixes.transform] = 'translate(' + to + 'px, 0)';
+	            }
 	        }
 	    }
 
@@ -609,7 +614,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 2 */
 /***/ function(module, exports) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -622,9 +627,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var transform = undefined;
 	    var transition = undefined;
 	    var transitionEnd = undefined;
+	    var hasTranslate3d = undefined;
 
 	    (function () {
-	        var style = document.createElement('_').style;
+	        var el = document.createElement('_');
+	        var style = el.style;
 
 	        var prop = undefined;
 
@@ -649,14 +656,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (style[prop = 'transform'] === '') {
 	            transform = prop;
 	        }
+
+	        document.body.insertBefore(el, null);
+	        style[transform] = 'translate3d(0, 0, 0)';
+	        hasTranslate3d = !!global.getComputedStyle(el).getPropertyValue(transform);
+	        document.body.removeChild(el);
 	    })();
 
 	    return {
 	        transform: transform,
 	        transition: transition,
-	        transitionEnd: transitionEnd
+	        transitionEnd: transitionEnd,
+	        hasTranslate3d: hasTranslate3d
 	    };
 	}
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
 /* 3 */
