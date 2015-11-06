@@ -328,6 +328,13 @@ export function lory (slider, opts) {
         // remove event listeners
         slideContainer.removeEventListener(prefixes.transitionEnd, onTransitionEnd);
         slideContainer.removeEventListener('touchstart', onTouchstart);
+        slideContainer.removeEventListener('touchmove', onTouchmove);
+        slideContainer.removeEventListener('touchend', onTouchend);
+        slideContainer.removeEventListener('mousemove', onTouchmove);
+        slideContainer.removeEventListener('mousedown', onTouchstart);
+        slideContainer.removeEventListener('mouseup', onTouchend);
+        slideContainer.removeEventListener('mouseleave', onTouchend);
+        slideContainer.removeEventListener('click', onClick);
 
         window.removeEventListener('resize', onResize);
 
