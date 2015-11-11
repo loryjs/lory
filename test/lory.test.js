@@ -227,4 +227,35 @@ describe('lory()', function () {
             assert.typeOf(instance.destroy, 'function');
         });
     });
+
+    describe('.onResize()', function () {
+        var resizeListener;
+        var indexAfterResize;
+        var onResizeCallback = function() {
+            indexAfterResize = instance.returnIndex();
+        };
+
+        beforeEach(function () {
+            instance = lory(element, {
+                window: {
+                    addEventListener: function(type, listener) {
+                        if (type == 'resize') {
+                            resizeListener = listener;
+                        }
+                    }
+                }
+            });
+            element.addEventListener('on.lory.resize', onResizeCallback);
+        });
+
+        afterEach(function () {
+            element.removeEventListener('on.lory.resize', onResizeCallback);
+        });
+
+        it('has to dispatch the event on.lory.resize after reset()', function () {
+            instance.next();
+            resizeListener();
+            assert.equal(indexAfterResize, 0);
+        });
+    });
 });

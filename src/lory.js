@@ -256,7 +256,7 @@ export function lory (slider, opts) {
             slideContainer.addEventListener('click', onClick);
         }
 
-        window.addEventListener('resize', onResize);
+        options.window.addEventListener('resize', onResize);
 
         dispatchSliderEvent('after', 'init');
     }
@@ -341,7 +341,7 @@ export function lory (slider, opts) {
         slideContainer.removeEventListener('mouseleave', onTouchend);
         slideContainer.removeEventListener('click', onClick);
 
-        window.removeEventListener('resize', onResize);
+        options.window.removeEventListener('resize', onResize);
 
         if (prevCtrl) {
             prevCtrl.removeEventListener('click', prev);
@@ -489,11 +489,11 @@ export function lory (slider, opts) {
     }
 
     function onResize (event) {
+        reset();
+
         dispatchSliderEvent('on', 'resize', {
             event
         });
-
-        reset();
     }
 
     // trigger initial setup
