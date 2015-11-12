@@ -63,7 +63,7 @@
     "sauce-connect-launcher": "^0.13.0",
     "saucelabs": "^1.0.1",
     "semantic-release": "^4.3.5",
-    "uglify-js": "2.5.0",
+    "uglify-js": "2.6.0",
     "watch": "^0.16.0",
     "webpack": "1.12.3",
     "webpack-dev-server": "1.12.1"
