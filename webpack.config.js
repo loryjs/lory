@@ -14,6 +14,7 @@ module.exports = {
     output: {
         path: __dirname + '/dist/',
         filename: '[name].js',
+        library: 'lory',
         libraryTarget: 'umd'
     },
 
