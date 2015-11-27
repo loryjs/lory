@@ -79,5 +79,11 @@ export default {
      * enables mouse events for swiping on desktop devices
      * @enableMouseEvents {boolean}
      */
-    enableMouseEvents: false
+    enableMouseEvents: false,
+
+    /**
+     * window instance
+     * @window {object}
+     */
+    window: window
 };
