@@ -384,7 +384,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * returnIndex function: called on clickhandler
 	     */
 	    function returnIndex() {
-	        return index;
+	        return index - options.infinite || 0;
 	    }
 
 	    /**
