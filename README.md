@@ -220,6 +220,11 @@ li {
         <td>default: false (number of visible slides)</td>
     </tr>
     <tr>
+        <td>enableMouseEvents</td>
+        <td>enabled mouse events</td>
+        <td>default: false</td>
+    </tr>
+    <tr>
         <td>rewind</td>
         <td>if slider reached the last slide, with next click the slider goes back to the startindex. (do not combine with infinite)</td>
         <td>default: false</td>
