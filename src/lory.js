@@ -268,7 +268,12 @@ export function lory (slider, opts) {
             slideContainer.addEventListener('click', onClick);
         }
 
-        options.window.addEventListener('resize', onResize);
+        /**
+         * Only fire resize event on true resize
+         * ISO sometimes fires resize on scroll
+         **/
+        const resizeEvent = (!window.orientation) ? 'resize' : 'orientationchange';
+        options.window.addEventListener(resizeEvent, onResize);
 
         dispatchSliderEvent('after', 'init');
     }
@@ -362,7 +367,12 @@ export function lory (slider, opts) {
         slideContainer.removeEventListener('mouseleave', onTouchend);
         slideContainer.removeEventListener('click', onClick);
 
-        options.window.removeEventListener('resize', onResize);
+         /**
+         * Only fire resize event on true resize
+         * ISO sometimes fires resize on scroll
+         **/
+        const resizeEvent = (!window.orientation) ? 'resize' : 'orientationchange';
+        options.window.removeEventListener(resizeEvent, onResize);
 
         if (prevCtrl) {
             prevCtrl.removeEventListener('click', prev);

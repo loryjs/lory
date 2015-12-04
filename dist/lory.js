@@ -329,7 +329,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        } else {
 	            slides = slice.call(slideContainer.children);
 	        }
-	        console.log('setup');
 	        reset();
 
 	        if (classNameActiveSlide) {
@@ -348,7 +347,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	            slideContainer.addEventListener('click', onClick);
 	        }
 
-	        options.window.addEventListener('resize', onResize);
+	        /**
+	         * Only fire resize event on true resize
+	         * ISO sometimes fires resize on scroll
+	         **/
+	        var resizeEvent = !window.orientation ? 'resize' : 'orientationchange';
+	        options.window.addEventListener(resizeEvent, onResize);
 
 	        dispatchSliderEvent('after', 'init');
 	    }
@@ -439,7 +443,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        slideContainer.removeEventListener('mouseleave', onTouchend);
 	        slideContainer.removeEventListener('click', onClick);
 
-	        options.window.removeEventListener('resize', onResize);
+	        /**
+	        * Only fire resize event on true resize
+	        * ISO sometimes fires resize on scroll
+	        **/
+	        var resizeEvent = !window.orientation ? 'resize' : 'orientationchange';
+	        options.window.removeEventListener(resizeEvent, onResize);
 
 	        if (prevCtrl) {
 	            prevCtrl.removeEventListener('click', prev);
@@ -558,14 +567,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var isOutOfBounds = !index && delta.x > 0 || index === slides.length - 1 && delta.x < 0;
 
 	        var direction = delta.x < 0;
-	        console.log('sending');
 	        if (!isScrolling) {
 	            if (isValid && !isOutOfBounds) {
-	                console.log('here');
 	                slide(false, direction);
 	            } else {
-	                console.log('outside');
-	                console.log(position.x);
 	                translate(position.x, options.snapBackSpeed);
 	            }
 	        }
@@ -593,7 +598,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    function onResize(event) {
-	        console.log('resize');
 	        reset();
 
 	        dispatchSliderEvent('on', 'resize', {
