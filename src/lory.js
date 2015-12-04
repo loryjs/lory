@@ -63,13 +63,14 @@ export function lory (slider, opts) {
 
         front.forEach(function (element) {
             const cloned = element.cloneNode(true);
-
+            cloned.className += ' lory_infinite';
             slideContainer.appendChild(cloned);
         });
 
         back.reverse()
             .forEach(function (element) {
                 const cloned = element.cloneNode(true);
+                cloned.className += ' lory_infinite';
 
                 slideContainer.insertBefore(cloned, slideContainer.firstChild);
             });
@@ -77,6 +78,18 @@ export function lory (slider, opts) {
         slideContainer.addEventListener(prefixes.transitionEnd, onTransitionEnd);
 
         return slice.call(slideContainer.children);
+    }
+
+    function destroyInfinite (slides) {
+        slides.filter(function (slide) {
+            return slide.className.indexOf('lory_infinite') >= 0;
+        }).forEach(function (slide, index) {
+            slide.parentNode.removeChild(slide);
+            var slideIndex = slides.indexOf(slide);
+            slides.splice(slideIndex, 1);
+        });
+
+        return slides;
     }
 
     /**
@@ -237,7 +250,6 @@ export function lory (slider, opts) {
         } else {
             slides = slice.call(slideContainer.children);
         }
-
         reset();
 
         if (classNameActiveSlide) {
@@ -360,6 +372,8 @@ export function lory (slider, opts) {
             nextCtrl.removeEventListener('click', next);
         }
 
+        slides = destroyInfinite(slides);
+
         dispatchSliderEvent('after', 'destroy');
     }
 
@@ -466,7 +480,6 @@ export function lory (slider, opts) {
             index === slides.length - 1 && delta.x < 0;
 
         const direction = delta.x < 0;
-
         if (!isScrolling) {
             if (isValid && !isOutOfBounds) {
                 slide(false, direction);

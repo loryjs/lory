@@ -161,12 +161,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        front.forEach(function (element) {
 	            var cloned = element.cloneNode(true);
-
+	            cloned.className += ' lory_infinite';
 	            slideContainer.appendChild(cloned);
 	        });
 
 	        back.reverse().forEach(function (element) {
 	            var cloned = element.cloneNode(true);
+	            cloned.className += ' lory_infinite';
 
 	            slideContainer.insertBefore(cloned, slideContainer.firstChild);
 	        });
@@ -174,6 +175,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	        slideContainer.addEventListener(prefixes.transitionEnd, onTransitionEnd);
 
 	        return slice.call(slideContainer.children);
+	    }
+
+	    function destroyInfinite(slides) {
+	        slides.filter(function (slide) {
+	            return slide.className.indexOf('lory_infinite') >= 0;
+	        }).forEach(function (slide, index) {
+	            slide.parentNode.removeChild(slide);
+	            var slideIndex = slides.indexOf(slide);
+	            slides.splice(slideIndex, 1);
+	        });
+
+	        return slides;
 	    }
 
 	    /**
@@ -332,7 +345,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        } else {
 	            slides = slice.call(slideContainer.children);
 	        }
-
+	        console.log('setup');
 	        reset();
 
 	        if (classNameActiveSlide) {
@@ -452,6 +465,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            nextCtrl.removeEventListener('click', next);
 	        }
 
+	        slides = destroyInfinite(slides);
+
 	        dispatchSliderEvent('after', 'destroy');
 	    }
 
@@ -559,11 +574,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var isOutOfBounds = !index && delta.x > 0 || index === slides.length - 1 && delta.x < 0;
 
 	        var direction = delta.x < 0;
-
+	        console.log('sending');
 	        if (!isScrolling) {
 	            if (isValid && !isOutOfBounds) {
+	                console.log('here');
 	                slide(false, direction);
 	            } else {
+	                console.log('outside');
+	                console.log(position.x);
 	                translate(position.x, options.snapBackSpeed);
 	            }
 	        }
@@ -591,6 +609,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    function onResize(event) {
+	        console.log('resize');
 	        reset();
 
 	        dispatchSliderEvent('on', 'resize', {
