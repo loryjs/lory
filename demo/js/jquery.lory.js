@@ -137,12 +137,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var classNameActiveSlide = _options.classNameActiveSlide;
 
 	        slides.forEach(function (element, index) {
-	            if (element.classList.contains(classNameActiveSlide)) {
-	                element.classList.remove(classNameActiveSlide);
+	            if (element.className.indexOf(classNameActiveSlide) !== -1) {
+	                element.className = element.className.replace(' ' + classNameActiveSlide, '');
 	            }
 	        });
 
-	        slides[currentIndex].classList.add(classNameActiveSlide);
+	        slides[currentIndex].className += ' ' + classNameActiveSlide;
 	    }
 
 	    /**
