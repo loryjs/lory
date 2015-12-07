@@ -63,6 +63,7 @@ export function lory (slider, opts) {
 
         front.forEach(function (element) {
             const cloned = element.cloneNode(true);
+            cloned.className += ' lory_infinite';
 
             slideContainer.appendChild(cloned);
         });
@@ -70,6 +71,7 @@ export function lory (slider, opts) {
         back.reverse()
             .forEach(function (element) {
                 const cloned = element.cloneNode(true);
+                cloned.className += ' lory_infinite';
 
                 slideContainer.insertBefore(cloned, slideContainer.firstChild);
             });
@@ -77,6 +79,18 @@ export function lory (slider, opts) {
         slideContainer.addEventListener(prefixes.transitionEnd, onTransitionEnd);
 
         return slice.call(slideContainer.children);
+    }
+
+    function destroyInfinite (slides) {
+        slides.filter(function (slide) {
+            return slide.className.indexOf('lory_infinite') >= 0;
+        }).forEach(function (slide, index) {
+            slide.parentNode.removeChild(slide);
+            var slideIndex = slides.indexOf(slide);
+            slides.splice(slideIndex, 1);
+        });
+
+        return slides;
     }
 
     /**
@@ -350,6 +364,8 @@ export function lory (slider, opts) {
         if (nextCtrl) {
             nextCtrl.removeEventListener('click', next);
         }
+
+        slides = destroyInfinite(slides);
 
         dispatchSliderEvent('after', 'destroy');
     }

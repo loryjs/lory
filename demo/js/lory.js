@@ -145,12 +145,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        front.forEach(function (element) {
 	            var cloned = element.cloneNode(true);
+	            cloned.className += ' lory_infinite';
 
 	            slideContainer.appendChild(cloned);
 	        });
 
 	        back.reverse().forEach(function (element) {
 	            var cloned = element.cloneNode(true);
+	            cloned.className += ' lory_infinite';
 
 	            slideContainer.insertBefore(cloned, slideContainer.firstChild);
 	        });
@@ -158,6 +160,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	        slideContainer.addEventListener(prefixes.transitionEnd, onTransitionEnd);
 
 	        return slice.call(slideContainer.children);
+	    }
+
+	    function destroyInfinite(slides) {
+	        slides.filter(function (slide) {
+	            return slide.className.indexOf('lory_infinite') >= 0;
+	        }).forEach(function (slide, index) {
+	            slide.parentNode.removeChild(slide);
+	            var slideIndex = slides.indexOf(slide);
+	            slides.splice(slideIndex, 1);
+	        });
+
+	        return slides;
 	    }
 
 	    /**
@@ -430,6 +444,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (nextCtrl) {
 	            nextCtrl.removeEventListener('click', next);
 	        }
+
+	        slides = destroyInfinite(slides);
 
 	        dispatchSliderEvent('after', 'destroy');
 	    }
