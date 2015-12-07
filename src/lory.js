@@ -39,13 +39,13 @@ export function lory (slider, opts) {
     function setActiveElement (slides, currentIndex) {
         const {classNameActiveSlide} = options;
 
-        slides.forEach((element, index) => {
-            if (element.classList.contains(classNameActiveSlide)) {
-                element.classList.remove(classNameActiveSlide);
+        slides.forEach(function (element, index) {
+            if (element.className.indexOf(classNameActiveSlide) !== -1) {
+                element.className = element.className.replace(' ' + classNameActiveSlide, '');
             }
         });
 
-        slides[currentIndex].classList.add(classNameActiveSlide);
+        slides[currentIndex].className += ' ' + classNameActiveSlide;
     }
 
     /**
@@ -63,13 +63,14 @@ export function lory (slider, opts) {
 
         front.forEach(function (element) {
             const cloned = element.cloneNode(true);
-
+            cloned.className += ' lory_infinite';
             slideContainer.appendChild(cloned);
         });
 
         back.reverse()
             .forEach(function (element) {
                 const cloned = element.cloneNode(true);
+                cloned.className += ' lory_infinite';
 
                 slideContainer.insertBefore(cloned, slideContainer.firstChild);
             });
@@ -77,6 +78,18 @@ export function lory (slider, opts) {
         slideContainer.addEventListener(prefixes.transitionEnd, onTransitionEnd);
 
         return slice.call(slideContainer.children);
+    }
+
+    function destroyInfinite (slides) {
+        slides.filter(function (slide) {
+            return slide.className.indexOf('lory_infinite') >= 0;
+        }).forEach(function (slide, index) {
+            slide.parentNode.removeChild(slide);
+            var slideIndex = slides.indexOf(slide);
+            slides.splice(slideIndex, 1);
+        });
+
+        return slides;
     }
 
     /**
@@ -237,7 +250,6 @@ export function lory (slider, opts) {
         } else {
             slides = slice.call(slideContainer.children);
         }
-
         reset();
 
         if (classNameActiveSlide) {
@@ -256,7 +268,12 @@ export function lory (slider, opts) {
             slideContainer.addEventListener('click', onClick);
         }
 
-        options.window.addEventListener('resize', onResize);
+        /**
+         * Only fire resize event on true resize
+         * ISO sometimes fires resize on scroll
+         **/
+        const resizeEvent = (!window.orientation) ? 'resize' : 'orientationchange';
+        options.window.addEventListener(resizeEvent, onResize);
 
         dispatchSliderEvent('after', 'init');
     }
@@ -266,7 +283,12 @@ export function lory (slider, opts) {
      * reset function: called on resize
      */
     function reset () {
-        const {infinite, ease, rewindSpeed} = options;
+        const {
+            infinite,
+            ease,
+            rewindSpeed,
+            classNameActiveSlide
+        } = options;
 
         slidesWidth = slideContainer.getBoundingClientRect()
             .width || slideContainer.offsetWidth;
@@ -288,6 +310,10 @@ export function lory (slider, opts) {
             position.x = slides[index].offsetLeft * -1;
         } else {
             translate(0, rewindSpeed, ease);
+        }
+
+        if (classNameActiveSlide) {
+            setActiveElement(slice.call(slides), index);
         }
     }
 
@@ -341,7 +367,12 @@ export function lory (slider, opts) {
         slideContainer.removeEventListener('mouseleave', onTouchend);
         slideContainer.removeEventListener('click', onClick);
 
-        options.window.removeEventListener('resize', onResize);
+         /**
+         * Only fire resize event on true resize
+         * ISO sometimes fires resize on scroll
+         **/
+        const resizeEvent = (!window.orientation) ? 'resize' : 'orientationchange';
+        options.window.removeEventListener(resizeEvent, onResize);
 
         if (prevCtrl) {
             prevCtrl.removeEventListener('click', prev);
@@ -350,6 +381,8 @@ export function lory (slider, opts) {
         if (nextCtrl) {
             nextCtrl.removeEventListener('click', next);
         }
+
+        slides = destroyInfinite(slides);
 
         dispatchSliderEvent('after', 'destroy');
     }
@@ -457,7 +490,6 @@ export function lory (slider, opts) {
             index === slides.length - 1 && delta.x < 0;
 
         const direction = delta.x < 0;
-
         if (!isScrolling) {
             if (isValid && !isOutOfBounds) {
                 slide(false, direction);

@@ -137,12 +137,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var classNameActiveSlide = _options.classNameActiveSlide;
 
 	        slides.forEach(function (element, index) {
-	            if (element.classList.contains(classNameActiveSlide)) {
-	                element.classList.remove(classNameActiveSlide);
+	            if (element.className.indexOf(classNameActiveSlide) !== -1) {
+	                element.className = element.className.replace(' ' + classNameActiveSlide, '');
 	            }
 	        });
 
-	        slides[currentIndex].classList.add(classNameActiveSlide);
+	        slides[currentIndex].className += ' ' + classNameActiveSlide;
 	    }
 
 	    /**
@@ -161,12 +161,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        front.forEach(function (element) {
 	            var cloned = element.cloneNode(true);
-
+	            cloned.className += ' lory_infinite';
 	            slideContainer.appendChild(cloned);
 	        });
 
 	        back.reverse().forEach(function (element) {
 	            var cloned = element.cloneNode(true);
+	            cloned.className += ' lory_infinite';
 
 	            slideContainer.insertBefore(cloned, slideContainer.firstChild);
 	        });
@@ -174,6 +175,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	        slideContainer.addEventListener(prefixes.transitionEnd, onTransitionEnd);
 
 	        return slice.call(slideContainer.children);
+	    }
+
+	    function destroyInfinite(slides) {
+	        slides.filter(function (slide) {
+	            return slide.className.indexOf('lory_infinite') >= 0;
+	        }).forEach(function (slide, index) {
+	            slide.parentNode.removeChild(slide);
+	            var slideIndex = slides.indexOf(slide);
+	            slides.splice(slideIndex, 1);
+	        });
+
+	        return slides;
 	    }
 
 	    /**
@@ -332,7 +345,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        } else {
 	            slides = slice.call(slideContainer.children);
 	        }
-
 	        reset();
 
 	        if (classNameActiveSlide) {
@@ -351,7 +363,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	            slideContainer.addEventListener('click', onClick);
 	        }
 
-	        options.window.addEventListener('resize', onResize);
+	        /**
+	         * Only fire resize event on true resize
+	         * ISO sometimes fires resize on scroll
+	         **/
+	        var resizeEvent = !window.orientation ? 'resize' : 'orientationchange';
+	        options.window.addEventListener(resizeEvent, onResize);
 
 	        dispatchSliderEvent('after', 'init');
 	    }
@@ -365,6 +382,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var infinite = _options5.infinite;
 	        var ease = _options5.ease;
 	        var rewindSpeed = _options5.rewindSpeed;
+	        var classNameActiveSlide = _options5.classNameActiveSlide;
 
 	        slidesWidth = slideContainer.getBoundingClientRect().width || slideContainer.offsetWidth;
 	        frameWidth = frame.getBoundingClientRect().width || frame.offsetWidth;
@@ -384,6 +402,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	            position.x = slides[index].offsetLeft * -1;
 	        } else {
 	            translate(0, rewindSpeed, ease);
+	        }
+
+	        if (classNameActiveSlide) {
+	            setActiveElement(slice.call(slides), index);
 	        }
 	    }
 
@@ -437,7 +459,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        slideContainer.removeEventListener('mouseleave', onTouchend);
 	        slideContainer.removeEventListener('click', onClick);
 
-	        options.window.removeEventListener('resize', onResize);
+	        /**
+	        * Only fire resize event on true resize
+	        * ISO sometimes fires resize on scroll
+	        **/
+	        var resizeEvent = !window.orientation ? 'resize' : 'orientationchange';
+	        options.window.removeEventListener(resizeEvent, onResize);
 
 	        if (prevCtrl) {
 	            prevCtrl.removeEventListener('click', prev);
@@ -446,6 +473,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (nextCtrl) {
 	            nextCtrl.removeEventListener('click', next);
 	        }
+
+	        slides = destroyInfinite(slides);
 
 	        dispatchSliderEvent('after', 'destroy');
 	    }
@@ -554,7 +583,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var isOutOfBounds = !index && delta.x > 0 || index === slides.length - 1 && delta.x < 0;
 
 	        var direction = delta.x < 0;
-
 	        if (!isScrolling) {
 	            if (isValid && !isOutOfBounds) {
 	                slide(false, direction);
