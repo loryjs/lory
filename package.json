@@ -41,7 +41,7 @@
     "chai": "3.4.1",
     "clamp.js": "0.2.9",
     "custom-event": "1.0.0",
-    "cz-conventional-changelog": "^1.1.4",
+    "cz-conventional-changelog": "^1.1.5",
     "dependency-check": "2.5.1",
     "eslint": "1.10.1",
     "eslint-config-standard": "4.4.0",
