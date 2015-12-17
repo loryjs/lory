@@ -424,6 +424,42 @@
 
 </section>
 
+<section class="commonJS">
+<h2>Consume it as a commonJS module</h2>
+
+<div class="examplecode"><pre><code class="javascript">
+    "use strict";
+
+    var lory = require('lory.js').lory;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var slider = document.querySelector('.js_slider');
+
+        lory(slider, {
+            // options going here
+        });
+    });
+
+</code></pre></div>
+
+</section>
+
+<section class="ES2015">
+<h2>Consume it as an ES2015 module</h2>
+
+<div class="examplecode"><pre><code class="javascript">
+    import {lory} from 'lory.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const slider = document.querySelector('.js_slider');
+
+        lory(slider, {
+            // options going here
+        });
+    });
+
+</code></pre></div>
+
 <section class="jquery">
 <h2>Use it as a jQuery Plugin</h2>
 

@@ -22,12 +22,36 @@ Please visit: [http://meandmax.github.io/lory/](http://meandmax.github.io/lory/ 
 
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/meandmax.svg)](https://saucelabs.com/u/meandmax)
 
-## Install with node
+## Install with node in es2015:
 
 ```
 npm install --save lory.js
+```
 
-import lory from 'lory.js';
+```js
+    import {lory} from 'lory.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const slider = document.querySelector('.js_slider');
+
+        lory(slider, {
+            // options going here
+        });
+    });
+```
+
+## Consume it as an ES2015 module:
+
+```js
+    var lory = require('lory.js').lory;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var slider = document.querySelector('.js_slider');
+
+        lory(slider, {
+            // options going here
+        });
+    });
 ```
 
 ## Install with bower
