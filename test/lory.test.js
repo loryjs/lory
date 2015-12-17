@@ -28,11 +28,9 @@ describe('lory()', function () {
         var listener = function() {
             fn();
             slideContainer.removeEventListener(transitionEnd, listener);
-            if (done) {
-                done();
-            }
         };
         slideContainer.addEventListener(transitionEnd, listener);
+        done();
     }
 
     function getSlideContainer() {
