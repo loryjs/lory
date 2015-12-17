@@ -7,12 +7,12 @@ module.exports = function(config) {
     }
 
     var customLaunchers = {
-        sauceLabsInternetExplorer9: {
-            base: 'SauceLabs',
-            browserName: 'internet explorer',
-            platform: 'Windows 7',
-            version: '9.0'
-        },
+        // sauceLabsInternetExplorer9: {
+        //     base: 'SauceLabs',
+        //     browserName: 'internet explorer',
+        //     platform: 'Windows 7',
+        //     version: '9.0'
+        // },
         sauceLabsInternetExplorer10: {
             base: 'SauceLabs',
             browserName: 'internet explorer',
