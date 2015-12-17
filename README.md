@@ -22,11 +22,13 @@ Please visit: [http://meandmax.github.io/lory/](http://meandmax.github.io/lory/ 
 
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/meandmax.svg)](https://saucelabs.com/u/meandmax)
 
-## Install with node in es2015:
+## Install with node:
 
 ```
 npm install --save lory.js
 ```
+
+## Consume it as an ES2015 module:
 
 ```js
     import {lory} from 'lory.js';
@@ -40,7 +42,7 @@ npm install --save lory.js
     });
 ```
 
-## Consume it as an ES2015 module:
+## Consume it as an commonJS module:
 
 ```js
     var lory = require('lory.js').lory;
