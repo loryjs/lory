@@ -61,7 +61,7 @@
     "karma-sauce-launcher": "0.3.0",
     "mocha": "2.3.4",
     "phantomjs": "1.9.18",
-    "rimraf": "2.4.4",
+    "rimraf": "2.4.5",
     "sauce-connect-launcher": "0.13.0",
     "saucelabs": "1.0.1",
     "semantic-release": "4.3.5",
