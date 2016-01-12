@@ -68,7 +68,7 @@
     "uglify-js": "2.6.1",
     "watch": "0.17.1",
     "webpack": "1.12.9",
-    "webpack-dev-server": "1.14.0"
+    "webpack-dev-server": "1.14.1"
   },
   "scripts": {
     "clean": "rimraf dist/* && rimraf demo/js/*",
