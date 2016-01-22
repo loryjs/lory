@@ -19,8 +19,8 @@ module.exports = {
 
     devServer: {
         contentBase: "./demo",
+        open: true,
         port: 3333,
-        noInfo: true, //  --no-info option
         hot: true,
         inline: true
     }

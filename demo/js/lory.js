@@ -269,7 +269,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            position.x = slides[index].offsetLeft * -1;
 
-	            transitionEndCallback = function () {
+	            transitionEndCallback = function transitionEndCallback() {
 	                translate(slides[index].offsetLeft * -1, 0, undefined);
 	            };
 	        }
