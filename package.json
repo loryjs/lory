@@ -67,7 +67,7 @@
     "semantic-release": "4.3.5",
     "uglify-js": "2.6.1",
     "watch": "0.17.1",
-    "webpack": "1.12.12",
+    "webpack": "1.12.13",
     "webpack-dev-server": "1.14.1"
   },
   "scripts": {
