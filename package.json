@@ -35,7 +35,7 @@
   "jsnext:main": "./src/lory.js",
   "devDependencies": {
     "babel-loader": "6.2.1",
-    "babel-core": "6.4.5",
+    "babel-core": "6.5.0",
     "babel-preset-es2015": "6.0.15",
     "babel-preset-stage-0": "6.0.15",
     "chai": "3.4.1",
