@@ -38,7 +38,7 @@
     "babel-core": "6.5.2",
     "babel-preset-stage-0": "6.5.0",
     "babel-preset-es2015": "6.5.0",
-    "chai": "3.4.1",
+    "chai": "3.5.0",
     "clamp.js": "0.2.9",
     "custom-event": "1.0.0",
     "cz-conventional-changelog": "1.1.4",
