@@ -199,7 +199,8 @@ export function lory (slider, opts) {
         }
 
         dispatchSliderEvent('after', 'slide', {
-            currentSlide: index
+            currentSlide: index,
+            currentSlideId: slides[index].id
         });
     }
 
@@ -297,6 +298,30 @@ export function lory (slider, opts) {
      */
     function slideTo (index) {
         slide(index);
+    }
+
+    /**
+     * public
+     * slideToId: goto to slide with specific id
+     */
+    function slideToId (id) {
+        let index = 0;
+        let slide_node = document.getElementById(id);
+
+        while (slide_node.previousSibling) {
+            slide_node = slide_node.previousSibling;
+            if (slide_node.nodeType === 1) {
+                index++;
+            }
+        }
+
+        if (index === 0 && options.infinite) {
+            index = slides.length - 1;
+        }
+
+        if (slides[index - 1 + options.infinite] !== undefined) {
+            slide(index - 1);
+        }
     }
 
     /**
@@ -504,6 +529,7 @@ export function lory (slider, opts) {
         setup,
         reset,
         slideTo,
+        slideToId,
         returnIndex,
         prev,
         next,

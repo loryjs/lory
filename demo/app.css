@@ -276,11 +276,44 @@ footer {
     display: block;
 }
 
+.goto_button {
+    display: block;
+    width: 170px;
+    margin: 20px auto;
+    padding: 10px 0;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    background: #1E334A;
+    color: #fff;
+}
+
+.goto_button:hover {
+    background: #4E637A;
+}
+
+.goto_button.active {
+    background: #4E957A;
+}
+
+.custom_navigation {
+  list-style: none;
+  text-align: center;
+  margin: 10px auto;
+}
+
+.custom_navigation li {
+  display: inline-block;
+}
+
 @media screen and (min-width: 640px ) {
     /**
      * Demo Page Styles
      */
-    .examplecode, .frame, .events_log {
+    .examplecode, .frame, .events_log, .custom_navigation {
         width: 580px;
     }
 
@@ -328,7 +361,7 @@ footer {
      * Demo Page Styles
      */
 
-    .examplecode {
+    .examplecode, .custom_navigation {
         width: 880px;
     }
 
