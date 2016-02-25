@@ -79,11 +79,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /* globals jQuery */
-
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /* globals jQuery */
+
 	exports.lory = lory;
 
 	var _detectPrefixes = __webpack_require__(2);
@@ -136,6 +137,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var _options = options;
 	        var classNameActiveSlide = _options.classNameActiveSlide;
 
+
 	        slides.forEach(function (element, index) {
 	            if (element.classList.contains(classNameActiveSlide)) {
 	                element.classList.remove(classNameActiveSlide);
@@ -155,6 +157,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function setupInfinite(slideArray) {
 	        var _options2 = options;
 	        var infinite = _options2.infinite;
+
 
 	        var front = slideArray.slice(0, infinite);
 	        var back = slideArray.slice(slideArray.length - infinite, slideArray.length);
@@ -223,6 +226,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var rewindSpeed = _options3.rewindSpeed;
 	        var ease = _options3.ease;
 	        var classNameActiveSlide = _options3.classNameActiveSlide;
+
 
 	        var duration = slideSpeed;
 
@@ -295,7 +299,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 
 	        dispatchSliderEvent('after', 'slide', {
-	            currentSlide: index
+	            currentSlide: index,
+	            currentSlideId: slides[index].id
 	        });
 	    }
 
@@ -316,6 +321,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var classNameNextCtrl = _options4.classNameNextCtrl;
 	        var enableMouseEvents = _options4.enableMouseEvents;
 	        var classNameActiveSlide = _options4.classNameActiveSlide;
+
 
 	        frame = slider.getElementsByClassName(classNameFrame)[0];
 	        slideContainer = frame.getElementsByClassName(classNameSlideContainer)[0];
@@ -366,6 +372,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var ease = _options5.ease;
 	        var rewindSpeed = _options5.rewindSpeed;
 
+
 	        slidesWidth = slideContainer.getBoundingClientRect().width || slideContainer.offsetWidth;
 	        frameWidth = frame.getBoundingClientRect().width || frame.offsetWidth;
 
@@ -393,6 +400,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	     */
 	    function slideTo(index) {
 	        slide(index);
+	    }
+
+	    /**
+	     * public
+	     * slideToId: goto to slide with specific id
+	     */
+	    function slideToId(id) {
+	        var index = 0;
+	        var slide_node = document.getElementById(id);
+
+	        while (slide_node.previousSibling) {
+	            slide_node = slide_node.previousSibling;
+	            if (slide_node.nodeType === 1) {
+	                index++;
+	            }
+	        }
+
+	        if (index === 0 && options.infinite) {
+	            index = slides.length - 1;
+	        }
+
+	        if (slides[index - 1 + options.infinite] !== undefined) {
+	            slide(index - 1);
+	        }
 	    }
 
 	    /**
@@ -482,6 +513,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var pageX = touches.pageX;
 	        var pageY = touches.pageY;
 
+
 	        touchOffset = {
 	            x: pageX,
 	            y: pageY,
@@ -501,6 +533,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var touches = event.touches ? event.touches[0] : event;
 	        var pageX = touches.pageX;
 	        var pageY = touches.pageY;
+
 
 	        delta = {
 	            x: pageX - touchOffset.x,
@@ -601,6 +634,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        setup: setup,
 	        reset: reset,
 	        slideTo: slideTo,
+	        slideToId: slideToId,
 	        returnIndex: returnIndex,
 	        prev: prev,
 	        next: next,

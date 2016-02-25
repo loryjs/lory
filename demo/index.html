@@ -226,6 +226,109 @@
     });
 
 </code></pre></div>
+            <h2>Single element - Custom navigation</h2>
+
+            <div class="slider js_slidetoid percentage">
+                <div class="frame js_frame">
+                    <ul class="slides js_slides">
+                        <li class="js_slide" id="example1">1</li>
+                        <li class="js_slide" id="example2">2</li>
+                        <li class="js_slide" id="example3">3</li>
+                        <li class="js_slide" id="example4">4</li>
+                    </ul>
+                </div>
+
+                <span class="js_prev prev">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z"/></g></svg>
+                </span>
+
+                <span class="js_next next">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z"/></g></svg>
+                </span>
+            </div>
+            <ul class="custom_navigation">
+              <li>
+                <a class="goto_button active" data-slide-id="example1" href="javascript:void(0)">go to #example1</a>
+              </li>
+              <li>
+                <a class="goto_button" data-slide-id="example2" href="javascript:void(0)">go to #example2</a>
+              </li>
+              <li>
+                <a class="goto_button" data-slide-id="example3" href="javascript:void(0)">go to #example3</a>
+              </li>
+              <li>
+                <a class="goto_button" data-slide-id="example4" href="javascript:void(0)">go to #example4</a>
+              </li>
+            </ul>
+            <div style="clear: both;"></div>
+            <div class="examplecode"><pre><code class="html">
+            &lt;div class=&quot;slider js_slider&quot;&gt;
+                &lt;div class=&quot;frame js_frame&quot;&gt;
+                    &lt;ul class=&quot;slides js_slides&quot;&gt;
+                        &lt;li class=&quot;js_slide&quot; id=&quot;example1&quot;&gt;1&lt;/li&gt;
+                        &lt;li class=&quot;js_slide&quot; id=&quot;example2&quot;&gt;2&lt;/li&gt;
+                        &lt;li class=&quot;js_slide&quot; id=&quot;example3&quot;&gt;3&lt;/li&gt;
+                        &lt;li class=&quot;js_slide&quot; id=&quot;example4&quot;&gt;4&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;ul class=&quot;custom_navigation&quot;&gt;
+              &lt;li&gt;
+                &lt;a class=&quot;goto_button active&quot; data-slide-id=&quot;example1&quot; href=&quot;javascript:void(0)&quot;&gt;go to #example1&lt;/a&gt;
+              &lt;/li&gt;
+              &lt;li&gt;
+                &lt;a class=&quot;goto_button&quot; data-slide-id=&quot;example2&quot; href=&quot;javascript:void(0)&quot;&gt;go to #example2&lt;/a&gt;
+              &lt;/li&gt;
+              &lt;li&gt;
+                &lt;a class=&quot;goto_button&quot; data-slide-id=&quot;example3&quot; href=&quot;javascript:void(0)&quot;&gt;go to #example3&lt;/a&gt;
+              &lt;/li&gt;
+              &lt;li&gt;
+                &lt;a class=&quot;goto_button&quot; data-slide-id=&quot;example4&quot; href=&quot;javascript:void(0)&quot;&gt;go to #example4&lt;/a&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+            </code></pre></div>
+
+<div class="examplecode"><pre><code class="javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var slideToId         = document.querySelector('.js_slidetoid');
+
+        var slider = lory(slideToId, {
+            infinite: 1,
+            enableMouseEvents: true
+        });
+
+        var custom_navigation_elems = document.querySelectorAll('.goto_button');
+
+        function handleCustomNavigationClick(e) {
+            var slide_id = e.target.getAttribute('data-slide-id');
+            if(slide_id) {
+              slider.slideToId(slide_id);
+            }
+        }
+
+        function handleCustomNavigationActive(e) {
+            for(var i = 0, len = custom_navigation_elems.length; i < len; i++) {
+                if(custom_navigation_elems[i].getAttribute) {
+                    if (e.detail.currentSlideId === custom_navigation_elems[i].getAttribute('data-slide-id')) {
+                        custom_navigation_elems[i].classList.add("active");
+                    } else {
+                        custom_navigation_elems[i].classList.remove("active");
+                    }
+                }
+            }
+        }
+
+        slideToId.addEventListener('after.lory.slide', handleCustomNavigationActive);
+
+        for(var i = 0, len = custom_navigation_elems.length; i < len; i++) {
+            if(custom_navigation_elems[i].nodeType === 1) {
+                custom_navigation_elems[i].addEventListener('click', handleCustomNavigationClick, false);
+            }
+        }
+    });
+
+</code></pre></div>
+
 
             <h2>Variable width</h2>
 
@@ -483,7 +586,6 @@
         });
 
 </code></pre></div>
-
 </section>
 
         <section class="development">
@@ -541,6 +643,10 @@
                 <tr>
                     <th>slideTo:</th>
                     <td>slides to the index given as an argument: (arguments: index {number})</td>
+                </tr>
+                <tr>
+                    <th>slideToId:</th>
+                    <td>slides to the element with the given Id: (arguments: id {string})</td>
                 </tr>
                 <tr>
                     <th>returnIndex:</th>
@@ -682,14 +788,15 @@
         'use strict';
 
         document.addEventListener('DOMContentLoaded', function () {
-            var simple           = document.querySelector('.js_simple');
-            var percentage       = document.querySelector('.js_percentage');
-            var rewind           = document.querySelector('.js_rewind');
+            var simple            = document.querySelector('.js_simple');
+            var percentage        = document.querySelector('.js_percentage');
+            var rewind            = document.querySelector('.js_rewind');
             var rewind_percentage = document.querySelector('.js_rewind_percentage');
-            var variableWidth    = document.querySelector('.js_variablewidth');
-            var multiSlides      = document.querySelector('.js_multislides');
-            var ease             = document.querySelector('.js_ease');
-            var events           = document.querySelector('.js_events');
+            var variableWidth     = document.querySelector('.js_variablewidth');
+            var multiSlides       = document.querySelector('.js_multislides');
+            var ease              = document.querySelector('.js_ease');
+            var events            = document.querySelector('.js_events');
+            var slideToId         = document.querySelector('.js_slidetoid');
 
             lory(simple, {
                 infinite: 1,
@@ -729,6 +836,39 @@
                 ease: 'cubic-bezier(0.455, 0.03, 0.515, 0.955)',
                 enableMouseEvents: true
             });
+
+            var slider_slidetoid = lory(slideToId, {
+                infinite: 1,
+                enableMouseEvents: true
+            });
+
+            var custom_navigation_elems = document.querySelectorAll('.goto_button');
+            function handleCustomNavigationClick(e) {
+                var slide_id = e.target.getAttribute('data-slide-id');
+                if(slide_id) {
+                  slider_slidetoid.slideToId(slide_id);
+                }
+            }
+
+            function handleCustomNavigationActive(e) {
+                for(var i = 0, len = custom_navigation_elems.length; i < len; i++) {
+                    if(custom_navigation_elems[i].getAttribute) {
+                        if (e.detail.currentSlideId === custom_navigation_elems[i].getAttribute('data-slide-id')) {
+                            custom_navigation_elems[i].classList.add("active");
+                        } else {
+                            custom_navigation_elems[i].classList.remove("active");
+                        }
+                    }
+                }
+            }
+
+            slideToId.addEventListener('after.lory.slide', handleCustomNavigationActive);
+
+            for(var i = 0, len = custom_navigation_elems.length; i < len; i++) {
+                if(custom_navigation_elems[i].nodeType === 1) {
+                    custom_navigation_elems[i].addEventListener('click', handleCustomNavigationClick, false);
+                }
+            }
 
             function handleEvent(e) {
                 var newSpan = document.createElement('span');
