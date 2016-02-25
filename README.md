@@ -215,6 +215,10 @@ li {
         <td>slides to the index given as an argument: (arguments: index {number})</td>
     </tr>
     <tr>
+        <td>slideToId</td>
+        <td>slides to the element with the given Id: (arguments: id {string})</td>
+    </tr>
+    <tr>
         <td>returnIndex</td>
         <td>returns the index of the current slide element</td>
     </tr>
@@ -314,7 +318,7 @@ li {
     </tr>
     <tr>
         <td>after.lory.slide</td>
-        <td>fires after slide change | <strong>arguments:</strong> currentSlide</td>
+        <td>fires after slide change | <strong>arguments:</strong> currentSlide, currentSlideId</td>
     </tr>
     <tr>
         <td>on.lory.resize</td>
