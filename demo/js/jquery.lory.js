@@ -365,6 +365,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var infinite = _options5.infinite;
 	        var ease = _options5.ease;
 	        var rewindSpeed = _options5.rewindSpeed;
+	        var classNameActiveSlide = _options5.classNameActiveSlide;
 
 	        slidesWidth = slideContainer.getBoundingClientRect().width || slideContainer.offsetWidth;
 	        frameWidth = frame.getBoundingClientRect().width || frame.offsetWidth;
@@ -384,6 +385,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	            position.x = slides[index].offsetLeft * -1;
 	        } else {
 	            translate(0, rewindSpeed, ease);
+	        }
+
+	        if (classNameActiveSlide) {
+	            setActiveElement(slice.call(slides), index);
 	        }
 	    }
 
