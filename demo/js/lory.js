@@ -63,11 +63,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /* globals jQuery */
-
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /* globals jQuery */
+
 	exports.lory = lory;
 
 	var _detectPrefixes = __webpack_require__(2);
@@ -87,20 +88,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	var slice = Array.prototype.slice;
 
 	function lory(slider, opts) {
-	    var position = undefined;
-	    var slidesWidth = undefined;
-	    var frameWidth = undefined;
-	    var slides = undefined;
+	    var position = void 0;
+	    var slidesWidth = void 0;
+	    var frameWidth = void 0;
+	    var slides = void 0;
 
 	    /**
 	     * slider DOM elements
 	     */
-	    var frame = undefined;
-	    var slideContainer = undefined;
-	    var prevCtrl = undefined;
-	    var nextCtrl = undefined;
-	    var prefixes = undefined;
-	    var transitionEndCallback = undefined;
+	    var frame = void 0;
+	    var slideContainer = void 0;
+	    var prevCtrl = void 0;
+	    var nextCtrl = void 0;
+	    var prefixes = void 0;
+	    var transitionEndCallback = void 0;
 
 	    var index = 0;
 	    var options = {};
@@ -119,6 +120,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function setActiveElement(slides, currentIndex) {
 	        var _options = options;
 	        var classNameActiveSlide = _options.classNameActiveSlide;
+
 
 	        slides.forEach(function (element, index) {
 	            if (element.classList.contains(classNameActiveSlide)) {
@@ -139,6 +141,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function setupInfinite(slideArray) {
 	        var _options2 = options;
 	        var infinite = _options2.infinite;
+
 
 	        var front = slideArray.slice(0, infinite);
 	        var back = slideArray.slice(slideArray.length - infinite, slideArray.length);
@@ -207,6 +210,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var rewindSpeed = _options3.rewindSpeed;
 	        var ease = _options3.ease;
 	        var classNameActiveSlide = _options3.classNameActiveSlide;
+
 
 	        var duration = slideSpeed;
 
@@ -301,6 +305,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var enableMouseEvents = _options4.enableMouseEvents;
 	        var classNameActiveSlide = _options4.classNameActiveSlide;
 
+
 	        frame = slider.getElementsByClassName(classNameFrame)[0];
 	        slideContainer = frame.getElementsByClassName(classNameSlideContainer)[0];
 	        prevCtrl = slider.getElementsByClassName(classNamePrevCtrl)[0];
@@ -349,6 +354,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var infinite = _options5.infinite;
 	        var ease = _options5.ease;
 	        var rewindSpeed = _options5.rewindSpeed;
+
 
 	        slidesWidth = slideContainer.getBoundingClientRect().width || slideContainer.offsetWidth;
 	        frameWidth = frame.getBoundingClientRect().width || frame.offsetWidth;
@@ -436,9 +442,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    // event handling
 
-	    var touchOffset = undefined;
-	    var delta = undefined;
-	    var isScrolling = undefined;
+	    var touchOffset = void 0;
+	    var delta = void 0;
+	    var isScrolling = void 0;
 
 	    function onTransitionEnd() {
 	        if (transitionEndCallback) {
@@ -466,6 +472,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var pageX = touches.pageX;
 	        var pageY = touches.pageY;
 
+
 	        touchOffset = {
 	            x: pageX,
 	            y: pageY,
@@ -485,6 +492,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var touches = event.touches ? event.touches[0] : event;
 	        var pageX = touches.pageX;
 	        var pageY = touches.pageY;
+
 
 	        delta = {
 	            x: pageX - touchOffset.x,
@@ -606,16 +614,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Detecting prefixes for saving time and bytes
 	 */
 	function detectPrefixes() {
-	    var transform = undefined;
-	    var transition = undefined;
-	    var transitionEnd = undefined;
-	    var hasTranslate3d = undefined;
+	    var transform = void 0;
+	    var transition = void 0;
+	    var transitionEnd = void 0;
+	    var hasTranslate3d = void 0;
 
 	    (function () {
 	        var el = document.createElement('_');
 	        var style = el.style;
 
-	        var prop = undefined;
+	        var prop = void 0;
 
 	        if (style[prop = 'webkitTransition'] === '') {
 	            transitionEnd = 'webkitTransitionEnd';
