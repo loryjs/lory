@@ -22,6 +22,14 @@ Please visit: [http://meandmax.github.io/lory/](http://meandmax.github.io/lory/ 
 
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/meandmax.svg)](https://saucelabs.com/u/meandmax)
 
+## Download
+
+lory is released under the MIT license & supports modern environments.
+There is also a prebundled CDN version which you can use.
+
+####  Vanilla JavaScript: https://cdn.jsdelivr.net/lory-js/2.1.0/lory.min.js
+#### jQuery plugin: https://cdn.jsdelivr.net/lory-js/2.1.0/jquery.lory.min.js
+
 ## Install with node:
 
 ```
