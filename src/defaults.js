@@ -24,6 +24,12 @@ export default {
     snapBackSpeed: 200,
 
     /**
+     * offset for translation
+     * @translationOffset {Number}
+     */
+    translationOffset: 0,
+
+    /**
      * Basic easing functions: https://developer.mozilla.org/de/docs/Web/CSS/transition-timing-function
      * cubic bezier easing functions: http://easings.net/de
      * @ease {String}
