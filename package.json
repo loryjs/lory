@@ -55,7 +55,7 @@
     "karma-html2js-preprocessor": "0.1.0",
     "karma-ie-launcher": "0.2.0",
     "karma-mocha": "0.2.2",
-    "karma-mocha-reporter": "2.0.0",
+    "karma-mocha-reporter": "2.0.1",
     "karma-opera-launcher": "0.3.0",
     "karma-phantomjs-launcher": "1.0.0",
     "karma-safari-launcher": "0.1.1",
