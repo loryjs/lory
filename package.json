@@ -59,7 +59,7 @@
     "karma-opera-launcher": "0.3.0",
     "karma-phantomjs-launcher": "1.0.0",
     "karma-safari-launcher": "0.1.1",
-    "karma-sauce-launcher": "0.3.1",
+    "karma-sauce-launcher": "1.0.0",
     "mocha": "2.5.3",
     "phantomjs-prebuilt": "2.1.7",
     "rimraf": "2.5.2",
