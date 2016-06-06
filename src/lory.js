@@ -178,7 +178,7 @@ export function lory (slider, opts) {
             index = nextIndex;
         }
 
-        if (infinite && (Math.abs(nextOffset) === maxOffset || Math.abs(nextOffset) === 0)) {
+        if (infinite && (nextIndex === slides.length - infinite || nextIndex === 0)) {
             if (direction) {
                 index = infinite;
             }
