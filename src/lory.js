@@ -355,6 +355,14 @@ export function lory (slider, opts) {
             nextCtrl.removeEventListener('click', next);
         }
 
+        // remove cloned slides if infinite is set
+        if (options.infinite) {
+            Array.apply(null, Array(options.infinite)).forEach(function () {
+                slideContainer.removeChild(slideContainer.firstChild);
+                slideContainer.removeChild(slideContainer.lastChild);
+            });
+        }
+
         dispatchSliderEvent('after', 'destroy');
     }
 
