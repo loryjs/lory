@@ -63,7 +63,7 @@
     "mocha": "2.5.3",
     "phantomjs-prebuilt": "2.1.7",
     "rimraf": "2.5.3",
-    "sauce-connect-launcher": "0.14.0",
+    "sauce-connect-launcher": "0.15.0",
     "saucelabs": "1.2.0",
     "semantic-release": "4.3.5",
     "uglify-js": "2.7.0",
