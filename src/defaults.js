@@ -89,7 +89,7 @@ export default {
 
     /**
      * If false, slides lory to the first slide on window resize.
-     * @persistIndex {boolean}
+     * @rewindOnResize {boolean}
      */
     rewindOnResize: false
 };
