@@ -266,7 +266,7 @@ export function lory (slider, opts) {
      * reset function: called on resize
      */
     function reset () {
-        var {infinite, ease, rewindSpeed, persistIndex} = options;
+        var {infinite, ease, rewindSpeed, rewindOnResize} = options;
 
         slidesWidth = slideContainer.getBoundingClientRect()
             .width || slideContainer.offsetWidth;
@@ -279,7 +279,7 @@ export function lory (slider, opts) {
             }, 0);
         }
 
-        if (!persistIndex) {
+        if (!rewindOnResize) {
             index = 0;
         } else {
             ease = null;
