@@ -24,7 +24,7 @@
         </header>
 
         <section class="examples">
-            <h2>Slide to Index 5</h2>
+            <h2>Single element with jQuery</h2>
 
             <div class="slider js_simple simple">
                 <div class="frame js_frame">
@@ -50,14 +50,16 @@
 <div class="examplecode"><pre><code class="javascript">
         'use strict';
 
-        document.addEventListener('DOMContentLoaded', function () {
-            var simple = document.querySelector('.js_simple');
+        var $elements = $('.js_simple');
 
-            var lory = lory(simple, {
+        $(function() {
+            $elements.lory({
                 infinite: 1
             });
 
-            lory.slideTo(3);
+            $elements.data().lory.slideTo(4);
+            // $elements.data().lory.prev();
+            // $elements.data().lory.next();
         });
 
 </code></pre></div>
@@ -68,19 +70,20 @@
     <script>hljs.initHighlightingOnLoad();</script>
 
     <script src="vendor/jquery-2.1.3.min.js"></script>
-    <script src="js/lory.min.js"></script>
+    <script src="js/jquery.lory.min.js"></script>
     <script>
         'use strict';
 
-        document.addEventListener('DOMContentLoaded', function () {
-            var simple = document.querySelector('.js_simple');
+        var $elements = $('.js_simple');
 
-            var lorySlider = lory(simple, {
+        $(function() {
+            $elements.lory({
                 infinite: 1
             });
 
-            lorySlider.slideTo(3);
+            $elements.data().lory.slideTo(4);
+            // $elements.data().lory.prev();
+            // $elements.data().lory.next();
         });
-    </script>
     </script>
 </html>
