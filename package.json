@@ -35,7 +35,7 @@
   "jsnext:main": "./src/lory.js",
   "devDependencies": {
     "babel-cli": "6.11.4",
-    "babel-core": "6.13.1",
+    "babel-core": "6.13.2",
     "babel-loader": "6.2.5",
     "babel-preset-es2015": "6.13.2",
     "babel-preset-stage-0": "6.5.0",
@@ -70,7 +70,7 @@
     "karma-phantomjs-launcher": "1.0.1",
     "karma-safari-launcher": "1.0.0",
     "karma-sauce-launcher": "1.0.0",
-    "mocha": "3.0.0",
+    "mocha": "3.0.2",
     "nodemon": "1.10.2",
     "phantomjs-prebuilt": "2.1.12",
     "rimraf": "2.5.4",
@@ -79,7 +79,6 @@
     "semantic-release": "4.3.5",
     "uglify-js": "2.7.3",
     "url-loader": "0.5.7",
-    "watch": "0.19.1",
     "webpack": "1.13.2",
     "webpack-dev-server": "1.14.1"
   },
