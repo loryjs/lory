@@ -1,6 +1,6 @@
 /* globals $ */
 
-import lory from './lory.js';
+import {lory} from './lory.js';
 
 $.fn.lory = function (options) {
     return this.each(function () {
