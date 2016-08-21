@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>lory</title>
+        <meta name="description" content="Touch enabled minimalistic slider written in vanilla JavaScript">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" type="image/ico" href="../static/favicon.ico" />
+        <link rel="stylesheet" type="text/css" href="../static/app.css" />
+        <link rel="stylesheet" type="text/css" href="../static/vendor/railscasts.css" />
+        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+    </head>
+
+    <body>
+        <header>
+            <div class="ribbon">
+                <a href="https://github.com/meandmax/lory">Fork me on GitHub</a>
+            </div>
+            <img class="logo" src="../static/lory.png" />
+        </header>
+
+        <p class="description">Touch enabled minimalistic slider written in vanilla JavaScript</p>
+        <p class="description">Hardware accelerated transitions</p>
+        <p class="description">Usable as a jQuery plugin</p>
+        <p class="description">Options for custom easing effects</p>
+        <p class="description">infinite looping ~ carousel</p>
+        <p class="description">No compromises for fallbacks</p>
+        <p class="description">Written in ecmascript 6</p>
+        <p class="description">Using webpack, babel & eslint for development</p>
+
+        <a class="dist" href="../dist/lory.js">Download Here</a>
+
+        <section class="prerequisited">
+            <div class="examplecode">
+            <h2>Prerequisited Html structure<br><small><em>Class names can be changed through options</em></small></h2>
+
+            <pre><code class="html">
+            &lt;div class=&quot;slider js_slider&quot;&gt;
+                &lt;div class=&quot;frame js_frame&quot;&gt;
+                    &lt;ul class=&quot;slides js_slides&quot;&gt;
+                        &lt;li class=&quot;js_slide&quot;&gt;1&lt;/li&gt;
+                        &lt;li class=&quot;js_slide&quot;&gt;2&lt;/li&gt;
+                        &lt;li class=&quot;js_slide&quot;&gt;3&lt;/li&gt;
+                        &lt;li class=&quot;js_slide&quot;&gt;4&lt;/li&gt;
+                        &lt;li class=&quot;js_slide&quot;&gt;5&lt;/li&gt;
+                        &lt;li class=&quot;js_slide&quot;&gt;6&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            </code></pre></div>
+
+            <div class="examplecode">
+            <h2>Prerequisited CSS styles</h2>
+
+            <pre><code class="css">
+            /**
+             * (optional) define here the style definitions which should be applied on the slider container
+             * e.g. width including further controls like arrows etc.
+             */
+            .slider {}
+
+            .frame {
+                /**
+                 * (optional) wrapper width, specifies width of the slider frame.
+                 */
+                width: 880px;
+
+                position: relative;
+                font-size: 0;
+                line-height: 0;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+
+            .slides {
+                display: inline-block;
+            }
+
+            li {
+                position: relative;
+                display: inline-block;
+
+                /**
+                 * (optional) if the content inside the slide element has a defined size.
+                 */
+                width: 880px;
+            }
+            </code></pre></div>
+        </section>
+
+        <section class="examples">
+            <h2>Single element - Fixed width [infinite]</h2>
+
+            <div class="slider js_simple simple">
+                <div class="frame js_frame">
+                    <ul class="slides js_slides">
+                        <li class="js_slide">1</li>
+                        <li class="js_slide">2</li>
+                        <li class="js_slide">3</li>
+                        <li class="js_slide">4</li>
+                        <li class="js_slide">5</li>
+                        <li class="js_slide">6</li>
+                    </ul>
+                </div>
+
+                <span class="js_prev prev">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z"/></g></svg>
+                </span>
+
+                <span class="js_next next">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z"/></g></svg>
+                </span>
+            </div>
+
+<div class="examplecode"><pre><code class="javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var simple = document.querySelector('.js_simple');
+
+        lory(simple, {
+            infinite: 1
+        });
+    });
+
+</code></pre></div>
+
+            <h2>Single element - Percentage width [infinite]</h2>
+
+            <div class="slider js_percentage percentage">
+                <div class="frame js_frame">
+                    <ul class="slides js_slides">
+                        <li class="js_slide">1</li>
+                        <li class="js_slide">2</li>
+                        <li class="js_slide">3</li>
+                        <li class="js_slide">4</li>
+                        <li class="js_slide">5</li>
+                        <li class="js_slide">6</li>
+                    </ul>
+                </div>
+
+                <span class="js_prev prev">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z"/></g></svg>
+                </span>
+
+                <span class="js_next next">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z"/></g></svg>
+                </span>
+            </div>
+
+<div class="examplecode"><pre><code class="javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var percentage = document.querySelector('.js_percentage');
+
+        lory(percentage, {
+            infinite: 1
+        });
+    });
+
+</code></pre></div>
+
+            <h2>Single element - Fixed width [rewind]</h2>
+
+            <div class="slider js_rewind rewind">
+                <div class="frame js_frame">
+                    <ul class="slides js_slides">
+                        <li class="js_slide">1</li>
+                        <li class="js_slide">2</li>
+                        <li class="js_slide">3</li>
+                        <li class="js_slide">4</li>
+                        <li class="js_slide">5</li>
+                        <li class="js_slide">6</li>
+                    </ul>
+                </div>
+
+                <span class="js_prev prev">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z"/></g></svg>
+                </span>
+
+                <span class="js_next next">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z"/></g></svg>
+                </span>
+            </div>
+
+<div class="examplecode"><pre><code class="javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var rewind = document.querySelector('.js_rewind');
+
+        lory(rewind, {
+            rewind: true
+        });
+    });
+
+</code></pre></div>
+
+            <h2>Single element - Percentage width [rewind]</h2>
+
+            <div class="slider js_rewind_percentage percentage">
+                <div class="frame js_frame">
+                    <ul class="slides js_slides">
+                        <li class="js_slide">1</li>
+                        <li class="js_slide">2</li>
+                        <li class="js_slide">3</li>
+                        <li class="js_slide">4</li>
+                        <li class="js_slide">5</li>
+                        <li class="js_slide">6</li>
+                    </ul>
+                </div>
+
+                <span class="js_prev prev">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z"/></g></svg>
+                </span>
+
+                <span class="js_next next">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z"/></g></svg>
+                </span>
+            </div>
+
+<div class="examplecode"><pre><code class="javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var rewind_percentage = document.querySelector('.js_rewind_percentage');
+
+        lory(rewind_percentage, {
+            rewind: true
+        });
+    });
+
+</code></pre></div>
+
+            <h2>Variable width</h2>
+
+            <div class="slider js_variablewidth variablewidth">
+                <div class="frame js_frame">
+                    <ul class="slides js_slides">
+                        <li class="js_slide" style="width: 220px;">220</li>
+                        <li class="js_slide" style="width: 190px;">190</li>
+                        <li class="js_slide" style="width: 150px;">150</li>
+                        <li class="js_slide" style="width: 130px;">130</li>
+                        <li class="js_slide" style="width: 250px;">250</li>
+                        <li class="js_slide" style="width: 180px;">180</li>
+                        <li class="js_slide" style="width: 200px;">200</li>
+                        <li class="js_slide" style="width: 140px;">140</li>
+                        <li class="js_slide" style="width: 120px;">120</li>
+                        <li class="js_slide" style="width: 240px;">240</li>
+                    </ul>
+                </div>
+
+                <span class="js_prev prev">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z"/></g></svg>
+                </span>
+
+                <span class="js_next next">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z"/></g></svg>
+                </span>
+            </div>
+
+<div class="examplecode"><pre><code class="javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var variableWidth = document.querySelector('.js_variablewlidth');
+
+        lory(variableWidth, {
+            rewind: true
+        });
+    });
+
+</code></pre></div>
+
+            <h2>Multiple slides to scroll</h2>
+
+            <div class="slider js_multislides multislides">
+                <div class="frame js_frame">
+                    <ul class="slides js_slides">
+                        <li class="js_slide">1</li>
+                        <li class="js_slide">2</li>
+                        <li class="js_slide">3</li>
+                        <li class="js_slide">4</li>
+                        <li class="js_slide">5</li>
+                        <li class="js_slide">6</li>
+                        <li class="js_slide">7</li>
+                        <li class="js_slide">8</li>
+                        <li class="js_slide">9</li>
+                        <li class="js_slide">10</li>
+                        <li class="js_slide">11</li>
+                        <li class="js_slide">12</li>
+                    </ul>
+                </div>
+
+                <span class="js_prev prev">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z"/></g></svg>
+                </span>
+
+                <span class="js_next next">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z"/></g></svg>
+                </span>
+            </div>
+
+<div class="examplecode"><pre><code class="javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var multiSlides = document.querySelector('.js_multislides');
+
+        lory(multiSlides, {
+            infinite: 4,
+            slidesToScroll: 4
+        });
+    });
+
+</code></pre></div>
+
+            <h2>Custom easings</h2>
+
+            <div class="slider js_ease ease">
+                <div class="frame js_frame">
+                    <ul class="slides js_slides">
+                        <li class="js_slide">1</li>
+                        <li class="js_slide">2</li>
+                        <li class="js_slide">3</li>
+                        <li class="js_slide">4</li>
+                        <li class="js_slide">5</li>
+                        <li class="js_slide">6</li>
+                        <li class="js_slide">7</li>
+                        <li class="js_slide">8</li>
+                        <li class="js_slide">9</li>
+                        <li class="js_slide">10</li>
+                        <li class="js_slide">11</li>
+                        <li class="js_slide">12</li>
+                    </ul>
+                </div>
+
+                <span class="js_prev prev">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z"/></g></svg>
+                </span>
+
+                <span class="js_next next">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z"/></g></svg>
+                </span>
+            </div>
+
+<div class="examplecode"><pre><code class="javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var ease = document.querySelector('.js_ease');
+
+        // http://easings.net/
+
+        lory(ease, {
+            infinite: 4,
+            slidesToScroll: 4,
+            slideSpeed: 1000,
+            ease: 'cubic-bezier(0.455, 0.03, 0.515, 0.955)'
+        });
+    });
+
+</code></pre></div>
+
+            <h2>Showing events</h2>
+
+            <div class="slider js_events events">
+                <div class="frame js_frame">
+                    <ul class="slides js_slides">
+                        <li class="js_slide">1</li>
+                        <li class="js_slide">2</li>
+                        <li class="js_slide">3</li>
+                        <li class="js_slide">4</li>
+                        <li class="js_slide">5</li>
+                        <li class="js_slide">6</li>
+                    </ul>
+                </div>
+
+                <span class="js_prev prev">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z"/></g></svg>
+                </span>
+
+                <span class="js_next next">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z"/></g></svg>
+                </span>
+            </div>
+            <code class="events_log"></code>
+
+<div class="examplecode"><pre><code class="javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var events = document.querySelector('.js_events');
+
+        function handleEvent(e) {
+            var newSpan = document.createElement('span');
+            var time = new Date();
+            time = time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds() + ',' + time.getMilliseconds();
+            var newContent = document.createTextNode('[' + time + '] Event dispatched: "' + e.type + '"');
+            newSpan.appendChild(newContent);
+            e.target.nextElementSibling.appendChild(newSpan);
+        }
+
+        events.addEventListener('before.lory.init', handleEvent);
+        events.addEventListener('after.lory.init', handleEvent);
+        events.addEventListener('before.lory.slide', handleEvent);
+        events.addEventListener('after.lory.slide', handleEvent);
+
+        events.addEventListener('on.lory.resize', handleEvent);
+        events.addEventListener('on.lory.touchend', handleEvent);
+        events.addEventListener('on.lory.touchmove', handleEvent);
+        events.addEventListener('on.lory.touchstart', handleEvent);
+        events.addEventListener('on.lory.destroy', handleEvent);
+
+        lory(events, {
+            infinite: 1
+        });
+    });
+
+</code></pre></div>
+
+        </section>
+
+<section class="multiplesliders">
+<h2>initialize multiple similiar sliders</h2>
+
+<div class="examplecode"><pre><code class="javascript">
+        'use strict';
+
+        document.addEventListener('DOMContentLoaded', function () {
+            Array.prototype.slice.call(document.querySelectorAll('.js_slider')).forEach(function (element, index) {
+                lory(element, {});
+            });
+        });
+
+</code></pre></div>
+
+</section>
+
+<section class="commonJS">
+<h2>Consume it as a commonJS module</h2>
+
+<div class="examplecode"><pre><code class="javascript">
+    "use strict";
+
+    var lory = require('lory.js').lory;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var slider = document.querySelector('.js_slider');
+
+        lory(slider, {
+            // options going here
+        });
+    });
+
+</code></pre></div>
+
+</section>
+
+<section class="ES2015">
+<h2>Consume it as an ES2015 module</h2>
+
+<div class="examplecode"><pre><code class="javascript">
+    import {lory} from 'lory.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const slider = document.querySelector('.js_slider');
+
+        lory(slider, {
+            // options going here
+        });
+    });
+
+</code></pre></div>
+
+<section class="jquery">
+<h2>Use it as a jQuery Plugin</h2>
+
+<div class="examplecode"><pre><code class="html">
+        &lt;script src=&quot;js/jquery.lory.min.js&quot;&gt;&lt;/script&gt;
+</code></pre></div>
+
+<div class="examplecode"><pre><code class="javascript">
+        'use strict';
+
+        var $elements = $('.js_simple');
+
+        $(function() {
+            $elements.lory({
+                infinite: 1
+            });
+
+            $elements.data().lory.slideTo(4);
+            // $elements.data().lory.prev();
+            // $elements.data().lory.next();
+        });
+
+</code></pre></div>
+
+</section>
+
+        <section class="development">
+            <h2>Local development</h2>
+
+<div class="examplecode"><pre><code class="shell">
+        // To install dev dependencies run:
+
+        npm install
+
+        // To start the development server run:
+
+        npm start
+
+        // To lint your code run:
+
+        npm run lint
+
+        // To make a full new build run:
+
+        npm run build
+
+</code></pre></div>
+        </section>
+
+
+        <section class="tests">
+            <h2>Run tests</h2>
+
+<div class="examplecode"><pre><code class="shell">
+        // To install dev dependencies run:
+
+        npm install
+
+        // To start karma in chrome browser and run tests:
+
+        npm run karma
+
+</code></pre></div>
+
+        <img class="testscreen" src="http://maximilian-heinz.de/test.png" />
+        </section>
+
+        <section class="api">
+            <h2>Public API</h2>
+            <table>
+                <tr>
+                    <th>prev:</th>
+                    <td>slides to the previous slide</td>
+                </tr>
+                <tr>
+                    <th>next:</th>
+                    <td>slides to the next slide</td>
+                </tr>
+                <tr>
+                    <th>slideTo:</th>
+                    <td>slides to the index given as an argument: (arguments: index {number})</td>
+                </tr>
+                <tr>
+                    <th>returnIndex:</th>
+                    <td>returns the index of the current slide element</td>
+                </tr>
+                <tr>
+                    <th>setup:</th>
+                    <td>binds eventlisteners, merging default and user options, setup the slides based on DOM (called once during initialisation)</td>
+                    <td>Call setup if DOM or user options have changed or eventlisteners needs to be rebinded.</td>
+                </tr>
+                <tr>
+                    <th>reset:</th>
+                    <td>sets the slider back to the starting position and resets the current index (called on Resize event)</td>
+                </tr>
+                <tr>
+                    <th>destroy:</th>
+                    <td>unmount/destroy the instance of lory</td>
+                </tr>
+            </table>
+        </section>
+
+        <section class="options">
+            <h2>Options</h2>
+            <table>
+                <tr>
+                    <th>slidesToScroll</th>
+                    <td>slides scrolled at once</td>
+                    <td>default: 1</td>
+                </tr>
+                <tr>
+                    <th>enableMouseEvents</th>
+                    <td>enabled mouse events</td>
+                    <td>default: false</td>
+                </tr>
+                <tr>
+                    <th>infinite</th>
+                    <td>like carousel, works with multiple slides. (do not combine with rewind)</td>
+                    <td>default: false (number of visible slides)</td>
+                </tr>
+                <tr>
+                    <th>rewind</th>
+                    <td>if slider reached the last slide, with next click the slider goes back to the startindex. (do not combine with infinite)</td>
+                    <td>default: false</td>
+                </tr>
+                <tr>
+                    <th>slideSpeed</th>
+                    <td>time in milliseconds for the animation of a valid slide attempt</td>
+                    <td>default: 300</td>
+                </tr>
+                <tr>
+                    <th>rewindSpeed</th>
+                    <td>time in milliseconds for the animation of the rewind after the last slide</td>
+                    <td>default: 600</td>
+                </tr>
+                <tr>
+                    <th>snapBackSpeed</th>
+                    <td>time for the snapBack of the slider if the slide attempt was not valid</td>
+                    <td>default: 200</td>
+                </tr>
+                <tr>
+                    <th>ease</th>
+                    <td>cubic bezier easing functions: http://easings.net/de</td>
+                    <td>default: 'ease'</td>
+                </tr>
+                <tr>
+                    <th>classNameFrame</th>
+                    <td>class name for slider frame</td>
+                    <td>default: 'js_frame'</td>
+                </tr>
+                <tr>
+                    <th>classNameSlideContainer</th>
+                    <td>class name for slides container</td>
+                    <td>default: 'js_slides'</td>
+                </tr>
+                <tr>
+                    <th>classNamePrevCtrl</th>
+                    <td>class name for slider previous control</td>
+                    <td>default: 'js_prev'</td>
+                </tr>
+                <tr>
+                    <th>classNameNextCtrl</th>
+                    <td>class name for slider next control</td>
+                    <td>default: 'js_next'</td>
+                </tr>
+            </table>
+        </section>
+
+        <section class="hooks">
+            <h2>Events</h2>
+            <table>
+                <tr>
+                    <th>before.lory.init</th>
+                    <td>fires before initialisation (first in setup function)</td>
+                </tr>
+                <tr>
+                    <th>after.lory.init</th>
+                    <td>fires after initialisation (end of setup function)</td>
+                </tr>
+                <tr>
+                    <th>before.lory.slide</th>
+                    <td><strong>arguments:</strong> currentSlide, nextSlide</td>
+                    <td>fires before slide change</td>
+                </tr>
+                <tr>
+                    <th>after.lory.slide</th>
+                    <td><strong>arguments:</strong> currentSlide</td>
+                    <td>fires after slide change</td>
+                </tr>
+                <tr>
+                    <th>on.lory.resize</th>
+                    <td>fires on every resize event</td>
+                </tr>
+                <tr>
+                    <th>on.lory.touchstart</th>
+                    <td>fires on every slider touchstart event</td>
+                </tr>
+                <tr>
+                    <th>on.lory.touchmove</th>
+                    <td>fires on every slider touchmove event</td>
+                </tr>
+                <tr>
+                    <th>on.lory.touchend</th>
+                    <td>fires on every slider touchend event</td>
+                </tr>
+                <tr>
+                    <th>on.lory.destroy</th>
+                    <td>fires when the slider instance gets destroyed</td>
+                </tr>
+            </table>
+        </section>
+
+        <footer>
+            Copyright &copy; 2015 Maximilian Heinz, contributors. Released under the MIT license
+        </footer>
+
+    </body>
+
+    <script src="./static/vendor/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <script>
+        'use strict';
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var simple           = document.querySelector('.js_simple');
+            var percentage       = document.querySelector('.js_percentage');
+            var rewind           = document.querySelector('.js_rewind');
+            var rewind_percentage = document.querySelector('.js_rewind_percentage');
+            var variableWidth    = document.querySelector('.js_variablewidth');
+            var multiSlides      = document.querySelector('.js_multislides');
+            var ease             = document.querySelector('.js_ease');
+            var events           = document.querySelector('.js_events');
+
+            lory(simple, {
+                infinite: 1,
+                enableMouseEvents: true
+            });
+
+            lory(percentage, {
+                infinite: 1,
+                enableMouseEvents: true
+            });
+
+            lory(rewind, {
+                rewind: true,
+                enableMouseEvents: true
+            });
+
+            lory(rewind_percentage, {
+                rewind: true,
+                enableMouseEvents: true
+            });
+
+            lory(variableWidth, {
+                rewind: true,
+                enableMouseEvents: true
+            });
+
+            lory(multiSlides, {
+                infinite: 4,
+                slidesToScroll: 4,
+                enableMouseEvents: true
+            });
+
+            lory(ease, {
+                infinite: 4,
+                slidesToScroll: 4,
+                slideSpeed: 300,
+                ease: 'cubic-bezier(0.455, 0.03, 0.515, 0.955)',
+                enableMouseEvents: true
+            });
+
+            function handleEvent(e) {
+                var newSpan = document.createElement('span');
+                var time = new Date();
+                time = time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds() + ',' + time.getMilliseconds();
+                var newContent = document.createTextNode('[' + time + '] Event dispatched: "' + e.type + '"');
+                newSpan.appendChild(newContent);
+                e.target.nextElementSibling.appendChild(newSpan);
+            }
+
+            events.addEventListener('before.lory.init', handleEvent);
+            events.addEventListener('after.lory.init', handleEvent);
+            events.addEventListener('before.lory.slide', handleEvent);
+            events.addEventListener('after.lory.slide', handleEvent);
+
+            events.addEventListener('on.lory.resize', handleEvent);
+            events.addEventListener('on.lory.touchend', handleEvent);
+            events.addEventListener('on.lory.touchmove', handleEvent);
+            events.addEventListener('on.lory.touchstart', handleEvent);
+            events.addEventListener('on.lory.destroy', handleEvent);
+
+            lory(events, {
+                infinite: 1
+            });
+        });
+    </script>
+</html>
