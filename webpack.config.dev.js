@@ -13,6 +13,8 @@ config.plugins = [
     new webpack.NoErrorsPlugin()
 ];
 
+config.entry.app = [];
+
 config.module.loaders = config.module.loaders.concat([
     {
         test: /\.css$/,

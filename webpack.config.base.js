@@ -5,8 +5,7 @@ var ROOT_PATH = path.resolve(__dirname);
 export default {
     entry: {
         "lory": ["./src/lory.js"],
-        "jquery.lory": "./src/jquery.lory.js",
-        "app": []
+        "jquery.lory": "./src/jquery.lory.js"
     },
     module: {
         loaders: [
