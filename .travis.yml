@@ -6,9 +6,9 @@ cache:
 notifications:
   email: false
 node_js:
-  - '4'
+  - '5.2'
 before_install:
-  - npm i -g npm@^2.0.0
+  - npm i -g npm@^3.3
 before_script:
   - npm prune
   - 'curl -Lo travis_after_all.py https://git.io/vLSON'
