@@ -118,7 +118,7 @@ module.exports = function(config) {
        files: [
             'dist/lory.js',
             'test/lory.test.js',
-            'demo/app.css',
+            'static/app.css',
             'http://cdnjs.cloudflare.com/ajax/libs/classlist/2014.01.31/classList.min.js',
 
             {
