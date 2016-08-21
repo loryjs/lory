@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="./demo/lory.png" width="200px" />
+  <img src="./static/lory.png" width="200px" />
 </p>
 
 Please visit: [http://meandmax.github.io/lory/](http://meandmax.github.io/lory/ "lory")
@@ -27,8 +27,8 @@ Please visit: [http://meandmax.github.io/lory/](http://meandmax.github.io/lory/ 
 lory is released under the MIT license & supports modern environments.
 There is also a prebundled CDN version which you can use.
 
-####  Vanilla JavaScript: https://cdn.jsdelivr.net/lory-js/2.1.0/lory.min.js
-#### jQuery plugin: https://cdn.jsdelivr.net/lory-js/2.1.0/jquery.lory.min.js
+####  Vanilla JavaScript: https://cdn.jsdelivr.net/lory-js/2.1.0/lory.js
+#### jQuery plugin: https://cdn.jsdelivr.net/lory-js/2.1.0/jquery.lory.js
 
 ## Install with node:
 
@@ -79,7 +79,7 @@ npm install
 
 // To start the development server run:
 
-npm start
+npm run dev
 
 // To lint your code run:
 
@@ -180,7 +180,7 @@ li {
 ## Integration as a jQuery Plugin
 
 ```js
-<script src="js/jquery.lory.min.js"></script>
+<script src="dist/jquery.lory.js"></script>
 <script>
     'use strict';
 
@@ -195,7 +195,7 @@ li {
 ## Integration of multiple sliders on one page
 
 ```javascript
-<script src="js/lory.js"></script>
+<script src="dist/lory.js"></script>
 <script>
     'use strict';
 
