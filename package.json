@@ -81,7 +81,7 @@
     "webpack-dev-server": "1.14.1"
   },
   "scripts": {
-    "clean": "rimraf dist/* && rimraf demo/js/*",
+    "clean": "rimraf dist/*",
     "check": "npm run lint -s && dependency-check package.json",
     "lint": "eslint src",
     "start": "better-npm-run start",
