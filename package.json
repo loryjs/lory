@@ -42,12 +42,17 @@
     "clamp.js": "0.2.9",
     "custom-event": "1.0.0",
     "cz-conventional-changelog": "1.2.0",
+    "debug": "2.2.0",
     "dependency-check": "2.6.0",
     "eslint": "3.3.1",
     "eslint-config-standard": "5.3.5",
     "eslint-plugin-promise": "2.0.1",
     "eslint-plugin-standard": "2.0.0",
     "karma": "1.2.0",
+    "extract-text-webpack-plugin": "1.0.1",
+    "file-loader": "0.9.0",
+    "fs-extra": "0.30.0",
+    "html-loader": "0.4.3",
     "karma-chai": "0.1.0",
     "karma-chrome-launcher": "2.0.0",
     "karma-firefox-launcher": "1.0.0",
@@ -62,30 +67,58 @@
     "karma-sauce-launcher": "1.0.0",
     "mocha": "3.0.0",
     "phantomjs-prebuilt": "2.1.12",
+    "nodemon": "1.10.2",
     "rimraf": "2.5.4",
     "sauce-connect-launcher": "0.15.1",
     "saucelabs": "1.3.0",
     "semantic-release": "4.3.5",
     "uglify-js": "2.7.3",
+    "url-loader": "0.5.7",
     "watch": "0.19.1",
     "webpack": "1.13.2",
     "webpack-dev-server": "1.14.1"
   },
   "scripts": {
     "clean": "rimraf dist/* && rimraf demo/js/*",
-    "check": "npm run lint -s && dependency-check package.json --entry src",
+    "check": "npm run lint -s && dependency-check package.json",
     "lint": "eslint src",
-    "watch": "watch 'npm run build' src",
-    "karma-local": "karma start local.karma.conf.js",
-    "build": "npm run lint && webpack",
+    "start": "better-npm-run start",
+    "dev": "better-npm-run dev",
+    "build": "better-npm-run build",
     "travis": "npm run build && karma start saucelabs.karma.conf.js",
-    "uglify": "uglifyjs dist/lory.js -o dist/lory.min.js --compress --mangle && uglifyjs dist/jquery.lory.js -o dist/jquery.lory.min.js --compress --mangle",
-    "postbuild": "npm run uglify && cp -r dist/* demo/js/",
-    "start": "webpack-dev-server && npm run watch",
+    "karma-local": "karma start local.karma.conf.js",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
+  "betterScripts": {
+    "compile": {
+      "command": "babel-node bin/compile",
+      "env": {
+        "DEBUG": "app:*"
+      }
+    },
+    "start": {
+      "command": "babel-node bin/server",
+      "env": {
+        "DEBUG": "app:*"
+      }
+    },
+    "dev": {
+      "command": "nodemon --exec babel-node bin/server",
+      "env": {
+        "NODE_ENV": "development",
+        "DEBUG": "app:*"
+      }
+    },
+    "build": {
+      "command": "npm run clean && better-npm-run compile",
+      "env": {
+        "NODE_ENV": "production",
+        "DEBUG": "app:*"
+      }
+    }
+  },
   "engines": {
-    "node": ">= 0.10.0"
+    "node": ">= 5.2.0"
   },
   "config": {
     "commitizen": {
