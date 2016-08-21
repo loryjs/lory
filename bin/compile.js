@@ -47,8 +47,6 @@ function webpackCompiler (webpackConfig, statsFormat = DEFAULT_STATS_FORMAT) {
       debug('Config set to fail on warning, exiting with status code "1".');
       process.exit(1);
     }
-    debug('Copy static assets to dist folder.');
-    fs.copySync(paths.client('static'), paths.dist());
   } catch (e) {
     debug('Compiler encountered an error.', e);
     process.exit(1);
