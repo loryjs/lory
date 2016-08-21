@@ -1,5 +1,5 @@
 /* globals jQuery */
-import lory from './lory.js';
+import {lory} from './lory.js';
 
 function init ($) {
     $.fn.lory = function (options) {
