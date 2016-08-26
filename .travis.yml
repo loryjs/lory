@@ -16,6 +16,7 @@ script: "npm run travis"
 after_success:
   - python travis_after_all.py
   - export $(cat .to_export_back)
+  - test $TRAVIS_BRANCH = "master" && test $TRAVIS_PULL_REQUEST = false && test $SAUCE_ACCESS_KEY && test $SAUCE_USERNAME && npm run "karma-sauce"
   - npm run semantic-release
 branches:
   except:
