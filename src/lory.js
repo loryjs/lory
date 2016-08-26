@@ -266,7 +266,7 @@ export function lory (slider, opts) {
      * reset function: called on resize
      */
     function reset () {
-        const {infinite, ease, rewindSpeed} = options;
+        const {infinite, ease, rewindSpeed, classNameActiveSlide} = options;
 
         slidesWidth = slideContainer.getBoundingClientRect()
             .width || slideContainer.offsetWidth;
@@ -288,6 +288,10 @@ export function lory (slider, opts) {
             position.x = slides[index].offsetLeft * -1;
         } else {
             translate(0, rewindSpeed, ease);
+        }
+
+        if (classNameActiveSlide) {
+            setActiveElement(slice.call(slides), index);
         }
     }
 
