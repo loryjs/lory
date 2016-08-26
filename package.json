@@ -89,7 +89,9 @@
     "start": "better-npm-run start",
     "dev": "better-npm-run dev",
     "build": "better-npm-run build",
-    "travis": "npm run build && karma start saucelabs.karma.conf.js",
+    "travis": "npm run build && npm run karma-travis",
+    "karma-sauce": "karma start saucelabs.karma.conf.js",
+    "karma-travis": "karma start travis.karma.conf.js",
     "karma-local": "karma start local.karma.conf.js",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
