@@ -2,16 +2,11 @@ import webpack from 'webpack';
 import _debug from 'debug';
 import fs from 'fs-extra';
 import config from '../webpack.config.prod.js';
+import {COMPILER_STATS} from '../webpack.config.base.js';
 
 const debug = _debug('app:build:webpack-compiler');
 
-const DEFAULT_STATS_FORMAT = {
-    chunks : false,
-    chunkModules : false,
-    colors : true
-  }
-
-function webpackCompiler (webpackConfig, statsFormat = DEFAULT_STATS_FORMAT) {
+function webpackCompiler (webpackConfig, statsFormat = COMPILER_STATS) {
   return new Promise((resolve, reject) => {
     const compiler = webpack(webpackConfig);
 
