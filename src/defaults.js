@@ -82,6 +82,12 @@ export default {
     enableMouseEvents: false,
 
     /**
+     * reset to initial slide on window resize
+     * @resetOnResize {boolean}
+     */
+    resetOnResize: true,
+
+    /**
      * window instance
      * @window {object}
      */
