@@ -304,7 +304,7 @@ li {
         <td>default: 'js_next'</td>
     </tr>
     <tr>
-        <th>rewindOnResize</th>
+        <td>rewindOnResize</td>
         <td>rewind carousel on window resize</td>
         <td>default: true</td>
     </tr>
