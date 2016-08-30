@@ -220,7 +220,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     *
 	     * @direction  {boolean}
 	     */
-	    function slide(nextIndex, direction) {
+	    function slide(nextIndex, direction, immediately) {
 	        var _options3 = options;
 	        var slideSpeed = _options3.slideSpeed;
 	        var slidesToScroll = _options3.slidesToScroll;
@@ -266,7 +266,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        /**
 	         * translate to the nextOffset by a defined duration and ease function
 	         */
-	        translate(nextOffset, duration, ease);
+	        translate(nextOffset, immediately ? 0 : duration, ease);
 	
 	        /**
 	         * update the position with the next position
@@ -405,8 +405,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * public
 	     * slideTo: called on clickhandler
 	     */
-	    function slideTo(index) {
-	        slide(index);
+	    function slideTo(index, immediately) {
+	        slide(index, undefined, immediately);
 	    }
 	
 	    /**
@@ -611,10 +611,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	    function onResize(event) {
 	        var _options7 = options;
-	        var resetOnResize = _options7.resetOnResize;
+	        var rewindOnResize = _options7.rewindOnResize;
 	
 	
-	        if (resetOnResize) {
+	        if (rewindOnResize) {
 	            reset();
 	        }
 	
@@ -882,10 +882,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  enableMouseEvents: false,
 	
 	  /**
-	   * reset to initial slide on window resize
-	   * @resetOnResize {boolean}
+	   * rewind carousel on window resize
+	   * @rewindOnResize {boolean}
 	   */
-	  resetOnResize: true,
+	  rewindOnResize: true,
 	
 	  /**
 	   * window instance

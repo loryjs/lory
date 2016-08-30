@@ -117,7 +117,7 @@ export function lory (slider, opts) {
      *
      * @direction  {boolean}
      */
-    function slide (nextIndex, direction) {
+    function slide (nextIndex, direction, immediately) {
         const {
             slideSpeed,
             slidesToScroll,
@@ -163,7 +163,7 @@ export function lory (slider, opts) {
         /**
          * translate to the nextOffset by a defined duration and ease function
          */
-        translate(nextOffset, duration, ease);
+        translate(nextOffset, immediately ? 0 : duration, ease);
 
         /**
          * update the position with the next position
@@ -299,8 +299,8 @@ export function lory (slider, opts) {
      * public
      * slideTo: called on clickhandler
      */
-    function slideTo (index) {
-        slide(index);
+    function slideTo (index, immediately) {
+        slide(index, undefined, immediately);
     }
 
     /**
@@ -501,9 +501,9 @@ export function lory (slider, opts) {
     }
 
     function onResize (event) {
-        const {resetOnResize} = options;
+        const {rewindOnResize} = options;
 
-        if (resetOnResize) {
+        if (rewindOnResize) {
             reset();
         }
 

@@ -82,10 +82,10 @@ export default {
     enableMouseEvents: false,
 
     /**
-     * reset to initial slide on window resize
-     * @resetOnResize {boolean}
+     * rewind carousel on window resize
+     * @rewindOnResize {boolean}
      */
-    resetOnResize: true,
+    rewindOnResize: true,
 
     /**
      * window instance
