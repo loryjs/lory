@@ -597,6 +597,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	        if (rewindOnResize) {
 	            reset();
+	        } else {
+	            slideTo(returnIndex(), true);
 	        }
 	
 	        dispatchSliderEvent('on', 'resize', {

@@ -505,6 +505,8 @@ export function lory (slider, opts) {
 
         if (rewindOnResize) {
             reset();
+        } else {
+            slideTo(returnIndex(), true);
         }
 
         dispatchSliderEvent('on', 'resize', {
