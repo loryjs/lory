@@ -219,8 +219,8 @@ li {
         <td>slides to the next slide</td>
     </tr>
     <tr>
-        <td>slideTo</td>
-        <td>slides to the index given as an argument: (arguments: index {number})</td>
+        <th>slideTo:</th>
+        <td>slides to the index given as an argument: (arguments: index {number}[, immediately {boolean}])</td>
     </tr>
     <tr>
         <td>returnIndex</td>
@@ -302,6 +302,11 @@ li {
         <td>classNameNextCtrl</td>
         <td>class name for slider next control</td>
         <td>default: 'js_next'</td>
+    </tr>
+    <tr>
+        <td>rewindOnResize</td>
+        <td>rewind carousel on window resize</td>
+        <td>default: true</td>
     </tr>
 </table>
 

@@ -82,6 +82,12 @@ export default {
     enableMouseEvents: false,
 
     /**
+     * rewind carousel on window resize
+     * @rewindOnResize {boolean}
+     */
+    rewindOnResize: true,
+
+    /**
      * window instance
      * @window {object}
      */
