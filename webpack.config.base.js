@@ -29,7 +29,7 @@ export default {
     },
     output: {
         path: path.resolve(ROOT_PATH, 'dist'),
-        filename: '[name].js',
+        filename: '[name].min.js',
         libraryTarget: 'umd'
     },
     plugins: []

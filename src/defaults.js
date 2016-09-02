@@ -85,5 +85,11 @@ export default {
      * window instance
      * @window {object}
      */
-    window: window
+    window: window,
+
+    /**
+     * If false, slides lory to the first slide on window resize.
+     * @rewindOnResize {boolean}
+     */
+    rewindOnResize: true
 };
