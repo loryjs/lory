@@ -279,7 +279,7 @@ export function lory (slider, opts) {
             }, 0);
         }
 
-        if (!rewindOnResize) {
+        if (rewindOnResize) {
             index = 0;
         } else {
             ease = null;
