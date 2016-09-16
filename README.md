@@ -103,7 +103,7 @@ npm run karma-local
 ```
 
 <p align="center">
-  <img src="./demo/tests.png" />
+  <img src="./static/tests.png" />
 </p>
 
 ## Prerequisited markup
