@@ -27,8 +27,8 @@ Please visit: [http://meandmax.github.io/lory/](http://meandmax.github.io/lory/ 
 lory is released under the MIT license & supports modern environments.
 There is also a prebundled CDN version which you can use.
 
-####  Vanilla JavaScript: https://cdn.jsdelivr.net/lory-js/2.1.0/lory.js
-#### jQuery plugin: https://cdn.jsdelivr.net/lory-js/2.1.0/jquery.lory.js
+####  Vanilla JavaScript: https://cdnjs.cloudflare.com/ajax/libs/lory.js/2.2.0/lory.min.js
+#### jQuery plugin: https://cdnjs.cloudflare.com/ajax/libs/lory.js/2.2.0/jquery.lory.min.js
 
 ## Install with node:
 
