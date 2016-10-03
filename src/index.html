@@ -5,9 +5,9 @@
         <title>lory</title>
         <meta name="description" content="Touch enabled minimalistic slider written in vanilla JavaScript">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="shortcut icon" type="image/ico" href="favicon.ico" />
-        <link rel="stylesheet" type="text/css" href="./app.css" />
-        <link rel="stylesheet" type="text/css" href="./vendor/railscasts.css" />
+        <link rel="shortcut icon" type="image/ico" href="../static/favicon.ico" />
+        <link rel="stylesheet" type="text/css" href="../static/app.css" />
+        <link rel="stylesheet" type="text/css" href="../static/vendor/railscasts.css" />
         <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
     </head>
 
@@ -16,11 +16,10 @@
             <div class="ribbon">
                 <a href="https://github.com/meandmax/lory">Fork me on GitHub</a>
             </div>
-
-            <img class="logo" src="lory.png" />
+            <img class="logo" src="../static/lory.png" />
         </header>
 
-        <p class="description">Touch enabled minimalistic slider written in vanilla JavaScript.</p>
+        <p class="description">Touch enabled minimalistic slider written in vanilla JavaScript</p>
         <p class="description">Hardware accelerated transitions</p>
         <p class="description">Usable as a jQuery plugin</p>
         <p class="description">Options for custom easing effects</p>
@@ -29,8 +28,7 @@
         <p class="description">Written in ecmascript 6</p>
         <p class="description">Using webpack, babel & eslint for development</p>
 
-
-        <a class="dist" href="./js/lory.min.js">Download Here</a>
+        <a class="dist" href="../dist/lory.js">Download Here</a>
 
         <section class="prerequisited">
             <div class="examplecode">
@@ -571,14 +569,14 @@
                     <td>default: 1</td>
                 </tr>
                 <tr>
-                    <th>infinite</th>
-                    <td>like carousel, works with multiple slides. (do not combine with rewind)</td>
-                    <td>default: false (number of visible slides)</td>
-                </tr>
-                <tr>
                     <th>enableMouseEvents</th>
                     <td>enabled mouse events</td>
                     <td>default: false</td>
+                </tr>
+                <tr>
+                    <th>infinite</th>
+                    <td>like carousel, works with multiple slides. (do not combine with rewind)</td>
+                    <td>default: false (number of visible slides)</td>
                 </tr>
                 <tr>
                     <th>rewind</th>
@@ -658,6 +656,10 @@
                     <td>fires on every slider touchstart event</td>
                 </tr>
                 <tr>
+                    <th>on.lory.touchmove</th>
+                    <td>fires on every slider touchmove event</td>
+                </tr>
+                <tr>
                     <th>on.lory.touchend</th>
                     <td>fires on every slider touchend event</td>
                 </tr>
@@ -674,10 +676,9 @@
 
     </body>
 
-    <script src="vendor/highlight.js"></script>
+    <script src="./static/vendor/highlight.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
 
-    <script src="js/lory.js"></script>
     <script>
         'use strict';
 
@@ -754,14 +755,5 @@
                 infinite: 1
             });
         });
-    </script>
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-        ga('create', 'UA-61053578-1', 'auto');
-        ga('send', 'pageview');
     </script>
 </html>

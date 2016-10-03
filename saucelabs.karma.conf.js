@@ -1,18 +1,7 @@
 'use strict';
 
 module.exports = function(config) {
-    if (!process.env.SAUCE_USERNAME || !process.env.SAUCE_ACCESS_KEY) {
-        console.log('Make sure the SAUCE_USERNAME and SAUCE_ACCESS_KEY environment variables are set.');
-        process.exit(1);
-    }
-
     var customLaunchers = {
-        // sauceLabsInternetExplorer9: {
-        //     base: 'SauceLabs',
-        //     browserName: 'internet explorer',
-        //     platform: 'Windows 7',
-        //     version: '9.0'
-        // },
         sauceLabsInternetExplorer10: {
             base: 'SauceLabs',
             browserName: 'internet explorer',
@@ -65,36 +54,6 @@ module.exports = function(config) {
             platform: 'Mac 10.10',
             version: '8.0'
         }
-        // sauceLabsIPhone9: {
-        //     base: 'SauceLabs',
-        //     browserName: 'iPhone',
-        //     version: '9.0'
-        // },
-        // sauceLabsIPhone8: {
-        //     base: 'SauceLabs',
-        //     browserName: 'iPhone',
-        //     version: '8.0'
-        // },
-        // sauceLabsIPhone7: {
-        //     base: 'SauceLabs',
-        //     browserName: 'iPhone',
-        //     version: '7.0'
-        // },
-        // sauceLabsIPad9: {
-        //     base: 'SauceLabs',
-        //     browserName: 'iPad',
-        //     version: '9.0'
-        // },
-        // sauceLabsIPad8: {
-        //     base: 'SauceLabs',
-        //     browserName: 'iPad',
-        //     version: '8.0'
-        // },
-        // sauceLabsIPad7: {
-        //     base: 'SauceLabs',
-        //     browserName: 'iPad',
-        //     version: '7.0'
-        // }
     };
 
     config.set({
@@ -118,7 +77,7 @@ module.exports = function(config) {
        files: [
             'dist/lory.js',
             'test/lory.test.js',
-            'demo/app.css',
+            'static/app.css',
             'http://cdnjs.cloudflare.com/ajax/libs/classlist/2014.01.31/classList.min.js',
 
             {

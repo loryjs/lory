@@ -34,58 +34,98 @@
   "main": "./dist/lory.js",
   "jsnext:main": "./src/lory.js",
   "devDependencies": {
-    "babel-core": "6.9.1",
-    "babel-loader": "6.2.4",
-    "babel-preset-es2015": "6.9.0",
-    "babel-preset-stage-0": "6.5.0",
+    "babel-cli": "6.16.0",
+    "babel-core": "6.16.0",
+    "babel-loader": "6.2.5",
+    "babel-preset-es2015": "6.16.0",
+    "babel-preset-stage-0": "6.16.0",
+    "babel-register": "6.16.3",
+    "babel-runtime": "6.11.6",
+    "better-npm-run": "0.0.11",
     "chai": "3.5.0",
     "clamp.js": "0.2.9",
     "custom-event": "1.0.0",
-    "cz-conventional-changelog": "1.1.4",
-    "dependency-check": "2.5.1",
-    "eslint": "2.11.1",
-    "eslint-config-standard": "5.3.1",
-    "eslint-plugin-promise": "1.3.1",
-    "eslint-plugin-standard": "1.3.2",
-    "karma": "0.13.22",
+    "cz-conventional-changelog": "1.2.0",
+    "debug": "2.2.0",
+    "dependency-check": "2.6.0",
+    "eslint": "3.6.1",
+    "eslint-config-standard": "6.2.0",
+    "eslint-plugin-promise": "2.0.1",
+    "eslint-plugin-standard": "2.0.1",
+    "extract-text-webpack-plugin": "1.0.1",
+    "file-loader": "0.9.0",
+    "fs-extra": "0.30.0",
+    "html-loader": "0.4.4",
+    "html-webpack-plugin": "2.22.0",
+    "karma": "1.3.0",
     "karma-chai": "0.1.0",
-    "karma-chrome-launcher": "0.2.3",
+    "karma-chrome-launcher": "2.0.0",
     "karma-firefox-launcher": "1.0.0",
     "karma-fixture": "0.2.6",
-    "karma-html2js-preprocessor": "0.1.0",
+    "karma-html2js-preprocessor": "1.0.0",
     "karma-ie-launcher": "1.0.0",
-    "karma-mocha": "0.2.2",
-    "karma-mocha-reporter": "2.0.3",
+    "karma-mocha": "1.2.0",
+    "karma-mocha-reporter": "2.1.0",
     "karma-opera-launcher": "1.0.0",
-    "karma-phantomjs-launcher": "1.0.0",
+    "karma-phantomjs-launcher": "1.0.2",
     "karma-safari-launcher": "1.0.0",
-    "karma-sauce-launcher": "0.3.1",
-    "mocha": "2.5.3",
-    "phantomjs-prebuilt": "2.1.7",
-    "rimraf": "2.5.2",
-    "sauce-connect-launcher": "0.14.0",
-    "saucelabs": "1.2.0",
+    "karma-sauce-launcher": "1.0.0",
+    "mocha": "3.1.0",
+    "nodemon": "1.10.2",
+    "phantomjs-prebuilt": "2.1.12",
+    "rimraf": "2.5.4",
+    "sauce-connect-launcher": "0.16.0",
+    "saucelabs": "1.3.0",
     "semantic-release": "4.3.5",
-    "uglify-js": "2.6.2",
-    "watch": "0.18.0",
-    "webpack": "1.13.1",
-    "webpack-dev-server": "1.14.1"
+    "uglify-js": "2.7.3",
+    "unminified-webpack-plugin": "1.1.0",
+    "url-loader": "0.5.7",
+    "webpack": "1.13.2",
+    "webpack-dev-server": "1.16.1"
   },
   "scripts": {
-    "clean": "rimraf dist/* && rimraf demo/js/*",
-    "check": "npm run lint -s && dependency-check package.json --entry src",
+    "clean": "rimraf dist/*",
+    "check": "npm run lint -s && dependency-check package.json",
     "lint": "eslint src",
-    "watch": "watch 'npm run build' src",
+    "start": "better-npm-run start",
+    "dev": "better-npm-run dev",
+    "build": "better-npm-run build",
+    "travis": "npm run build && npm run karma-travis",
+    "karma-sauce": "karma start saucelabs.karma.conf.js",
+    "karma-travis": "karma start travis.karma.conf.js",
     "karma-local": "karma start local.karma.conf.js",
-    "build": "npm run lint && webpack",
-    "travis": "npm run build && karma start saucelabs.karma.conf.js",
-    "uglify": "uglifyjs dist/lory.js -o dist/lory.min.js --compress --mangle && uglifyjs dist/jquery.lory.js -o dist/jquery.lory.min.js --compress --mangle",
-    "postbuild": "npm run uglify && cp -r dist/* demo/js/",
-    "start": "webpack-dev-server && npm run watch",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
+  "betterScripts": {
+    "compile": {
+      "command": "babel-node bin/compile",
+      "env": {
+        "DEBUG": "app:*"
+      }
+    },
+    "start": {
+      "command": "babel-node bin/server",
+      "env": {
+        "DEBUG": "app:*"
+      }
+    },
+    "dev": {
+      "command": "nodemon --exec babel-node bin/server",
+      "env": {
+        "NODE_ENV": "development",
+        "DEBUG": "app:*"
+      }
+    },
+    "build": {
+      "command": "npm run clean && better-npm-run compile",
+      "env": {
+        "NODE_ENV": "production",
+        "DEBUG": "app:*"
+      }
+    }
+  },
   "engines": {
-    "node": ">= 0.10.0"
+    "node": ">= 5.2.0"
   },
   "config": {
     "commitizen": {

@@ -1,0 +1,4 @@
+{
+  "verbose": false,
+  "ignore": ["dist", "demo", "test", "src"]
+}
