@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,7 +18,7 @@
                 <a href="https://github.com/meandmax/lory">Fork me on GitHub</a>
             </div>
 
-            <img class="logo" src="./static/lory.png" />
+            <img class="logo" src="./static/lory.png" alt="Lory logo" />
         </header>
 
         <p class="description">Touch enabled minimalistic slider written in vanilla JavaScript</p>
@@ -47,6 +48,9 @@
                         &lt;li class=&quot;js_slide&quot;&gt;6&lt;/li&gt;
                     &lt;/ul&gt;
                 &lt;/div&gt;
+
+                &lt;button type=&quot;button&quot; class=&quot;js_prev&quot;&gt;Previous&lt;/button&gt;
+                &lt;button type=&quot;button&quot; class=&quot;js_next&quot;&gt;Next&lt;/button&gt;
             &lt;/div&gt;
             </code></pre></div>
 
@@ -459,6 +463,8 @@
 
 </code></pre></div>
 
+</section>
+
 <section class="jquery">
 <h2>Use it as a jQuery Plugin</h2>
 
@@ -480,6 +486,28 @@
             // $elements.data().lory.prev();
             // $elements.data().lory.next();
         });
+
+</code></pre></div>
+
+</section>
+
+<section class="global">
+<h2>Consume it from the CDN, as a global</h2>
+
+<div class="examplecode"><pre><code class="html">
+    &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/lory.js/2.2.0/lory.min.js&quot;&gt;&lt;/script&gt;
+</code></pre></div>
+
+<div class="examplecode"><pre><code class="javascript">
+    "use strict";
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var slider = document.querySelector('.js_slider');
+
+        lory(slider, {
+            // options going here
+        });
+    });
 
 </code></pre></div>
 
@@ -523,7 +551,7 @@
 
 </code></pre></div>
 
-        <img class="testscreen" src="http://maximilian-heinz.de/test.png" />
+        <img class="testscreen" src="http://maximilian-heinz.de/test.png" alt="screen with tests ran" />
         </section>
 
         <section class="api">
@@ -531,19 +559,19 @@
             <table>
                 <tr>
                     <th>prev:</th>
-                    <td>slides to the previous slide</td>
+                    <td colspan="2">slides to the previous slide</td>
                 </tr>
                 <tr>
                     <th>next:</th>
-                    <td>slides to the next slide</td>
+                    <td colspan="2">slides to the next slide</td>
                 </tr>
                 <tr>
                     <th>slideTo:</th>
-                    <td>slides to the index given as an argument: (arguments: index {number})</td>
+                    <td colspan="2">slides to the index given as an argument: (arguments: index {number})</td>
                 </tr>
                 <tr>
                     <th>returnIndex:</th>
-                    <td>returns the index of the current slide element</td>
+                    <td colspan="2">returns the index of the current slide element</td>
                 </tr>
                 <tr>
                     <th>setup:</th>
@@ -552,11 +580,11 @@
                 </tr>
                 <tr>
                     <th>reset:</th>
-                    <td>sets the slider back to the starting position and resets the current index (called on Resize event)</td>
+                    <td colspan="2">sets the slider back to the starting position and resets the current index (called on Resize event)</td>
                 </tr>
                 <tr>
                     <th>destroy:</th>
-                    <td>unmount/destroy the instance of lory</td>
+                    <td colspan="2">unmount/destroy the instance of lory</td>
                 </tr>
             </table>
         </section>
@@ -632,11 +660,11 @@
             <table>
                 <tr>
                     <th>before.lory.init</th>
-                    <td>fires before initialisation (first in setup function)</td>
+                    <td colspan="2">fires before initialisation (first in setup function)</td>
                 </tr>
                 <tr>
                     <th>after.lory.init</th>
-                    <td>fires after initialisation (end of setup function)</td>
+                    <td colspan="2">fires after initialisation (end of setup function)</td>
                 </tr>
                 <tr>
                     <th>before.lory.slide</th>
@@ -650,23 +678,23 @@
                 </tr>
                 <tr>
                     <th>on.lory.resize</th>
-                    <td>fires on every resize event</td>
+                    <td colspan="2">fires on every resize event</td>
                 </tr>
                 <tr>
                     <th>on.lory.touchstart</th>
-                    <td>fires on every slider touchstart event</td>
+                    <td colspan="2">fires on every slider touchstart event</td>
                 </tr>
                 <tr>
                     <th>on.lory.touchmove</th>
-                    <td>fires on every slider touchmove event</td>
+                    <td colspan="2">fires on every slider touchmove event</td>
                 </tr>
                 <tr>
                     <th>on.lory.touchend</th>
-                    <td>fires on every slider touchend event</td>
+                    <td colspan="2">fires on every slider touchend event</td>
                 </tr>
                 <tr>
                     <th>on.lory.destroy</th>
-                    <td>fires when the slider instance gets destroyed</td>
+                    <td colspan="2">fires when the slider instance gets destroyed</td>
                 </tr>
             </table>
         </section>
@@ -674,8 +702,6 @@
         <footer>
             Copyright &copy; 2015 Maximilian Heinz, contributors. Released under the MIT license
         </footer>
-
-    </body>
 
     <script src="./static/vendor/highlight.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
@@ -766,4 +792,6 @@
         ga('create', 'UA-61053578-1', 'auto');
         ga('send', 'pageview');
     </script>
+
+    </body>
 </html>

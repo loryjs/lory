@@ -120,6 +120,9 @@ npm run karma-local
             <li class="js_slide">6</li>
         </ul>
     </div>
+
+    <button type="button" class="js_prev">Previous</button>
+    <button type="button" class="js_next">Next</button>
 </div>
 ```
 
