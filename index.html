@@ -47,6 +47,12 @@
                         &lt;li class=&quot;js_slide&quot;&gt;6&lt;/li&gt;
                     &lt;/ul&gt;
                 &lt;/div&gt;
+                &lt;span class=&quot;js_prev prev&quot;&gt;
+                    &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;50&quot; height=&quot;50&quot; viewBox=&quot;0 0 501.5 501.5&quot;&gt;&lt;g&gt;&lt;path fill=&quot;#2E435A&quot; d=&quot;M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z&quot;/&gt;&lt;/g&gt;&lt;/svg&gt;
+                &lt;/span&gt;
+                &lt;span class=&quot;js_next next&quot;&gt;
+                    &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;50&quot; height=&quot;50&quot; viewBox=&quot;0 0 501.5 501.5&quot;&gt;&lt;g&gt;&lt;path fill=&quot;#2E435A&quot; d=&quot;M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z&quot;/&gt;&lt;/g&gt;&lt;/svg&gt;
+                &lt;/span&gt;
             &lt;/div&gt;
             </code></pre></div>
 
@@ -85,6 +91,26 @@
                  * (optional) if the content inside the slide element has a defined size.
                  */
                 width: 880px;
+            }
+            
+            .prev, .next {
+                position: absolute;
+                top: 50%;
+                margin-top: -25px;
+                display: block;
+                cursor: pointer;
+            }
+
+            .next {
+                right: 0;
+            }
+
+            .prev {
+                left: 0;
+            }
+
+            .next svg, .prev svg {
+                width: 25px;
             }
             </code></pre></div>
         </section>
