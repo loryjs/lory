@@ -191,6 +191,72 @@
 
 </code></pre></div>
 
+            <h2>Single element - dot navigation</h2>
+
+            <div class="slider js_simple_dots simple">
+                <div class="frame js_frame">
+                    <ul class="slides js_slides">
+                        <li class="js_slide">1</li>
+                        <li class="js_slide">2</li>
+                        <li class="js_slide">3</li>
+                        <li class="js_slide">4</li>
+                        <li class="js_slide">5</li>
+                        <li class="js_slide">6</li>
+                    </ul>
+                </div>
+
+                <span class="js_prev prev">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z"/></g></svg>
+                </span>
+
+                <span class="js_next next">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z"/></g></svg>
+                </span>
+
+                <ul class="js_dots dots"></ul>
+            </div>
+
+<div class="examplecode"><pre><code class="javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var simple_dots       = document.querySelector('.js_simple_dots');
+        var dot_count         = simple_dots.querySelectorAll('.js_slide').length;
+        var dot_container     = simple_dots.querySelector('.js_dots');
+        var dot_list_item     = document.createElement('li');
+        
+        function handleDotEvent(e) {
+            if (e.type === 'before.lory.init') {
+              for (var i = 0, len = dot_count; i < len; i++) {
+                var clone = dot_list_item.cloneNode();
+                dot_container.appendChild(clone);
+              }
+              dot_container.childNodes[0].classList.add('active');
+            }
+            if (e.type === 'after.lory.init') {
+              for (var i = 0, len = dot_count; i < len; i++) {
+                dot_container.childNodes[i].addEventListener('click', function(e) {
+                  dot_navigation_slider.slideTo(Array.prototype.indexOf.call(dot_container.childNodes, e.target));
+                });
+              }
+            }
+            if (e.type === 'after.lory.slide') {
+              for (var i = 0, len = dot_container.childNodes.length; i < len; i++) {
+                dot_container.childNodes[i].classList.remove('active');
+              }
+              dot_container.childNodes[e.detail.currentSlide - 1].classList.add('active');
+            }
+        }
+        simple_dots.addEventListener('before.lory.init', handleDotEvent);
+        simple_dots.addEventListener('after.lory.init', handleDotEvent); 
+        simple_dots.addEventListener('after.lory.slide', handleDotEvent); 
+
+        var dot_navigation_slider = lory(simple_dots, {
+            infinite: 1,
+            enableMouseEvents: true
+        });
+    });
+
+</code></pre></div>
+
             <h2>Single element - Percentage width [rewind]</h2>
 
             <div class="slider js_rewind_percentage percentage">
@@ -683,16 +749,51 @@
         'use strict';
 
         document.addEventListener('DOMContentLoaded', function () {
-            var simple           = document.querySelector('.js_simple');
-            var percentage       = document.querySelector('.js_percentage');
-            var rewind           = document.querySelector('.js_rewind');
+            var simple            = document.querySelector('.js_simple');
+            var simple_dots       = document.querySelector('.js_simple_dots');
+            var dot_count         = simple_dots.querySelectorAll('.js_slide').length;
+            var dot_container     = simple_dots.querySelector('.js_dots');
+            var dot_list_item     = document.createElement('li');
+            var percentage        = document.querySelector('.js_percentage');
+            var rewind            = document.querySelector('.js_rewind');
             var rewind_percentage = document.querySelector('.js_rewind_percentage');
-            var variableWidth    = document.querySelector('.js_variablewidth');
-            var multiSlides      = document.querySelector('.js_multislides');
-            var ease             = document.querySelector('.js_ease');
-            var events           = document.querySelector('.js_events');
+            var variableWidth     = document.querySelector('.js_variablewidth');
+            var multiSlides       = document.querySelector('.js_multislides');
+            var ease              = document.querySelector('.js_ease');
+            var events            = document.querySelector('.js_events');
 
             lory(simple, {
+                infinite: 1,
+                enableMouseEvents: true
+            });
+            
+            function handleDotEvent(e) {
+                if (e.type === 'before.lory.init') {
+                  for (var i = 0, len = dot_count; i < len; i++) {
+                    var clone = dot_list_item.cloneNode();
+                    dot_container.appendChild(clone);
+                  }
+                  dot_container.childNodes[0].classList.add('active');
+                }
+                if (e.type === 'after.lory.init') {
+                  for (var i = 0, len = dot_count; i < len; i++) {
+                    dot_container.childNodes[i].addEventListener('click', function(e) {
+                      dot_navigation_slider.slideTo(Array.prototype.indexOf.call(dot_container.childNodes, e.target));
+                    });
+                  }
+                }
+                if (e.type === 'after.lory.slide') {
+                  for (var i = 0, len = dot_container.childNodes.length; i < len; i++) {
+                    dot_container.childNodes[i].classList.remove('active');
+                  }
+                  dot_container.childNodes[e.detail.currentSlide - 1].classList.add('active');
+                }
+            }
+            simple_dots.addEventListener('before.lory.init', handleDotEvent);
+            simple_dots.addEventListener('after.lory.init', handleDotEvent); 
+            simple_dots.addEventListener('after.lory.slide', handleDotEvent); 
+
+            var dot_navigation_slider = lory(simple_dots, {
                 infinite: 1,
                 enableMouseEvents: true
             });
