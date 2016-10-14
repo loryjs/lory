@@ -176,10 +176,17 @@
               }
               dot_container.childNodes[e.detail.currentSlide - 1].classList.add('active');
             }
+            if (e.type === 'on.lory.resize') {
+                for (var i = 0, len = dot_container.childNodes.length; i < len; i++) {
+                    dot_container.childNodes[i].classList.remove('active');
+                }
+                dot_container.childNodes[0].classList.add('active');
+            }
         }
         simple_dots.addEventListener('before.lory.init', handleDotEvent);
         simple_dots.addEventListener('after.lory.init', handleDotEvent); 
         simple_dots.addEventListener('after.lory.slide', handleDotEvent); 
+        simple_dots.addEventListener('on.lory.resize', handleDotEvent); 
 
         var dot_navigation_slider = lory(simple_dots, {
             infinite: 1,
@@ -788,10 +795,17 @@
                   }
                   dot_container.childNodes[e.detail.currentSlide - 1].classList.add('active');
                 }
+                if (e.type === 'on.lory.resize') {
+                    for (var i = 0, len = dot_container.childNodes.length; i < len; i++) {
+                        dot_container.childNodes[i].classList.remove('active');
+                    }
+                    dot_container.childNodes[0].classList.add('active');
+                }
             }
             simple_dots.addEventListener('before.lory.init', handleDotEvent);
             simple_dots.addEventListener('after.lory.init', handleDotEvent); 
             simple_dots.addEventListener('after.lory.slide', handleDotEvent); 
+            simple_dots.addEventListener('on.lory.resize', handleDotEvent); 
 
             var dot_navigation_slider = lory(simple_dots, {
                 infinite: 1,
