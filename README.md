@@ -79,7 +79,7 @@ npm install
 
 // To start the development server run:
 
-npm run dev
+npm start
 
 // To lint your code run:
 
@@ -97,9 +97,9 @@ npm run build
 
 npm install
 
-// To start the karma tests locally run:
+// To start karma in chrome browser and run tests:
 
-npm run karma-local
+npm run karma
 ```
 
 <p align="center">
