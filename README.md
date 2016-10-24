@@ -347,6 +347,12 @@ li {
     </tr>
 </table>
 
+## Getting Help
+
+Please, do not open issues for general support questions as we want to keep GitHub issues for bug reports and feature requests. You've got much better chances of getting your question answered on [StackOverflow](http://stackoverflow.com/questions/tagged/lory) where maintainers are looking at questions tagged with `loryJS`.
+
+To enforce this rule will be systematically closing all the issues that are requests for general support and redirecting people to StackOverflow.
+
 ## Browser Support
 
 * Chrome
