@@ -351,6 +351,11 @@ li {
 
 Please, do not open issues for general support questions as we want to keep GitHub issues for bug reports and feature requests. You've got much better chances of getting your question answered on [StackOverflow](http://stackoverflow.com/questions/tagged/lory) where maintainers are looking at questions tagged with `loryJS`.
 
+StackOverflow is a much better place to ask questions since:
+* There are hundreds of people willing to help on StackOverflow
+* Questions and answers stay available for public viewing so your question / answer might help someone else
+* The StackOverflow voting system assures that the best answers are prominently visible.
+
 To enforce this rule will be systematically closing all the issues that are requests for general support and redirecting people to StackOverflow.
 
 ## Browser Support
