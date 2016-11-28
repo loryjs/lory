@@ -9,6 +9,7 @@ Please visit: [http://meandmax.github.io/lory/](http://meandmax.github.io/lory/ 
 
 [![license](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://raw.githubusercontent.com/meandmax/lory/master/LICENSE)
 [![npm](http://img.shields.io/npm/v/lory.js.svg?style=flat)](https://www.npmjs.com/package/lory.js)
+[![CDNJS](https://img.shields.io/cdnjs/v/lory.js.svg)](https://cdnjs.com/libraries/lory.js/)
 
 [![build](http://img.shields.io/travis/meandmax/lory/master.svg?style=flat)](https://travis-ci.org/meandmax/lory)
 [![code climate](http://img.shields.io/codeclimate/github/meandmax/lory.svg?style=flat)](https://codeclimate.com/github/meandmax/lory)
@@ -325,6 +326,14 @@ li {
         <td>fires after slide change | <strong>arguments:</strong> currentSlide</td>
     </tr>
     <tr>
+        <td>before.lory.destroy</td>
+        <td>fires before the slider instance gets destroyed</td>
+    </tr>
+    <tr>
+        <td>after.lory.destroy</td>
+        <td>fires after the slider instance gets destroyed</td>
+    </tr>
+    <tr>
         <td>on.lory.resize</td>
         <td>fires on every resize event</td>
     </tr>
@@ -340,11 +349,18 @@ li {
         <td>on.lory.touchend</td>
         <td>fires on every slider touchend event</td>
     </tr>
-    <tr>
-        <td>on.lory.destroy</td>
-        <td>fires when the slider instance gets destroyed</td>
-    </tr>
 </table>
+
+## Getting Help
+
+Please, do not open issues for general support questions as we want to keep GitHub issues for bug reports and feature requests. You've got much better chances of getting your question answered on [StackOverflow](http://stackoverflow.com/questions/tagged/lory) where maintainers are looking at questions tagged with `loryJS`.
+
+StackOverflow is a much better place to ask questions since:
+* There are hundreds of people willing to help on StackOverflow
+* Questions and answers stay available for public viewing so your question / answer might help someone else
+* The StackOverflow voting system assures that the best answers are prominently visible.
+
+To enforce this rule will be systematically closing all the issues that are requests for general support and redirecting people to StackOverflow.
 
 ## Browser Support
 
