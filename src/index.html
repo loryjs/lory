@@ -91,7 +91,7 @@
                  */
                 width: 880px;
             }
-            
+
             .prev, .next {
                 position: absolute;
                 top: 50%;
@@ -248,7 +248,7 @@
         var dot_count         = simple_dots.querySelectorAll('.js_slide').length;
         var dot_container     = simple_dots.querySelector('.js_dots');
         var dot_list_item     = document.createElement('li');
-        
+
         function handleDotEvent(e) {
             if (e.type === 'before.lory.init') {
               for (var i = 0, len = dot_count; i < len; i++) {
@@ -278,9 +278,9 @@
             }
         }
         simple_dots.addEventListener('before.lory.init', handleDotEvent);
-        simple_dots.addEventListener('after.lory.init', handleDotEvent); 
-        simple_dots.addEventListener('after.lory.slide', handleDotEvent); 
-        simple_dots.addEventListener('on.lory.resize', handleDotEvent); 
+        simple_dots.addEventListener('after.lory.init', handleDotEvent);
+        simple_dots.addEventListener('after.lory.slide', handleDotEvent);
+        simple_dots.addEventListener('on.lory.resize', handleDotEvent);
 
         var dot_navigation_slider = lory(simple_dots, {
             infinite: 1,
@@ -489,12 +489,13 @@
         events.addEventListener('after.lory.init', handleEvent);
         events.addEventListener('before.lory.slide', handleEvent);
         events.addEventListener('after.lory.slide', handleEvent);
+        events.addEventListener('before.lory.destroy', handleEvent);
+        events.addEventListener('after.lory.destroy', handleEvent);
 
         events.addEventListener('on.lory.resize', handleEvent);
         events.addEventListener('on.lory.touchend', handleEvent);
         events.addEventListener('on.lory.touchmove', handleEvent);
         events.addEventListener('on.lory.touchstart', handleEvent);
-        events.addEventListener('on.lory.destroy', handleEvent);
 
         lory(events, {
             infinite: 1
@@ -747,6 +748,14 @@
                     <td>fires after slide change</td>
                 </tr>
                 <tr>
+                    <th>before.lory.destroy</th>
+                    <td>fires before the slider instance gets destroyed</td>
+                </tr>
+                <tr>
+                    <th>after.lory.destroy</th>
+                    <td>fires after the slider instance gets destroyed</td>
+                </tr>
+                <tr>
                     <th>on.lory.resize</th>
                     <td>fires on every resize event</td>
                 </tr>
@@ -761,10 +770,6 @@
                 <tr>
                     <th>on.lory.touchend</th>
                     <td>fires on every slider touchend event</td>
-                </tr>
-                <tr>
-                    <th>on.lory.destroy</th>
-                    <td>fires when the slider instance gets destroyed</td>
                 </tr>
             </table>
         </section>
@@ -799,7 +804,7 @@
                 infinite: 1,
                 enableMouseEvents: true
             });
-            
+
             function handleDotEvent(e) {
                 if (e.type === 'before.lory.init') {
                   for (var i = 0, len = dot_count; i < len; i++) {
@@ -829,9 +834,9 @@
                 }
             }
             simple_dots.addEventListener('before.lory.init', handleDotEvent);
-            simple_dots.addEventListener('after.lory.init', handleDotEvent); 
-            simple_dots.addEventListener('after.lory.slide', handleDotEvent); 
-            simple_dots.addEventListener('on.lory.resize', handleDotEvent); 
+            simple_dots.addEventListener('after.lory.init', handleDotEvent);
+            simple_dots.addEventListener('after.lory.slide', handleDotEvent);
+            simple_dots.addEventListener('on.lory.resize', handleDotEvent);
 
             var dot_navigation_slider = lory(simple_dots, {
                 infinite: 1,
@@ -885,12 +890,13 @@
             events.addEventListener('after.lory.init', handleEvent);
             events.addEventListener('before.lory.slide', handleEvent);
             events.addEventListener('after.lory.slide', handleEvent);
+            events.addEventListener('before.lory.destroy', handleEvent);
+            events.addEventListener('after.lory.destroy', handleEvent);
 
             events.addEventListener('on.lory.resize', handleEvent);
             events.addEventListener('on.lory.touchend', handleEvent);
             events.addEventListener('on.lory.touchmove', handleEvent);
             events.addEventListener('on.lory.touchstart', handleEvent);
-            events.addEventListener('on.lory.destroy', handleEvent);
 
             lory(events, {
                 infinite: 1
