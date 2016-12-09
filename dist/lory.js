@@ -168,7 +168,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * @return {[type]} [description]
 	     */
 	    function dispatchSliderEvent(phase, type, detail) {
-	        (0, _dispatchEvent2.default)(slider, phase + '.lory.' + type, detail);
+	        (0, _dispatchEvent2['default'])(slider, phase + '.lory.' + type, detail);
 	    }
 	
 	    /**
@@ -294,8 +294,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function setup() {
 	        dispatchSliderEvent('before', 'init');
 	
-	        prefixes = (0, _detectPrefixes2.default)();
-	        options = _extends({}, _defaults2.default, opts);
+	        prefixes = (0, _detectPrefixes2['default'])();
+	        options = _extends({}, _defaults2['default'], opts);
 	
 	        var _options4 = options;
 	        var classNameFrame = _options4.classNameFrame;
@@ -629,7 +629,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.default = detectPrefixes;
+	exports['default'] = detectPrefixes;
 	/**
 	 * Detecting prefixes for saving time and bytes
 	 */
@@ -691,7 +691,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.default = dispatchEvent;
+	exports['default'] = dispatchEvent;
 	
 	var _customEvent = __webpack_require__(4);
 	
@@ -707,7 +707,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @param  {object}  detail     custom detail information
 	 */
 	function dispatchEvent(target, type, detail) {
-	    var event = new _customEvent2.default(type, {
+	    var event = new _customEvent2['default'](type, {
 	        bubbles: true,
 	        cancelable: true,
 	        detail: detail
@@ -780,7 +780,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.default = {
+	exports['default'] = {
 	  /**
 	   * slides scrolled at once
 	   * @slidesToScroll {Number}
