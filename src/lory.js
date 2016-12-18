@@ -129,7 +129,7 @@ export function lory (slider, opts) {
         } = options;
 
         let duration = slideSpeed;
-        
+
         const maxOffset = Math.round(slidesWidth - frameWidth);
 
         if (typeof nextIndex !== 'number') {
@@ -148,10 +148,10 @@ export function lory (slider, opts) {
 
         var nextSlide = nextIndex;
         // Calculate the real next slide if we're in a carousel
-        if(infinite){
-            if (nextIndex === slides.length - infinite){
-                nextSlide  = infinite;
-            }else if(nextIndex === 0) {
+        if (infinite) {
+            if (nextIndex === slides.length - infinite) {
+                nextSlide = infinite;
+            } else if (nextIndex === 0) {
                 nextSlide = slides.length - infinite * 2;
             }
         }
@@ -160,7 +160,7 @@ export function lory (slider, opts) {
             index: index,
             nextSlide: nextSlide
         });
-        
+
         let nextOffset = Math.min(Math.max(slides[nextIndex].offsetLeft * -1, maxOffset * -1), 0);
 
         if (rewind && Math.abs(position.x) === maxOffset && direction) {
