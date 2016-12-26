@@ -137,8 +137,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * set active class to element which is the current slide
 	     */
 	    function setActiveElement(slides, currentIndex) {
-	        var _options = options;
-	        var classNameActiveSlide = _options.classNameActiveSlide;
+	        var _options = options,
+	            classNameActiveSlide = _options.classNameActiveSlide;
 	
 	
 	        slides.forEach(function (element, index) {
@@ -158,8 +158,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * @return {array} array of updated slideContainer elements
 	     */
 	    function setupInfinite(slideArray) {
-	        var _options2 = options;
-	        var infinite = _options2.infinite;
+	        var _options2 = options,
+	            infinite = _options2.infinite;
 	
 	
 	        var front = slideArray.slice(0, infinite);
@@ -198,7 +198,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * @ease      {string} easing css property
 	     */
 	    function translate(to, duration, ease) {
+	        var _options3 = options,
+	            dir = _options3.dir;
+	
 	        var style = slideContainer && slideContainer.style;
+	        to = dir === 'rtl' ? -to : to;
 	
 	        if (style) {
 	            style[prefixes.transition + 'TimingFunction'] = ease;
@@ -221,14 +225,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * @direction  {boolean}
 	     */
 	    function slide(nextIndex, direction) {
-	        var _options3 = options;
-	        var slideSpeed = _options3.slideSpeed;
-	        var slidesToScroll = _options3.slidesToScroll;
-	        var infinite = _options3.infinite;
-	        var rewind = _options3.rewind;
-	        var rewindSpeed = _options3.rewindSpeed;
-	        var ease = _options3.ease;
-	        var classNameActiveSlide = _options3.classNameActiveSlide;
+	        var _options4 = options,
+	            slideSpeed = _options4.slideSpeed,
+	            slidesToScroll = _options4.slidesToScroll,
+	            infinite = _options4.infinite,
+	            rewind = _options4.rewind,
+	            rewindSpeed = _options4.rewindSpeed,
+	            ease = _options4.ease,
+	            classNameActiveSlide = _options4.classNameActiveSlide,
+	            dir = _options4.dir;
 	
 	
 	        var duration = slideSpeed;
@@ -249,7 +254,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	        }
 	
-	        nextIndex = Math.min(Math.max(nextIndex, 0), slides.length - 1);
+	        nextIndex = Math.min(Math.abs(nextIndex), slides.length - 1);
 	
 	        if (infinite && direction === undefined) {
 	            nextIndex += infinite;
@@ -316,13 +321,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        prefixes = (0, _detectPrefixes2.default)();
 	        options = _extends({}, _defaults2.default, opts);
 	
-	        var _options4 = options;
-	        var classNameFrame = _options4.classNameFrame;
-	        var classNameSlideContainer = _options4.classNameSlideContainer;
-	        var classNamePrevCtrl = _options4.classNamePrevCtrl;
-	        var classNameNextCtrl = _options4.classNameNextCtrl;
-	        var enableMouseEvents = _options4.enableMouseEvents;
-	        var classNameActiveSlide = _options4.classNameActiveSlide;
+	        var _options5 = options,
+	            classNameFrame = _options5.classNameFrame,
+	            classNameSlideContainer = _options5.classNameSlideContainer,
+	            classNamePrevCtrl = _options5.classNamePrevCtrl,
+	            classNameNextCtrl = _options5.classNameNextCtrl,
+	            enableMouseEvents = _options5.enableMouseEvents,
+	            classNameActiveSlide = _options5.classNameActiveSlide,
+	            dir = _options5.dir;
 	
 	
 	        frame = slider.getElementsByClassName(classNameFrame)[0];
@@ -339,6 +345,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	            slides = setupInfinite(slice.call(slideContainer.children));
 	        } else {
 	            slides = slice.call(slideContainer.children);
+	        }
+	
+	        if (dir) {
+	            slideContainer.style.direction = 'rtl';
 	        }
 	
 	        reset();
@@ -369,12 +379,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * reset function: called on resize
 	     */
 	    function reset() {
-	        var _options5 = options;
-	        var infinite = _options5.infinite;
-	        var ease = _options5.ease;
-	        var rewindSpeed = _options5.rewindSpeed;
-	        var rewindOnResize = _options5.rewindOnResize;
-	        var classNameActiveSlide = _options5.classNameActiveSlide;
+	        var _options6 = options,
+	            infinite = _options6.infinite,
+	            ease = _options6.ease,
+	            rewindSpeed = _options6.rewindSpeed,
+	            rewindOnResize = _options6.rewindOnResize,
+	            classNameActiveSlide = _options6.classNameActiveSlide,
+	            dir = _options6.dir;
 	
 	
 	        slidesWidth = slideContainer.getBoundingClientRect().width || slideContainer.offsetWidth;
@@ -399,8 +410,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	            index = index + infinite;
 	            position.x = slides[index].offsetLeft * -1;
 	        } else {
-	            translate(slides[index].offsetLeft * -1, rewindSpeed, ease);
-	            position.x = slides[index].offsetLeft * -1;
+	            var offset = slides[index].offsetLeft * -1;
+	            if (dir === 'rtl') {
+	                offset = slidesWidth - (slides[index].offsetLeft + slides[index].offsetWidth);
+	            }
+	            translate(offset, rewindSpeed, ease);
+	            position.x = offset;
 	        }
 	
 	        if (classNameActiveSlide) {
@@ -494,8 +509,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	
 	    function onTouchstart(event) {
-	        var _options6 = options;
-	        var enableMouseEvents = _options6.enableMouseEvents;
+	        var _options7 = options,
+	            enableMouseEvents = _options7.enableMouseEvents;
 	
 	        var touches = event.touches ? event.touches[0] : event;
 	
@@ -508,8 +523,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        frame.addEventListener('touchmove', onTouchmove);
 	        frame.addEventListener('touchend', onTouchend);
 	
-	        var pageX = touches.pageX;
-	        var pageY = touches.pageY;
+	        var pageX = touches.pageX,
+	            pageY = touches.pageY;
 	
 	
 	        touchOffset = {
@@ -528,9 +543,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	
 	    function onTouchmove(event) {
+	        var _options8 = options,
+	            dir = _options8.dir;
+	
 	        var touches = event.touches ? event.touches[0] : event;
-	        var pageX = touches.pageX;
-	        var pageY = touches.pageY;
+	        var pageX = touches.pageX,
+	            pageY = touches.pageY;
 	
 	
 	        delta = {
@@ -544,7 +562,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	        if (!isScrolling && touchOffset) {
 	            event.preventDefault();
-	            translate(position.x + delta.x, 0, null);
+	            if (dir === 'rtl') {
+	                translate(position.x - delta.x, 0, null);
+	            } else {
+	                translate(position.x + delta.x, 0, null);
+	            }
 	        }
 	
 	        // may be
@@ -558,6 +580,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	         * time between touchstart and touchend in milliseconds
 	         * @duration {number}
 	         */
+	        var _options9 = options,
+	            dir = _options9.dir;
+	
 	        var duration = touchOffset ? Date.now() - touchOffset.time : undefined;
 	
 	        /**
@@ -583,6 +608,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	         * @isOutOfBounds {Boolean}
 	         */
 	        var isOutOfBounds = !index && delta.x > 0 || index === slides.length - 1 && delta.x < 0;
+	        if (dir) {
+	            isOutOfBounds = !index && delta.x > 0 && position.x < 0 || index === slides.length - 1 && delta.x < 0;
+	        }
 	
 	        var direction = delta.x < 0;
 	
@@ -762,7 +790,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = useNative() ? NativeCustomEvent :
 	
 	// IE >= 9
-	'function' === typeof document.createEvent ? function CustomEvent (type, params) {
+	'undefined' !== typeof document && 'function' === typeof document.createEvent ? function CustomEvent (type, params) {
 	  var e = document.createEvent('CustomEvent');
 	  if (params) {
 	    e.initCustomEvent(type, params.bubbles, params.cancelable, params.detail);
