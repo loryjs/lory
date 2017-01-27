@@ -241,9 +241,7 @@ export function lory (slider, opts) {
         // There is a race here, and when called size of elements is
         // still not initialized, we can delay reset execution, till
         // js next frame. (This will ensure, that size is ready for checking)
-        setTimeout(()=>{
-            reset();
-        }, 0);
+        setTimeout(reset, 0);
 
         if (classNameActiveSlide) {
             setActiveElement(slides, index);
