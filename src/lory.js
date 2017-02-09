@@ -199,7 +199,7 @@ export function lory (slider, opts) {
         }
 
         dispatchSliderEvent('after', 'slide', {
-            currentSlide: index
+            currentSlide: infinite ? index - 1 : index
         });
     }
 
