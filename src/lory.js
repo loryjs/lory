@@ -56,7 +56,7 @@ export function lory (slider, opts) {
      * @return {array} array of updated slideContainer elements
      */
     function setupInfinite (slideArray) {
-        const {infinite} = options;
+        const infinite = options.infinite ? 1 : 0;
 
         const front = slideArray.slice(0, infinite);
         const back  = slideArray.slice(slideArray.length - infinite, slideArray.length);
