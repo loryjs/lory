@@ -211,7 +211,7 @@ export function lory (slider, opts) {
         dispatchSliderEvent('before', 'init');
 
         prefixes = detectPrefixes();
-        options = {...defaults, ...opts};
+        options = Object.assign({}, defaults, opts);
 
         const {
             classNameFrame,
