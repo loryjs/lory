@@ -53,7 +53,7 @@
     "eslint-plugin-promise": "3.4.1",
     "eslint-plugin-standard": "2.0.1",
     "extract-text-webpack-plugin": "1.0.1",
-    "file-loader": "0.10.0",
+    "file-loader": "0.10.1",
     "fs-extra": "2.0.0",
     "html-loader": "0.4.4",
     "html-webpack-plugin": "2.28.0",
