@@ -91,5 +91,11 @@ export default {
      * If false, slides lory to the first slide on window resize.
      * @rewindOnResize {boolean}
      */
-    rewindOnResize: true
+    rewindOnResize: true,
+
+    /**
+     * If true, index will also be updated when the offset of the nextIndex is outside the range of the maxOffset (which can happen when the total number of slides is not an exact multiple of slidesToScroll)
+     * @forceIndexUpdate {boolean}
+     */
+    forceIndexUpdate: false
 };
