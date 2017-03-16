@@ -125,7 +125,8 @@ export function lory (slider, opts) {
             rewind,
             rewindSpeed,
             ease,
-            classNameActiveSlide
+            classNameActiveSlide,
+            forceIndexUpdate
         } = options;
 
         let duration = slideSpeed;
@@ -173,8 +174,9 @@ export function lory (slider, opts) {
         /**
          * update the index with the nextIndex only if
          * the offset of the nextIndex is in the range of the maxOffset
+         * or the index update is being enforced via option
          */
-        if (slides[nextIndex].offsetLeft <= maxOffset) {
+        if (forceIndexUpdate || slides[nextIndex].offsetLeft <= maxOffset) {
             index = nextIndex;
         }
 
