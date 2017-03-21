@@ -265,7 +265,7 @@ export function lory (slider, opts) {
      * public
      * reset function: called on resize
      */
-    function reset () {
+    function reset (resized) {
         var {infinite, ease, rewindSpeed, rewindOnResize, classNameActiveSlide} = options;
 
         slidesWidth = slideContainer.getBoundingClientRect()
@@ -284,6 +284,7 @@ export function lory (slider, opts) {
         } else {
             ease = null;
             rewindSpeed = 0;
+            index = index - (infinite && !resized ? 0 : infinite)
         }
 
         if (infinite) {
@@ -507,7 +508,7 @@ export function lory (slider, opts) {
     }
 
     function onResize (event) {
-        reset();
+        reset(true);
 
         dispatchSliderEvent('on', 'resize', {
             event
