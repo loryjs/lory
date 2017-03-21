@@ -284,7 +284,7 @@ export function lory (slider, opts) {
         } else {
             ease = null;
             rewindSpeed = 0;
-            index = index - (infinite && !resized ? 0 : infinite)
+            index = index - (infinite && !resized ? 0 : infinite);
         }
 
         if (infinite) {
