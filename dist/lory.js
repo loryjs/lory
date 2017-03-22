@@ -370,7 +370,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	        if (frameWidth === slidesWidth) {
 	            slidesWidth = slides.reduce(function (previousValue, slide) {
-	                return previousValue + slide.getBoundingClientRect().width || slide.offsetWidth;
+	                return previousValue + elementWidth(slide);
 	            }, 0);
 	        }
 	
@@ -605,7 +605,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	
 	    function onResize(event) {
-	        if (slidesWidth !== elementWidth(slideContainer)) {
+	        if (frameWidth !== elementWidth(frame)) {
 	            reset();
 	
 	            dispatchSliderEvent('on', 'resize', {

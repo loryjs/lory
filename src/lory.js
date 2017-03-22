@@ -280,7 +280,7 @@ export function lory (slider, opts) {
 
         if (frameWidth === slidesWidth) {
             slidesWidth = slides.reduce(function (previousValue, slide) {
-                return previousValue + slide.getBoundingClientRect().width || slide.offsetWidth;
+                return previousValue + elementWidth(slide);
             }, 0);
         }
 
@@ -512,7 +512,7 @@ export function lory (slider, opts) {
     }
 
     function onResize (event) {
-        if (slidesWidth !== elementWidth(slideContainer)) {
+        if (frameWidth !== elementWidth(frame)) {
             reset();
 
             dispatchSliderEvent('on', 'resize', {
