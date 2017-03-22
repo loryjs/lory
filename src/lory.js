@@ -110,6 +110,13 @@ export function lory (slider, opts) {
     }
 
     /**
+     * returns an element's width
+     */
+    function elementWidth(element) {
+        return element.getBoundingClientRect().width || element.offsetWidth;
+    }
+
+    /**
      * slidefunction called by prev, next & touchend
      *
      * determine nextIndex and slide to next postion
@@ -268,10 +275,8 @@ export function lory (slider, opts) {
     function reset () {
         var {infinite, ease, rewindSpeed, rewindOnResize, classNameActiveSlide} = options;
 
-        slidesWidth = slideContainer.getBoundingClientRect()
-            .width || slideContainer.offsetWidth;
-        frameWidth = frame.getBoundingClientRect()
-            .width || frame.offsetWidth;
+        slidesWidth = elementWidth(slideContainer);
+        frameWidth = elementWidth(frame);
 
         if (frameWidth === slidesWidth) {
             slidesWidth = slides.reduce(function (previousValue, slide) {
@@ -507,11 +512,13 @@ export function lory (slider, opts) {
     }
 
     function onResize (event) {
-        reset();
+        if (slidesWidth !== elementWidth(slideContainer)) {
+            reset();
 
-        dispatchSliderEvent('on', 'resize', {
-            event
-        });
+            dispatchSliderEvent('on', 'resize', {
+                event
+            });
+        }
     }
 
     // trigger initial setup
