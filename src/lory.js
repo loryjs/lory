@@ -112,7 +112,7 @@ export function lory (slider, opts) {
     /**
      * returns an element's width
      */
-    function elementWidth(element) {
+    function elementWidth (element) {
         return element.getBoundingClientRect().width || element.offsetWidth;
     }
 
