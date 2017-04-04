@@ -219,9 +219,11 @@ export function lory (slider, opts) {
             classNamePrevCtrl,
             classNameNextCtrl,
             enableMouseEvents,
-            classNameActiveSlide
+            classNameActiveSlide,
+            initialIndex
         } = options;
 
+        index = initialIndex;
         frame = slider.getElementsByClassName(classNameFrame)[0];
         slideContainer = frame.getElementsByClassName(classNameSlideContainer)[0];
         prevCtrl = slider.getElementsByClassName(classNamePrevCtrl)[0];
@@ -266,7 +268,7 @@ export function lory (slider, opts) {
      * reset function: called on resize
      */
     function reset () {
-        var {infinite, ease, rewindSpeed, rewindOnResize, classNameActiveSlide} = options;
+        var {infinite, ease, rewindSpeed, rewindOnResize, classNameActiveSlide, initialIndex} = options;
 
         slidesWidth = slideContainer.getBoundingClientRect()
             .width || slideContainer.offsetWidth;
@@ -280,7 +282,7 @@ export function lory (slider, opts) {
         }
 
         if (rewindOnResize) {
-            index = 0;
+            index = initialIndex;
         } else {
             ease = null;
             rewindSpeed = 0;
