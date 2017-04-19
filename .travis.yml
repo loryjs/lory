@@ -6,18 +6,15 @@ cache:
 notifications:
   email: false
 node_js:
-  - '5.2'
-before_install:
-  - npm i -g npm@^3.3
+  - '7'
 before_script:
-  - npm prune
   - 'curl -Lo travis_after_all.py https://git.io/vLSON'
-script: "npm run travis"
+script: "yarn run travis"
 after_success:
   - python travis_after_all.py
   - export $(cat .to_export_back)
-  - test $TRAVIS_BRANCH = "master" && test $TRAVIS_PULL_REQUEST = false && test $SAUCE_ACCESS_KEY && test $SAUCE_USERNAME && npm run "karma-sauce"
-  - npm run semantic-release
+  - test $TRAVIS_BRANCH = "master" && test $TRAVIS_PULL_REQUEST = false && test $SAUCE_ACCESS_KEY && test $SAUCE_USERNAME && yarn run "karma-sauce"
+  - yarn run semantic-release
 branches:
   except:
     - "/^v\\d+\\.\\d+\\.\\d+$/"

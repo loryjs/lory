@@ -31,10 +31,10 @@ There is also a prebundled CDN version which you can use.
 ####  Vanilla JavaScript: https://cdnjs.cloudflare.com/ajax/libs/lory.js/2.2.0/lory.min.js
 #### jQuery plugin: https://cdnjs.cloudflare.com/ajax/libs/lory.js/2.2.0/jquery.lory.min.js
 
-## Install with node:
+## Install with yarn:
 
 ```
-npm install --save lory.js
+yarn add lory.js
 ```
 
 ## Consume it as an ES2015 module:
@@ -76,19 +76,19 @@ bower install lory --save
 ```
 // To install dev dependencies run:
 
-npm install
+yarn
 
 // To start the development server run:
 
-npm run dev
+yarn run dev
 
 // To lint your code run:
 
-npm run lint
+yarn run lint
 
 // To make a full new build run:
 
-npm run build
+yarn run build
 ```
 
 ## Run tests
@@ -96,11 +96,11 @@ npm run build
 ```
 // To install dev dependencies run:
 
-npm install
+yarn install
 
 // To start the karma tests locally run:
 
-npm run karma-local
+yarn run karma-local
 ```
 
 <p align="center">
