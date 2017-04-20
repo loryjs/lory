@@ -179,9 +179,9 @@ export function lory (slider, opts) {
         }
         
         var isNextIndexOutOfBorders = false;
-        if (slides.length % infinite) {
+        if (slides.length % (infinite - slidesToScroll)) {
             /**
-             * solving number of slides is not a multiple of infinite
+             * solving number of slides is not a multiple of scroll dx showed items
              */
             isNextIndexOutOfBorders = nextIndex > slides.length - infinite;
         } else {
