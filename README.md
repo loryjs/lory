@@ -1,8 +1,8 @@
-<p>NOTICE: This is a minimally patched version of the original lory.js v 2.2.1. The only addition here is an optional switch `forceIndexUpdate` that is `false` by default and can be set to `true`. If set to `true`, `index` will also be updated when the offset of the `nextIndex` is outside the range of the `maxOffset` (which can happen when the total number of slides is not an exact multiple of `slidesToScroll`).
+NOTICE: This is a minimally patched version of the original lory.js v 2.2.1. The only addition here is an optional switch `forceIndexUpdate` that is `false` by default and can be set to `true`. If set to `true`, `index` will also be updated when the offset of the `nextIndex` is outside the range of the `maxOffset` (which can happen when the total number of slides is not an exact multiple of `slidesToScroll`).
 This way we can have a slideshow that slides all slides in view (not only a fixed amount of slides) which makes it more responsive-design-friendly, and have the "next"-arrow/button disappear when the end of the slides is reached and we do not want to have endless slides. This was not possible with the original version of lory.js.
 Since we'll use it on https://www.lesara.de, the name of this patched fork is `lory-lesara.js`.
 
-The reason for this fork is that we want to use Lory.js (with this additional option) as an npm package and the pull request I created on the original github repository hasn't yet been processed. I will probably not maintain this package any further since it already does what it should do. But please feel free to contact me in case of questions.</p><br />
+The reason for this fork is that we want to use Lory.js (with this additional option) as an npm package and the pull request I created on the original github repository hasn't yet been processed. I will probably not maintain this package any further since it already does what it should do. But please feel free to contact me in case of questions.<br /><br />
 
 <p align="center">
   <img src="./static/lory.png" width="200px" />
