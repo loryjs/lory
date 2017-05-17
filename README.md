@@ -31,8 +31,8 @@ Please visit: [http://RSeidelsohn.github.io/lory-lesara/](http://RSeidelsohn.git
 
 ## Download
 
-lory is released under the MIT license & supports modern environments.
-There is also a prebundled CDN version which you can use.
+lory-lesara is released under the MIT license & supports modern environments.
+There is also a prebundled CDN version of the original (unpatched) lory.js which you can use:
 
 ####  Vanilla JavaScript: https://cdnjs.cloudflare.com/ajax/libs/lory.js/2.2.0/lory.min.js
 #### jQuery plugin: https://cdnjs.cloudflare.com/ajax/libs/lory.js/2.2.0/jquery.lory.min.js
@@ -40,7 +40,7 @@ There is also a prebundled CDN version which you can use.
 ## Install with node:
 
 ```
-npm install --save lory.js
+npm install --save lory-lesara.js
 ```
 
 ## Consume it as an ES2015 module:
@@ -74,7 +74,7 @@ npm install --save lory.js
 ## Install with bower
 
 ```
-bower install lory --save
+bower install lory-lesara --save
 ```
 
 ## Local development

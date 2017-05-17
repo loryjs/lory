@@ -6,6 +6,7 @@
     "email": "roman.seidelsohn@lesara.de",
     "url": "https://www.lesara.de"
   },
+  "version": "2.2.1",
   "bugs": {
     "url": "https://github.com/RSeidelsohn/lory-lesara/issues"
   },
@@ -13,7 +14,7 @@
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://raw.githubusercontent.com/meandmax/lory/master/LICENSE"
+      "url": "https://raw.githubusercontent.com/RSeidelsohn/lory-lesara/master/LICENSE"
     }
   ],
   "repository": {
