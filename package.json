@@ -46,7 +46,7 @@
     "clamp.js": "0.2.9",
     "custom-event": "1.0.1",
     "cz-conventional-changelog": "1.2.0",
-    "debug": "2.5.1",
+    "debug": "2.6.7",
     "dependency-check": "2.8.0",
     "eslint": "3.15.0",
     "eslint-config-standard": "6.2.1",
