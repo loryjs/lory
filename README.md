@@ -3,7 +3,8 @@
   <img src="./static/lory.png" width="200px" />
 </p>
 
-Please visit: [http://meandmax.github.io/lory/](http://meandmax.github.io/lory/ "lory")
+Please visit: [http://meandmax.github.io/lory/](http://meandmax.github.io/lory/ "lory") for the original version
+Please visit: [http://RSeidelsohn.github.io/lory-lesara/](http://RSeidelsohn.github.io/lory-lesara/ "lory-lesara") for the forked and minimally enhanced version
 
 > Touch enabled minimalistic slider written in vanilla JavaScript.
 

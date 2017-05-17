@@ -1,15 +1,15 @@
 {
-  "name": "lory.js",
-  "description": "Touch enabled minimalistic slider written in vanilla JavaScript.",
+  "name": "lory-lesara.js",
+  "description": "Touch enabled minimalistic slider written in vanilla JavaScript. Added optional parameter 'forceIndexUpdate'",
   "author": {
-    "name": "Maximilian Heinz",
-    "email": "info@maximilian-heinz.de",
-    "url": "https://twitter.com/_meandmax_"
+    "name": "Roman Seidelsohn",
+    "email": "roman.seidelsohn@lesara.de",
+    "url": "https://www.lesara.de"
   },
   "bugs": {
-    "url": "https://github.com/meandmax/lory/issues"
+    "url": "https://github.com/RSeidelsohn/lory-lesara/issues"
   },
-  "inceptionYear": 2015,
+  "inceptionYear": 2017,
   "licenses": [
     {
       "type": "MIT",
@@ -18,7 +18,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/meandmax/lory.git"
+    "url": "https://github.com/RSeidelsohn/lory-lesara.git"
   },
   "keywords": [
     "responsive",
