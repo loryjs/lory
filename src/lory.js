@@ -234,6 +234,7 @@ export function lory (slider, opts) {
 
         if (options.infinite) {
             slides = setupInfinite(slice.call(slideContainer.children));
+            index = 1;
         } else {
             slides = slice.call(slideContainer.children);
         }
@@ -280,16 +281,18 @@ export function lory (slider, opts) {
         }
 
         if (rewindOnResize) {
-            index = 0;
+            if (!infinite) {
+                index = 0;
+            } else {
+                index = 1;
+            }
         } else {
             ease = null;
             rewindSpeed = 0;
         }
 
         if (infinite) {
-            translate(slides[index + infinite].offsetLeft * -1, 0, null);
-
-            index = index + infinite;
+            translate(slides[index].offsetLeft * -1, 0, null);
             position.x = slides[index].offsetLeft * -1;
         } else {
             translate(slides[index].offsetLeft * -1, rewindSpeed, ease);
