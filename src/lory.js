@@ -11,7 +11,7 @@ export function lory (slider, opts) {
     let slidesWidth;
     let frameWidth;
     let slides;
-
+    let initScreenWidth;
     /**
      * slider DOM elements
      */
@@ -209,6 +209,8 @@ export function lory (slider, opts) {
      */
     function setup () {
         dispatchSliderEvent('before', 'init');
+
+        initScreenWidth = Math.max(screen.width || 0);
 
         prefixes = detectPrefixes();
         options = {...defaults, ...opts};
@@ -507,7 +509,14 @@ export function lory (slider, opts) {
     }
 
     function onResize (event) {
+        // Launch reset only if screen width has really changed ; some devices
+        // launch onResize event without true width change (for instance:
+        // during scrolling);
+        var newScreenWidth = Math.max(screen.width || 0);
+        if(initScreenWidth !== newScreenWidth) {
         reset();
+        }
+        initScreenWidth = newScreenWidth;
 
         dispatchSliderEvent('on', 'resize', {
             event
