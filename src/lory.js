@@ -458,7 +458,11 @@ export function lory (slider, opts) {
         };
 
         if (typeof isScrolling === 'undefined') {
-            isScrolling = !!(isScrolling || Math.abs(delta[axis]) < Math.abs(delta.y));
+            if (axis === axisY) {
+                isScrolling = Math.abs(delta.y) < Math.abs(delta.x);
+            } else {
+                isScrolling = Math.abs(delta.x) < Math.abs(delta.y);
+            }
         }
 
         if (!isScrolling && touchOffset) {
