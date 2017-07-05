@@ -91,5 +91,11 @@ export default {
      * If false, slides lory to the first slide on window resize.
      * @rewindOnResize {boolean}
      */
-    rewindOnResize: true
+    rewindOnResize: true,
+
+    /**
+     * If true slider translate by axis Y else by X
+     * @vertical {boolean}
+     */
+    vertical: false
 };
