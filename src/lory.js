@@ -262,6 +262,10 @@ export function lory (slider, opts) {
             if (prevCtrl) {
                 prevCtrl.classList.add('disabled');
             }
+
+            if (nextCtrl && (slides.length === 1)) {
+                nextCtrl.classList.add('disabled');
+            }
         }
 
         reset();
