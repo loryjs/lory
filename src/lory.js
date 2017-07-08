@@ -138,6 +138,16 @@ export function lory (slider, opts) {
             nextSlide
         });
 
+        /**
+         * Reset control classes
+         */
+        if (prevCtrl) {
+            prevCtrl.classList.remove('disabled');
+        }
+        if (nextCtrl) {
+            nextCtrl.classList.remove('disabled');
+        }
+
         if (typeof nextIndex !== 'number') {
             if (direction) {
                 nextIndex = index + slidesToScroll;
@@ -198,6 +208,18 @@ export function lory (slider, opts) {
             setActiveElement(slice.call(slides), index);
         }
 
+        /**
+         * update classes for next and prev arrows
+         * based on user settings
+         */
+        if (prevCtrl && !infinite && nextIndex === 0) {
+            prevCtrl.classList.add('disabled');
+        }
+
+        if (nextCtrl && !infinite && !rewind && ((nextIndex + 1) === slides.length)) {
+            nextCtrl.classList.add('disabled');
+        }
+
         dispatchSliderEvent('after', 'slide', {
             currentSlide: index
         });
@@ -236,6 +258,10 @@ export function lory (slider, opts) {
             slides = setupInfinite(slice.call(slideContainer.children));
         } else {
             slides = slice.call(slideContainer.children);
+
+            if (prevCtrl) {
+                prevCtrl.classList.add('disabled');
+            }
         }
 
         reset();
