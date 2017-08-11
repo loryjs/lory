@@ -1,9 +1,15 @@
+NOTICE: This is a minimally patched version of the original lory.js v 2.2.1. The only addition here is an optional switch `forceIndexUpdate` that is `false` by default and can be set to `true`. If set to `true`, `index` will also be updated when the offset of the `nextIndex` is outside the range of the `maxOffset` (which can happen when the total number of slides is not an exact multiple of `slidesToScroll`).
+This way we can have a slideshow that slides all slides in view (not only a fixed amount of slides) which makes it more responsive-design-friendly, and have the "next"-arrow/button disappear when the end of the slides is reached and we do not want to have endless slides. This was not possible with the original version of lory.js.
+Since we'll use it on https://www.lesara.de, the name of this patched fork is `lory-lesara.js`.
+
+The reason for this fork is that we want to use Lory.js (with this additional option) as an npm package and the pull request I created on the original github repository hasn't yet been processed. I will probably not maintain this package any further since it already does what it should do. But please feel free to contact me in case of questions.<br /><br />
 
 <p align="center">
   <img src="./static/lory.png" width="200px" />
 </p>
 
-Please visit: [http://meandmax.github.io/lory/](http://meandmax.github.io/lory/ "lory")
+Please visit: [http://meandmax.github.io/lory/](http://meandmax.github.io/lory/ "lory") for the original version
+Please visit: [http://RSeidelsohn.github.io/lory-lesara/](http://RSeidelsohn.github.io/lory-lesara/ "lory-lesara") for the forked and minimally enhanced version
 
 > Touch enabled minimalistic slider written in vanilla JavaScript.
 
@@ -25,8 +31,8 @@ Please visit: [http://meandmax.github.io/lory/](http://meandmax.github.io/lory/ 
 
 ## Download
 
-lory is released under the MIT license & supports modern environments.
-There is also a prebundled CDN version which you can use.
+lory-lesara is released under the MIT license & supports modern environments.
+There is also a prebundled CDN version of the original (unpatched) lory.js which you can use:
 
 ####  Vanilla JavaScript: https://cdnjs.cloudflare.com/ajax/libs/lory.js/2.2.0/lory.min.js
 #### jQuery plugin: https://cdnjs.cloudflare.com/ajax/libs/lory.js/2.2.0/jquery.lory.min.js
@@ -34,7 +40,7 @@ There is also a prebundled CDN version which you can use.
 ## Install with node:
 
 ```
-npm install --save lory.js
+npm install --save lory-lesara.js
 ```
 
 ## Consume it as an ES2015 module:
@@ -68,7 +74,7 @@ npm install --save lory.js
 ## Install with bower
 
 ```
-bower install lory --save
+bower install lory-lesara --save
 ```
 
 ## Local development
