@@ -95,7 +95,9 @@ export function lory (slider, opts) {
      * @ease      {string} easing css property
      */
     function translate (to, duration, ease) {
+        let {dir} = options;
         const style = slideContainer && slideContainer.style;
+        to = dir === 'rtl' ?  -to : to;
 
         if (style) {
             style[prefixes.transition + 'TimingFunction'] = ease;
@@ -125,7 +127,8 @@ export function lory (slider, opts) {
             rewind,
             rewindSpeed,
             ease,
-            classNameActiveSlide
+            classNameActiveSlide,
+            dir
         } = options;
 
         let duration = slideSpeed;
@@ -156,7 +159,7 @@ export function lory (slider, opts) {
             }
         }
 
-        nextIndex = Math.min(Math.max(nextIndex, 0), slides.length - 1);
+        nextIndex = Math.min(Math.abs(nextIndex), slides.length - 1);
 
         if (infinite && direction === undefined) {
             nextIndex += infinite;
@@ -241,7 +244,8 @@ export function lory (slider, opts) {
             classNamePrevCtrl,
             classNameNextCtrl,
             enableMouseEvents,
-            classNameActiveSlide
+            classNameActiveSlide,
+            dir
         } = options;
 
         frame = slider.getElementsByClassName(classNameFrame)[0];
@@ -266,6 +270,10 @@ export function lory (slider, opts) {
             if (nextCtrl && (slides.length === 1) && !options.rewind) {
                 nextCtrl.classList.add('disabled');
             }
+        }
+
+        if(dir){
+            slideContainer.style.direction = 'rtl';
         }
 
         reset();
@@ -296,7 +304,7 @@ export function lory (slider, opts) {
      * reset function: called on resize
      */
     function reset () {
-        var {infinite, ease, rewindSpeed, rewindOnResize, classNameActiveSlide} = options;
+        var {infinite, ease, rewindSpeed, rewindOnResize, classNameActiveSlide, dir} = options;
 
         slidesWidth = slideContainer.getBoundingClientRect()
             .width || slideContainer.offsetWidth;
@@ -322,8 +330,12 @@ export function lory (slider, opts) {
             index = index + infinite;
             position.x = slides[index].offsetLeft * -1;
         } else {
-            translate(slides[index].offsetLeft * -1, rewindSpeed, ease);
-            position.x = slides[index].offsetLeft * -1;
+            let offset = slides[index].offsetLeft * -1;
+            if(dir === 'rtl'){
+                offset = slidesWidth - (slides[index].offsetLeft + slides[index].offsetWidth);
+            }
+            translate(offset, rewindSpeed, ease);
+            position.x = offset;
         }
 
         if (classNameActiveSlide) {
@@ -447,6 +459,7 @@ export function lory (slider, opts) {
     }
 
     function onTouchmove (event) {
+        const {dir} = options;
         const touches = event.touches ? event.touches[0] : event;
         const {pageX, pageY} = touches;
 
@@ -461,7 +474,11 @@ export function lory (slider, opts) {
 
         if (!isScrolling && touchOffset) {
             event.preventDefault();
-            translate(position.x + delta.x, 0, null);
+            if(dir === 'rtl'){
+              translate(position.x - delta.x, 0, null)
+            }else{
+              translate(position.x + delta.x, 0, null);
+            }
         }
 
         // may be
@@ -475,7 +492,8 @@ export function lory (slider, opts) {
          * time between touchstart and touchend in milliseconds
          * @duration {number}
          */
-        const duration = touchOffset ? Date.now() - touchOffset.time : undefined;
+         const {dir} = options;
+         const duration = touchOffset ? Date.now() - touchOffset.time : undefined;
 
         /**
          * is valid if:
@@ -501,8 +519,10 @@ export function lory (slider, opts) {
          *
          * @isOutOfBounds {Boolean}
          */
-        const isOutOfBounds = !index && delta.x > 0 ||
-            index === slides.length - 1 && delta.x < 0;
+        let isOutOfBounds = !index && delta.x > 0 || index === slides.length - 1  && delta.x < 0;
+        if(dir){
+            isOutOfBounds = !index && delta.x > 0  && position.x  < 0 || index === slides.length - 1 && delta.x < 0;
+        }
 
         const direction = delta.x < 0;
 
