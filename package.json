@@ -1,5 +1,6 @@
 {
   "name": "lory.js",
+  "version": "0.0.0-semantic-release",
   "description": "Touch enabled minimalistic slider written in vanilla JavaScript.",
   "author": {
     "name": "Maximilian Heinz",
@@ -95,6 +96,9 @@
     "karma-travis": "karma start travis.karma.conf.js",
     "karma-local": "karma start local.karma.conf.js",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+  },
+  "release": {
+    "githubToken": "b95db96db05ac543bcd5c278665533fd43787e9f"
   },
   "betterScripts": {
     "compile": {
