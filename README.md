@@ -264,6 +264,11 @@ li {
         <td>default: false</td>
     </tr>
     <tr>
+        <td>vertical</td>
+        <td>switch to work as a vertical slider</td>
+        <td>default: false</td>
+    </tr>
+    <tr>
         <td>slideSpeed</td>
         <td>time in milliseconds for the animation of a valid slide attempt</td>
         <td>default: 300</td>

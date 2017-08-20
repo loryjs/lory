@@ -8,8 +8,8 @@ const slice = Array.prototype.slice;
 
 export function lory (slider, opts) {
     let position;
-    let slidesWidth;
-    let frameWidth;
+    let slidesSize;
+    let frameSize;
     let slides;
 
     /**
@@ -25,11 +25,41 @@ export function lory (slider, opts) {
     let index   = 0;
     let options = {};
 
+    const axisY = 'y';
+    const axisX = 'x';
+    let axis;
+
     /**
      * if object is jQuery convert to native DOM element
      */
     if (typeof jQuery !== 'undefined' && slider instanceof jQuery) {
         slider = slider[0];
+    }
+
+    /**
+     * private
+     * return width or height of element by axis
+     */
+    function getElementSize (element, currentAxis = axis) {
+        switch (currentAxis) {
+            case axisY:
+                return element.getBoundingClientRect().height || element.offsetHeight;
+            default:
+                return element.getBoundingClientRect().width || element.offsetWidth;
+        }
+    }
+
+    /**
+     * private
+     * return offset of element by axis
+     */
+    function getElementOffset (element, currentAxis = axis) {
+        switch (currentAxis) {
+            case axisY:
+                return element.offsetTop;
+            default:
+                return element.offsetLeft;
+        }
     }
 
     /**
@@ -101,10 +131,11 @@ export function lory (slider, opts) {
             style[prefixes.transition + 'TimingFunction'] = ease;
             style[prefixes.transition + 'Duration'] = duration + 'ms';
 
+            const translate = axis === axisY ? `0, ${to}px` : `${to}px, 0`;
             if (prefixes.hasTranslate3d) {
-                style[prefixes.transform] = 'translate3d(' + to + 'px, 0, 0)';
+                style[prefixes.transform] = `translate3d(${translate}, 0)`;
             } else {
-                style[prefixes.transform] = 'translate(' + to + 'px, 0)';
+                style[prefixes.transform] = `translate(${translate})`;
             }
         }
     }
@@ -131,7 +162,7 @@ export function lory (slider, opts) {
         let duration = slideSpeed;
 
         const nextSlide = direction ? index + 1 : index - 1;
-        const maxOffset = Math.round(slidesWidth - frameWidth);
+        const maxOffset = Math.round(slidesSize - frameSize);
 
         dispatchSliderEvent('before', 'slide', {
             index,
@@ -162,9 +193,9 @@ export function lory (slider, opts) {
             nextIndex += infinite;
         }
 
-        let nextOffset = Math.min(Math.max(slides[nextIndex].offsetLeft * -1, maxOffset * -1), 0);
+        let nextOffset = Math.min(Math.max(getElementOffset(slides[nextIndex]) * -1, maxOffset * -1), 0);
 
-        if (rewind && Math.abs(position.x) === maxOffset && direction) {
+        if (rewind && Math.abs(position[axis]) === maxOffset && direction) {
             nextOffset = 0;
             nextIndex = 0;
             duration = rewindSpeed;
@@ -178,13 +209,13 @@ export function lory (slider, opts) {
         /**
          * update the position with the next position
          */
-        position.x = nextOffset;
+        position[axis] = nextOffset;
 
         /**
          * update the index with the nextIndex only if
          * the offset of the nextIndex is in the range of the maxOffset
          */
-        if (slides[nextIndex].offsetLeft <= maxOffset) {
+        if (getElementOffset(slides[nextIndex]) <= maxOffset) {
             index = nextIndex;
         }
 
@@ -197,10 +228,10 @@ export function lory (slider, opts) {
                 index = slides.length - (infinite * 2);
             }
 
-            position.x = slides[index].offsetLeft * -1;
+            position[axis] = getElementOffset(slides[index]) * -1;
 
             transitionEndCallback = function () {
-                translate(slides[index].offsetLeft * -1, 0, undefined);
+                translate(getElementOffset(slides[index]) * -1, 0, undefined);
             };
         }
 
@@ -241,7 +272,8 @@ export function lory (slider, opts) {
             classNamePrevCtrl,
             classNameNextCtrl,
             enableMouseEvents,
-            classNameActiveSlide
+            classNameActiveSlide,
+            vertical
         } = options;
 
         frame = slider.getElementsByClassName(classNameFrame)[0];
@@ -249,9 +281,11 @@ export function lory (slider, opts) {
         prevCtrl = slider.getElementsByClassName(classNamePrevCtrl)[0];
         nextCtrl = slider.getElementsByClassName(classNameNextCtrl)[0];
 
+        axis = vertical ? axisY : axisX;
+
         position = {
-            x: slideContainer.offsetLeft,
-            y: slideContainer.offsetTop
+            x: getElementOffset(slideContainer, axisX),
+            y: getElementOffset(slideContainer, axisY)
         };
 
         if (options.infinite) {
@@ -298,14 +332,12 @@ export function lory (slider, opts) {
     function reset () {
         var {infinite, ease, rewindSpeed, rewindOnResize, classNameActiveSlide} = options;
 
-        slidesWidth = slideContainer.getBoundingClientRect()
-            .width || slideContainer.offsetWidth;
-        frameWidth = frame.getBoundingClientRect()
-            .width || frame.offsetWidth;
+        slidesSize = getElementSize(slideContainer);
+        frameSize = getElementSize(frame);
 
-        if (frameWidth === slidesWidth) {
-            slidesWidth = slides.reduce(function (previousValue, slide) {
-                return previousValue + slide.getBoundingClientRect().width || slide.offsetWidth;
+        if (frameSize === slidesSize) {
+            slidesSize = slides.reduce(function (previousValue, slide) {
+                return previousValue + getElementSize(slide);
             }, 0);
         }
 
@@ -317,13 +349,13 @@ export function lory (slider, opts) {
         }
 
         if (infinite) {
-            translate(slides[index + infinite].offsetLeft * -1, 0, null);
+            translate(getElementOffset(slides[index + infinite]) * -1, 0, null);
 
             index = index + infinite;
-            position.x = slides[index].offsetLeft * -1;
+            position[axis] = getElementOffset(slides[index]) * -1;
         } else {
-            translate(slides[index].offsetLeft * -1, rewindSpeed, ease);
-            position.x = slides[index].offsetLeft * -1;
+            translate(getElementOffset(slides[index]) * -1, rewindSpeed, ease);
+            position[axis] = getElementOffset(slides[index]) * -1;
         }
 
         if (classNameActiveSlide) {
@@ -456,12 +488,16 @@ export function lory (slider, opts) {
         };
 
         if (typeof isScrolling === 'undefined') {
-            isScrolling = !!(isScrolling || Math.abs(delta.x) < Math.abs(delta.y));
+            if (axis === axisY) {
+                isScrolling = Math.abs(delta.y) < Math.abs(delta.x);
+            } else {
+                isScrolling = Math.abs(delta.x) < Math.abs(delta.y);
+            }
         }
 
         if (!isScrolling && touchOffset) {
             event.preventDefault();
-            translate(position.x + delta.x, 0, null);
+            translate(position[axis] + delta[axis], 0, null);
         }
 
         // may be
@@ -489,8 +525,8 @@ export function lory (slider, opts) {
          * @isValidSlide {Boolean}
          */
         const isValid = Number(duration) < 300 &&
-            Math.abs(delta.x) > 25 ||
-            Math.abs(delta.x) > frameWidth / 3;
+            Math.abs(delta[axis]) > 25 ||
+            Math.abs(delta[axis]) > frameSize / 3;
 
         /**
          * is out of bounds if:
@@ -501,16 +537,16 @@ export function lory (slider, opts) {
          *
          * @isOutOfBounds {Boolean}
          */
-        const isOutOfBounds = !index && delta.x > 0 ||
-            index === slides.length - 1 && delta.x < 0;
+        const isOutOfBounds = !index && delta[axis] > 0 ||
+            index === slides.length - 1 && delta[axis] < 0;
 
-        const direction = delta.x < 0;
+        const direction = delta[axis] < 0;
 
         if (!isScrolling) {
             if (isValid && !isOutOfBounds) {
                 slide(false, direction);
             } else {
-                translate(position.x, options.snapBackSpeed);
+                translate(position[axis], options.snapBackSpeed);
             }
         }
 
@@ -531,7 +567,7 @@ export function lory (slider, opts) {
     }
 
     function onClick (event) {
-        if (delta.x) {
+        if (delta[axis]) {
             event.preventDefault();
         }
     }
