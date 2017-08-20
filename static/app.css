@@ -278,8 +278,19 @@ footer {
     left: 0;
 }
 
+.next.disabled,
+.prev.disabled {
+    opacity: .3;
+    pointer-events: none;
+}
+
 .next svg, .prev svg {
     width: 25px;
+    transition: .4s;
+}
+
+.next svg:hover, .prev svg:hover {
+    transform: scale(1.1);
 }
 
 .events_log {
