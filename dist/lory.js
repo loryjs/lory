@@ -201,7 +201,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     *
 	     * @direction  {boolean}
 	     */
-	    function slide(nextIndex, direction) {
+	    function slide(nextIndex, direction, customSpeed) {
 	        var _options3 = options,
 	            slideSpeed = _options3.slideSpeed,
 	            slidesToScroll = _options3.slidesToScroll,
@@ -212,7 +212,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            classNameActiveSlide = _options3.classNameActiveSlide;
 	
 	
-	        var duration = slideSpeed;
+	        var duration = typeof customSpeed === 'number' ? customSpeed : slideSpeed;
 	
 	        var nextSlide = direction ? index + 1 : index - 1;
 	        var maxOffset = Math.round(slidesWidth - frameWidth);
@@ -423,8 +423,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * public
 	     * slideTo: called on clickhandler
 	     */
-	    function slideTo(index) {
-	        slide(index);
+	    function slideTo(index, customSpeed) {
+	        slide(index, customSpeed);
 	    }
 	
 	    /**
@@ -439,16 +439,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * public
 	     * prev function: called on clickhandler
 	     */
-	    function prev() {
-	        slide(false, false);
+	    function prev(customSpeed) {
+	        slide(false, false, customSpeed);
 	    }
 	
 	    /**
 	     * public
 	     * next function: called on clickhandler
 	     */
-	    function next() {
-	        slide(false, true);
+	    function next(customSpeed) {
+	        slide(false, true, customSpeed);
 	    }
 	
 	    /**

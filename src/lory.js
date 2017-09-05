@@ -117,7 +117,7 @@ export function lory (slider, opts) {
      *
      * @direction  {boolean}
      */
-    function slide (nextIndex, direction) {
+    function slide (nextIndex, direction, customSpeed) {
         const {
             slideSpeed,
             slidesToScroll,
@@ -128,7 +128,7 @@ export function lory (slider, opts) {
             classNameActiveSlide
         } = options;
 
-        let duration = slideSpeed;
+        let duration = typeof customSpeed === 'number' ? customSpeed : slideSpeed;
 
         const nextSlide = direction ? index + 1 : index - 1;
         const maxOffset = Math.round(slidesWidth - frameWidth);
@@ -335,8 +335,8 @@ export function lory (slider, opts) {
      * public
      * slideTo: called on clickhandler
      */
-    function slideTo (index) {
-        slide(index);
+    function slideTo (index, customSpeed) {
+        slide(index, customSpeed);
     }
 
     /**
@@ -351,16 +351,16 @@ export function lory (slider, opts) {
      * public
      * prev function: called on clickhandler
      */
-    function prev () {
-        slide(false, false);
+    function prev (customSpeed) {
+        slide(false, false, customSpeed);
     }
 
     /**
      * public
      * next function: called on clickhandler
      */
-    function next () {
-        slide(false, true);
+    function next (customSpeed) {
+        slide(false, true, customSpeed);
     }
 
     /**
