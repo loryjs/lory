@@ -86,16 +86,16 @@
   },
   "scripts": {
     "clean": "rimraf dist/*",
-    "check": "npm run lint -s && dependency-check package.json",
+    "check": "yarn run lint -s && dependency-check package.json",
     "lint": "eslint src",
     "start": "better-npm-run start",
     "dev": "better-npm-run dev",
     "build": "better-npm-run build",
-    "travis": "npm run build && npm run karma-travis",
+    "travis": "yarn run build && yarn run karma-travis",
     "karma-sauce": "karma start saucelabs.karma.conf.js",
     "karma-travis": "karma start travis.karma.conf.js",
     "karma-local": "karma start local.karma.conf.js",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && yarn publish && semantic-release post"
   },
   "betterScripts": {
     "compile": {
@@ -118,7 +118,7 @@
       }
     },
     "build": {
-      "command": "npm run clean && better-npm-run compile",
+      "command": "yarn run clean && better-npm-run compile",
       "env": {
         "NODE_ENV": "production",
         "DEBUG": "app:*"
