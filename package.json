@@ -95,7 +95,7 @@
     "karma-sauce": "karma start saucelabs.karma.conf.js",
     "karma-travis": "karma start travis.karma.conf.js",
     "karma-local": "karma start local.karma.conf.js",
-    "semantic-release": "semantic-release pre && yarn publish && semantic-release post"
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "betterScripts": {
     "compile": {
