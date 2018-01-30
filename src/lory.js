@@ -6,6 +6,18 @@ import defaults from './defaults.js';
 
 const slice = Array.prototype.slice;
 
+// https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md#feature-detection
+let supportsPassive = false;
+try {
+    const opts = Object.defineProperty({}, 'passive', {
+        get: function () {
+            supportsPassive = true;
+        }
+    });
+    window.addEventListener('testPassive', null, opts);
+    window.removeEventListener('testPassive', null, opts);
+} catch (e) {}
+
 export function lory (slider, opts) {
     let position;
     let slidesWidth;
@@ -251,7 +263,7 @@ export function lory (slider, opts) {
             nextCtrl.addEventListener('click', next);
         }
 
-        frame.addEventListener('touchstart', onTouchstart);
+        frame.addEventListener('touchstart', onTouchstart, supportsPassive ? { passive: true } : false);
 
         if (enableMouseEvents) {
             frame.addEventListener('mousedown', onTouchstart);
@@ -399,7 +411,7 @@ export function lory (slider, opts) {
         }
 
         frame.addEventListener('touchmove', onTouchmove);
-        frame.addEventListener('touchend', onTouchend);
+        frame.addEventListener('touchend', onTouchend, supportsPassive ? { passive: true } : false);
 
         const {pageX, pageY} = touches;
 

@@ -87,6 +87,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var slice = Array.prototype.slice;
 	
+	// https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md#feature-detection
+	var supportsPassive = false;
+	try {
+	    var opts = Object.defineProperty({}, 'passive', {
+	        get: function get() {
+	            supportsPassive = true;
+	        }
+	    });
+	    window.addEventListener('testPassive', null, opts);
+	    window.removeEventListener('testPassive', null, opts);
+	} catch (e) {}
+	
 	function lory(slider, opts) {
 	    var position = void 0;
 	    var slidesWidth = void 0;
@@ -335,7 +347,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            nextCtrl.addEventListener('click', next);
 	        }
 	
-	        frame.addEventListener('touchstart', onTouchstart);
+	        frame.addEventListener('touchstart', onTouchstart, supportsPassive ? { passive: true } : false);
 	
 	        if (enableMouseEvents) {
 	            frame.addEventListener('mousedown', onTouchstart);
@@ -489,7 +501,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	
 	        frame.addEventListener('touchmove', onTouchmove);
-	        frame.addEventListener('touchend', onTouchend);
+	        frame.addEventListener('touchend', onTouchend, supportsPassive ? { passive: true } : false);
 	
 	        var pageX = touches.pageX,
 	            pageY = touches.pageY;
