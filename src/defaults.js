@@ -45,6 +45,12 @@ export default {
     infinite: false,
 
     /**
+     * the slide index to show when the slider is initialized.
+     * @initialIndex {number}
+     */
+    initialIndex: 0,
+
+    /**
      * class name for slider frame
      * @classNameFrame {string}
      */
