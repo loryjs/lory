@@ -377,9 +377,11 @@ function lory(slider, opts) {
             classNamePrevCtrl = _options4.classNamePrevCtrl,
             classNameNextCtrl = _options4.classNameNextCtrl,
             enableMouseEvents = _options4.enableMouseEvents,
-            classNameActiveSlide = _options4.classNameActiveSlide;
+            classNameActiveSlide = _options4.classNameActiveSlide,
+            initialIndex = _options4.initialIndex;
 
 
+        index = initialIndex;
         frame = slider.getElementsByClassName(classNameFrame)[0];
         slideContainer = frame.getElementsByClassName(classNameSlideContainer)[0];
         prevCtrl = slider.getElementsByClassName(classNamePrevCtrl)[0];
@@ -437,7 +439,8 @@ function lory(slider, opts) {
             ease = _options5.ease,
             rewindSpeed = _options5.rewindSpeed,
             rewindOnResize = _options5.rewindOnResize,
-            classNameActiveSlide = _options5.classNameActiveSlide;
+            classNameActiveSlide = _options5.classNameActiveSlide,
+            initialIndex = _options5.initialIndex;
 
 
         slidesWidth = slideContainer.getBoundingClientRect().width || slideContainer.offsetWidth;
@@ -450,7 +453,7 @@ function lory(slider, opts) {
         }
 
         if (rewindOnResize) {
-            index = 0;
+            index = initialIndex;
         } else {
             ease = null;
             rewindSpeed = 0;
@@ -757,6 +760,12 @@ exports.default = {
    * @infinite {number}
    */
   infinite: false,
+
+  /**
+   * the slide index to show when the slider is initialized.
+   * @initialIndex {number}
+   */
+  initialIndex: 0,
 
   /**
    * class name for slider frame
