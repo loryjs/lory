@@ -1,6 +1,7 @@
 /* globals jQuery */
 
 import detectPrefixes from './utils/detect-prefixes.js';
+import supportsPassive from './utils/detect-supportsPassive';
 import dispatchEvent from './utils/dispatch-event.js';
 import defaults from './defaults.js';
 
@@ -24,6 +25,7 @@ export function lory (slider, opts) {
 
     let index   = 0;
     let options = {};
+    let touchEventParams = supportsPassive() ? { passive: true } : false;
 
     /**
      * if object is jQuery convert to native DOM element
@@ -279,7 +281,7 @@ export function lory (slider, opts) {
             nextCtrl.addEventListener('click', next);
         }
 
-        frame.addEventListener('touchstart', onTouchstart);
+        frame.addEventListener('touchstart', onTouchstart, touchEventParams);
 
         if (enableMouseEvents) {
             frame.addEventListener('mousedown', onTouchstart);
@@ -372,8 +374,8 @@ export function lory (slider, opts) {
 
         // remove event listeners
         frame.removeEventListener(prefixes.transitionEnd, onTransitionEnd);
-        frame.removeEventListener('touchstart', onTouchstart);
-        frame.removeEventListener('touchmove', onTouchmove);
+        frame.removeEventListener('touchstart', onTouchstart, touchEventParams);
+        frame.removeEventListener('touchmove', onTouchmove, touchEventParams);
         frame.removeEventListener('touchend', onTouchend);
         frame.removeEventListener('mousemove', onTouchmove);
         frame.removeEventListener('mousedown', onTouchstart);
@@ -426,7 +428,7 @@ export function lory (slider, opts) {
             frame.addEventListener('mouseleave', onTouchend);
         }
 
-        frame.addEventListener('touchmove', onTouchmove);
+        frame.addEventListener('touchmove', onTouchmove, touchEventParams);
         frame.addEventListener('touchend', onTouchend);
 
         const {pageX, pageY} = touches;

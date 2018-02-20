@@ -73,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -122,7 +122,11 @@ var _detectPrefixes = __webpack_require__(3);
 
 var _detectPrefixes2 = _interopRequireDefault(_detectPrefixes);
 
-var _dispatchEvent = __webpack_require__(4);
+var _detectSupportsPassive = __webpack_require__(4);
+
+var _detectSupportsPassive2 = _interopRequireDefault(_detectSupportsPassive);
+
+var _dispatchEvent = __webpack_require__(5);
 
 var _dispatchEvent2 = _interopRequireDefault(_dispatchEvent);
 
@@ -152,6 +156,7 @@ function lory(slider, opts) {
 
     var index = 0;
     var options = {};
+    var touchEventParams = (0, _detectSupportsPassive2.default)() ? { passive: true } : false;
 
     /**
      * if object is jQuery convert to native DOM element
@@ -410,7 +415,7 @@ function lory(slider, opts) {
             nextCtrl.addEventListener('click', next);
         }
 
-        frame.addEventListener('touchstart', onTouchstart);
+        frame.addEventListener('touchstart', onTouchstart, touchEventParams);
 
         if (enableMouseEvents) {
             frame.addEventListener('mousedown', onTouchstart);
@@ -507,8 +512,8 @@ function lory(slider, opts) {
 
         // remove event listeners
         frame.removeEventListener(prefixes.transitionEnd, onTransitionEnd);
-        frame.removeEventListener('touchstart', onTouchstart);
-        frame.removeEventListener('touchmove', onTouchmove);
+        frame.removeEventListener('touchstart', onTouchstart, touchEventParams);
+        frame.removeEventListener('touchmove', onTouchmove, touchEventParams);
         frame.removeEventListener('touchend', onTouchend);
         frame.removeEventListener('mousemove', onTouchmove);
         frame.removeEventListener('mousedown', onTouchstart);
@@ -563,7 +568,7 @@ function lory(slider, opts) {
             frame.addEventListener('mouseleave', onTouchend);
         }
 
-        frame.addEventListener('touchmove', onTouchmove);
+        frame.addEventListener('touchmove', onTouchmove, touchEventParams);
         frame.addEventListener('touchend', onTouchend);
 
         var pageX = touches.pageX,
@@ -876,9 +881,37 @@ function detectPrefixes() {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.default = detectSupportsPassive;
+function detectSupportsPassive() {
+    var supportsPassive = false;
+
+    try {
+        var opts = Object.defineProperty({}, 'passive', {
+            get: function get() {
+                supportsPassive = true;
+            }
+        });
+
+        window.addEventListener('testPassive', null, opts);
+        window.removeEventListener('testPassive', null, opts);
+    } catch (e) {}
+
+    return supportsPassive;
+}
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 exports.default = dispatchEvent;
 
-var _customEvent = __webpack_require__(5);
+var _customEvent = __webpack_require__(6);
 
 var _customEvent2 = _interopRequireDefault(_customEvent);
 
@@ -902,7 +935,7 @@ function dispatchEvent(target, type, detail) {
 }
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -957,8 +990,8 @@ function CustomEvent (type, params) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 6 */,
-/* 7 */
+/* 7 */,
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(1);
