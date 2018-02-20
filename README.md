@@ -285,6 +285,11 @@ li {
         <td>default: 'ease'</td>
     </tr>
     <tr>
+        <td>initialIndex</td>
+        <td>the slide index to show when the slider is initialized</td>
+        <td>default: 0</td>
+    </tr>
+    <tr>
         <td>classNameFrame</td>
         <td>class name for slider frame</td>
         <td>default: 'js_frame'</td>
