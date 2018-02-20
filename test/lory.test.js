@@ -335,6 +335,26 @@ describe('lory()', function () {
                 });
             });
         });
+
+        describe('with initialIndex', function () {
+            beforeEach(function () {
+                instance = lory(element, {
+                    initialIndex: 3
+                });
+            });
+
+            describe('called once', function() {
+                var expectedIndex = 2;
+
+                beforeEach(function () {
+                    instance.prev();
+                });
+
+                it('index has to be 2 (one less than initialIndex)', function() {
+                    assert.equal(instance.returnIndex(), expectedIndex);
+                });
+             });
+         });
     });
 
     describe('.destroy()', function () {
