@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(config) {
+module.exports = function (config) {
     var customLaunchers = {
         sauceLabsInternetExplorer10: {
             base: 'SauceLabs',
@@ -74,7 +74,7 @@ module.exports = function(config) {
             'fixture'
         ],
 
-       files: [
+        files: [
             'dist/lory.js',
             'test/lory.test.js',
             'static/app.css',
@@ -98,10 +98,10 @@ module.exports = function(config) {
             'test/*.html': ['html2js']
         },
 
-        browserDisconnectTimeout : 10000, // default 2000
-        browserDisconnectTolerance : 1, // default 0
-        browserNoActivityTimeout : 4*60*1000, //default 10000
-        captureTimeout : 4*60*1000, //default 60000
+        browserDisconnectTimeout: 10000, // default 2000
+        browserDisconnectTolerance: 1, // default 0
+        browserNoActivityTimeout: 4 * 60 * 1000, // default 10000
+        captureTimeout: 4 * 60 * 1000, // default 60000
 
         singleRun: true
     });
