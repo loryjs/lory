@@ -13,7 +13,6 @@ Please visit: [http://meandmax.github.io/lory/](http://meandmax.github.io/lory/ 
 [![jsDelivr Hits](https://data.jsdelivr.com/v1/package/npm/lory.js/badge?style=rounded)](https://www.jsdelivr.com/package/npm/lory.js)
 
 [![build](http://img.shields.io/travis/meandmax/lory/master.svg?style=flat)](https://travis-ci.org/meandmax/lory)
-[![code climate](http://img.shields.io/codeclimate/github/meandmax/lory.svg?style=flat)](https://codeclimate.com/github/meandmax/lory)
 [![devDependencies](http://img.shields.io/david/dev/meandmax/lory.svg?style=flat)](https://david-dm.org/meandmax/lory#info=devDependencies&view=table)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 

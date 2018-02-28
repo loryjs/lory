@@ -16,8 +16,8 @@ export const PORT = 8080;
 
 export default {
     entry: {
-        "lory": ["./src/lory.js"],
-        "jquery.lory": "./src/jquery.lory.js"
+        'lory': ['./src/lory.js'],
+        'jquery.lory': './src/jquery.lory.js'
     },
     module: {
         rules: [

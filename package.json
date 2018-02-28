@@ -46,7 +46,7 @@
     "clamp.js": "0.2.9",
     "custom-event": "1.0.1",
     "cz-conventional-changelog": "1.2.0",
-    "debug": "2.5.1",
+    "debug": "3.1.0",
     "dependency-check": "2.8.0",
     "eslint": "3.15.0",
     "eslint-config-standard": "6.2.1",
@@ -80,7 +80,7 @@
     "uglify-js": "2.7.5",
     "unminified-webpack-plugin": "1.2.0",
     "url-loader": "0.5.7",
-    "webpack": "^2.4.1",
+    "webpack": "3.11.0",
     "webpack-dev-server": "1.16.2"
   },
   "scripts": {
