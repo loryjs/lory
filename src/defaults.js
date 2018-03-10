@@ -91,7 +91,7 @@ export default {
      * window instance
      * @window {object}
      */
-    window: window,
+    window: typeof window !== 'undefined' ? window : null,
 
     /**
      * If false, slides lory to the first slide on window resize.
