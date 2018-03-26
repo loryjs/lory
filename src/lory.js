@@ -39,7 +39,7 @@ export function lory (slider, opts) {
      * set active class to element which is the current slide
      */
     function setActiveElement (slides, currentIndex) {
-        const {classNameActiveSlide} = options;
+        const {classNameActiveSlide, infinite} = options;
 
         slides.forEach((element, index) => {
             if (element.classList.contains(classNameActiveSlide)) {
@@ -48,6 +48,12 @@ export function lory (slider, opts) {
         });
 
         slides[currentIndex].classList.add(classNameActiveSlide);
+
+        if (infinite && currentIndex === slides.length - infinite * 2) {
+            slides[infinite - 1].classList.add(classNameActiveSlide);
+        } else if (currentIndex === infinite) {
+            slides[slides.length - infinite].classList.add(classNameActiveSlide);
+        }
     }
 
     /**
