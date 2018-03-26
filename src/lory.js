@@ -431,8 +431,8 @@ export function lory (slider, opts) {
     let delta;
     let isScrolling;
 
-    function onTransitionEnd () {
-        if (transitionEndCallback) {
+    function onTransitionEnd (event) {
+        if (transitionEndCallback && event.target === slideContainer) {
             transitionEndCallback();
 
             transitionEndCallback = undefined;
