@@ -464,7 +464,6 @@ export function lory (slider, opts) {
         }
 
         if (!isScrolling && touchOffset) {
-            event.preventDefault();
             translate(position.x + delta.x, 0, null);
         }
 
