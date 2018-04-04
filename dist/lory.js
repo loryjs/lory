@@ -305,11 +305,11 @@ function lory(slider, opts) {
             duration = rewindSpeed;
         }
 
+        var nextOffset = Math.min(Math.max(slides[nextIndex].offsetLeft * -1, maxOffset * -1), 0);
+
         if (rtl) {
-            var offsetRight = slidesWidth - (slides[nextIndex].offsetLeft + slides[nextIndex].offsetWidth);
-            var nextOffset = Math.min(Math.max(offsetRight * -1, maxOffset * -1), 0) * -1;
-        } else {
-            var nextOffset = Math.min(Math.max(slides[nextIndex].offsetLeft * -1, maxOffset * -1), 0);
+            var offsetRight = frame.offsetWidth - (slides[nextIndex].offsetLeft + slides[nextIndex].offsetWidth);
+            nextOffset = Math.min(Math.max(offsetRight * -1, maxOffset * -1), 0) * -1;
         }
 
         /**

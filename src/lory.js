@@ -177,7 +177,7 @@ export function lory (slider, opts) {
         let nextOffset = Math.min(Math.max(slides[nextIndex].offsetLeft * -1, maxOffset * -1), 0);
 
         if (rtl) {
-            let offsetRight = slidesWidth - (slides[nextIndex].offsetLeft + slides[nextIndex].offsetWidth);
+            let offsetRight = frame.offsetWidth - (slides[nextIndex].offsetLeft + slides[nextIndex].offsetWidth);
             nextOffset = Math.min(Math.max(offsetRight * -1, maxOffset * -1), 0) * -1;
         }
 
