@@ -7,7 +7,7 @@
 		var a = factory();
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(this, function() {
+})(typeof self !== 'undefined' ? self : this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -43,9 +43,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
 /******/
-/******/ 	// identity function for calling harmony imports with the correct context
-/******/ 	__webpack_require__.i = function(value) { return value; };
-/******/
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
@@ -73,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -118,19 +115,19 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 exports.lory = lory;
 
-var _detectPrefixes = __webpack_require__(3);
+var _detectPrefixes = __webpack_require__(2);
 
 var _detectPrefixes2 = _interopRequireDefault(_detectPrefixes);
 
-var _detectSupportsPassive = __webpack_require__(4);
+var _detectSupportsPassive = __webpack_require__(3);
 
 var _detectSupportsPassive2 = _interopRequireDefault(_detectSupportsPassive);
 
-var _dispatchEvent = __webpack_require__(5);
+var _dispatchEvent = __webpack_require__(4);
 
 var _dispatchEvent2 = _interopRequireDefault(_dispatchEvent);
 
-var _defaults = __webpack_require__(2);
+var _defaults = __webpack_require__(6);
 
 var _defaults2 = _interopRequireDefault(_defaults);
 
@@ -261,10 +258,15 @@ function lory(slider, opts) {
             rewind = _options3.rewind,
             rewindSpeed = _options3.rewindSpeed,
             ease = _options3.ease,
-            classNameActiveSlide = _options3.classNameActiveSlide;
+            classNameActiveSlide = _options3.classNameActiveSlide,
+            rtl = _options3.rtl;
 
 
         var duration = slideSpeed;
+
+        if (rtl) {
+            direction = !direction;
+        }
 
         var nextSlide = direction ? index + 1 : index - 1;
         var maxOffset = Math.round(slidesWidth - frameWidth);
@@ -298,12 +300,16 @@ function lory(slider, opts) {
             nextIndex += infinite;
         }
 
-        var nextOffset = Math.min(Math.max(slides[nextIndex].offsetLeft * -1, maxOffset * -1), 0);
-
         if (rewind && Math.abs(position.x) === maxOffset && direction) {
-            nextOffset = 0;
             nextIndex = 0;
             duration = rewindSpeed;
+        }
+
+        if (rtl) {
+            var offsetRight = slidesWidth - (slides[nextIndex].offsetLeft + slides[nextIndex].offsetWidth);
+            var nextOffset = Math.min(Math.max(offsetRight * -1, maxOffset * -1), 0) * -1;
+        } else {
+            var nextOffset = Math.min(Math.max(slides[nextIndex].offsetLeft * -1, maxOffset * -1), 0);
         }
 
         /**
@@ -333,11 +339,19 @@ function lory(slider, opts) {
                 index = slides.length - infinite * 2;
             }
 
-            position.x = slides[index].offsetLeft * -1;
+            if (rtl) {
+                position.x = slidesWidth - (slides[index].offsetLeft + slides[index].offsetWidth);
 
-            transitionEndCallback = function transitionEndCallback() {
-                translate(slides[index].offsetLeft * -1, 0, undefined);
-            };
+                transitionEndCallback = function transitionEndCallback() {
+                    translate(slidesWidth - (slides[index].offsetLeft + slides[index].offsetWidth), 0, undefined);
+                };
+            } else {
+                position.x = slides[index].offsetLeft * -1;
+
+                transitionEndCallback = function transitionEndCallback() {
+                    translate(slides[index].offsetLeft * -1, 0, undefined);
+                };
+            }
         }
 
         if (classNameActiveSlide) {
@@ -378,7 +392,8 @@ function lory(slider, opts) {
             classNameNextCtrl = _options4.classNameNextCtrl,
             enableMouseEvents = _options4.enableMouseEvents,
             classNameActiveSlide = _options4.classNameActiveSlide,
-            initialIndex = _options4.initialIndex;
+            initialIndex = _options4.initialIndex,
+            rtl = _options4.rtl;
 
 
         index = initialIndex;
@@ -404,6 +419,10 @@ function lory(slider, opts) {
             if (nextCtrl && slides.length === 1 && !options.rewind) {
                 nextCtrl.classList.add('disabled');
             }
+        }
+
+        if (rtl) {
+            frame.style.direction = 'rtl';
         }
 
         reset();
@@ -440,7 +459,8 @@ function lory(slider, opts) {
             rewindSpeed = _options5.rewindSpeed,
             rewindOnResize = _options5.rewindOnResize,
             classNameActiveSlide = _options5.classNameActiveSlide,
-            initialIndex = _options5.initialIndex;
+            initialIndex = _options5.initialIndex,
+            rtl = _options5.rtl;
 
 
         slidesWidth = slideContainer.getBoundingClientRect().width || slideContainer.offsetWidth;
@@ -454,16 +474,21 @@ function lory(slider, opts) {
 
         if (rewindOnResize) {
             index = initialIndex;
-        } else {
+        }
+
+        if (!rewindOnResize || infinite) {
             ease = null;
             rewindSpeed = 0;
         }
 
         if (infinite) {
-            translate(slides[index + infinite].offsetLeft * -1, 0, null);
-
             index = index + infinite;
-            position.x = slides[index].offsetLeft * -1;
+        }
+
+        if (rtl) {
+            var offsetRight = slidesWidth - slides[index].offsetWidth * (slides.length - infinite);
+            translate(offsetRight, rewindSpeed, ease);
+            position.x = offsetRight;
         } else {
             translate(slides[index].offsetLeft * -1, rewindSpeed, ease);
             position.x = slides[index].offsetLeft * -1;
@@ -620,10 +645,13 @@ function lory(slider, opts) {
     }
 
     function onTouchend(event) {
+        var _options7 = options,
+            rtl = _options7.rtl;
         /**
          * time between touchstart and touchend in milliseconds
          * @duration {number}
          */
+
         var duration = touchOffset ? Date.now() - touchOffset.time : undefined;
 
         /**
@@ -642,13 +670,17 @@ function lory(slider, opts) {
         /**
          * is out of bounds if:
          *
-         * -> index is 0 and delta x is greater than 0
+         * -> index is 0 and delta x is greater than(smaller than in RTL) 0
          * or
-         * -> index is the last slide and delta is smaller than 0
+         * -> index is the last slide and delta is smaller than(greater than in RTL) 0
          *
          * @isOutOfBounds {Boolean}
          */
         var isOutOfBounds = !index && delta.x > 0 || index === slides.length - 1 && delta.x < 0;
+
+        if (rtl) {
+            isOutOfBounds = !index && delta.x < 0 || index === slides.length - 1 && delta.x > 0;
+        }
 
         var direction = delta.x < 0;
 
@@ -707,6 +739,187 @@ function lory(slider, opts) {
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = detectPrefixes;
+/**
+ * Detecting prefixes for saving time and bytes
+ */
+function detectPrefixes() {
+    var transform = void 0;
+    var transition = void 0;
+    var transitionEnd = void 0;
+    var hasTranslate3d = void 0;
+
+    (function () {
+        var el = document.createElement('_');
+        var style = el.style;
+
+        var prop = void 0;
+
+        if (style[prop = 'webkitTransition'] === '') {
+            transitionEnd = 'webkitTransitionEnd';
+            transition = prop;
+        }
+
+        if (style[prop = 'transition'] === '') {
+            transitionEnd = 'transitionend';
+            transition = prop;
+        }
+
+        if (style[prop = 'webkitTransform'] === '') {
+            transform = prop;
+        }
+
+        if (style[prop = 'msTransform'] === '') {
+            transform = prop;
+        }
+
+        if (style[prop = 'transform'] === '') {
+            transform = prop;
+        }
+
+        document.body.insertBefore(el, null);
+        style[transform] = 'translate3d(0, 0, 0)';
+        hasTranslate3d = !!global.getComputedStyle(el).getPropertyValue(transform);
+        document.body.removeChild(el);
+    })();
+
+    return {
+        transform: transform,
+        transition: transition,
+        transitionEnd: transitionEnd,
+        hasTranslate3d: hasTranslate3d
+    };
+}
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = detectSupportsPassive;
+function detectSupportsPassive() {
+    var supportsPassive = false;
+
+    try {
+        var opts = Object.defineProperty({}, 'passive', {
+            get: function get() {
+                supportsPassive = true;
+            }
+        });
+
+        window.addEventListener('testPassive', null, opts);
+        window.removeEventListener('testPassive', null, opts);
+    } catch (e) {}
+
+    return supportsPassive;
+}
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = dispatchEvent;
+
+var _customEvent = __webpack_require__(5);
+
+var _customEvent2 = _interopRequireDefault(_customEvent);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * dispatch custom events
+ *
+ * @param  {element} el         slideshow element
+ * @param  {string}  type       custom event name
+ * @param  {object}  detail     custom detail information
+ */
+function dispatchEvent(target, type, detail) {
+    var event = new _customEvent2.default(type, {
+        bubbles: true,
+        cancelable: true,
+        detail: detail
+    });
+
+    target.dispatchEvent(event);
+}
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {
+var NativeCustomEvent = global.CustomEvent;
+
+function useNative () {
+  try {
+    var p = new NativeCustomEvent('cat', { detail: { foo: 'bar' } });
+    return  'cat' === p.type && 'bar' === p.detail.foo;
+  } catch (e) {
+  }
+  return false;
+}
+
+/**
+ * Cross-browser `CustomEvent` constructor.
+ *
+ * https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent.CustomEvent
+ *
+ * @public
+ */
+
+module.exports = useNative() ? NativeCustomEvent :
+
+// IE >= 9
+'undefined' !== typeof document && 'function' === typeof document.createEvent ? function CustomEvent (type, params) {
+  var e = document.createEvent('CustomEvent');
+  if (params) {
+    e.initCustomEvent(type, params.bubbles, params.cancelable, params.detail);
+  } else {
+    e.initCustomEvent(type, false, false, void 0);
+  }
+  return e;
+} :
+
+// IE <= 8
+function CustomEvent (type, params) {
+  var e = document.createEventObject();
+  e.type = type;
+  if (params) {
+    e.bubbles = Boolean(params.bubbles);
+    e.cancelable = Boolean(params.cancelable);
+    e.detail = params.detail;
+  } else {
+    e.bubbles = false;
+    e.cancelable = false;
+    e.detail = void 0;
+  }
+  return e;
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -814,193 +1027,17 @@ exports.default = {
    * If false, slides lory to the first slide on window resize.
    * @rewindOnResize {boolean}
    */
-  rewindOnResize: true
+  rewindOnResize: true,
+
+  /**
+   * Default lory direction.
+   * @rtl {boolean}
+   */
+  rtl: false
 };
 
 /***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(global) {
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.default = detectPrefixes;
-/**
- * Detecting prefixes for saving time and bytes
- */
-function detectPrefixes() {
-    var transform = void 0;
-    var transition = void 0;
-    var transitionEnd = void 0;
-    var hasTranslate3d = void 0;
-
-    (function () {
-        var el = document.createElement('_');
-        var style = el.style;
-
-        var prop = void 0;
-
-        if (style[prop = 'webkitTransition'] === '') {
-            transitionEnd = 'webkitTransitionEnd';
-            transition = prop;
-        }
-
-        if (style[prop = 'transition'] === '') {
-            transitionEnd = 'transitionend';
-            transition = prop;
-        }
-
-        if (style[prop = 'webkitTransform'] === '') {
-            transform = prop;
-        }
-
-        if (style[prop = 'msTransform'] === '') {
-            transform = prop;
-        }
-
-        if (style[prop = 'transform'] === '') {
-            transform = prop;
-        }
-
-        document.body.insertBefore(el, null);
-        style[transform] = 'translate3d(0, 0, 0)';
-        hasTranslate3d = !!global.getComputedStyle(el).getPropertyValue(transform);
-        document.body.removeChild(el);
-    })();
-
-    return {
-        transform: transform,
-        transition: transition,
-        transitionEnd: transitionEnd,
-        hasTranslate3d: hasTranslate3d
-    };
-}
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.default = detectSupportsPassive;
-function detectSupportsPassive() {
-    var supportsPassive = false;
-
-    try {
-        var opts = Object.defineProperty({}, 'passive', {
-            get: function get() {
-                supportsPassive = true;
-            }
-        });
-
-        window.addEventListener('testPassive', null, opts);
-        window.removeEventListener('testPassive', null, opts);
-    } catch (e) {}
-
-    return supportsPassive;
-}
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.default = dispatchEvent;
-
-var _customEvent = __webpack_require__(6);
-
-var _customEvent2 = _interopRequireDefault(_customEvent);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * dispatch custom events
- *
- * @param  {element} el         slideshow element
- * @param  {string}  type       custom event name
- * @param  {object}  detail     custom detail information
- */
-function dispatchEvent(target, type, detail) {
-    var event = new _customEvent2.default(type, {
-        bubbles: true,
-        cancelable: true,
-        detail: detail
-    });
-
-    target.dispatchEvent(event);
-}
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global) {
-var NativeCustomEvent = global.CustomEvent;
-
-function useNative () {
-  try {
-    var p = new NativeCustomEvent('cat', { detail: { foo: 'bar' } });
-    return  'cat' === p.type && 'bar' === p.detail.foo;
-  } catch (e) {
-  }
-  return false;
-}
-
-/**
- * Cross-browser `CustomEvent` constructor.
- *
- * https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent.CustomEvent
- *
- * @public
- */
-
-module.exports = useNative() ? NativeCustomEvent :
-
-// IE >= 9
-'undefined' !== typeof document && 'function' === typeof document.createEvent ? function CustomEvent (type, params) {
-  var e = document.createEvent('CustomEvent');
-  if (params) {
-    e.initCustomEvent(type, params.bubbles, params.cancelable, params.detail);
-  } else {
-    e.initCustomEvent(type, false, false, void 0);
-  }
-  return e;
-} :
-
-// IE <= 8
-function CustomEvent (type, params) {
-  var e = document.createEventObject();
-  e.type = type;
-  if (params) {
-    e.bubbles = Boolean(params.bubbles);
-    e.cancelable = Boolean(params.cancelable);
-    e.detail = params.detail;
-  } else {
-    e.bubbles = false;
-    e.cancelable = false;
-    e.detail = void 0;
-  }
-  return e;
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 7 */,
-/* 8 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(1);
