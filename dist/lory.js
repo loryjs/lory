@@ -308,7 +308,7 @@ function lory(slider, opts) {
         var nextOffset = Math.min(Math.max(slides[nextIndex].offsetLeft * -1, maxOffset * -1), 0);
 
         if (rtl) {
-            var offsetRight = frame.offsetWidth - (slides[nextIndex].offsetLeft + slides[nextIndex].offsetWidth);
+            var offsetRight = frameWidth - (slides[nextIndex].offsetLeft + slides[nextIndex].offsetWidth);
             nextOffset = Math.min(Math.max(offsetRight * -1, maxOffset * -1), 0) * -1;
         }
 
@@ -340,10 +340,10 @@ function lory(slider, opts) {
             }
 
             if (rtl) {
-                position.x = slidesWidth - (slides[index].offsetLeft + slides[index].offsetWidth);
+                position.x = frameWidth - (slides[index].offsetLeft + slides[index].offsetWidth);
 
                 transitionEndCallback = function transitionEndCallback() {
-                    translate(slidesWidth - (slides[index].offsetLeft + slides[index].offsetWidth), 0, undefined);
+                    translate(frameWidth - (slides[index].offsetLeft + slides[index].offsetWidth), 0, undefined);
                 };
             } else {
                 position.x = slides[index].offsetLeft * -1;
@@ -486,7 +486,7 @@ function lory(slider, opts) {
         }
 
         if (rtl) {
-            var offsetRight = slidesWidth - slides[index].offsetWidth * (slides.length - infinite);
+            var offsetRight = frameWidth - (slides[index].offsetLeft + slides[index].offsetWidth);
             translate(offsetRight, rewindSpeed, ease);
             position.x = offsetRight;
         } else {
@@ -575,6 +575,7 @@ function lory(slider, opts) {
     var touchOffset = void 0;
     var delta = void 0;
     var isScrolling = void 0;
+    var windowWidth = void 0;
 
     function onTransitionEnd() {
         if (transitionEndCallback) {
@@ -715,11 +716,15 @@ function lory(slider, opts) {
     }
 
     function onResize(event) {
-        reset();
+        if (options.window.innerWidth !== windowWidth) {
+            windowWidth = options.window.innerWidth;
 
-        dispatchSliderEvent('on', 'resize', {
-            event: event
-        });
+            reset();
+
+            dispatchSliderEvent('on', 'resize', {
+                event: event
+            });
+        }
     }
 
     // trigger initial setup

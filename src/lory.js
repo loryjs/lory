@@ -177,7 +177,7 @@ export function lory (slider, opts) {
         let nextOffset = Math.min(Math.max(slides[nextIndex].offsetLeft * -1, maxOffset * -1), 0);
 
         if (rtl) {
-            let offsetRight = frame.offsetWidth - (slides[nextIndex].offsetLeft + slides[nextIndex].offsetWidth);
+            let offsetRight = frameWidth - (slides[nextIndex].offsetLeft + slides[nextIndex].offsetWidth);
             nextOffset = Math.min(Math.max(offsetRight * -1, maxOffset * -1), 0) * -1;
         }
 
@@ -209,10 +209,10 @@ export function lory (slider, opts) {
             }
 
             if (rtl) {
-                position.x = slidesWidth - (slides[index].offsetLeft + slides[index].offsetWidth);
+                position.x = frameWidth - (slides[index].offsetLeft + slides[index].offsetWidth);
 
                 transitionEndCallback = function () {
-                    translate(slidesWidth - (slides[index].offsetLeft + slides[index].offsetWidth), 0, undefined);
+                    translate(frameWidth - (slides[index].offsetLeft + slides[index].offsetWidth), 0, undefined);
                 };
             } else {
                 position.x = slides[index].offsetLeft * -1;
@@ -357,7 +357,7 @@ export function lory (slider, opts) {
         }
 
         if (rtl) {
-            let offsetRight = slidesWidth - (slides[index].offsetWidth * (slides.length - infinite));
+            let offsetRight = frameWidth - (slides[index].offsetLeft + slides[index].offsetWidth);
             translate(offsetRight, rewindSpeed, ease);
             position.x = offsetRight;
         } else {
@@ -446,6 +446,7 @@ export function lory (slider, opts) {
     let touchOffset;
     let delta;
     let isScrolling;
+    let windowWidth;
 
     function onTransitionEnd () {
         if (transitionEndCallback) {
@@ -582,11 +583,15 @@ export function lory (slider, opts) {
     }
 
     function onResize (event) {
-        reset();
+        if (options.window.innerWidth !== windowWidth) {
+            windowWidth = options.window.innerWidth;
 
-        dispatchSliderEvent('on', 'resize', {
-            event
-        });
+            reset();
+
+            dispatchSliderEvent('on', 'resize', {
+                event
+            });
+        }
     }
 
     // trigger initial setup
