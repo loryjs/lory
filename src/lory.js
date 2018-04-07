@@ -585,10 +585,11 @@ export function lory (slider, opts) {
 
             reset();
 
-            dispatchSliderEvent('on', 'resize', {
-                event
-            });
         }
+        
+        dispatchSliderEvent('on', 'resize', {
+            event
+        });
     }
 
     // trigger initial setup
