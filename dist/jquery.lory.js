@@ -264,7 +264,7 @@ function lory(slider, opts) {
 
         var duration = slideSpeed;
 
-        if (rtl) {
+        if (rtl && direction !== undefined) {
             direction = !direction;
         }
 
@@ -409,6 +409,7 @@ function lory(slider, opts) {
 
         if (options.infinite) {
             slides = setupInfinite(slice.call(slideContainer.children));
+            index += options.infinite;
         } else {
             slides = slice.call(slideContainer.children);
 
@@ -479,10 +480,6 @@ function lory(slider, opts) {
         if (!rewindOnResize || infinite) {
             ease = null;
             rewindSpeed = 0;
-        }
-
-        if (infinite) {
-            index = index + infinite;
         }
 
         if (rtl) {

@@ -133,7 +133,7 @@ export function lory (slider, opts) {
 
         let duration = slideSpeed;
 
-        if (rtl) {
+        if (rtl && direction !== undefined) {
             direction = !direction;
         }
 
@@ -278,6 +278,7 @@ export function lory (slider, opts) {
 
         if (options.infinite) {
             slides = setupInfinite(slice.call(slideContainer.children));
+            index += options.infinite;
         } else {
             slides = slice.call(slideContainer.children);
 
@@ -350,10 +351,6 @@ export function lory (slider, opts) {
         if (!rewindOnResize || infinite) {
             ease = null;
             rewindSpeed = 0;
-        }
-
-        if (infinite) {
-            index = index + infinite;
         }
 
         if (rtl) {
