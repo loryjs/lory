@@ -189,8 +189,18 @@ export function lory (slider, opts) {
         if (slides[nextIndex].offsetLeft <= maxOffset) {
             index = nextIndex;
         }
-
-        if (infinite && (nextIndex === slides.length - infinite || nextIndex === 0)) {
+        
+        var isNextIndexOutOfBorders = false;
+        if (slides.length % (infinite - slidesToScroll)) {
+            /**
+             * solving number of slides is not a multiple of scroll dx showed items
+             */
+            isNextIndexOutOfBorders = nextIndex > slides.length - infinite;
+        } else {
+            isNextIndexOutOfBorders = nextIndex === slides.length - infinite;
+        }
+        
+        if (infinite && (isNextIndexOutOfBorders || nextIndex === 0)) {
             if (direction) {
                 index = infinite;
             }
