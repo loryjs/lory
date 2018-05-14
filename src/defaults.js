@@ -97,5 +97,13 @@ export default {
      * If false, slides lory to the first slide on window resize.
      * @rewindOnResize {boolean}
      */
-    rewindOnResize: true
+    rewindOnResize: true,
+
+    /**
+     * Enables auto slideshow
+     * @autoMode {object}
+     * @autoMode.enabled {boolean}
+     * @autoMode.interval {number}
+     */
+    autoMode: { enabled: false, interval: 3000 }
 };
