@@ -25,6 +25,7 @@ export function lory (slider, opts) {
 
     let index   = 0;
     let options = {};
+    let autoModeInterval;
     let touchEventParams = supportsPassive() ? { passive: true } : false;
 
     /**
@@ -244,7 +245,8 @@ export function lory (slider, opts) {
             classNameNextCtrl,
             enableMouseEvents,
             classNameActiveSlide,
-            initialIndex
+            initialIndex,
+            autoMode
         } = options;
 
         index = initialIndex;
@@ -288,6 +290,10 @@ export function lory (slider, opts) {
         if (enableMouseEvents) {
             frame.addEventListener('mousedown', onTouchstart);
             frame.addEventListener('click', onClick);
+        }
+
+        if (autoMode.enabled) {
+          startAutoMode(autoMode.interval)
         }
 
         options.window.addEventListener('resize', onResize);
@@ -422,12 +428,20 @@ export function lory (slider, opts) {
 
     function onTouchstart (event) {
         const {enableMouseEvents} = options;
+        const {autoMode} = options;
         const touches = event.touches ? event.touches[0] : event;
 
         if (enableMouseEvents) {
             frame.addEventListener('mousemove', onTouchmove);
             frame.addEventListener('mouseup', onTouchend);
             frame.addEventListener('mouseleave', onTouchend);
+        }
+
+        /**
+        * Stop autoMode interval if option is enabled - to alleviate the slide changing whilst touch is engaged
+        */
+        if (autoMode.enabled) {
+          pauseAutoMode()
         }
 
         frame.addEventListener('touchmove', onTouchmove, touchEventParams);
@@ -474,6 +488,7 @@ export function lory (slider, opts) {
     }
 
     function onTouchend (event) {
+        const {autoMode} = options;
         /**
          * time between touchstart and touchend in milliseconds
          * @duration {number}
@@ -511,9 +526,15 @@ export function lory (slider, opts) {
 
         if (!isScrolling) {
             if (isValid && !isOutOfBounds) {
-                slide(false, direction);
+              slide(false, direction);
             } else {
-                translate(position.x, options.snapBackSpeed);
+              translate(position.x, options.snapBackSpeed);
+            }
+            /**
+            * Start autoMode interval again if option is enabled
+            */
+            if (autoMode.enabled) {
+              startAutoMode(autoMode.interval);
             }
         }
 
@@ -531,6 +552,19 @@ export function lory (slider, opts) {
         dispatchSliderEvent('on', 'touchend', {
             event
         });
+    }
+
+    function startAutoMode (interval) {
+      if (!autoModeInterval) {
+        autoModeInterval = setInterval(function() { next() }, interval )
+      }
+    }
+
+    function pauseAutoMode () {
+      if (autoModeInterval) {
+        clearInterval( autoModeInterval )
+        autoModeInterval = null;
+      }
     }
 
     function onClick (event) {
