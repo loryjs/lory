@@ -21,7 +21,7 @@ Please visit: [http://meandmax.github.io/lory/](http://meandmax.github.io/lory/ 
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 
-[![Sauce Test Status](https://saucelabs.com/browser-matrix/meandmax.svg)](https://saucelabs.com/u/meandmax)
+[![Build Status](https://saucelabs.com/buildstatus/meandmax?saucy)](https://saucelabs.com/beta/builds/ed0e8606c4d84e31b3528326192e0a46)
 
 ## Download
 
