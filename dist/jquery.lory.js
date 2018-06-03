@@ -283,9 +283,17 @@ function lory(slider, opts) {
 
         if (typeof nextIndex !== 'number') {
             if (direction) {
-                nextIndex = index + slidesToScroll;
+                if (infinite && index + infinite * 2 !== slides.length) {
+                    nextIndex = index + (infinite - index % infinite);
+                } else {
+                    nextIndex = index + slidesToScroll;
+                }
             } else {
-                nextIndex = index - slidesToScroll;
+                if (infinite && index % infinite !== 0) {
+                    nextIndex = index - index % infinite;
+                } else {
+                    nextIndex = index - slidesToScroll;
+                }
             }
         }
 
@@ -321,7 +329,7 @@ function lory(slider, opts) {
             index = nextIndex;
         }
 
-        if (infinite && (nextIndex === slides.length - infinite || nextIndex === 0)) {
+        if (infinite && (nextIndex === slides.length - infinite || nextIndex === slides.length - slides.length % infinite || nextIndex === 0)) {
             if (direction) {
                 index = infinite;
             }
