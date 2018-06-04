@@ -243,6 +243,13 @@ function lory(slider, opts) {
     }
 
     /**
+     * returns an element's width
+     */
+    function elementWidth(element) {
+        return element.getBoundingClientRect().width || element.offsetWidth;
+    }
+
+    /**
      * slidefunction called by prev, next & touchend
      *
      * determine nextIndex and slide to next postion
@@ -448,12 +455,12 @@ function lory(slider, opts) {
             initialIndex = _options5.initialIndex;
 
 
-        slidesWidth = slideContainer.getBoundingClientRect().width || slideContainer.offsetWidth;
-        frameWidth = frame.getBoundingClientRect().width || frame.offsetWidth;
+        slidesWidth = elementWidth(slideContainer);
+        frameWidth = elementWidth(frame);
 
         if (frameWidth === slidesWidth) {
             slidesWidth = slides.reduce(function (previousValue, slide) {
-                return previousValue + slide.getBoundingClientRect().width || slide.offsetWidth;
+                return previousValue + elementWidth(slide);
             }, 0);
         }
 
@@ -687,11 +694,13 @@ function lory(slider, opts) {
     }
 
     function onResize(event) {
-        reset();
+        if (frameWidth !== elementWidth(frame)) {
+            reset();
 
-        dispatchSliderEvent('on', 'resize', {
-            event: event
-        });
+            dispatchSliderEvent('on', 'resize', {
+                event: event
+            });
+        }
     }
 
     // trigger initial setup
