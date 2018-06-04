@@ -8,14 +8,14 @@ describe('lory()', function () {
     var slideMargin = 10;
     var transitionEnd = whichTransitionEndProp();
 
-    function whichTransitionEndProp() {
+    function whichTransitionEndProp () {
         var el = document.createElement('fakeelement');
         var transitionEndProps = {
             'transition': 'transitionend',
             'OTransition': 'oTransitionEnd',
             'MozTransition': 'transitionend',
             'WebkitTransition': 'webkitTransitionEnd'
-        }
+        };
         for (var transition in transitionEndProps) {
             if (el.style[transition] !== undefined) {
                 return transitionEndProps[transition];
@@ -23,9 +23,9 @@ describe('lory()', function () {
         }
     }
 
-    function waitForTransitionEnd(fn, done) {
+    function waitForTransitionEnd (fn, done) {
         var slideContainer = getSlideContainer();
-        var listener = function() {
+        var listener = function () {
             fn();
             slideContainer.removeEventListener(transitionEnd, listener);
             done && done();
@@ -33,18 +33,18 @@ describe('lory()', function () {
         slideContainer.addEventListener(transitionEnd, listener);
     }
 
-    function getSlideContainer() {
+    function getSlideContainer () {
         return element.querySelector('.js_slides');
     }
 
-    function getActualOffset() {
+    function getActualOffset () {
         var slideContainer = getSlideContainer();
         var parentOffset = slideContainer.offsetParent.getBoundingClientRect().left;
         var elementOffset = slideContainer.getBoundingClientRect().left;
         return (parentOffset - elementOffset) * -1;
     }
 
-    function getExpectedOffset(leftOffsetSlideCount) {
+    function getExpectedOffset (leftOffsetSlideCount) {
         var slideWidth = element.querySelector('.js_slide').offsetWidth;
         return (slideWidth + slideMargin) * -leftOffsetSlideCount;
     }
@@ -55,7 +55,7 @@ describe('lory()', function () {
 
     beforeEach(function () {
         this.result = fixture.load('test.html');
-        element  = fixture.el.querySelector('.js_simple');
+        element = fixture.el.querySelector('.js_simple');
     });
 
     it('has to be a function', function () {
@@ -137,7 +137,7 @@ describe('lory()', function () {
             assert.typeOf(instance.next, 'function');
         });
 
-        describe('called 2x', function() {
+        describe('called 2x', function () {
             var expectedIndex = 2;
 
             beforeEach(function () {
@@ -145,8 +145,8 @@ describe('lory()', function () {
                 instance.next();
             });
 
-            it('translates the slides container 2 slides to the left', function(done) {
-                waitForTransitionEnd(function() {
+            it('translates the slides container 2 slides to the left', function (done) {
+                waitForTransitionEnd(function () {
                     assert.equal(getActualOffset(), getExpectedOffset(2));
                 }, done);
             });
@@ -159,15 +159,15 @@ describe('lory()', function () {
         describe('without infinite', function () {
             var expectedIndex = 5;
 
-            describe('called 6x', function() {
+            describe('called 6x', function () {
                 beforeEach(function () {
                     for (var i = 0; i < 6; i += 1) {
                         instance.next();
                     }
                 });
 
-                it('translates the slides container 5 slides to the left', function(done) {
-                    waitForTransitionEnd(function() {
+                it('translates the slides container 5 slides to the left', function (done) {
+                    waitForTransitionEnd(function () {
                         assert.equal(getActualOffset(), getExpectedOffset(5));
                     }, done);
                 });
@@ -185,7 +185,7 @@ describe('lory()', function () {
                 });
             });
 
-            describe('called 6x', function() {
+            describe('called 6x', function () {
                 var expectedIndex = 0;
 
                 beforeEach(function () {
@@ -194,8 +194,8 @@ describe('lory()', function () {
                     }
                 });
 
-                it('translates the slides container 1 slide to the left', function(done) {
-                    waitForTransitionEnd(function() {
+                it('translates the slides container 1 slide to the left', function (done) {
+                    waitForTransitionEnd(function () {
                         assert.equal(getActualOffset(), getExpectedOffset(1));
                     }, done);
                 });
@@ -207,7 +207,7 @@ describe('lory()', function () {
         });
     });
 
-    describe('.prev()', function() {
+    describe('.prev()', function () {
         beforeEach(function () {
             instance = lory(element);
         });
@@ -224,11 +224,11 @@ describe('lory()', function () {
                     instance.prev();
                 });
 
-                it('does not translate the slides container', function() {
+                it('does not translate the slides container', function () {
                     assert.equal(getActualOffset(), getExpectedOffset(0));
                 });
 
-                it('index has to be 0 (i.e. 1st slide)', function() {
+                it('index has to be 0 (i.e. 1st slide)', function () {
                     assert.equal(instance.returnIndex(), 0);
                 });
             });
@@ -240,19 +240,19 @@ describe('lory()', function () {
                     instance.next();
                     // setTimeout is needed to simulate two separate clicks,
                     // otherwise the two transitions cancel each other out
-                    window.setTimeout(function() {
+                    window.setTimeout(function () {
                         instance.prev();
                         done();
                     }, 50);
                 });
 
-                it('translates the slides container back to the first slide', function(done) {
-                    waitForTransitionEnd(function() {
+                it('translates the slides container back to the first slide', function (done) {
+                    waitForTransitionEnd(function () {
                         assert.equal(getActualOffset(), getExpectedOffset(0));
                     }, done);
                 });
 
-                it('index has to be 0 (i.e. 1st slide)', function() {
+                it('index has to be 0 (i.e. 1st slide)', function () {
                     assert.equal(instance.returnIndex(), expectedIndex);
                 });
             });
@@ -266,13 +266,13 @@ describe('lory()', function () {
                     instance.prev();
                 });
 
-                it('translates the slides container 1 slide to the left', function(done) {
-                    waitForTransitionEnd(function() {
+                it('translates the slides container 1 slide to the left', function (done) {
+                    waitForTransitionEnd(function () {
                         assert.equal(getActualOffset(), getExpectedOffset(1));
                     }, done);
                 });
 
-                it('index has to be 1 (i.e. 2nd slide)', function() {
+                it('index has to be 1 (i.e. 2nd slide)', function () {
                     assert.equal(instance.returnIndex(), expectedIndex);
                 });
             });
@@ -285,37 +285,37 @@ describe('lory()', function () {
                 });
             });
 
-            describe('called zero times', function() {
+            describe('called zero times', function () {
                 var expectedIndex = 0;
 
-                it('translates the slides container 1 slide to the left', function() {
+                it('translates the slides container 1 slide to the left', function () {
                     assert.equal(getActualOffset(), getExpectedOffset(1));
                 });
 
-                it('index has to be 0 (i.e. 1st slide)', function() {
+                it('index has to be 0 (i.e. 1st slide)', function () {
                     assert.equal(instance.returnIndex(), expectedIndex);
                 });
             });
 
-            describe('called once', function() {
+            describe('called once', function () {
                 var expectedIndex = 5;
 
                 beforeEach(function () {
                     instance.prev();
                 });
 
-                it('translates the slides container 6 slides to the left', function(done) {
-                    waitForTransitionEnd(function() {
+                it('translates the slides container 6 slides to the left', function (done) {
+                    waitForTransitionEnd(function () {
                         assert.equal(getActualOffset(), getExpectedOffset(6));
                     }, done);
                 });
 
-                it('index has to be 5 (i.e. 6th slide)', function() {
+                it('index has to be 5 (i.e. 6th slide)', function () {
                     assert.equal(instance.returnIndex(), expectedIndex);
                 });
             });
 
-            describe('called 4x', function() {
+            describe('called 4x', function () {
                 var expectedIndex = 2;
 
                 beforeEach(function () {
@@ -324,13 +324,13 @@ describe('lory()', function () {
                     }
                 });
 
-                it('translates the slides container 3 slides to the left', function(done) {
-                    waitForTransitionEnd(function() {
+                it('translates the slides container 3 slides to the left', function (done) {
+                    waitForTransitionEnd(function () {
                         assert.equal(getActualOffset(), getExpectedOffset(3));
                     }, done);
                 });
 
-                it('index has to be 2 (i.e. 3rd slide)', function() {
+                it('index has to be 2 (i.e. 3rd slide)', function () {
                     assert.equal(instance.returnIndex(), expectedIndex);
                 });
             });
@@ -343,18 +343,18 @@ describe('lory()', function () {
                 });
             });
 
-            describe('called once', function() {
+            describe('called once', function () {
                 var expectedIndex = 2;
 
                 beforeEach(function () {
                     instance.prev();
                 });
 
-                it('index has to be 2 (one less than initialIndex)', function() {
+                it('index has to be 2 (one less than initialIndex)', function () {
                     assert.equal(instance.returnIndex(), expectedIndex);
                 });
-             });
-         });
+            });
+        });
     });
 
     describe('.destroy()', function () {
@@ -364,37 +364,6 @@ describe('lory()', function () {
 
         it('has to be a function', function () {
             assert.typeOf(instance.destroy, 'function');
-        });
-    });
-
-    describe('.onResize()', function () {
-        var resizeListener;
-        var indexAfterResize;
-        var onResizeCallback = function() {
-            indexAfterResize = instance.returnIndex();
-        };
-
-        beforeEach(function () {
-            instance = lory(element, {
-                window: {
-                    addEventListener: function(type, listener) {
-                        if (type == 'resize') {
-                            resizeListener = listener;
-                        }
-                    }
-                }
-            });
-            element.addEventListener('on.lory.resize', onResizeCallback);
-        });
-
-        afterEach(function () {
-            element.removeEventListener('on.lory.resize', onResizeCallback);
-        });
-
-        it('has to dispatch the event on.lory.resize after reset()', function () {
-            instance.next();
-            resizeListener();
-            assert.equal(indexAfterResize, 0);
         });
     });
 });
