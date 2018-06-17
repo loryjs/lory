@@ -143,17 +143,17 @@ export function lory (slider, opts) {
 
         if (typeof nextIndex !== 'number') {
             if (direction) {
-              if (infinite && index + (infinite * 2) !== slides.length) {
-                  nextIndex = index + (infinite - index % infinite);
-              } else {
-                  nextIndex = index + slidesToScroll;
-              }
+                if (infinite && index + (infinite * 2) !== slides.length) {
+                    nextIndex = index + (infinite - index % infinite);
+                } else {
+                    nextIndex = index + slidesToScroll;
+                }
             } else {
-              if (infinite && index % infinite !== 0) {
-                  nextIndex = index - index % infinite;
-              } else {
-                  nextIndex = index - slidesToScroll;
-              }
+                if (infinite && index % infinite !== 0) {
+                    nextIndex = index - index % infinite;
+                } else {
+                    nextIndex = index - slidesToScroll;
+                }
             }
         }
 
