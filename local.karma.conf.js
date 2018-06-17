@@ -25,10 +25,8 @@ module.exports = function (config) {
 
         browsers: [
             'Chrome',
-            'ChromeCanary',
             'PhantomJS',
-            'Firefox',
-            'Safari'
+            'Firefox'
         ],
 
         plugins: [
@@ -38,9 +36,7 @@ module.exports = function (config) {
             'karma-fixture',
             'karma-chrome-launcher',
             'karma-phantomjs-launcher',
-            'karma-ie-launcher',
             'karma-firefox-launcher',
-            'karma-safari-launcher',
             'karma-html2js-preprocessor'
         ],
 

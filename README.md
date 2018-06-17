@@ -10,9 +10,9 @@ Please visit: [http://meandmax.github.io/lory/](http://meandmax.github.io/lory/ 
 [![license](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://raw.githubusercontent.com/meandmax/lory/master/LICENSE)
 [![npm](http://img.shields.io/npm/v/lory.js.svg?style=flat)](https://www.npmjs.com/package/lory.js)
 [![CDNJS](https://img.shields.io/cdnjs/v/lory.js.svg)](https://cdnjs.com/libraries/lory.js/)
+[![jsDelivr Hits](https://data.jsdelivr.com/v1/package/npm/lory.js/badge?style=rounded)](https://www.jsdelivr.com/package/npm/lory.js)
 
 [![build](http://img.shields.io/travis/meandmax/lory/master.svg?style=flat)](https://travis-ci.org/meandmax/lory)
-[![code climate](http://img.shields.io/codeclimate/github/meandmax/lory.svg?style=flat)](https://codeclimate.com/github/meandmax/lory)
 [![devDependencies](http://img.shields.io/david/dev/meandmax/lory.svg?style=flat)](https://david-dm.org/meandmax/lory#info=devDependencies&view=table)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 
@@ -21,20 +21,19 @@ Please visit: [http://meandmax.github.io/lory/](http://meandmax.github.io/lory/ 
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 
-[![Sauce Test Status](https://saucelabs.com/browser-matrix/meandmax.svg)](https://saucelabs.com/u/meandmax)
+[![Build Status](https://saucelabs.com/buildstatus/meandmax?saucy)](https://saucelabs.com/beta/builds/ed0e8606c4d84e31b3528326192e0a46)
 
 ## Download
 
 lory is released under the MIT license & supports modern environments.
 There is also a prebundled CDN version which you can use.
 
-####  Vanilla JavaScript: https://cdnjs.cloudflare.com/ajax/libs/lory.js/2.2.0/lory.min.js
-#### jQuery plugin: https://cdnjs.cloudflare.com/ajax/libs/lory.js/2.2.0/jquery.lory.min.js
+#### CDN: https://cdnjs.com/libraries/lory.js/
 
-## Install with node:
+## Install with yarn:
 
 ```
-npm install --save lory.js
+yarn add lory.js
 ```
 
 ## Consume it as an ES2015 module:
@@ -76,19 +75,19 @@ bower install lory --save
 ```
 // To install dev dependencies run:
 
-npm install
+yarn
 
 // To start the development server run:
 
-npm run dev
+yarn run dev
 
 // To lint your code run:
 
-npm run lint
+yarn run lint
 
 // To make a full new build run:
 
-npm run build
+yarn run build
 ```
 
 ## Run tests
@@ -96,11 +95,11 @@ npm run build
 ```
 // To install dev dependencies run:
 
-npm install
+yarn install
 
 // To start the karma tests locally run:
 
-npm run karma-local
+yarn run karma-local
 ```
 
 <p align="center">
@@ -283,6 +282,11 @@ li {
         <td>ease</td>
         <td>cubic bezier easing functions: http://easings.net/de</td>
         <td>default: 'ease'</td>
+    </tr>
+    <tr>
+        <td>initialIndex</td>
+        <td>the slide index to show when the slider is initialized</td>
+        <td>default: 0</td>
     </tr>
     <tr>
         <td>classNameFrame</td>

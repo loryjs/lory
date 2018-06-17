@@ -45,6 +45,12 @@ export default {
     infinite: false,
 
     /**
+     * the slide index to show when the slider is initialized.
+     * @initialIndex {number}
+     */
+    initialIndex: 0,
+
+    /**
      * class name for slider frame
      * @classNameFrame {string}
      */
@@ -85,7 +91,7 @@ export default {
      * window instance
      * @window {object}
      */
-    window: window,
+    window: typeof window !== 'undefined' ? window : null,
 
     /**
      * If false, slides lory to the first slide on window resize.
