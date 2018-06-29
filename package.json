@@ -70,6 +70,7 @@
     "karma-phantomjs-launcher": "1.0.4",
     "karma-safari-launcher": "1.0.0",
     "karma-sauce-launcher": "1.2.0",
+    "karma-webpack": "2.0.6",
     "mocha": "3.2.0",
     "nodemon": "1.11.0",
     "phantomjs-prebuilt": "2.1.14",
@@ -128,8 +129,5 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  },
-  "dependencies": {
-    "karma-webpack": "2.0.6"
   }
 }
