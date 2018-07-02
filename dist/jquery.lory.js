@@ -270,23 +270,7 @@ function lory(slider, opts) {
 
         var duration = slideSpeed;
 
-        var nextSlide = direction ? index + 1 : index - 1;
         var maxOffset = Math.round(slidesWidth - frameWidth);
-
-        dispatchSliderEvent('before', 'slide', {
-            index: index,
-            nextSlide: nextSlide
-        });
-
-        /**
-         * Reset control classes
-         */
-        if (prevCtrl) {
-            prevCtrl.classList.remove('disabled');
-        }
-        if (nextCtrl) {
-            nextCtrl.classList.remove('disabled');
-        }
 
         if (typeof nextIndex !== 'number') {
             if (direction) {
@@ -308,6 +292,31 @@ function lory(slider, opts) {
 
         if (infinite && direction === undefined) {
             nextIndex += infinite;
+        }
+
+        var nextSlide = nextIndex;
+        // Calculate the real next slide if we're in a carousel
+        if (infinite) {
+            if (nextIndex === slides.length - infinite) {
+                nextSlide = infinite;
+            } else if (nextIndex === 0) {
+                nextSlide = slides.length - infinite * 2;
+            }
+        }
+
+        dispatchSliderEvent('before', 'slide', {
+            index: index,
+            nextSlide: nextSlide
+        });
+
+        /**
+         * Reset control classes
+         */
+        if (prevCtrl) {
+            prevCtrl.classList.remove('disabled');
+        }
+        if (nextCtrl) {
+            nextCtrl.classList.remove('disabled');
         }
 
         var nextOffset = Math.min(Math.max(slides[nextIndex].offsetLeft * -1, maxOffset * -1), 0);

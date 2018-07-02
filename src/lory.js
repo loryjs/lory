@@ -139,12 +139,43 @@ export function lory (slider, opts) {
 
         let duration = slideSpeed;
 
-        const nextSlide = direction ? index + 1 : index - 1;
         const maxOffset = Math.round(slidesWidth - frameWidth);
 
+        if (typeof nextIndex !== 'number') {
+            if (direction) {
+                if (infinite && index + (infinite * 2) !== slides.length) {
+                    nextIndex = index + (infinite - index % infinite);
+                } else {
+                    nextIndex = index + slidesToScroll;
+                }
+            } else {
+                if (infinite && index % infinite !== 0) {
+                    nextIndex = index - index % infinite;
+                } else {
+                    nextIndex = index - slidesToScroll;
+                }
+            }
+        }
+
+        nextIndex = Math.min(Math.max(nextIndex, 0), slides.length - 1);
+
+        if (infinite && direction === undefined) {
+            nextIndex += infinite;
+        }
+
+        var nextSlide = nextIndex;
+        // Calculate the real next slide if we're in a carousel
+        if (infinite) {
+            if (nextIndex === slides.length - infinite) {
+                nextSlide = infinite;
+            } else if (nextIndex === 0) {
+                nextSlide = slides.length - infinite * 2;
+            }
+        }
+
         dispatchSliderEvent('before', 'slide', {
-            index,
-            nextSlide
+            index: index,
+            nextSlide: nextSlide
         });
 
         /**
@@ -155,28 +186,6 @@ export function lory (slider, opts) {
         }
         if (nextCtrl) {
             nextCtrl.classList.remove('disabled');
-        }
-
-        if (typeof nextIndex !== 'number') {
-            if (direction) {
-              if (infinite && index + (infinite * 2) !== slides.length) {
-                  nextIndex = index + (infinite - index % infinite);
-              } else {
-                  nextIndex = index + slidesToScroll;
-              }
-            } else {
-              if (infinite && index % infinite !== 0) {
-                  nextIndex = index - index % infinite;
-              } else {
-                  nextIndex = index - slidesToScroll;
-              }
-            }
-        }
-
-        nextIndex = Math.min(Math.max(nextIndex, 0), slides.length - 1);
-
-        if (infinite && direction === undefined) {
-            nextIndex += infinite;
         }
 
         let nextOffset = Math.min(Math.max(slides[nextIndex].offsetLeft * -1, maxOffset * -1), 0);
