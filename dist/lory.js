@@ -233,7 +233,11 @@ function lory(slider, opts) {
             rewind = _options3.rewind,
             rewindSpeed = _options3.rewindSpeed,
             ease = _options3.ease,
-            classNameActiveSlide = _options3.classNameActiveSlide;
+            classNameActiveSlide = _options3.classNameActiveSlide,
+            _options3$classNameDi = _options3.classNameDisabledNextCtrl,
+            classNameDisabledNextCtrl = _options3$classNameDi === undefined ? 'disabled' : _options3$classNameDi,
+            _options3$classNameDi2 = _options3.classNameDisabledPrevCtrl,
+            classNameDisabledPrevCtrl = _options3$classNameDi2 === undefined ? 'disabled' : _options3$classNameDi2;
 
 
         var duration = slideSpeed;
@@ -250,10 +254,10 @@ function lory(slider, opts) {
          * Reset control classes
          */
         if (prevCtrl) {
-            prevCtrl.classList.remove('disabled');
+            prevCtrl.classList.remove(classNameDisabledPrevCtrl);
         }
         if (nextCtrl) {
-            nextCtrl.classList.remove('disabled');
+            nextCtrl.classList.remove(classNameDisabledNextCtrl);
         }
 
         if (typeof nextIndex !== 'number') {
@@ -329,11 +333,11 @@ function lory(slider, opts) {
          * based on user settings
          */
         if (prevCtrl && !infinite && nextIndex === 0) {
-            prevCtrl.classList.add('disabled');
+            prevCtrl.classList.add(classNameDisabledPrevCtrl);
         }
 
         if (nextCtrl && !infinite && !rewind && nextIndex + 1 === slides.length) {
-            nextCtrl.classList.add('disabled');
+            nextCtrl.classList.add(classNameDisabledNextCtrl);
         }
 
         dispatchSliderEvent('after', 'slide', {
@@ -356,6 +360,10 @@ function lory(slider, opts) {
             classNameSlideContainer = _options4.classNameSlideContainer,
             classNamePrevCtrl = _options4.classNamePrevCtrl,
             classNameNextCtrl = _options4.classNameNextCtrl,
+            _options4$classNameDi = _options4.classNameDisabledNextCtrl,
+            classNameDisabledNextCtrl = _options4$classNameDi === undefined ? 'disabled' : _options4$classNameDi,
+            _options4$classNameDi2 = _options4.classNameDisabledPrevCtrl,
+            classNameDisabledPrevCtrl = _options4$classNameDi2 === undefined ? 'disabled' : _options4$classNameDi2,
             enableMouseEvents = _options4.enableMouseEvents,
             classNameActiveSlide = _options4.classNameActiveSlide,
             initialIndex = _options4.initialIndex;
@@ -378,11 +386,11 @@ function lory(slider, opts) {
             slides = slice.call(slideContainer.children);
 
             if (prevCtrl) {
-                prevCtrl.classList.add('disabled');
+                prevCtrl.classList.add(classNameDisabledPrevCtrl);
             }
 
             if (nextCtrl && slides.length === 1 && !options.rewind) {
-                nextCtrl.classList.add('disabled');
+                nextCtrl.classList.add(classNameDisabledNextCtrl);
             }
         }
 
