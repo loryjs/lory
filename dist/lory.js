@@ -231,6 +231,7 @@ function lory(slider, opts) {
             slidesToScroll = _options3.slidesToScroll,
             infinite = _options3.infinite,
             rewind = _options3.rewind,
+            rewindPrev = _options3.rewindPrev,
             rewindSpeed = _options3.rewindSpeed,
             ease = _options3.ease,
             classNameActiveSlide = _options3.classNameActiveSlide,
@@ -280,6 +281,11 @@ function lory(slider, opts) {
 
         if (infinite && direction === undefined) {
             nextIndex += infinite;
+        }
+
+        if (rewindPrev && Math.abs(position.x) === 0 && direction === false) {
+            nextIndex = slides.length - 1;
+            duration = rewindSpeed;
         }
 
         var nextOffset = Math.min(Math.max(slides[nextIndex].offsetLeft * -1, maxOffset * -1), 0);
@@ -332,7 +338,7 @@ function lory(slider, opts) {
          * update classes for next and prev arrows
          * based on user settings
          */
-        if (prevCtrl && !infinite && nextIndex === 0) {
+        if (prevCtrl && !infinite && !rewindPrev && nextIndex === 0) {
             prevCtrl.classList.add(classNameDisabledPrevCtrl);
         }
 
@@ -385,7 +391,7 @@ function lory(slider, opts) {
         } else {
             slides = slice.call(slideContainer.children);
 
-            if (prevCtrl) {
+            if (prevCtrl && !options.rewindPrev) {
                 prevCtrl.classList.add(classNameDisabledPrevCtrl);
             }
 
