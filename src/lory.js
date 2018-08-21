@@ -102,12 +102,7 @@ export function lory (slider, opts) {
         if (style) {
             style[prefixes.transition + 'TimingFunction'] = ease;
             style[prefixes.transition + 'Duration'] = duration + 'ms';
-
-            if (prefixes.hasTranslate3d) {
-                style[prefixes.transform] = 'translate3d(' + to + 'px, 0, 0)';
-            } else {
-                style[prefixes.transform] = 'translate(' + to + 'px, 0)';
-            }
+            style[prefixes.transform] = 'translateX(' + to + 'px)';
         }
     }
 
