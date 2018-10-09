@@ -75,33 +75,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -115,15 +88,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 exports.lory = lory;
 
-var _detectPrefixes = __webpack_require__(2);
+var _detectPrefixes = __webpack_require__(1);
 
 var _detectPrefixes2 = _interopRequireDefault(_detectPrefixes);
 
-var _detectSupportsPassive = __webpack_require__(3);
+var _detectSupportsPassive = __webpack_require__(2);
 
 var _detectSupportsPassive2 = _interopRequireDefault(_detectSupportsPassive);
 
-var _dispatchEvent = __webpack_require__(4);
+var _dispatchEvent = __webpack_require__(3);
 
 var _dispatchEvent2 = _interopRequireDefault(_dispatchEvent);
 
@@ -233,12 +206,7 @@ function lory(slider, opts) {
         if (style) {
             style[prefixes.transition + 'TimingFunction'] = ease;
             style[prefixes.transition + 'Duration'] = duration + 'ms';
-
-            if (prefixes.hasTranslate3d) {
-                style[prefixes.transform] = 'translate3d(' + to + 'px, 0, 0)';
-            } else {
-                style[prefixes.transform] = 'translate(' + to + 'px, 0)';
-            }
+            style[prefixes.transform] = 'translateX(' + to + 'px)';
         }
     }
 
@@ -719,11 +687,11 @@ function lory(slider, opts) {
 }
 
 /***/ }),
-/* 2 */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(global) {
+
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -736,7 +704,6 @@ function detectPrefixes() {
     var transform = void 0;
     var transition = void 0;
     var transitionEnd = void 0;
-    var hasTranslate3d = void 0;
 
     (function () {
         var el = document.createElement('_');
@@ -767,22 +734,19 @@ function detectPrefixes() {
         }
 
         document.body.insertBefore(el, null);
-        style[transform] = 'translate3d(0, 0, 0)';
-        hasTranslate3d = !!global.getComputedStyle(el).getPropertyValue(transform);
+        style[transform] = 'translateX(0)';
         document.body.removeChild(el);
     })();
 
     return {
         transform: transform,
         transition: transition,
-        transitionEnd: transitionEnd,
-        hasTranslate3d: hasTranslate3d
+        transitionEnd: transitionEnd
     };
 }
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 3 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -810,7 +774,7 @@ function detectSupportsPassive() {
 }
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -821,7 +785,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = dispatchEvent;
 
-var _customEvent = __webpack_require__(5);
+var _customEvent = __webpack_require__(4);
 
 var _customEvent2 = _interopRequireDefault(_customEvent);
 
@@ -845,7 +809,7 @@ function dispatchEvent(target, type, detail) {
 }
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -897,7 +861,34 @@ function CustomEvent (type, params) {
   return e;
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
 
 /***/ }),
 /* 6 */
@@ -1015,7 +1006,7 @@ exports.default = {
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(1);
+module.exports = __webpack_require__(0);
 
 
 /***/ })
