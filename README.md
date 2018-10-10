@@ -308,6 +308,16 @@ li {
         <td>class name for slider next control</td>
         <td>default: 'js_next'</td>
     </tr>
+    <tr>
+        <td>classNameDisabledPrevCtrl</td>
+        <td>class name for slider previous control then disabled</td>
+        <td>default: 'disabled'</td>
+    </tr>
+    <tr>
+        <td>classNameDisabledNextCtrl</td>
+        <td>class name for slider next control then disabled</td>
+        <td>default: 'disabled'</td>
+    </tr>
 </table>
 
 ## Events

@@ -129,7 +129,9 @@ export function lory (slider, opts) {
             rewind,
             rewindSpeed,
             ease,
-            classNameActiveSlide
+            classNameActiveSlide,
+            classNameDisabledNextCtrl = 'disabled',
+            classNameDisabledPrevCtrl = 'disabled'
         } = options;
 
         let duration = slideSpeed;
@@ -146,10 +148,10 @@ export function lory (slider, opts) {
          * Reset control classes
          */
         if (prevCtrl) {
-            prevCtrl.classList.remove('disabled');
+            prevCtrl.classList.remove(classNameDisabledPrevCtrl);
         }
         if (nextCtrl) {
-            nextCtrl.classList.remove('disabled');
+            nextCtrl.classList.remove(classNameDisabledNextCtrl);
         }
 
         if (typeof nextIndex !== 'number') {
@@ -226,11 +228,11 @@ export function lory (slider, opts) {
          * based on user settings
          */
         if (prevCtrl && !infinite && nextIndex === 0) {
-            prevCtrl.classList.add('disabled');
+            prevCtrl.classList.add(classNameDisabledPrevCtrl);
         }
 
         if (nextCtrl && !infinite && !rewind && ((nextIndex + 1) === slides.length)) {
-            nextCtrl.classList.add('disabled');
+            nextCtrl.classList.add(classNameDisabledNextCtrl);
         }
 
         dispatchSliderEvent('after', 'slide', {
@@ -253,6 +255,8 @@ export function lory (slider, opts) {
             classNameSlideContainer,
             classNamePrevCtrl,
             classNameNextCtrl,
+            classNameDisabledNextCtrl = 'disabled',
+            classNameDisabledPrevCtrl = 'disabled',
             enableMouseEvents,
             classNameActiveSlide,
             initialIndex
@@ -275,11 +279,11 @@ export function lory (slider, opts) {
             slides = slice.call(slideContainer.children);
 
             if (prevCtrl) {
-                prevCtrl.classList.add('disabled');
+                prevCtrl.classList.add(classNameDisabledPrevCtrl);
             }
 
             if (nextCtrl && (slides.length === 1) && !options.rewind) {
-                nextCtrl.classList.add('disabled');
+                nextCtrl.classList.add(classNameDisabledNextCtrl);
             }
         }
 
