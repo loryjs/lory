@@ -264,6 +264,11 @@ li {
         <td>default: false</td>
     </tr>
     <tr>
+        <td>rewindPrev</td>
+        <td>if slider is on the first slide, with prev click the slider goes to the last slide. (do not combine with infinite)</td>
+        <td>default: false</td>
+    </tr>
+    <tr>
         <td>slideSpeed</td>
         <td>time in milliseconds for the animation of a valid slide attempt</td>
         <td>default: 300</td>
@@ -307,6 +312,16 @@ li {
         <td>classNameNextCtrl</td>
         <td>class name for slider next control</td>
         <td>default: 'js_next'</td>
+    </tr>
+    <tr>
+        <td>classNameDisabledPrevCtrl</td>
+        <td>class name for slider previous control then disabled</td>
+        <td>default: 'disabled'</td>
+    </tr>
+    <tr>
+        <td>classNameDisabledNextCtrl</td>
+        <td>class name for slider next control then disabled</td>
+        <td>default: 'disabled'</td>
     </tr>
 </table>
 

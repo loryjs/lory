@@ -102,12 +102,7 @@ export function lory (slider, opts) {
         if (style) {
             style[prefixes.transition + 'TimingFunction'] = ease;
             style[prefixes.transition + 'Duration'] = duration + 'ms';
-
-            if (prefixes.hasTranslate3d) {
-                style[prefixes.transform] = 'translate3d(' + to + 'px, 0, 0)';
-            } else {
-                style[prefixes.transform] = 'translate(' + to + 'px, 0)';
-            }
+            style[prefixes.transform] = 'translateX(' + to + 'px)';
         }
     }
 
@@ -132,9 +127,12 @@ export function lory (slider, opts) {
             slidesToScroll,
             infinite,
             rewind,
+            rewindPrev,
             rewindSpeed,
             ease,
-            classNameActiveSlide
+            classNameActiveSlide,
+            classNameDisabledNextCtrl = 'disabled',
+            classNameDisabledPrevCtrl = 'disabled'
         } = options;
 
         let duration = slideSpeed;
@@ -151,10 +149,10 @@ export function lory (slider, opts) {
          * Reset control classes
          */
         if (prevCtrl) {
-            prevCtrl.classList.remove('disabled');
+            prevCtrl.classList.remove(classNameDisabledPrevCtrl);
         }
         if (nextCtrl) {
-            nextCtrl.classList.remove('disabled');
+            nextCtrl.classList.remove(classNameDisabledNextCtrl);
         }
 
         if (typeof nextIndex !== 'number') {
@@ -177,6 +175,11 @@ export function lory (slider, opts) {
 
         if (infinite && direction === undefined) {
             nextIndex += infinite;
+        }
+
+        if (rewindPrev && Math.abs(position.x) === 0 && direction === false) {
+            nextIndex = slides.length - 1;
+            duration = rewindSpeed;
         }
 
         let nextOffset = Math.min(Math.max(slides[nextIndex].offsetLeft * -1, maxOffset * -1), 0);
@@ -230,12 +233,12 @@ export function lory (slider, opts) {
          * update classes for next and prev arrows
          * based on user settings
          */
-        if (prevCtrl && !infinite && nextIndex === 0) {
-            prevCtrl.classList.add('disabled');
+        if (prevCtrl && !infinite && !rewindPrev && nextIndex === 0) {
+            prevCtrl.classList.add(classNameDisabledPrevCtrl);
         }
 
         if (nextCtrl && !infinite && !rewind && ((nextIndex + 1) === slides.length)) {
-            nextCtrl.classList.add('disabled');
+            nextCtrl.classList.add(classNameDisabledNextCtrl);
         }
 
         dispatchSliderEvent('after', 'slide', {
@@ -258,6 +261,8 @@ export function lory (slider, opts) {
             classNameSlideContainer,
             classNamePrevCtrl,
             classNameNextCtrl,
+            classNameDisabledNextCtrl = 'disabled',
+            classNameDisabledPrevCtrl = 'disabled',
             enableMouseEvents,
             classNameActiveSlide,
             initialIndex
@@ -279,12 +284,12 @@ export function lory (slider, opts) {
         } else {
             slides = slice.call(slideContainer.children);
 
-            if (prevCtrl) {
-                prevCtrl.classList.add('disabled');
+            if (prevCtrl && !options.rewindPrev) {
+                prevCtrl.classList.add(classNameDisabledPrevCtrl);
             }
 
             if (nextCtrl && (slides.length === 1) && !options.rewind) {
-                nextCtrl.classList.add('disabled');
+                nextCtrl.classList.add(classNameDisabledNextCtrl);
             }
         }
 
