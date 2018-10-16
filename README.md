@@ -264,6 +264,11 @@ li {
         <td>default: false</td>
     </tr>
     <tr>
+        <td>rewindPrev</td>
+        <td>if slider is on the first slide, with prev click the slider goes to the last slide. (do not combine with infinite)</td>
+        <td>default: false</td>
+    </tr>
+    <tr>
         <td>slideSpeed</td>
         <td>time in milliseconds for the animation of a valid slide attempt</td>
         <td>default: 300</td>

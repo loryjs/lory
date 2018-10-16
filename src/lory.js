@@ -127,6 +127,7 @@ export function lory (slider, opts) {
             slidesToScroll,
             infinite,
             rewind,
+            rewindPrev,
             rewindSpeed,
             ease,
             classNameActiveSlide,
@@ -174,6 +175,11 @@ export function lory (slider, opts) {
 
         if (infinite && direction === undefined) {
             nextIndex += infinite;
+        }
+
+        if (rewindPrev && Math.abs(position.x) === 0 && direction === false) {
+            nextIndex = slides.length - 1;
+            duration = rewindSpeed;
         }
 
         let nextOffset = Math.min(Math.max(slides[nextIndex].offsetLeft * -1, maxOffset * -1), 0);
@@ -227,7 +233,7 @@ export function lory (slider, opts) {
          * update classes for next and prev arrows
          * based on user settings
          */
-        if (prevCtrl && !infinite && nextIndex === 0) {
+        if (prevCtrl && !infinite && !rewindPrev && nextIndex === 0) {
             prevCtrl.classList.add(classNameDisabledPrevCtrl);
         }
 
@@ -278,7 +284,7 @@ export function lory (slider, opts) {
         } else {
             slides = slice.call(slideContainer.children);
 
-            if (prevCtrl) {
+            if (prevCtrl && !options.rewindPrev) {
                 prevCtrl.classList.add(classNameDisabledPrevCtrl);
             }
 
