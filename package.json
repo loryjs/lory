@@ -1,133 +1,133 @@
 {
-  "name": "lory.js",
-  "version": "0.0.0-semantic-release",
-  "description": "Touch enabled minimalistic slider written in vanilla JavaScript.",
-  "author": {
-    "name": "Maximilian Heinz",
-    "email": "info@maximilian-heinz.de",
-    "url": "https://twitter.com/_meandmax_"
-  },
-  "bugs": {
-    "url": "https://github.com/meandmax/lory/issues"
-  },
-  "inceptionYear": 2015,
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://raw.githubusercontent.com/meandmax/lory/master/LICENSE"
-    }
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/meandmax/lory.git"
-  },
-  "keywords": [
-    "responsive",
-    "lightweight",
-    "minimalistic",
-    "carousel",
-    "slider",
-    "touch",
-    "slideshow",
-    "jQuery",
-    "mobile"
-  ],
-  "main": "./dist/lory.js",
-  "devDependencies": {
-    "babel-cli": "6.22.2",
-    "babel-core": "6.21.0",
-    "babel-loader": "6.2.9",
-    "babel-preset-es2015": "6.18.0",
-    "babel-preset-stage-0": "6.22.0",
-    "babel-register": "6.22.0",
-    "babel-runtime": "6.22.0",
-    "better-npm-run": "0.0.13",
-    "chai": "3.5.0",
-    "clamp.js": "0.2.9",
-    "custom-event": "1.0.1",
-    "cz-conventional-changelog": "1.2.0",
-    "debug": "3.1.0",
-    "dependency-check": "2.8.0",
-    "eslint": "3.15.0",
-    "eslint-config-standard": "6.2.1",
-    "eslint-plugin-promise": "3.4.1",
-    "eslint-plugin-standard": "2.0.1",
-    "extract-text-webpack-plugin": "1.0.1",
-    "file-loader": "0.10.0",
-    "fs-extra": "2.0.0",
-    "html-loader": "0.4.4",
-    "html-webpack-plugin": "2.28.0",
-    "karma": "1.7.1",
-    "karma-chai": "0.1.0",
-    "karma-chrome-launcher": "2.2.0",
-    "karma-firefox-launcher": "1.0.1",
-    "karma-fixture": "0.2.6",
-    "karma-html2js-preprocessor": "1.1.0",
-    "karma-ie-launcher": "1.0.0",
-    "karma-mocha": "1.2.0",
-    "karma-mocha-reporter": "2.2.2",
-    "karma-opera-launcher": "1.0.0",
-    "karma-phantomjs-launcher": "1.0.4",
-    "karma-safari-launcher": "1.0.0",
-    "karma-sauce-launcher": "1.2.0",
-    "karma-webpack": "2.0.6",
-    "mocha": "3.2.0",
-    "nodemon": "1.11.0",
-    "phantomjs-prebuilt": "2.1.14",
-    "rimraf": "2.5.4",
-    "sauce-connect-launcher": "1.1.1",
-    "saucelabs": "1.3.0",
-    "semantic-release": "9.1.1",
-    "uglify-js": "2.7.5",
-    "unminified-webpack-plugin": "1.2.0",
-    "url-loader": "0.5.7",
-    "webpack": "3.11.0",
-    "webpack-dev-server": "1.16.2"
-  },
-  "scripts": {
-    "clean": "rimraf dist/*",
-    "check": "yarn run lint -s && dependency-check package.json",
-    "lint": "eslint src",
-    "start": "better-npm-run start",
-    "dev": "better-npm-run dev",
-    "build": "better-npm-run build",
-    "travis": "yarn run build && yarn run karma-travis",
-    "karma-sauce": "karma start saucelabs.karma.conf.js",
-    "karma-travis": "karma start travis.karma.conf.js",
-    "karma-local": "karma start local.karma.conf.js",
-    "semantic-release": "semantic-release"
-  },
-  "betterScripts": {
-    "compile": {
-      "command": "babel-node bin/compile",
-      "env": {
-        "DEBUG": "app:*"
-      }
+    "name": "lory.js",
+    "version": "0.0.0-semantic-release",
+    "description": "Touch enabled minimalistic slider written in vanilla JavaScript.",
+    "author": {
+        "name": "Maximilian Heinz",
+        "email": "info@maximilian-heinz.de",
+        "url": "https://twitter.com/_meandmax_"
     },
-    "start": {
-      "command": "babel-node bin/server",
-      "env": {
-        "DEBUG": "app:*"
-      }
+    "bugs": {
+        "url": "https://github.com/meandmax/lory/issues"
     },
-    "dev": {
-      "command": "nodemon --exec babel-node bin/server",
-      "env": {
-        "NODE_ENV": "development",
-        "DEBUG": "app:*"
-      }
+    "inceptionYear": 2015,
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://raw.githubusercontent.com/meandmax/lory/master/LICENSE"
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/meandmax/lory.git"
     },
-    "build": {
-      "command": "yarn run clean && better-npm-run compile",
-      "env": {
-        "NODE_ENV": "production",
-        "DEBUG": "app:*"
-      }
+    "keywords": [
+        "responsive",
+        "lightweight",
+        "minimalistic",
+        "carousel",
+        "slider",
+        "touch",
+        "slideshow",
+        "jQuery",
+        "mobile"
+    ],
+    "main": "./dist/lory.js",
+    "devDependencies": {
+        "babel-cli": "6.22.2",
+        "babel-core": "6.21.0",
+        "babel-loader": "6.2.9",
+        "babel-preset-es2015": "6.18.0",
+        "babel-preset-stage-0": "6.22.0",
+        "babel-register": "6.22.0",
+        "babel-runtime": "6.22.0",
+        "better-npm-run": "0.0.13",
+        "chai": "3.5.0",
+        "clamp.js": "0.2.9",
+        "custom-event": "1.0.1",
+        "cz-conventional-changelog": "1.2.0",
+        "debug": "3.1.0",
+        "dependency-check": "2.8.0",
+        "eslint": "3.15.0",
+        "eslint-config-standard": "6.2.1",
+        "eslint-plugin-promise": "3.4.1",
+        "eslint-plugin-standard": "2.0.1",
+        "extract-text-webpack-plugin": "1.0.1",
+        "file-loader": "0.10.0",
+        "fs-extra": "2.0.0",
+        "html-loader": "0.4.4",
+        "html-webpack-plugin": "2.28.0",
+        "karma": "1.7.1",
+        "karma-chai": "0.1.0",
+        "karma-chrome-launcher": "2.2.0",
+        "karma-firefox-launcher": "1.0.1",
+        "karma-fixture": "0.2.6",
+        "karma-html2js-preprocessor": "1.1.0",
+        "karma-ie-launcher": "1.0.0",
+        "karma-mocha": "1.2.0",
+        "karma-mocha-reporter": "2.2.2",
+        "karma-opera-launcher": "1.0.0",
+        "karma-phantomjs-launcher": "1.0.4",
+        "karma-safari-launcher": "1.0.0",
+        "karma-sauce-launcher": "1.2.0",
+        "karma-webpack": "2.0.6",
+        "mocha": "3.2.0",
+        "nodemon": "1.11.0",
+        "phantomjs-prebuilt": "2.1.14",
+        "rimraf": "2.5.4",
+        "sauce-connect-launcher": "1.1.1",
+        "saucelabs": "1.3.0",
+        "semantic-release": "9.1.1",
+        "uglify-js": "2.7.5",
+        "unminified-webpack-plugin": "1.2.0",
+        "url-loader": "0.5.7",
+        "webpack": "3.11.0",
+        "webpack-dev-server": "3.1.11"
+    },
+    "scripts": {
+        "clean": "rimraf dist/*",
+        "check": "yarn run lint -s && dependency-check package.json",
+        "lint": "eslint src",
+        "start": "better-npm-run start",
+        "dev": "better-npm-run dev",
+        "build": "better-npm-run build",
+        "travis": "yarn run build && yarn run karma-travis",
+        "karma-sauce": "karma start saucelabs.karma.conf.js",
+        "karma-travis": "karma start travis.karma.conf.js",
+        "karma-local": "karma start local.karma.conf.js",
+        "semantic-release": "semantic-release"
+    },
+    "betterScripts": {
+        "compile": {
+            "command": "babel-node bin/compile",
+            "env": {
+                "DEBUG": "app:*"
+            }
+        },
+        "start": {
+            "command": "babel-node bin/server",
+            "env": {
+                "DEBUG": "app:*"
+            }
+        },
+        "dev": {
+            "command": "nodemon --exec babel-node bin/server",
+            "env": {
+                "NODE_ENV": "development",
+                "DEBUG": "app:*"
+            }
+        },
+        "build": {
+            "command": "yarn run clean && better-npm-run compile",
+            "env": {
+                "NODE_ENV": "production",
+                "DEBUG": "app:*"
+            }
+        }
+    },
+    "config": {
+        "commitizen": {
+            "path": "./node_modules/cz-conventional-changelog"
+        }
     }
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
-  }
 }
