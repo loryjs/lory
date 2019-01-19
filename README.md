@@ -1,9 +1,8 @@
-
 <p align="center">
   <img src="./static/lory.png" width="200px" />
 </p>
 
-Please visit: [http://meandmax.github.io/lory/](http://meandmax.github.io/lory/ "lory")
+Please visit: [http://meandmax.github.io/lory/](http://meandmax.github.io/lory/ 'lory')
 
 > Touch enabled minimalistic slider written in vanilla JavaScript.
 
@@ -19,9 +18,6 @@ Please visit: [http://meandmax.github.io/lory/](http://meandmax.github.io/lory/ 
 [![Join the chat at https://gitter.im/meandmax/lory](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/meandmax/lory?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
-
-
-[![Build Status](https://saucelabs.com/buildstatus/meandmax?saucy)](https://saucelabs.com/beta/builds/ed0e8606c4d84e31b3528326192e0a46)
 
 ## Download
 
@@ -39,29 +35,29 @@ yarn add lory.js
 ## Consume it as an ES2015 module:
 
 ```js
-    import {lory} from 'lory.js';
+import { lory } from 'lory.js';
 
-    document.addEventListener('DOMContentLoaded', () => {
-        const slider = document.querySelector('.js_slider');
+document.addEventListener('DOMContentLoaded', () => {
+    const slider = document.querySelector('.js_slider');
 
-        lory(slider, {
-            // options going here
-        });
+    lory(slider, {
+        // options going here
     });
+});
 ```
 
 ## Consume it as an commonJS module:
 
 ```js
-    var lory = require('lory.js').lory;
+var lory = require('lory.js').lory;
 
-    document.addEventListener('DOMContentLoaded', function() {
-        var slider = document.querySelector('.js_slider');
+document.addEventListener('DOMContentLoaded', function() {
+    var slider = document.querySelector('.js_slider');
 
-        lory(slider, {
-            // options going here
-        });
+    lory(slider, {
+        // options going here
     });
+});
 ```
 
 ## Install with bower
@@ -130,7 +126,8 @@ yarn run karma-local
  * (optional) define here the style definitions which should be applied on the slider container
  * e.g. width including further controls like arrows etc.
  */
-.slider {}
+.slider {
+}
 
 .frame {
     /**
@@ -375,23 +372,24 @@ li {
 Please, do not open issues for general support questions as we want to keep GitHub issues for bug reports and feature requests. You've got much better chances of getting your question answered on [StackOverflow](http://stackoverflow.com/questions/tagged/lory) where maintainers are looking at questions tagged with `loryJS`.
 
 StackOverflow is a much better place to ask questions since:
-* There are hundreds of people willing to help on StackOverflow
-* Questions and answers stay available for public viewing so your question / answer might help someone else
-* The StackOverflow voting system assures that the best answers are prominently visible.
+
+-   There are hundreds of people willing to help on StackOverflow
+-   Questions and answers stay available for public viewing so your question / answer might help someone else
+-   The StackOverflow voting system assures that the best answers are prominently visible.
 
 To enforce this rule will be systematically closing all the issues that are requests for general support and redirecting people to StackOverflow.
 
 ## Browser Support
 
-* Chrome
-* Safari
-* FireFox
-* Opera
-* Internet Explorer 10+
+-   Chrome
+-   Safari
+-   FireFox
+-   Opera
+-   Internet Explorer 10+
 
-* Internet Explorer 9 (graceful, without transitions + classlistp)
-    - graceful, without transitions
-    - you need to polyfill classlist (https://github.com/eligrey/classList.js/)
+-   Internet Explorer 9 (graceful, without transitions + classlistp)
+    -   graceful, without transitions
+    -   you need to polyfill classlist (https://github.com/eligrey/classList.js/)
 
 ## Copyright
 
