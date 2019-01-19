@@ -2,20 +2,20 @@
   <img src="./static/lory.png" width="200px" />
 </p>
 
-Please visit: [http://meandmax.github.io/lory/](http://meandmax.github.io/lory/ 'lory')
+Please visit: [http://loryjs.github.io/lory/](http://loryjs.github.io/lory/ 'lory')
 
 > Touch enabled minimalistic slider written in vanilla JavaScript.
 
-[![license](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://raw.githubusercontent.com/meandmax/lory/master/LICENSE)
+[![license](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://raw.githubusercontent.com/loryjs/lory/master/LICENSE)
 [![npm](http://img.shields.io/npm/v/lory.js.svg?style=flat)](https://www.npmjs.com/package/lory.js)
 [![CDNJS](https://img.shields.io/cdnjs/v/lory.js.svg)](https://cdnjs.com/libraries/lory.js/)
 [![jsDelivr Hits](https://data.jsdelivr.com/v1/package/npm/lory.js/badge?style=rounded)](https://www.jsdelivr.com/package/npm/lory.js)
 
-[![build](http://img.shields.io/travis/meandmax/lory/master.svg?style=flat)](https://travis-ci.org/meandmax/lory)
-[![devDependencies](http://img.shields.io/david/dev/meandmax/lory.svg?style=flat)](https://david-dm.org/meandmax/lory#info=devDependencies&view=table)
+[![build](http://img.shields.io/travis/loryjs/lory/master.svg?style=flat)](https://travis-ci.org/loryjs/lory)
+[![devDependencies](http://img.shields.io/david/dev/loryjs/lory.svg?style=flat)](https://david-dm.org/loryjs/lory#info=devDependencies&view=table)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 
-[![Join the chat at https://gitter.im/meandmax/lory](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/meandmax/lory?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat at https://gitter.im/loryjs/lory](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/loryjs/lory?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
