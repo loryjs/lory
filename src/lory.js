@@ -394,7 +394,8 @@ export function lory (slider, opts) {
         dispatchSliderEvent('before', 'destroy');
 
         // remove event listeners
-        frame.removeEventListener(prefixes.transitionEnd, onTransitionEnd);
+        slideContainer.removeEventListener(prefixes.transitionEnd, onTransitionEnd);
+        
         frame.removeEventListener('touchstart', onTouchstart, touchEventParams);
         frame.removeEventListener('touchmove', onTouchmove, touchEventParams);
         frame.removeEventListener('touchend', onTouchend);
