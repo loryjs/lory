@@ -1,39 +1,103 @@
 <!DOCTYPE html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>lory</title>
-        <meta name="description" content="Touch enabled minimalistic slider written in vanilla JavaScript">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="shortcut icon" type="image/ico" href="../static/favicon.ico" />
-        <link rel="stylesheet" type="text/css" href="../static/app.css" />
-        <link rel="stylesheet" type="text/css" href="../static/vendor/railscasts.css" />
-        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
-    </head>
 
-    <body>
-        <header>
-            <div class="ribbon">
-                <a href="https://github.com/meandmax/lory">Fork me on GitHub</a>
-            </div>
-            <img class="logo" src="../static/lory.png" />
-        </header>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>lory</title>
+    <meta name="description" content="Touch enabled minimalistic slider written in vanilla JavaScript">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/ico" href="../static/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../static/app.css" />
+    <link rel="stylesheet" type="text/css" href="../static/vendor/railscasts.css" />
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+</head>
 
-        <p class="description">Touch enabled minimalistic slider written in vanilla JavaScript</p>
-        <p class="description">Hardware accelerated transitions</p>
-        <p class="description">Usable as a jQuery plugin</p>
-        <p class="description">Options for custom easing effects</p>
-        <p class="description">infinite looping ~ carousel</p>
-        <p class="description">No compromises for fallbacks</p>
-        <p class="description">Written in ecmascript 6</p>
-        <p class="description">Using webpack, babel & eslint for development</p>
+<body>
+    <h2>Multiple slides to scroll</h2>
 
-        <a class="dist" href="../dist/lory.js">Download Here</a>
+    <div class="slider js_multislides multislides">
+        <div class="frame js_frame">
+            <ul class="slides js_slides">
+                <li class="js_slide">1</li>
+                <li class="js_slide">2</li>
+                <li class="js_slide">3</li>
+                <li class="js_slide">4</li>
+                <li class="js_slide">5</li>
+            </ul>
+        </div>
 
-        <p class="description">or via cdn from <a href="https://cdnjs.com/libraries/lory.js/" target="_blank">cdnjs</a></p>
+        <span class="js_prev prev">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5">
+                <g>
+                    <path fill="#2E435A"
+                        d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z" />
+                </g>
+            </svg>
+        </span>
 
-        <section class="prerequisited">
-            <div class="examplecode">
+        <span class="js_next next">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5">
+                <g>
+                    <path fill="#2E435A"
+                        d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z" />
+                </g>
+            </svg>
+        </span>
+    </div>
+
+    <div class="slider js_multislidesnoncenter multislides">
+        <div class="frame js_frame">
+            <ul class="slides js_slides">
+                <li class="js_slide">1</li>
+                <li class="js_slide">2</li>
+                <li class="js_slide">3</li>
+                <li class="js_slide">4</li>
+                <li class="js_slide">5</li>
+            </ul>
+        </div>
+
+        <span class="js_prev prev">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5">
+                <g>
+                    <path fill="#2E435A"
+                        d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z" />
+                </g>
+            </svg>
+        </span>
+
+        <span class="js_next next">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5">
+                <g>
+                    <path fill="#2E435A"
+                        d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z" />
+                </g>
+            </svg>
+        </span>
+    </div>
+
+
+    <header>
+        <div class="ribbon">
+            <a href="https://github.com/meandmax/lory">Fork me on GitHub</a>
+        </div>
+        <img class="logo" src="../static/lory.png" />
+    </header>
+
+    <p class="description">Touch enabled minimalistic slider written in vanilla JavaScript</p>
+    <p class="description">Hardware accelerated transitions</p>
+    <p class="description">Usable as a jQuery plugin</p>
+    <p class="description">Options for custom easing effects</p>
+    <p class="description">infinite looping ~ carousel</p>
+    <p class="description">No compromises for fallbacks</p>
+    <p class="description">Written in ecmascript 6</p>
+    <p class="description">Using webpack, babel & eslint for development</p>
+
+    <a class="dist" href="../dist/lory.js">Download Here</a>
+
+    <p class="description">or via cdn from <a href="https://cdnjs.com/libraries/lory.js/" target="_blank">cdnjs</a></p>
+
+    <section class="prerequisited">
+        <div class="examplecode">
             <h2>Prerequisited Html structure<br><small><em>Class names can be changed through options</em></small></h2>
 
             <pre><code class="html">
@@ -55,9 +119,10 @@
                     &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;50&quot; height=&quot;50&quot; viewBox=&quot;0 0 501.5 501.5&quot;&gt;&lt;g&gt;&lt;path fill=&quot;#2E435A&quot; d=&quot;M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z&quot;/&gt;&lt;/g&gt;&lt;/svg&gt;
                 &lt;/span&gt;
             &lt;/div&gt;
-            </code></pre></div>
+            </code></pre>
+        </div>
 
-            <div class="examplecode">
+        <div class="examplecode">
             <h2>Prerequisited CSS styles</h2>
 
             <pre><code class="css">
@@ -113,34 +178,46 @@
             .next svg, .prev svg {
                 width: 25px;
             }
-            </code></pre></div>
-        </section>
+            </code></pre>
+        </div>
+    </section>
 
-        <section class="examples">
-            <h2>Single element - Fixed width [infinite]</h2>
+    <section class="examples">
+        <h2>Single element - Fixed width [infinite]</h2>
 
-            <div class="slider js_simple simple">
-                <div class="frame js_frame">
-                    <ul class="slides js_slides">
-                        <li class="js_slide">1</li>
-                        <li class="js_slide">2</li>
-                        <li class="js_slide">3</li>
-                        <li class="js_slide">4</li>
-                        <li class="js_slide">5</li>
-                        <li class="js_slide">6</li>
-                    </ul>
-                </div>
-
-                <span class="js_prev prev">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z"/></g></svg>
-                </span>
-
-                <span class="js_next next">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z"/></g></svg>
-                </span>
+        <div class="slider js_simple simple">
+            <div class="frame js_frame">
+                <ul class="slides js_slides">
+                    <li class="js_slide">1</li>
+                    <li class="js_slide">2</li>
+                    <li class="js_slide">3</li>
+                    <li class="js_slide">4</li>
+                    <li class="js_slide">5</li>
+                    <li class="js_slide">6</li>
+                </ul>
             </div>
 
-<div class="examplecode"><pre><code class="javascript">
+            <span class="js_prev prev">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5">
+                    <g>
+                        <path fill="#2E435A"
+                            d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z" />
+                    </g>
+                </svg>
+            </span>
+
+            <span class="js_next next">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5">
+                    <g>
+                        <path fill="#2E435A"
+                            d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z" />
+                    </g>
+                </svg>
+            </span>
+        </div>
+
+        <div class="examplecode">
+            <pre><code class="javascript">
     document.addEventListener('DOMContentLoaded', function () {
         var simple = document.querySelector('.js_simple');
 
@@ -149,32 +226,44 @@
         });
     });
 
-</code></pre></div>
+</code></pre>
+        </div>
 
-            <h2>Single element - Percentage width [infinite]</h2>
+        <h2>Single element - Percentage width [infinite]</h2>
 
-            <div class="slider js_percentage percentage">
-                <div class="frame js_frame">
-                    <ul class="slides js_slides">
-                        <li class="js_slide">1</li>
-                        <li class="js_slide">2</li>
-                        <li class="js_slide">3</li>
-                        <li class="js_slide">4</li>
-                        <li class="js_slide">5</li>
-                        <li class="js_slide">6</li>
-                    </ul>
-                </div>
-
-                <span class="js_prev prev">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z"/></g></svg>
-                </span>
-
-                <span class="js_next next">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z"/></g></svg>
-                </span>
+        <div class="slider js_percentage percentage">
+            <div class="frame js_frame">
+                <ul class="slides js_slides">
+                    <li class="js_slide">1</li>
+                    <li class="js_slide">2</li>
+                    <li class="js_slide">3</li>
+                    <li class="js_slide">4</li>
+                    <li class="js_slide">5</li>
+                    <li class="js_slide">6</li>
+                </ul>
             </div>
 
-<div class="examplecode"><pre><code class="javascript">
+            <span class="js_prev prev">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5">
+                    <g>
+                        <path fill="#2E435A"
+                            d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z" />
+                    </g>
+                </svg>
+            </span>
+
+            <span class="js_next next">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5">
+                    <g>
+                        <path fill="#2E435A"
+                            d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z" />
+                    </g>
+                </svg>
+            </span>
+        </div>
+
+        <div class="examplecode">
+            <pre><code class="javascript">
     document.addEventListener('DOMContentLoaded', function () {
         var percentage = document.querySelector('.js_percentage');
 
@@ -183,32 +272,44 @@
         });
     });
 
-</code></pre></div>
+</code></pre>
+        </div>
 
-            <h2>Single element - Fixed width [rewind]</h2>
+        <h2>Single element - Fixed width [rewind]</h2>
 
-            <div class="slider js_rewind rewind">
-                <div class="frame js_frame">
-                    <ul class="slides js_slides">
-                        <li class="js_slide">1</li>
-                        <li class="js_slide">2</li>
-                        <li class="js_slide">3</li>
-                        <li class="js_slide">4</li>
-                        <li class="js_slide">5</li>
-                        <li class="js_slide">6</li>
-                    </ul>
-                </div>
-
-                <span class="js_prev prev">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z"/></g></svg>
-                </span>
-
-                <span class="js_next next">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z"/></g></svg>
-                </span>
+        <div class="slider js_rewind rewind">
+            <div class="frame js_frame">
+                <ul class="slides js_slides">
+                    <li class="js_slide">1</li>
+                    <li class="js_slide">2</li>
+                    <li class="js_slide">3</li>
+                    <li class="js_slide">4</li>
+                    <li class="js_slide">5</li>
+                    <li class="js_slide">6</li>
+                </ul>
             </div>
 
-<div class="examplecode"><pre><code class="javascript">
+            <span class="js_prev prev">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5">
+                    <g>
+                        <path fill="#2E435A"
+                            d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z" />
+                    </g>
+                </svg>
+            </span>
+
+            <span class="js_next next">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5">
+                    <g>
+                        <path fill="#2E435A"
+                            d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z" />
+                    </g>
+                </svg>
+            </span>
+        </div>
+
+        <div class="examplecode">
+            <pre><code class="javascript">
     document.addEventListener('DOMContentLoaded', function () {
         var rewind = document.querySelector('.js_rewind');
 
@@ -217,34 +318,46 @@
         });
     });
 
-</code></pre></div>
+</code></pre>
+        </div>
 
-            <h2>Single element - dot navigation</h2>
+        <h2>Single element - dot navigation</h2>
 
-            <div class="slider js_simple_dots simple">
-                <div class="frame js_frame">
-                    <ul class="slides js_slides">
-                        <li class="js_slide">1</li>
-                        <li class="js_slide">2</li>
-                        <li class="js_slide">3</li>
-                        <li class="js_slide">4</li>
-                        <li class="js_slide">5</li>
-                        <li class="js_slide">6</li>
-                    </ul>
-                </div>
-
-                <span class="js_prev prev">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z"/></g></svg>
-                </span>
-
-                <span class="js_next next">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z"/></g></svg>
-                </span>
-
-                <ul class="js_dots dots"></ul>
+        <div class="slider js_simple_dots simple">
+            <div class="frame js_frame">
+                <ul class="slides js_slides">
+                    <li class="js_slide">1</li>
+                    <li class="js_slide">2</li>
+                    <li class="js_slide">3</li>
+                    <li class="js_slide">4</li>
+                    <li class="js_slide">5</li>
+                    <li class="js_slide">6</li>
+                </ul>
             </div>
 
-<div class="examplecode"><pre><code class="javascript">
+            <span class="js_prev prev">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5">
+                    <g>
+                        <path fill="#2E435A"
+                            d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z" />
+                    </g>
+                </svg>
+            </span>
+
+            <span class="js_next next">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5">
+                    <g>
+                        <path fill="#2E435A"
+                            d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z" />
+                    </g>
+                </svg>
+            </span>
+
+            <ul class="js_dots dots"></ul>
+        </div>
+
+        <div class="examplecode">
+            <pre><code class="javascript">
     document.addEventListener('DOMContentLoaded', function () {
         var simple_dots       = document.querySelector('.js_simple_dots');
         var dot_count         = simple_dots.querySelectorAll('.js_slide').length;
@@ -290,32 +403,44 @@
         });
     });
 
-</code></pre></div>
+</code></pre>
+        </div>
 
-            <h2>Single element - Percentage width [rewind]</h2>
+        <h2>Single element - Percentage width [rewind]</h2>
 
-            <div class="slider js_rewind_percentage percentage">
-                <div class="frame js_frame">
-                    <ul class="slides js_slides">
-                        <li class="js_slide">1</li>
-                        <li class="js_slide">2</li>
-                        <li class="js_slide">3</li>
-                        <li class="js_slide">4</li>
-                        <li class="js_slide">5</li>
-                        <li class="js_slide">6</li>
-                    </ul>
-                </div>
-
-                <span class="js_prev prev">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z"/></g></svg>
-                </span>
-
-                <span class="js_next next">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z"/></g></svg>
-                </span>
+        <div class="slider js_rewind_percentage percentage">
+            <div class="frame js_frame">
+                <ul class="slides js_slides">
+                    <li class="js_slide">1</li>
+                    <li class="js_slide">2</li>
+                    <li class="js_slide">3</li>
+                    <li class="js_slide">4</li>
+                    <li class="js_slide">5</li>
+                    <li class="js_slide">6</li>
+                </ul>
             </div>
 
-<div class="examplecode"><pre><code class="javascript">
+            <span class="js_prev prev">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5">
+                    <g>
+                        <path fill="#2E435A"
+                            d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z" />
+                    </g>
+                </svg>
+            </span>
+
+            <span class="js_next next">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5">
+                    <g>
+                        <path fill="#2E435A"
+                            d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z" />
+                    </g>
+                </svg>
+            </span>
+        </div>
+
+        <div class="examplecode">
+            <pre><code class="javascript">
     document.addEventListener('DOMContentLoaded', function () {
         var rewind_percentage = document.querySelector('.js_rewind_percentage');
 
@@ -324,36 +449,48 @@
         });
     });
 
-</code></pre></div>
+</code></pre>
+        </div>
 
-            <h2>Variable width</h2>
+        <h2>Variable width</h2>
 
-            <div class="slider js_variablewidth variablewidth">
-                <div class="frame js_frame">
-                    <ul class="slides js_slides">
-                        <li class="js_slide" style="width: 220px;">220</li>
-                        <li class="js_slide" style="width: 190px;">190</li>
-                        <li class="js_slide" style="width: 150px;">150</li>
-                        <li class="js_slide" style="width: 130px;">130</li>
-                        <li class="js_slide" style="width: 250px;">250</li>
-                        <li class="js_slide" style="width: 180px;">180</li>
-                        <li class="js_slide" style="width: 200px;">200</li>
-                        <li class="js_slide" style="width: 140px;">140</li>
-                        <li class="js_slide" style="width: 120px;">120</li>
-                        <li class="js_slide" style="width: 240px;">240</li>
-                    </ul>
-                </div>
-
-                <span class="js_prev prev">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z"/></g></svg>
-                </span>
-
-                <span class="js_next next">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z"/></g></svg>
-                </span>
+        <div class="slider js_variablewidth variablewidth">
+            <div class="frame js_frame">
+                <ul class="slides js_slides">
+                    <li class="js_slide" style="width: 220px;">220</li>
+                    <li class="js_slide" style="width: 190px;">190</li>
+                    <li class="js_slide" style="width: 150px;">150</li>
+                    <li class="js_slide" style="width: 130px;">130</li>
+                    <li class="js_slide" style="width: 250px;">250</li>
+                    <li class="js_slide" style="width: 180px;">180</li>
+                    <li class="js_slide" style="width: 200px;">200</li>
+                    <li class="js_slide" style="width: 140px;">140</li>
+                    <li class="js_slide" style="width: 120px;">120</li>
+                    <li class="js_slide" style="width: 240px;">240</li>
+                </ul>
             </div>
 
-<div class="examplecode"><pre><code class="javascript">
+            <span class="js_prev prev">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5">
+                    <g>
+                        <path fill="#2E435A"
+                            d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z" />
+                    </g>
+                </svg>
+            </span>
+
+            <span class="js_next next">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5">
+                    <g>
+                        <path fill="#2E435A"
+                            d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z" />
+                    </g>
+                </svg>
+            </span>
+        </div>
+
+        <div class="examplecode">
+            <pre><code class="javascript">
     document.addEventListener('DOMContentLoaded', function () {
         var variableWidth = document.querySelector('.js_variablewlidth');
 
@@ -362,38 +499,13 @@
         });
     });
 
-</code></pre></div>
+</code></pre>
+        </div>
 
-            <h2>Multiple slides to scroll</h2>
 
-            <div class="slider js_multislides multislides">
-                <div class="frame js_frame">
-                    <ul class="slides js_slides">
-                        <li class="js_slide">1</li>
-                        <li class="js_slide">2</li>
-                        <li class="js_slide">3</li>
-                        <li class="js_slide">4</li>
-                        <li class="js_slide">5</li>
-                        <li class="js_slide">6</li>
-                        <li class="js_slide">7</li>
-                        <li class="js_slide">8</li>
-                        <li class="js_slide">9</li>
-                        <li class="js_slide">10</li>
-                        <li class="js_slide">11</li>
-                        <li class="js_slide">12</li>
-                    </ul>
-                </div>
 
-                <span class="js_prev prev">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z"/></g></svg>
-                </span>
-
-                <span class="js_next next">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z"/></g></svg>
-                </span>
-            </div>
-
-<div class="examplecode"><pre><code class="javascript">
+        <div class="examplecode">
+            <pre><code class="javascript">
     document.addEventListener('DOMContentLoaded', function () {
         var multiSlides = document.querySelector('.js_multislides');
 
@@ -403,38 +515,50 @@
         });
     });
 
-</code></pre></div>
+</code></pre>
+        </div>
 
-            <h2>Custom easings</h2>
+        <h2>Custom easings</h2>
 
-            <div class="slider js_ease ease">
-                <div class="frame js_frame">
-                    <ul class="slides js_slides">
-                        <li class="js_slide">1</li>
-                        <li class="js_slide">2</li>
-                        <li class="js_slide">3</li>
-                        <li class="js_slide">4</li>
-                        <li class="js_slide">5</li>
-                        <li class="js_slide">6</li>
-                        <li class="js_slide">7</li>
-                        <li class="js_slide">8</li>
-                        <li class="js_slide">9</li>
-                        <li class="js_slide">10</li>
-                        <li class="js_slide">11</li>
-                        <li class="js_slide">12</li>
-                    </ul>
-                </div>
-
-                <span class="js_prev prev">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z"/></g></svg>
-                </span>
-
-                <span class="js_next next">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z"/></g></svg>
-                </span>
+        <div class="slider js_ease ease">
+            <div class="frame js_frame">
+                <ul class="slides js_slides">
+                    <li class="js_slide">1</li>
+                    <li class="js_slide">2</li>
+                    <li class="js_slide">3</li>
+                    <li class="js_slide">4</li>
+                    <li class="js_slide">5</li>
+                    <li class="js_slide">6</li>
+                    <li class="js_slide">7</li>
+                    <li class="js_slide">8</li>
+                    <li class="js_slide">9</li>
+                    <li class="js_slide">10</li>
+                    <li class="js_slide">11</li>
+                    <li class="js_slide">12</li>
+                </ul>
             </div>
 
-<div class="examplecode"><pre><code class="javascript">
+            <span class="js_prev prev">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5">
+                    <g>
+                        <path fill="#2E435A"
+                            d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z" />
+                    </g>
+                </svg>
+            </span>
+
+            <span class="js_next next">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5">
+                    <g>
+                        <path fill="#2E435A"
+                            d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z" />
+                    </g>
+                </svg>
+            </span>
+        </div>
+
+        <div class="examplecode">
+            <pre><code class="javascript">
     document.addEventListener('DOMContentLoaded', function () {
         var ease = document.querySelector('.js_ease');
 
@@ -448,33 +572,45 @@
         });
     });
 
-</code></pre></div>
+</code></pre>
+        </div>
 
-            <h2>Showing events</h2>
+        <h2>Showing events</h2>
 
-            <div class="slider js_events events">
-                <div class="frame js_frame">
-                    <ul class="slides js_slides">
-                        <li class="js_slide">1</li>
-                        <li class="js_slide">2</li>
-                        <li class="js_slide">3</li>
-                        <li class="js_slide">4</li>
-                        <li class="js_slide">5</li>
-                        <li class="js_slide">6</li>
-                    </ul>
-                </div>
-
-                <span class="js_prev prev">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z"/></g></svg>
-                </span>
-
-                <span class="js_next next">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z"/></g></svg>
-                </span>
+        <div class="slider js_events events">
+            <div class="frame js_frame">
+                <ul class="slides js_slides">
+                    <li class="js_slide">1</li>
+                    <li class="js_slide">2</li>
+                    <li class="js_slide">3</li>
+                    <li class="js_slide">4</li>
+                    <li class="js_slide">5</li>
+                    <li class="js_slide">6</li>
+                </ul>
             </div>
-            <code class="events_log"></code>
 
-<div class="examplecode"><pre><code class="javascript">
+            <span class="js_prev prev">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5">
+                    <g>
+                        <path fill="#2E435A"
+                            d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z" />
+                    </g>
+                </svg>
+            </span>
+
+            <span class="js_next next">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5">
+                    <g>
+                        <path fill="#2E435A"
+                            d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z" />
+                    </g>
+                </svg>
+            </span>
+        </div>
+        <code class="events_log"></code>
+
+        <div class="examplecode">
+            <pre><code class="javascript">
     document.addEventListener('DOMContentLoaded', function () {
         var events = document.querySelector('.js_events');
 
@@ -504,14 +640,16 @@
         });
     });
 
-</code></pre></div>
+</code></pre>
+        </div>
 
-        </section>
+    </section>
 
-<section class="multiplesliders">
-<h2>initialize multiple similiar sliders</h2>
+    <section class="multiplesliders">
+        <h2>initialize multiple similiar sliders</h2>
 
-<div class="examplecode"><pre><code class="javascript">
+        <div class="examplecode">
+            <pre><code class="javascript">
         'use strict';
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -520,14 +658,16 @@
             });
         });
 
-</code></pre></div>
+</code></pre>
+        </div>
 
-</section>
+    </section>
 
-<section class="commonJS">
-<h2>Consume it as a commonJS module</h2>
+    <section class="commonJS">
+        <h2>Consume it as a commonJS module</h2>
 
-<div class="examplecode"><pre><code class="javascript">
+        <div class="examplecode">
+            <pre><code class="javascript">
     "use strict";
 
     var lory = require('lory.js').lory;
@@ -540,14 +680,16 @@
         });
     });
 
-</code></pre></div>
+</code></pre>
+        </div>
 
-</section>
+    </section>
 
-<section class="ES2015">
-<h2>Consume it as an ES2015 module</h2>
+    <section class="ES2015">
+        <h2>Consume it as an ES2015 module</h2>
 
-<div class="examplecode"><pre><code class="javascript">
+        <div class="examplecode">
+            <pre><code class="javascript">
     import {lory} from 'lory.js';
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -558,16 +700,20 @@
         });
     });
 
-</code></pre></div>
+</code></pre>
+        </div>
 
-<section class="jquery">
-<h2>Use it as a jQuery Plugin</h2>
+        <section class="jquery">
+            <h2>Use it as a jQuery Plugin</h2>
 
-<div class="examplecode"><pre><code class="html">
+            <div class="examplecode">
+                <pre><code class="html">
         &lt;script src=&quot;js/jquery.lory.min.js&quot;&gt;&lt;/script&gt;
-</code></pre></div>
+</code></pre>
+            </div>
 
-<div class="examplecode"><pre><code class="javascript">
+            <div class="examplecode">
+                <pre><code class="javascript">
         'use strict';
 
         var $elements = $('.js_simple');
@@ -582,14 +728,16 @@
             // $elements.data().lory.next();
         });
 
-</code></pre></div>
+</code></pre>
+            </div>
 
-</section>
+        </section>
 
         <section class="development">
             <h2>Local development</h2>
 
-<div class="examplecode"><pre><code class="shell">
+            <div class="examplecode">
+                <pre><code class="shell">
         // To install dev dependencies run:
 
         yarn install
@@ -606,14 +754,16 @@
 
         yarn run build
 
-</code></pre></div>
+</code></pre>
+            </div>
         </section>
 
 
         <section class="tests">
             <h2>Run tests</h2>
 
-<div class="examplecode"><pre><code class="shell">
+            <div class="examplecode">
+                <pre><code class="shell">
         // To install dev dependencies run:
 
         yarn install
@@ -622,9 +772,10 @@
 
         yarn run karma-local
 
-</code></pre></div>
+</code></pre>
+            </div>
 
-        <img class="testscreen" src="http://maximilian-heinz.de/test.png" />
+            <img class="testscreen" src="http://maximilian-heinz.de/test.png" />
         </section>
 
         <section class="api">
@@ -648,12 +799,14 @@
                 </tr>
                 <tr>
                     <th>setup:</th>
-                    <td>binds eventlisteners, merging default and user options, setup the slides based on DOM (called once during initialisation)</td>
+                    <td>binds eventlisteners, merging default and user options, setup the slides based on DOM (called
+                        once during initialisation)</td>
                     <td>Call setup if DOM or user options have changed or eventlisteners needs to be rebinded.</td>
                 </tr>
                 <tr>
                     <th>reset:</th>
-                    <td>sets the slider back to the starting position and resets the current index (called on Resize event)</td>
+                    <td>sets the slider back to the starting position and resets the current index (called on Resize
+                        event)</td>
                 </tr>
                 <tr>
                     <th>destroy:</th>
@@ -682,7 +835,8 @@
                 </tr>
                 <tr>
                     <th>rewind</th>
-                    <td>if slider reached the last slide, with next click the slider goes back to the startindex. (do not combine with infinite)</td>
+                    <td>if slider reached the last slide, with next click the slider goes back to the startindex. (do
+                        not combine with infinite)</td>
                     <td>default: false</td>
                 </tr>
                 <tr>
@@ -780,129 +934,137 @@
             Copyright &copy; 2015 Maximilian Heinz, contributors. Released under the MIT license
         </footer>
 
-    </body>
+</body>
 
-    <script src="./static/vendor/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+<script src="./static/vendor/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
 
-    <script>
-        'use strict';
+<script>
+    'use strict';
 
-        document.addEventListener('DOMContentLoaded', function () {
-            var simple            = document.querySelector('.js_simple');
-            var simple_dots       = document.querySelector('.js_simple_dots');
-            var dot_count         = simple_dots.querySelectorAll('.js_slide').length;
-            var dot_container     = simple_dots.querySelector('.js_dots');
-            var dot_list_item     = document.createElement('li');
-            var percentage        = document.querySelector('.js_percentage');
-            var rewind            = document.querySelector('.js_rewind');
-            var rewind_percentage = document.querySelector('.js_rewind_percentage');
-            var variableWidth     = document.querySelector('.js_variablewidth');
-            var multiSlides       = document.querySelector('.js_multislides');
-            var ease              = document.querySelector('.js_ease');
-            var events            = document.querySelector('.js_events');
+    document.addEventListener('DOMContentLoaded', function () {
+        var simple = document.querySelector('.js_simple');
+        var simple_dots = document.querySelector('.js_simple_dots');
+        var dot_count = simple_dots.querySelectorAll('.js_slide').length;
+        var dot_container = simple_dots.querySelector('.js_dots');
+        var dot_list_item = document.createElement('li');
+        var percentage = document.querySelector('.js_percentage');
+        var rewind = document.querySelector('.js_rewind');
+        var rewind_percentage = document.querySelector('.js_rewind_percentage');
+        var variableWidth = document.querySelector('.js_variablewidth');
+        var multiSlides = document.querySelector('.js_multislides');
+        var ease = document.querySelector('.js_ease');
+        var events = document.querySelector('.js_events');
 
-            lory(simple, {
-                infinite: 1,
-                enableMouseEvents: true
-            });
+        var multiSlidesNonCenter = document.querySelector('.js_multislidesnoncenter');
 
-            function handleDotEvent(e) {
-                if (e.type === 'before.lory.init') {
-                  for (var i = 0, len = dot_count; i < len; i++) {
+        // lory(simple, {
+        //     infinite: 1,
+        //     enableMouseEvents: true
+        // });
+
+        function handleDotEvent(e) {
+            if (e.type === 'before.lory.init') {
+                for (var i = 0, len = dot_count; i < len; i++) {
                     var clone = dot_list_item.cloneNode();
                     dot_container.appendChild(clone);
-                  }
-                  dot_container.childNodes[0].classList.add('active');
                 }
-                if (e.type === 'after.lory.init') {
-                  for (var i = 0, len = dot_count; i < len; i++) {
-                    dot_container.childNodes[i].addEventListener('click', function(e) {
-                      dot_navigation_slider.slideTo(Array.prototype.indexOf.call(dot_container.childNodes, e.target));
+                dot_container.childNodes[0].classList.add('active');
+            }
+            if (e.type === 'after.lory.init') {
+                for (var i = 0, len = dot_count; i < len; i++) {
+                    dot_container.childNodes[i].addEventListener('click', function (e) {
+                        dot_navigation_slider.slideTo(Array.prototype.indexOf.call(dot_container.childNodes, e.target));
                     });
-                  }
                 }
-                if (e.type === 'after.lory.slide') {
-                  for (var i = 0, len = dot_container.childNodes.length; i < len; i++) {
+            }
+            if (e.type === 'after.lory.slide') {
+                for (var i = 0, len = dot_container.childNodes.length; i < len; i++) {
                     dot_container.childNodes[i].classList.remove('active');
-                  }
-                  dot_container.childNodes[e.detail.currentSlide - 1].classList.add('active');
                 }
-                if (e.type === 'on.lory.resize') {
-                    for (var i = 0, len = dot_container.childNodes.length; i < len; i++) {
-                        dot_container.childNodes[i].classList.remove('active');
-                    }
-                    dot_container.childNodes[0].classList.add('active');
+                dot_container.childNodes[e.detail.currentSlide - 1].classList.add('active');
+            }
+            if (e.type === 'on.lory.resize') {
+                for (var i = 0, len = dot_container.childNodes.length; i < len; i++) {
+                    dot_container.childNodes[i].classList.remove('active');
                 }
+                dot_container.childNodes[0].classList.add('active');
             }
-            simple_dots.addEventListener('before.lory.init', handleDotEvent);
-            simple_dots.addEventListener('after.lory.init', handleDotEvent);
-            simple_dots.addEventListener('after.lory.slide', handleDotEvent);
-            simple_dots.addEventListener('on.lory.resize', handleDotEvent);
+        }
+        simple_dots.addEventListener('before.lory.init', handleDotEvent);
+        simple_dots.addEventListener('after.lory.init', handleDotEvent);
+        simple_dots.addEventListener('after.lory.slide', handleDotEvent);
+        simple_dots.addEventListener('on.lory.resize', handleDotEvent);
 
-            var dot_navigation_slider = lory(simple_dots, {
-                infinite: 1,
-                enableMouseEvents: true
-            });
+        // var dot_navigation_slider = lory(simple_dots, {
+        //     infinite: 1,
+        //     enableMouseEvents: true
+        // });
 
-            lory(percentage, {
-                infinite: 1,
-                enableMouseEvents: true
-            });
+        // lory(percentage, {
+        //     infinite: 1,
+        //     enableMouseEvents: true
+        // });
 
-            lory(rewind, {
-                rewind: true,
-                enableMouseEvents: true
-            });
+        // lory(rewind, {
+        //     rewind: true,
+        //     enableMouseEvents: true
+        // });
 
-            lory(rewind_percentage, {
-                rewind: true,
-                enableMouseEvents: true
-            });
+        // lory(rewind_percentage, {
+        //     rewind: true,
+        //     enableMouseEvents: true
+        // });
 
-            lory(variableWidth, {
-                rewind: true,
-                enableMouseEvents: true
-            });
+        // lory(variableWidth, {
+        //     rewind: true,
+        //     enableMouseEvents: true
+        // });
 
-            lory(multiSlides, {
-                infinite: 4,
-                slidesToScroll: 4,
-                enableMouseEvents: true
-            });
-
-            lory(ease, {
-                infinite: 4,
-                slidesToScroll: 4,
-                slideSpeed: 300,
-                ease: 'cubic-bezier(0.455, 0.03, 0.515, 0.955)',
-                enableMouseEvents: true
-            });
-
-            function handleEvent(e) {
-                var newSpan = document.createElement('span');
-                var time = new Date();
-                time = time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds() + ',' + time.getMilliseconds();
-                var newContent = document.createTextNode('[' + time + '] Event dispatched: "' + e.type + '"');
-                newSpan.appendChild(newContent);
-                e.target.nextElementSibling.appendChild(newSpan);
-            }
-
-            events.addEventListener('before.lory.init', handleEvent);
-            events.addEventListener('after.lory.init', handleEvent);
-            events.addEventListener('before.lory.slide', handleEvent);
-            events.addEventListener('after.lory.slide', handleEvent);
-            events.addEventListener('before.lory.destroy', handleEvent);
-            events.addEventListener('after.lory.destroy', handleEvent);
-
-            events.addEventListener('on.lory.resize', handleEvent);
-            events.addEventListener('on.lory.touchend', handleEvent);
-            events.addEventListener('on.lory.touchmove', handleEvent);
-            events.addEventListener('on.lory.touchstart', handleEvent);
-
-            lory(events, {
-                infinite: 1
-            });
+        lory(multiSlides, {
+            centerMode: true,
+            slidesToScroll: 1,
+            enableMouseEvents: true
         });
-    </script>
+
+        lory(multiSlidesNonCenter, {
+            slidesToScroll: 3,
+            enableMouseEvents: true
+        });
+
+        // lory(ease, {
+        //     infinite: 4,
+        //     slidesToScroll: 4,
+        //     slideSpeed: 300,
+        //     ease: 'cubic-bezier(0.455, 0.03, 0.515, 0.955)',
+        //     enableMouseEvents: true
+        // });
+
+        function handleEvent(e) {
+            var newSpan = document.createElement('span');
+            var time = new Date();
+            time = time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds() + ',' + time.getMilliseconds();
+            var newContent = document.createTextNode('[' + time + '] Event dispatched: "' + e.type + '"');
+            newSpan.appendChild(newContent);
+            e.target.nextElementSibling.appendChild(newSpan);
+        }
+
+        events.addEventListener('before.lory.init', handleEvent);
+        events.addEventListener('after.lory.init', handleEvent);
+        events.addEventListener('before.lory.slide', handleEvent);
+        events.addEventListener('after.lory.slide', handleEvent);
+        events.addEventListener('before.lory.destroy', handleEvent);
+        events.addEventListener('after.lory.destroy', handleEvent);
+
+        events.addEventListener('on.lory.resize', handleEvent);
+        events.addEventListener('on.lory.touchend', handleEvent);
+        events.addEventListener('on.lory.touchmove', handleEvent);
+        events.addEventListener('on.lory.touchstart', handleEvent);
+
+        // lory(events, {
+        //     infinite: 1
+        // });
+    });
+</script>
+
 </html>

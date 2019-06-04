@@ -97,5 +97,7 @@ export default {
      * If false, slides lory to the first slide on window resize.
      * @rewindOnResize {boolean}
      */
-    rewindOnResize: true
+    rewindOnResize: true,
+
+    centerMode: false
 };

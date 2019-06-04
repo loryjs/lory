@@ -7,7 +7,7 @@ import defaults from './defaults.js';
 
 const slice = Array.prototype.slice;
 
-export function lory (slider, opts) {
+export function lory(slider, opts) {
     let position;
     let slidesWidth;
     let frameWidth;
@@ -23,7 +23,7 @@ export function lory (slider, opts) {
     let prefixes;
     let transitionEndCallback;
 
-    let index   = 0;
+    let index = 0;
     let options = {};
     let touchEventParams = supportsPassive() ? { passive: true } : false;
 
@@ -38,8 +38,8 @@ export function lory (slider, opts) {
      * private
      * set active class to element which is the current slide
      */
-    function setActiveElement (slides, currentIndex) {
-        const {classNameActiveSlide} = options;
+    function setActiveElement(slides, currentIndex) {
+        const { classNameActiveSlide } = options;
 
         slides.forEach((element, index) => {
             if (element.classList.contains(classNameActiveSlide)) {
@@ -57,11 +57,11 @@ export function lory (slider, opts) {
      * @param  {array} slideArray
      * @return {array} array of updated slideContainer elements
      */
-    function setupInfinite (slideArray) {
-        const {infinite} = options;
+    function setupInfinite(slideArray) {
+        const { infinite } = options;
 
         const front = slideArray.slice(0, infinite);
-        const back  = slideArray.slice(slideArray.length - infinite, slideArray.length);
+        const back = slideArray.slice(slideArray.length - infinite, slideArray.length);
 
         front.forEach(function (element) {
             const cloned = element.cloneNode(true);
@@ -85,7 +85,7 @@ export function lory (slider, opts) {
      * [dispatchSliderEvent description]
      * @return {[type]} [description]
      */
-    function dispatchSliderEvent (phase, type, detail) {
+    function dispatchSliderEvent(phase, type, detail) {
         dispatchEvent(slider, `${phase}.lory.${type}`, detail);
     }
 
@@ -96,7 +96,7 @@ export function lory (slider, opts) {
      * @duration  {number} time in milliseconds for the transistion
      * @ease      {string} easing css property
      */
-    function translate (to, duration, ease) {
+    function translate(to, duration, ease) {
         const style = slideContainer && slideContainer.style;
 
         if (style) {
@@ -109,7 +109,7 @@ export function lory (slider, opts) {
     /**
      * returns an element's width
      */
-    function elementWidth (element) {
+    function elementWidth(element) {
         return element.getBoundingClientRect().width || element.offsetWidth;
     }
 
@@ -121,7 +121,7 @@ export function lory (slider, opts) {
      *
      * @direction  {boolean}
      */
-    function slide (nextIndex, direction) {
+    function slide(nextIndex, direction) {
         const {
             slideSpeed,
             slidesToScroll,
@@ -138,7 +138,7 @@ export function lory (slider, opts) {
         let duration = slideSpeed;
 
         const nextSlide = direction ? index + 1 : index - 1;
-        const maxOffset = Math.round(slidesWidth - frameWidth);
+        const maxOffset = (options.centerMode) ? Math.round(slidesWidth - frameWidth) + 220 : Math.round(slidesWidth - frameWidth); //TODO: 220
 
         dispatchSliderEvent('before', 'slide', {
             index,
@@ -157,17 +157,17 @@ export function lory (slider, opts) {
 
         if (typeof nextIndex !== 'number') {
             if (direction) {
-              if (infinite && index + (infinite * 2) !== slides.length) {
-                  nextIndex = index + (infinite - index % infinite);
-              } else {
-                  nextIndex = index + slidesToScroll;
-              }
+                if (infinite && index + (infinite * 2) !== slides.length) {
+                    nextIndex = index + (infinite - index % infinite);
+                } else {
+                    nextIndex = index + slidesToScroll;
+                }
             } else {
-              if (infinite && index % infinite !== 0) {
-                  nextIndex = index - index % infinite;
-              } else {
-                  nextIndex = index - slidesToScroll;
-              }
+                if (infinite && index % infinite !== 0) {
+                    nextIndex = index - index % infinite;
+                } else {
+                    nextIndex = index - slidesToScroll;
+                }
             }
         }
 
@@ -182,7 +182,24 @@ export function lory (slider, opts) {
             duration = rewindSpeed;
         }
 
-        let nextOffset = Math.min(Math.max(slides[nextIndex].offsetLeft * -1, maxOffset * -1), 0);
+        let nextOffset;
+
+        if (options.centerMode) {
+            if (slides.length === nextIndex + 1 && direction) {
+                nextOffset = Math.min(slides[index + 1].offsetLeft * -1, maxOffset * -1) + (slides[0].clientWidth / 2);
+            } else if (!direction) {
+                if (index === 0) {
+                    nextOffset = 0;
+                } else {
+                    nextOffset = Math.min(Math.max(slides[nextIndex + 1].offsetLeft * -1, maxOffset * -1) + (slides[0].clientWidth / 2), 0);
+                }
+            } else {
+                nextOffset = Math.min(Math.max(slides[nextIndex].offsetLeft * -1, maxOffset * -1) + (slides[0].clientWidth / 2), 0);
+            }
+
+        } else {
+            nextOffset = Math.min(Math.max(slides[nextIndex].offsetLeft * -1, maxOffset * -1), 0);
+        }
 
         if (rewind && Math.abs(position.x) === maxOffset && direction) {
             nextOffset = 0;
@@ -233,8 +250,13 @@ export function lory (slider, opts) {
          * update classes for next and prev arrows
          * based on user settings
          */
-        if (prevCtrl && !infinite && !rewindPrev && nextIndex === 0) {
-            prevCtrl.classList.add(classNameDisabledPrevCtrl);
+        if (prevCtrl && !infinite && !rewindPrev) {
+            if (!options.centerMode && nextIndex === 0) {
+                prevCtrl.classList.add(classNameDisabledPrevCtrl);
+            } else if (options.centerMode) {
+                //prevCtrl.classList.add(classNameDisabledPrevCtrl);
+            }
+
         }
 
         if (nextCtrl && !infinite && !rewind && ((nextIndex + 1) === slides.length)) {
@@ -250,11 +272,11 @@ export function lory (slider, opts) {
      * public
      * setup function
      */
-    function setup () {
+    function setup() {
         dispatchSliderEvent('before', 'init');
 
         prefixes = detectPrefixes();
-        options = {...defaults, ...opts};
+        options = { ...defaults, ...opts };
 
         const {
             classNameFrame,
@@ -320,8 +342,8 @@ export function lory (slider, opts) {
      * public
      * reset function: called on resize
      */
-    function reset () {
-        var {infinite, ease, rewindSpeed, rewindOnResize, classNameActiveSlide, initialIndex} = options;
+    function reset() {
+        var { infinite, ease, rewindSpeed, rewindOnResize, classNameActiveSlide, initialIndex } = options;
 
         slidesWidth = elementWidth(slideContainer);
         frameWidth = elementWidth(frame);
@@ -358,7 +380,7 @@ export function lory (slider, opts) {
      * public
      * slideTo: called on clickhandler
      */
-    function slideTo (index) {
+    function slideTo(index) {
         slide(index);
     }
 
@@ -366,7 +388,7 @@ export function lory (slider, opts) {
      * public
      * returnIndex function: called on clickhandler
      */
-    function returnIndex () {
+    function returnIndex() {
         return index - options.infinite || 0;
     }
 
@@ -374,7 +396,7 @@ export function lory (slider, opts) {
      * public
      * prev function: called on clickhandler
      */
-    function prev () {
+    function prev() {
         slide(false, false);
     }
 
@@ -382,7 +404,7 @@ export function lory (slider, opts) {
      * public
      * next function: called on clickhandler
      */
-    function next () {
+    function next() {
         slide(false, true);
     }
 
@@ -390,7 +412,7 @@ export function lory (slider, opts) {
      * public
      * destroy function: called to gracefully destroy the lory instance
      */
-    function destroy () {
+    function destroy() {
         dispatchSliderEvent('before', 'destroy');
 
         // remove event listeners
@@ -431,7 +453,7 @@ export function lory (slider, opts) {
     let delta;
     let isScrolling;
 
-    function onTransitionEnd () {
+    function onTransitionEnd() {
         if (transitionEndCallback) {
             transitionEndCallback();
 
@@ -439,8 +461,8 @@ export function lory (slider, opts) {
         }
     }
 
-    function onTouchstart (event) {
-        const {enableMouseEvents} = options;
+    function onTouchstart(event) {
+        const { enableMouseEvents } = options;
         const touches = event.touches ? event.touches[0] : event;
 
         if (enableMouseEvents) {
@@ -452,7 +474,7 @@ export function lory (slider, opts) {
         frame.addEventListener('touchmove', onTouchmove, touchEventParams);
         frame.addEventListener('touchend', onTouchend);
 
-        const {pageX, pageY} = touches;
+        const { pageX, pageY } = touches;
 
         touchOffset = {
             x: pageX,
@@ -469,9 +491,9 @@ export function lory (slider, opts) {
         });
     }
 
-    function onTouchmove (event) {
+    function onTouchmove(event) {
         const touches = event.touches ? event.touches[0] : event;
-        const {pageX, pageY} = touches;
+        const { pageX, pageY } = touches;
 
         delta = {
             x: pageX - touchOffset.x,
@@ -492,7 +514,7 @@ export function lory (slider, opts) {
         });
     }
 
-    function onTouchend (event) {
+    function onTouchend(event) {
         /**
          * time between touchstart and touchend in milliseconds
          * @duration {number}
@@ -552,13 +574,13 @@ export function lory (slider, opts) {
         });
     }
 
-    function onClick (event) {
+    function onClick(event) {
         if (delta.x) {
             event.preventDefault();
         }
     }
 
-    function onResize (event) {
+    function onResize(event) {
         if (frameWidth !== elementWidth(frame)) {
             reset();
 
