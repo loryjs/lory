@@ -400,17 +400,7 @@ footer {
 }
 
 
-.multislides li{
+.centermode li{
     width: 420px;
     margin-right: 40px
-}
-
-.multislides .slides {
-    transition-timing-function: ease;
-    transition-duration: 600ms;
-    transform: translateX(440px);
-}
-
-.js_multislidesnoncenter li {
-    width: 300px;
 }
