@@ -320,6 +320,11 @@ li {
         <td>class name for slider next control then disabled</td>
         <td>default: 'disabled'</td>
     </tr>
+    <tr>
+        <td>centerMode</td>
+        <td>enable centerMode for equal width slides where first slide will be left aligned</td>
+        <td>default: false</td>
+    </tr>
 </table>
 
 ## Events

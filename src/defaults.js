@@ -99,5 +99,9 @@ export default {
      */
     rewindOnResize: true,
 
+    /**
+     * If true, enable centerMode for fixed width slides where first slide will be left aligned.
+     * @centerMode {boolean}
+     */
     centerMode: false
 };
