@@ -136,9 +136,10 @@ export function lory (slider, opts) {
         } = options;
 
         let duration = slideSpeed;
-        let snapToFirstSlide = false;
+        let centerModeFirstSlide = false;
 
         const nextSlide = direction ? index + 1 : index - 1;
+        const maxOffset = Math.round(slidesWidth - frameWidth);
 
         dispatchSliderEvent('before', 'slide', {
             index,
@@ -173,10 +174,6 @@ export function lory (slider, opts) {
 
         nextIndex = Math.min(Math.max(nextIndex, 0), slides.length - 1);
 
-        let slideStyle = slides[nextIndex].currentStyle || window.getComputedStyle(slides[nextIndex]);
-        let slidePadding = parseFloat(slideStyle.marginLeft) + parseFloat(slideStyle.marginRight);
-        const maxOffset = (options.centerMode) ? Math.round(slidesWidth - frameWidth) + Math.round(frameWidth / 2) - slidePadding : Math.round(slidesWidth - frameWidth);
-
         if (infinite && direction === undefined) {
             nextIndex += infinite;
         }
@@ -189,17 +186,11 @@ export function lory (slider, opts) {
         let nextOffset;
 
         if (options.centerMode) {
-            if (slides.length === nextIndex + 1 && direction) {
-                nextOffset = Math.min(slides[index + 1].offsetLeft * -1, maxOffset * -1) + (slides[0].clientWidth / 2);
-            } else if (!direction) {
-                if (index === 0) {
-                    nextOffset = 0;
-                    snapToFirstSlide = true;
-                } else {
-                    nextOffset = Math.min(Math.max(slides[nextIndex + 1].offsetLeft * -1, maxOffset * -1) + (slides[0].clientWidth / 2), 0);
-                }
+            if (!direction) {
+                nextOffset = (slides[index].offsetLeft * -1) + (frameWidth / 2) - (slides[index].clientWidth / 2);
+                centerModeFirstSlide = (index === nextIndex);
             } else {
-                nextOffset = Math.min(Math.max(slides[nextIndex].offsetLeft * -1, maxOffset * -1) + (slides[0].clientWidth / 2), 0);
+                nextOffset = (slides[nextIndex].offsetLeft * -1) + (frameWidth / 2) - (slides[nextIndex].clientWidth / 2);
             }
         } else {
             nextOffset = Math.min(Math.max(slides[nextIndex].offsetLeft * -1, maxOffset * -1), 0);
@@ -257,7 +248,7 @@ export function lory (slider, opts) {
         if (prevCtrl && !infinite && !rewindPrev) {
             if (!options.centerMode && nextIndex === 0) {
                 prevCtrl.classList.add(classNameDisabledPrevCtrl);
-            } else if (options.centerMode && snapToFirstSlide) {
+            } else if (options.centerMode && centerModeFirstSlide) {
                 prevCtrl.classList.add(classNameDisabledPrevCtrl);
             }
         }
@@ -370,8 +361,13 @@ export function lory (slider, opts) {
             index = index + infinite;
             position.x = slides[index].offsetLeft * -1;
         } else {
-            translate(slides[index].offsetLeft * -1, rewindSpeed, ease);
-            position.x = slides[index].offsetLeft * -1;
+            if (options.centerMode) {
+                translate((slides[index].offsetLeft * -1) + (frameWidth / 2) - (slides[index].clientWidth / 2), rewindSpeed, ease);
+                position.x = (slides[index].offsetLeft * -1) + (frameWidth / 2) - (slides[index].clientWidth / 2);
+            } else {
+                translate(slides[index].offsetLeft * -1, rewindSpeed, ease);
+                position.x = slides[index].offsetLeft * -1;
+            }
         }
 
         if (classNameActiveSlide) {

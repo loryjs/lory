@@ -100,7 +100,7 @@ export default {
     rewindOnResize: true,
 
     /**
-     * If true, enable centerMode for equal width slides where first slide will be left aligned.
+     * If true, enable centerMode
      * @centerMode {boolean}
      */
     centerMode: false

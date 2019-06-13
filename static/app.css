@@ -401,6 +401,10 @@ footer {
 
 
 .centermode li{
-    width: 420px;
-    margin-right: 40px
+    /* width: 220px;
+    margin-right: 40px; */
+    /* width: 420px;
+    margin-right: 40px; */
+    width: 600px;
+    margin-right: 13px
 }

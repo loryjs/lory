@@ -322,7 +322,7 @@ li {
     </tr>
     <tr>
         <td>centerMode</td>
-        <td>enable centerMode for equal width slides where first slide will be left aligned</td>
+        <td>enable centerMode</td>
         <td>default: false</td>
     </tr>
 </table>
