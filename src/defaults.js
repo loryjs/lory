@@ -103,5 +103,5 @@ export default {
      * If true, enable centerMode
      * @centerMode {boolean}
      */
-    centerMode: false
+    centerMode: { enableCenterMode: false, firstSlideLeftAlign: false }
 };

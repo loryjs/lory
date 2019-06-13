@@ -322,8 +322,8 @@ li {
     </tr>
     <tr>
         <td>centerMode</td>
-        <td>enable centerMode</td>
-        <td>default: false</td>
+        <td>enable centerMode with an additional option to make first slide left align</td>
+        <td>default: { enableCenterMode: false, firstSlideLeftAlign: false }</td>
     </tr>
 </table>
 
