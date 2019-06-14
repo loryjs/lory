@@ -136,7 +136,6 @@ export function lory (slider, opts) {
         } = options;
 
         let duration = slideSpeed;
-        let centerModeFirstSlide = false;
 
         const nextSlide = direction ? index + 1 : index - 1;
 
@@ -173,9 +172,7 @@ export function lory (slider, opts) {
 
         nextIndex = Math.min(Math.max(nextIndex, 0), slides.length - 1);
 
-        let slideStyle = slides[nextIndex].currentStyle || window.getComputedStyle(slides[nextIndex]);
-        let slideMarginPadding = parseFloat(slideStyle.marginLeft) + parseFloat(slideStyle.marginRight) + parseFloat(slideStyle.paddingLeft) + parseFloat(slideStyle.paddingRight);
-        const maxOffset = (options.centerMode.enableCenterMode) ? Math.round(slidesWidth - frameWidth) + (frameWidth / 2) + slideMarginPadding : Math.round(slidesWidth - frameWidth);
+        const maxOffset = (options.centerMode.enableCenterMode) ? Math.round(slidesWidth - frameWidth) + (frameWidth / 2) + (slides[0].offsetLeft * -1) + (frameWidth / 2) - (slides[0].clientWidth / 2) : Math.round(slidesWidth - frameWidth);
 
         if (infinite && direction === undefined) {
             nextIndex += infinite;
@@ -189,13 +186,7 @@ export function lory (slider, opts) {
         let nextOffset;
 
         if (options.centerMode.enableCenterMode) {
-            if (!direction) {
-                nextOffset = (slides[index].offsetLeft * -1) + (frameWidth / 2) - (slides[index].clientWidth / 2);
-                centerModeFirstSlide = (index === nextIndex);
-            } else {
-                nextOffset = (slides[nextIndex].offsetLeft * -1) + (frameWidth / 2) - (slides[nextIndex].clientWidth / 2);
-            }
-
+            nextOffset = Math.max((slides[nextIndex].offsetLeft * -1) + (frameWidth / 2) - (slides[nextIndex].clientWidth / 2), maxOffset * -1);
             nextOffset = (nextOffset >= 0 && options.centerMode.firstSlideLeftAlign) ? 0 : nextOffset;
         } else {
             nextOffset = Math.min(Math.max(slides[nextIndex].offsetLeft * -1, maxOffset * -1), 0);
@@ -250,12 +241,8 @@ export function lory (slider, opts) {
          * update classes for next and prev arrows
          * based on user settings
          */
-        if (prevCtrl && !infinite && !rewindPrev) {
-            if (!options.centerMode.enableCenterMode && nextIndex === 0) {
-                prevCtrl.classList.add(classNameDisabledPrevCtrl);
-            } else if (options.centerMode.enableCenterMode && centerModeFirstSlide) {
-                prevCtrl.classList.add(classNameDisabledPrevCtrl);
-            }
+        if (prevCtrl && !infinite && !rewindPrev && nextIndex === 0) {
+            prevCtrl.classList.add(classNameDisabledPrevCtrl);
         }
 
         if (nextCtrl && !infinite && !rewind && ((nextIndex + 1) === slides.length)) {
