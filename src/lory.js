@@ -136,8 +136,10 @@ export function lory (slider, opts) {
         } = options;
 
         let duration = slideSpeed;
+        let nextOffset;
 
         const nextSlide = direction ? index + 1 : index - 1;
+        const maxOffset = (options.centerMode.enableCenterMode) ? Math.round(slidesWidth - frameWidth) + (frameWidth / 2) + (slides[0].offsetLeft * -1) + (frameWidth / 2) - (slides[0].clientWidth / 2) : Math.round(slidesWidth - frameWidth);
 
         dispatchSliderEvent('before', 'slide', {
             index,
@@ -172,8 +174,6 @@ export function lory (slider, opts) {
 
         nextIndex = Math.min(Math.max(nextIndex, 0), slides.length - 1);
 
-        const maxOffset = (options.centerMode.enableCenterMode) ? Math.round(slidesWidth - frameWidth) + (frameWidth / 2) + (slides[0].offsetLeft * -1) + (frameWidth / 2) - (slides[0].clientWidth / 2) : Math.round(slidesWidth - frameWidth);
-
         if (infinite && direction === undefined) {
             nextIndex += infinite;
         }
@@ -182,8 +182,6 @@ export function lory (slider, opts) {
             nextIndex = slides.length - 1;
             duration = rewindSpeed;
         }
-
-        let nextOffset;
 
         if (options.centerMode.enableCenterMode) {
             nextOffset = Math.max((slides[nextIndex].offsetLeft * -1) + (frameWidth / 2) - (slides[nextIndex].clientWidth / 2), maxOffset * -1);
