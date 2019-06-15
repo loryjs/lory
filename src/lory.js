@@ -1,7 +1,6 @@
 /* globals jQuery */
 
 import detectPrefixes from './utils/detect-prefixes.js';
-import supportsPassive from './utils/detect-supportsPassive';
 import dispatchEvent from './utils/dispatch-event.js';
 import defaults from './defaults.js';
 
@@ -25,7 +24,7 @@ export function lory (slider, opts) {
 
     let index   = 0;
     let options = {};
-    let touchEventParams = supportsPassive() ? { passive: true } : false;
+    let touchEventParams = false;
 
     /**
      * if object is jQuery convert to native DOM element
@@ -157,17 +156,17 @@ export function lory (slider, opts) {
 
         if (typeof nextIndex !== 'number') {
             if (direction) {
-              if (infinite && index + (infinite * 2) !== slides.length) {
-                  nextIndex = index + (infinite - index % infinite);
-              } else {
-                  nextIndex = index + slidesToScroll;
-              }
+                if (infinite && index + (infinite * 2) !== slides.length) {
+                    nextIndex = index + (infinite - index % infinite);
+                } else {
+                    nextIndex = index + slidesToScroll;
+                }
             } else {
-              if (infinite && index % infinite !== 0) {
-                  nextIndex = index - index % infinite;
-              } else {
-                  nextIndex = index - slidesToScroll;
-              }
+                if (infinite && index % infinite !== 0) {
+                    nextIndex = index - index % infinite;
+                } else {
+                    nextIndex = index - slidesToScroll;
+                }
             }
         }
 
@@ -305,9 +304,14 @@ export function lory (slider, opts) {
         }
 
         frame.addEventListener('touchstart', onTouchstart, touchEventParams);
+        frame.addEventListener('touchmove', onTouchmove, touchEventParams);
+        frame.addEventListener('touchend', onTouchend);
 
         if (enableMouseEvents) {
             frame.addEventListener('mousedown', onTouchstart);
+            frame.addEventListener('mousemove', onTouchmove);
+            frame.addEventListener('mouseup', onTouchend);
+            frame.addEventListener('mouseleave', onTouchend);
             frame.addEventListener('click', onClick);
         }
 
@@ -440,17 +444,7 @@ export function lory (slider, opts) {
     }
 
     function onTouchstart (event) {
-        const {enableMouseEvents} = options;
         const touches = event.touches ? event.touches[0] : event;
-
-        if (enableMouseEvents) {
-            frame.addEventListener('mousemove', onTouchmove);
-            frame.addEventListener('mouseup', onTouchend);
-            frame.addEventListener('mouseleave', onTouchend);
-        }
-
-        frame.addEventListener('touchmove', onTouchmove, touchEventParams);
-        frame.addEventListener('touchend', onTouchend);
 
         const {pageX, pageY} = touches;
 
@@ -483,6 +477,7 @@ export function lory (slider, opts) {
         }
 
         if (!isScrolling && touchOffset) {
+            event.preventDefault();
             translate(position.x + delta.x, 0, null);
         }
 
@@ -537,15 +532,6 @@ export function lory (slider, opts) {
         }
 
         touchOffset = undefined;
-
-        /**
-         * remove eventlisteners after swipe attempt
-         */
-        frame.removeEventListener('touchmove', onTouchmove);
-        frame.removeEventListener('touchend', onTouchend);
-        frame.removeEventListener('mousemove', onTouchmove);
-        frame.removeEventListener('mouseup', onTouchend);
-        frame.removeEventListener('mouseleave', onTouchend);
 
         dispatchSliderEvent('on', 'touchend', {
             event
