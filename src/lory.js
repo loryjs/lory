@@ -23,7 +23,7 @@ export function lory (slider, opts) {
     let prefixes;
     let transitionEndCallback;
 
-    let index = 0;
+    let index   = 0;
     let options = {};
     let touchEventParams = supportsPassive() ? { passive: true } : false;
 
@@ -39,7 +39,7 @@ export function lory (slider, opts) {
      * set active class to element which is the current slide
      */
     function setActiveElement (slides, currentIndex) {
-        const { classNameActiveSlide } = options;
+        const {classNameActiveSlide} = options;
 
         slides.forEach((element, index) => {
             if (element.classList.contains(classNameActiveSlide)) {
@@ -58,10 +58,10 @@ export function lory (slider, opts) {
      * @return {array} array of updated slideContainer elements
      */
     function setupInfinite (slideArray) {
-        const { infinite } = options;
+        const {infinite} = options;
 
         const front = slideArray.slice(0, infinite);
-        const back = slideArray.slice(slideArray.length - infinite, slideArray.length);
+        const back  = slideArray.slice(slideArray.length - infinite, slideArray.length);
 
         front.forEach(function (element) {
             const cloned = element.cloneNode(true);
@@ -139,7 +139,7 @@ export function lory (slider, opts) {
         let nextOffset;
 
         const nextSlide = direction ? index + 1 : index - 1;
-        const maxOffset = (options.centerMode.enableCenterMode) ? Math.round(slidesWidth - frameWidth) + (frameWidth / 2) + (slides[0].offsetLeft * -1) + (frameWidth / 2) - (slides[0].clientWidth / 2) : Math.round(slidesWidth - frameWidth);
+        const maxOffset = Math.round(slidesWidth - ((options.centerMode.enableCenterMode) ? slides[0].clientWidth / 2 : frameWidth));
 
         dispatchSliderEvent('before', 'slide', {
             index,
@@ -158,17 +158,17 @@ export function lory (slider, opts) {
 
         if (typeof nextIndex !== 'number') {
             if (direction) {
-                if (infinite && index + (infinite * 2) !== slides.length) {
-                    nextIndex = index + (infinite - index % infinite);
-                } else {
-                    nextIndex = index + slidesToScroll;
-                }
+              if (infinite && index + (infinite * 2) !== slides.length) {
+                  nextIndex = index + (infinite - index % infinite);
+              } else {
+                  nextIndex = index + slidesToScroll;
+              }
             } else {
-                if (infinite && index % infinite !== 0) {
-                    nextIndex = index - index % infinite;
-                } else {
-                    nextIndex = index - slidesToScroll;
-                }
+              if (infinite && index % infinite !== 0) {
+                  nextIndex = index - index % infinite;
+              } else {
+                  nextIndex = index - slidesToScroll;
+              }
             }
         }
 
@@ -183,6 +183,9 @@ export function lory (slider, opts) {
             duration = rewindSpeed;
         }
 
+        /**
+         * if centerMode enabled, then offset is set center of frame/container
+         */        
         if (options.centerMode.enableCenterMode) {
             nextOffset = Math.max((slides[nextIndex].offsetLeft * -1) + (frameWidth / 2) - (slides[nextIndex].clientWidth / 2), maxOffset * -1);
             nextOffset = (nextOffset >= 0 && options.centerMode.firstSlideLeftAlign) ? 0 : nextOffset;
@@ -260,7 +263,7 @@ export function lory (slider, opts) {
         dispatchSliderEvent('before', 'init');
 
         prefixes = detectPrefixes();
-        options = { ...defaults, ...opts };
+        options = {...defaults, ...opts};
 
         const {
             classNameFrame,
@@ -327,7 +330,7 @@ export function lory (slider, opts) {
      * reset function: called on resize
      */
     function reset () {
-        var { infinite, ease, rewindSpeed, rewindOnResize, classNameActiveSlide, initialIndex } = options;
+        var {infinite, ease, rewindSpeed, rewindOnResize, classNameActiveSlide, initialIndex} = options;
 
         slidesWidth = elementWidth(slideContainer);
         frameWidth = elementWidth(frame);
@@ -350,14 +353,12 @@ export function lory (slider, opts) {
 
             index = index + infinite;
             position.x = slides[index].offsetLeft * -1;
-        } else {
-            if (options.centerMode.enableCenterMode && !options.centerMode.firstSlideLeftAlign) {
-                translate((slides[index].offsetLeft * -1) + (frameWidth / 2) - (slides[index].clientWidth / 2), rewindSpeed, ease);
-                position.x = (slides[index].offsetLeft * -1) + (frameWidth / 2) - (slides[index].clientWidth / 2);
-            } else {
-                translate(slides[index].offsetLeft * -1, rewindSpeed, ease);
-                position.x = slides[index].offsetLeft * -1;
-            }
+        } else if (options.centerMode.enableCenterMode && !options.centerMode.firstSlideLeftAlign) {
+            translate((slides[index].offsetLeft * -1) + (frameWidth / 2) - (slides[index].clientWidth / 2), rewindSpeed, ease);
+            position.x = (slides[index].offsetLeft * -1) + (frameWidth / 2) - (slides[index].clientWidth / 2);            
+        } else {            
+            translate(slides[index].offsetLeft * -1, rewindSpeed, ease);
+            position.x = slides[index].offsetLeft * -1;            
         }
 
         if (classNameActiveSlide) {
@@ -451,7 +452,7 @@ export function lory (slider, opts) {
     }
 
     function onTouchstart (event) {
-        const { enableMouseEvents } = options;
+        const {enableMouseEvents} = options;
         const touches = event.touches ? event.touches[0] : event;
 
         if (enableMouseEvents) {
@@ -463,7 +464,7 @@ export function lory (slider, opts) {
         frame.addEventListener('touchmove', onTouchmove, touchEventParams);
         frame.addEventListener('touchend', onTouchend);
 
-        const { pageX, pageY } = touches;
+        const {pageX, pageY} = touches;
 
         touchOffset = {
             x: pageX,
@@ -482,7 +483,7 @@ export function lory (slider, opts) {
 
     function onTouchmove (event) {
         const touches = event.touches ? event.touches[0] : event;
-        const { pageX, pageY } = touches;
+        const {pageX, pageY} = touches;
 
         delta = {
             x: pageX - touchOffset.x,
@@ -540,7 +541,7 @@ export function lory (slider, opts) {
         const direction = delta.x < 0;
 
         if (!isScrolling) {
-            if ((isValid && !isOutOfBounds) || options.centerMode.enableCenterMode) {
+            if (isValid && !isOutOfBounds) {
                 slide(false, direction);
             } else {
                 translate(position.x, options.snapBackSpeed);

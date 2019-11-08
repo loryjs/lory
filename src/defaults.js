@@ -100,8 +100,9 @@ export default {
     rewindOnResize: true,
 
     /**
-     * If true, enable centerMode
-     * @centerMode {boolean}
+     * enable centerMode functionality by setting enableCenterMode as true
+     * by setting enableCenterMode and firstSlideLeftAlign as true makes first slide left align with centerMode functionality
+     * @centerMode {object}
      */
-    centerMode: { enableCenterMode: false, firstSlideLeftAlign: false }
+    centerMode: {enableCenterMode: false, firstSlideLeftAlign: false}
 };

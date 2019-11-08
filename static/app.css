@@ -252,6 +252,11 @@ footer {
     margin-right: 10px;
 }
 
+.centermode li {
+    width: 340px;
+    margin-right: 10px;
+}
+
 .simple > .frame li:last-child,
 .rewind > .frame li:last-child,
 .events > .frame li:last-child,
@@ -397,14 +402,4 @@ footer {
         width: 205px;
         margin-right: 20px;
     }
-}
-
-
-.centermode li{
-    /* width: 220px;
-    margin-right: 40px; */
-    width: 420px;
-    margin-right: 40px;
-    /* width: 600px;
-    margin-right: 13px */
 }
