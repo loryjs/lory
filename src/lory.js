@@ -136,9 +136,10 @@ export function lory (slider, opts) {
         } = options;
 
         let duration = slideSpeed;
+        let nextOffset;
 
         const nextSlide = direction ? index + 1 : index - 1;
-        const maxOffset = Math.round(slidesWidth - frameWidth);
+        const maxOffset = Math.round(slidesWidth - ((options.centerMode.enableCenterMode) ? slides[0].clientWidth / 2 : frameWidth));
 
         dispatchSliderEvent('before', 'slide', {
             index,
@@ -182,7 +183,15 @@ export function lory (slider, opts) {
             duration = rewindSpeed;
         }
 
-        let nextOffset = Math.min(Math.max(slides[nextIndex].offsetLeft * -1, maxOffset * -1), 0);
+        /**
+         * if centerMode enabled, then offset is set center of frame/container
+         */        
+        if (options.centerMode.enableCenterMode) {
+            nextOffset = Math.max((slides[nextIndex].offsetLeft * -1) + (frameWidth / 2) - (slides[nextIndex].clientWidth / 2), maxOffset * -1);
+            nextOffset = (nextOffset >= 0 && options.centerMode.firstSlideLeftAlign) ? 0 : nextOffset;
+        } else {
+            nextOffset = Math.min(Math.max(slides[nextIndex].offsetLeft * -1, maxOffset * -1), 0);
+        }
 
         if (rewind && Math.abs(position.x) === maxOffset && direction) {
             nextOffset = 0;
@@ -344,9 +353,12 @@ export function lory (slider, opts) {
 
             index = index + infinite;
             position.x = slides[index].offsetLeft * -1;
-        } else {
+        } else if (options.centerMode.enableCenterMode && !options.centerMode.firstSlideLeftAlign) {
+            translate((slides[index].offsetLeft * -1) + (frameWidth / 2) - (slides[index].clientWidth / 2), rewindSpeed, ease);
+            position.x = (slides[index].offsetLeft * -1) + (frameWidth / 2) - (slides[index].clientWidth / 2);            
+        } else {            
             translate(slides[index].offsetLeft * -1, rewindSpeed, ease);
-            position.x = slides[index].offsetLeft * -1;
+            position.x = slides[index].offsetLeft * -1;            
         }
 
         if (classNameActiveSlide) {
