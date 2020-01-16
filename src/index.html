@@ -364,6 +364,82 @@
 
 </code></pre></div>
 
+            <h2>Center Mode</h2>
+
+            <div class="slider js_centermode centermode">
+                <div class="frame js_frame">
+                    <ul class="slides js_slides">
+                        <li class="js_slide" style="width: 220px;">220</li>
+                        <li class="js_slide" style="width: 190px;">190</li>
+                        <li class="js_slide" style="width: 150px;">150</li>
+                        <li class="js_slide" style="width: 130px;">130</li>
+                        <li class="js_slide" style="width: 250px;">250</li>
+                        <li class="js_slide" style="width: 180px;">180</li>
+                        <li class="js_slide" style="width: 200px;">200</li>
+                        <li class="js_slide" style="width: 140px;">140</li>
+                        <li class="js_slide" style="width: 120px;">120</li>
+                        <li class="js_slide" style="width: 240px;">240</li>
+                    </ul>
+                </div>
+
+                <span class="js_prev prev">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z"/></g></svg>
+                </span>
+
+                <span class="js_next next">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z"/></g></svg>
+                </span>
+            </div>
+
+<div class="examplecode"><pre><code class="javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var centerModeSlides = document.querySelector('.js_centermode');
+
+        lory(centerModeSlides, {
+            centerMode: { enableCenterMode: true }
+        });
+    });
+
+</code></pre></div>
+
+            <h2>Center Mode - First Slide Left Align</h2>
+
+            <div class="slider js_centermode_leftalign centermode">
+                <div class="frame js_frame">
+                    <ul class="slides js_slides">
+                        <li class="js_slide">1</li>
+                        <li class="js_slide">2</li>
+                        <li class="js_slide">3</li>
+                        <li class="js_slide">4</li>
+                        <li class="js_slide">5</li>
+                        <li class="js_slide">6</li>
+                        <li class="js_slide">7</li>
+                        <li class="js_slide">8</li>
+                        <li class="js_slide">9</li>
+                        <li class="js_slide">10</li>
+                    </ul>
+                </div>
+
+                <span class="js_prev prev">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z"/></g></svg>
+                </span>
+
+                <span class="js_next next">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z"/></g></svg>
+                </span>
+            </div>
+
+<div class="examplecode"><pre><code class="javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var centerModeFirstSlideLeftAlign = document.querySelector('.js_centermode');
+
+        lory(centerModeFirstSlideLeftAlign, {
+            centerMode: { enableCenterMode: true, firstSlideLeftAlign: true }
+        });
+    });
+
+</code></pre></div>
+
             <h2>Multiple slides to scroll</h2>
 
             <div class="slider js_multislides multislides">
@@ -725,6 +801,11 @@
                     <td>class name for slider next control</td>
                     <td>default: 'js_next'</td>
                 </tr>
+                <tr>
+                    <th>centerMode</th>
+                    <td>enable centerMode with an additional option to make first slide left align (do not combine with infinite, centerMode will work with variable width slides too)</td>
+                    <td>default: {enableCenterMode: false, firstSlideLeftAlign: false}</td>
+                </tr>
             </table>
         </section>
 
@@ -801,6 +882,8 @@
             var multiSlides       = document.querySelector('.js_multislides');
             var ease              = document.querySelector('.js_ease');
             var events            = document.querySelector('.js_events');
+            var centerModeSlides  = document.querySelector('.js_centermode');
+            var centerModeFirstSlideLeftAlign = document.querySelector('.js_centermode_leftalign');
 
             lory(simple, {
                 infinite: 1,
@@ -862,6 +945,16 @@
 
             lory(variableWidth, {
                 rewind: true,
+                enableMouseEvents: true
+            });
+
+            lory(centerModeSlides, {
+                centerMode: { enableCenterMode: true },
+                enableMouseEvents: true
+            });
+
+            lory(centerModeFirstSlideLeftAlign, {
+                centerMode: { enableCenterMode: true, firstSlideLeftAlign: true },
                 enableMouseEvents: true
             });
 
