@@ -88,7 +88,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 exports.lory = lory;
 
-<<<<<<< refs/remotes/upstream/master
 var _detectPrefixes = __webpack_require__(1);
 
 var _detectPrefixes2 = _interopRequireDefault(_detectPrefixes);
@@ -98,17 +97,6 @@ var _detectSupportsPassive = __webpack_require__(2);
 var _detectSupportsPassive2 = _interopRequireDefault(_detectSupportsPassive);
 
 var _dispatchEvent = __webpack_require__(3);
-=======
-var _detectPrefixes = __webpack_require__(2);
-
-var _detectPrefixes2 = _interopRequireDefault(_detectPrefixes);
-
-var _detectSupportsPassive = __webpack_require__(3);
-
-var _detectSupportsPassive2 = _interopRequireDefault(_detectSupportsPassive);
-
-var _dispatchEvent = __webpack_require__(4);
->>>>>>> Build
 
 var _dispatchEvent2 = _interopRequireDefault(_dispatchEvent);
 
@@ -261,9 +249,10 @@ function lory(slider, opts) {
 
 
         var duration = slideSpeed;
+        var nextOffset = void 0;
 
         var nextSlide = direction ? index + 1 : index - 1;
-        var maxOffset = Math.round(slidesWidth - frameWidth);
+        var maxOffset = Math.round(slidesWidth - (options.centerMode.enableCenterMode ? slides[0].clientWidth / 2 : frameWidth));
 
         dispatchSliderEvent('before', 'slide', {
             index: index,
@@ -307,7 +296,15 @@ function lory(slider, opts) {
             duration = rewindSpeed;
         }
 
-        var nextOffset = Math.min(Math.max(slides[nextIndex].offsetLeft * -1, maxOffset * -1), 0);
+        /**
+         * if centerMode enabled, then offset is set center of frame/container
+         */
+        if (options.centerMode.enableCenterMode) {
+            nextOffset = Math.max(slides[nextIndex].offsetLeft * -1 + frameWidth / 2 - slides[nextIndex].clientWidth / 2, maxOffset * -1);
+            nextOffset = nextOffset >= 0 && options.centerMode.firstSlideLeftAlign ? 0 : nextOffset;
+        } else {
+            nextOffset = Math.min(Math.max(slides[nextIndex].offsetLeft * -1, maxOffset * -1), 0);
+        }
 
         if (rewind && Math.abs(position.x) === maxOffset && direction) {
             nextOffset = 0;
@@ -477,6 +474,9 @@ function lory(slider, opts) {
 
             index = index + infinite;
             position.x = slides[index].offsetLeft * -1;
+        } else if (options.centerMode.enableCenterMode && !options.centerMode.firstSlideLeftAlign) {
+            translate(slides[index].offsetLeft * -1 + frameWidth / 2 - slides[index].clientWidth / 2, rewindSpeed, ease);
+            position.x = slides[index].offsetLeft * -1 + frameWidth / 2 - slides[index].clientWidth / 2;
         } else {
             translate(slides[index].offsetLeft * -1, rewindSpeed, ease);
             position.x = slides[index].offsetLeft * -1;
@@ -724,11 +724,7 @@ function lory(slider, opts) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-<<<<<<< refs/remotes/upstream/master
 
-=======
-/* WEBPACK VAR INJECTION */(function(global) {
->>>>>>> Build
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -783,11 +779,7 @@ function detectPrefixes() {
 }
 
 /***/ }),
-<<<<<<< refs/remotes/upstream/master
 /* 2 */
-=======
-/* 3 */
->>>>>>> Build
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -815,11 +807,7 @@ function detectSupportsPassive() {
 }
 
 /***/ }),
-<<<<<<< refs/remotes/upstream/master
 /* 3 */
-=======
-/* 4 */
->>>>>>> Build
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -830,11 +818,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = dispatchEvent;
 
-<<<<<<< refs/remotes/upstream/master
 var _customEvent = __webpack_require__(4);
-=======
-var _customEvent = __webpack_require__(5);
->>>>>>> Build
 
 var _customEvent2 = _interopRequireDefault(_customEvent);
 
@@ -858,11 +842,7 @@ function dispatchEvent(target, type, detail) {
 }
 
 /***/ }),
-<<<<<<< refs/remotes/upstream/master
 /* 4 */
-=======
-/* 5 */
->>>>>>> Build
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -1052,125 +1032,17 @@ exports.default = {
    * If false, slides lory to the first slide on window resize.
    * @rewindOnResize {boolean}
    */
-  rewindOnResize: true
+  rewindOnResize: true,
+
+  /**
+   * enable centerMode functionality by setting enableCenterMode as true
+   * by setting enableCenterMode and firstSlideLeftAlign as true makes first slide left align with centerMode functionality
+   * @centerMode {object}
+   */
+  centerMode: { enableCenterMode: false, firstSlideLeftAlign: false }
 };
 
 /***/ }),
-<<<<<<< refs/remotes/upstream/master
-=======
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = {
-  /**
-   * slides scrolled at once
-   * @slidesToScroll {Number}
-   */
-  slidesToScroll: 1,
-
-  /**
-   * time in milliseconds for the animation of a valid slide attempt
-   * @slideSpeed {Number}
-   */
-  slideSpeed: 300,
-
-  /**
-   * time in milliseconds for the animation of the rewind after the last slide
-   * @rewindSpeed {Number}
-   */
-  rewindSpeed: 600,
-
-  /**
-   * time for the snapBack of the slider if the slide attempt was not valid
-   * @snapBackSpeed {Number}
-   */
-  snapBackSpeed: 200,
-
-  /**
-   * Basic easing functions: https://developer.mozilla.org/de/docs/Web/CSS/transition-timing-function
-   * cubic bezier easing functions: http://easings.net/de
-   * @ease {String}
-   */
-  ease: 'ease',
-
-  /**
-   * if slider reached the last slide, with next click the slider goes back to the startindex.
-   * use infinite or rewind, not both
-   * @rewind {Boolean}
-   */
-  rewind: false,
-
-  /**
-   * number of visible slides or false
-   * use infinite or rewind, not both
-   * @infinite {number}
-   */
-  infinite: false,
-
-  /**
-   * the slide index to show when the slider is initialized.
-   * @initialIndex {number}
-   */
-  initialIndex: 0,
-
-  /**
-   * class name for slider frame
-   * @classNameFrame {string}
-   */
-  classNameFrame: 'js_frame',
-
-  /**
-   * class name for slides container
-   * @classNameSlideContainer {string}
-   */
-  classNameSlideContainer: 'js_slides',
-
-  /**
-   * class name for slider prev control
-   * @classNamePrevCtrl {string}
-   */
-  classNamePrevCtrl: 'js_prev',
-
-  /**
-   * class name for slider next control
-   * @classNameNextCtrl {string}
-   */
-  classNameNextCtrl: 'js_next',
-
-  /**
-   * class name for current active slide
-   * if emptyString then no class is set
-   * @classNameActiveSlide {string}
-   */
-  classNameActiveSlide: 'active',
-
-  /**
-   * enables mouse events for swiping on desktop devices
-   * @enableMouseEvents {boolean}
-   */
-  enableMouseEvents: false,
-
-  /**
-   * window instance
-   * @window {object}
-   */
-  window: typeof window !== 'undefined' ? window : null,
-
-  /**
-   * If false, slides lory to the first slide on window resize.
-   * @rewindOnResize {boolean}
-   */
-  rewindOnResize: true
-};
-
-/***/ }),
->>>>>>> Build
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
