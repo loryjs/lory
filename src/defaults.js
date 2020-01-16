@@ -97,5 +97,12 @@ export default {
      * If false, slides lory to the first slide on window resize.
      * @rewindOnResize {boolean}
      */
-    rewindOnResize: true
+    rewindOnResize: true,
+
+    /**
+     * enable centerMode functionality by setting enableCenterMode as true
+     * by setting enableCenterMode and firstSlideLeftAlign as true makes first slide left align with centerMode functionality
+     * @centerMode {object}
+     */
+    centerMode: {enableCenterMode: false, firstSlideLeftAlign: false}
 };
