@@ -284,7 +284,7 @@ export function lory (slider, opts) {
         } else {
             slides = slice.call(slideContainer.children);
 
-            if (prevCtrl && !options.rewindPrev) {
+            if (prevCtrl && !options.rewindPrev && options.initialIndex === 0) {
                 prevCtrl.classList.add(classNameDisabledPrevCtrl);
             }
 
